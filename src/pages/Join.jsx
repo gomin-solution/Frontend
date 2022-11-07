@@ -1,7 +1,8 @@
 import React from "react";
+import Login from "../components/login/Signup";
 
 function Join() {
-  return <div>Join수정중</div>;
+  return <Login />;
 }
 
 export default Join;

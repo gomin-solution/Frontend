@@ -32,6 +32,7 @@ export const inp1 = css`
     outline: none;
   }
 `;
+
 export const inp2 = css`
   width: 361px;
   height: 61px;

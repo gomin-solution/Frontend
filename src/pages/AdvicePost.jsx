@@ -1,7 +1,8 @@
 import React from "react";
+import Layout from "../components/layout/Layout";
 
 function AdvicePost() {
-  return <div>AdvicePost</div>;
+  return <Layout>AdvicePost</Layout>;
 }
 
 export default AdvicePost;

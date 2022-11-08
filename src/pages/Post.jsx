@@ -8,6 +8,13 @@ function Post() {
     <Layout>
       <button
         onClick={() => {
+          nav("/");
+        }}
+      >
+        홈버튼
+      </button>
+      <button
+        onClick={() => {
           nav("/post/advice");
         }}
       >

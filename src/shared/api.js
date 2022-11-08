@@ -1,8 +1,8 @@
 import axios from "axios";
 import { getCookie } from "./cookie";
 
-const myToken = getCookie();
-const refToken = getCookie();
+const myToken = getCookie("accesstoken");
+// const refToken = getCookie("refreshtoken");
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_API,

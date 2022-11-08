@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import Layout from "../components/layout/Layout";
 import instance from "../shared/api";
-import { setAccessToken, setRefreshToken } from "../shared/cookie";
+import { setCookie } from "../shared/cookie";
 
 const Login = () => {
   const nav = useNavigate();
@@ -21,8 +21,11 @@ const Login = () => {
     console.log("data", data);
     try {
       const res = await instance.post("/login", data);
-      setAccessToken(res.data.accessToken);
-      setRefreshToken(res.data.refreshToken);
+
+      // body로 전달받은 토큰을 쿠키에 저장하기
+      setCookie(res.data.accessToken);
+      setCookie(res.data.refreshToken);
+
       if (res.status === 200) {
         Swal.fire({
           position: "center",

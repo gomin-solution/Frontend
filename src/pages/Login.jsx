@@ -11,11 +11,7 @@ import { setCookie } from "../shared/cookie";
 const Login = () => {
   const nav = useNavigate();
 
-  const { register, handleSubmit, watch } = useForm();
-
-  // 변수에 키 값 할당
-  const userId = watch("userId");
-  const password = watch("password");
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
     console.log("data", data);
@@ -56,26 +52,12 @@ const Login = () => {
       <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
         <StTitle>로그인</StTitle>
         <StInputWrap>
-          <input
-            placeholder="아이디"
-            required
-            {...register("userId", {
-              validate: {
-                confirmPw: (v) =>
-                  v === userId || "아이디 또는 패스워드가 일치하지 않습니다.",
-              },
-            })}
-          />
+          <input placeholder="아이디" required {...register("userId")} />
           <input
             type="password"
             placeholder="패스워드"
             required
-            {...register("password", {
-              validate: {
-                confirmPw: (v) =>
-                  v === password || "아이디 또는 패스워드가 일치하지 않습니다.",
-              },
-            })}
+            {...register("password")}
           />
         </StInputWrap>
         <button>로그인</button>

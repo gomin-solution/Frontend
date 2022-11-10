@@ -15,7 +15,7 @@ function Post() {
       </button>
       <button
         onClick={() => {
-          nav("/post/advice");
+          nav("/post/category");
         }}
       >
         조언하기

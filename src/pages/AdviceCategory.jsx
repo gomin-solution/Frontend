@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Header1 } from "../components/header/Header";
+import { Header4 } from "../components/header/Header";
 import Layout from "../components/layout/Layout";
 
 function AdviceCategory() {
@@ -26,7 +26,7 @@ function AdviceCategory() {
 
   return (
     <Layout>
-      <Header1 title={"글 작성"} />
+      <Header4 title={"글 작성"} />
       <StCate>카테고리 선택</StCate>
       <CateSet>
         {adviceCategory.map((item) => {
@@ -54,6 +54,7 @@ const StCate = styled.div`
   text-align: center;
   margin-top: 76px;
   margin-bottom: 40px;
+  background-color: aqua;
 `;
 
 /*카테고리 박스*/

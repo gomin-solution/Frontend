@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import SearchIcon from "@mui/icons-material/Search";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import { useNavigate } from "react-router-dom";
 
 /*이전 버튼 + 제목바 */
@@ -8,16 +10,14 @@ export function Header1({ title }) {
   const nav = useNavigate();
 
   return (
-    <>
+    <Block>
       <Backcon
         onClick={() => {
           nav(-1);
         }}
       />
-      <Block>
-        <Title>{title}</Title>
-      </Block>
-    </>
+      <Title>{title}</Title>
+    </Block>
   );
 }
 
@@ -25,17 +25,15 @@ export function Header1({ title }) {
 export function Header2({ title }) {
   const nav = useNavigate();
   return (
-    <>
+    <Block>
       <Backcon
         onClick={() => {
           nav(-1);
         }}
       />
+      <Title>{title}</Title>
       <Searchcon />
-      <Block>
-        <Title>{title}</Title>
-      </Block>
-    </>
+    </Block>
   );
 }
 
@@ -43,32 +41,25 @@ export function Header2({ title }) {
 export function Header3({ title }) {
   const nav = useNavigate();
   return (
-    <>
+    <Block>
       <Backcon
         onClick={() => {
           nav(-1);
         }}
       />
-      <Block>
-        <Title>{title}</Title>
-      </Block>
-    </>
+      <Title>{title}</Title>
+      <Deletecon />
+    </Block>
   );
 }
 
 /*로고 + 알림바*/
 export function Header4() {
-  return <Block>dd</Block>;
-}
-
-/*민기님*/
-export function Header5() {
   return (
-    <MinkiHeader>
-      <Arrow />
-      <Block>Hi</Block>
-      <Search />
-    </MinkiHeader>
+    <Block>
+      <Logo>로고</Logo>
+      <Alram />
+    </Block>
   );
 }
 
@@ -76,55 +67,62 @@ export function Header5() {
 /*전체 블록*/
 const Block = styled.div`
   min-height: 80px;
-  display: flex;
-  justify-content: center;
+  position: relative;
 `;
 
 /*제목바*/
 const Title = styled.div`
   font-size: 20px;
-  padding-top: 40px;
+  position: absolute;
+  top: 40px;
+  left: 0px;
+  right: 0px;
+  text-align: center;
 `;
 
 /*뒤로가기 아이콘 */
 const Backcon = styled(ArrowBackIosNewIcon)`
-  width: 11.67rem;
-  padding-top: 38px;
-  position: fixed;
-  margin-left: 20px;
   cursor: pointer;
+  position: absolute;
+  left: 20px;
+  top: 38px;
 `;
 
 /*돋보기 아이콘*/
 const Searchcon = styled(SearchIcon)`
-  width: 24rem;
-  position: fixed;
-  padding-top: 38px;
-  margin-left: 331px;
+  position: absolute;
+  right: 20px;
+  top: 38px;
   cursor: pointer;
 `;
 
-const MinkiHeader = styled.div`
-  /* background-color: green; */
-  min-height: 80px;
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-
-  div {
-    // Hi
-    font-size: 20px;
-    display: flex;
-    margin: 0 auto;
-    justify-content: space-between;
-    margin-top: -2px;
-  }
-`;
-const Arrow = styled(ArrowBackIosNewIcon)`
-  margin-left: 20px;
+/*휴지통 아이콘*/
+const Deletecon = styled(DeleteOutlineIcon)`
+  position: absolute;
+  right: 20px;
+  top: 38px;
   cursor: pointer;
 `;
-const Search = styled(SearchIcon)`
-  margin-right: 20px;
+
+/*로고 아이콘 */
+const Logo = styled.div`
+  position: absolute;
+  left: 30px;
+  top: 38px;
+  font-size: 20px;
+`;
+
+/*알람, 쪽지 아이콘 묶기 */
+const ConSet = styled.div`
+  /* position: absolute;
+  left: 18px;
+  top: 38px;*/
+`;
+
+/*알람 아이콘 */
+const Alram = styled(NotificationsNoneOutlinedIcon)`
+  position: absolute;
+  right: 18px;
+  top: 38px;
   cursor: pointer;
 `;

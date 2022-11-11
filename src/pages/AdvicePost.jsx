@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Layout from "../components/layout/Layout";
-import styled from "styled-components";
 import AdviceForm from "../components/form/AdviceForm";
 
 function AdvicePost() {
@@ -16,5 +14,3 @@ function AdvicePost() {
 }
 
 export default AdvicePost;
-
-const Test = styled.div``;

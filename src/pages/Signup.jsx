@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { FaAngleLeft } from "react-icons/fa";
 
 import Layout from "../components/layout/Layout";
 import instance from "../shared/api";
@@ -64,9 +63,7 @@ const Signup = () => {
 
   return (
     <Layout>
-      <StBackBtn>
-        <FaAngleLeft />
-      </StBackBtn>
+      <StBackBtn></StBackBtn>
       <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
         <StTitle>회원가입</StTitle>
         <StInputWrap>

@@ -15,9 +15,9 @@ function Router() {
         <Route path="/intro" element={<Intro />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/advice" element={<AdvicePost />} />
-        <Route path="/category" element={<AdviceCategory />} />
-        <Route path="/choice" element={<ChoicePost />} />
+        <Route path="/advice-post" element={<AdvicePost />} />
+        <Route path="/advice-category" element={<AdviceCategory />} />
+        <Route path="/choice-post" element={<ChoicePost />} />
       </Routes>
     </BrowserRouter>
   );

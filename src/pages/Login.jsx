@@ -18,11 +18,13 @@ const Login = () => {
   const onSubmit = async (data) => {
     console.log("data", data);
     try {
-      const res = await instance.post("/login", data);
+      const res = await instance.post("/test", data);
+      console.log("res", res.data.accessToken);
+      console.log("res", res.data.refreshToken);
 
       // body로 전달받은 토큰을 쿠키에 저장하기
-      setCookie(res.data.accessToken);
-      setCookie(res.data.refreshToken);
+      setCookie("accessToken", res.data.accessToken);
+      setCookie("refreshToken", res.data.refreshToken);
 
       if (res.status === 200) {
         Swal.fire({

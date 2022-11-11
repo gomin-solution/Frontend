@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -11,8 +11,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
-import "./styles.css";
 
 // import required modules
 import { Pagination, Navigation } from "swiper";
@@ -55,7 +53,7 @@ const Choice = () => {
         <span style={{ marginRight: "20px" }}>더보기</span>
       </StTextWrap>
       <div>
-        <Swiper
+        <Sw
           slidesPerView={1}
           spaceBetween={30}
           loop={true}
@@ -94,13 +92,17 @@ const Choice = () => {
               </StChoiceWrap>
             )}
           </SwiperSlide>
-        </Swiper>
+        </Sw>
       </div>
     </div>
   );
 };
 
 export default Choice;
+
+const Sw = styled(Swiper)`
+  background-color: navy;
+`;
 
 const StTextWrap = styled.div`
   display: flex;

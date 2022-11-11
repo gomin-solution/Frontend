@@ -9,8 +9,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import "./styles.css";
-
 // import required modules
 import { Pagination, Navigation } from "swiper";
 
@@ -18,7 +16,7 @@ const Advice = () => {
   return (
     <>
       <span>더보기</span>
-      <Swiper
+      <Sw
         slidesPerView={1}
         spaceBetween={30}
         loop={true}
@@ -27,7 +25,7 @@ const Advice = () => {
         }}
         navigation={false}
         modules={[Pagination, Navigation]}
-        className="mySwiper"
+        className="mySwiper2"
       >
         <SwiperSlide>
           <div>
@@ -45,12 +43,17 @@ const Advice = () => {
             두 줄로 적용
           </StContent>
         </SwiperSlide>
-      </Swiper>
+      </Sw>
     </>
   );
 };
 
 export default Advice;
+
+const Sw = styled(Swiper)`
+  background-color: aqua;
+  width: 100px;
+`;
 
 const Stimg = styled.img`
   width: 1rem;

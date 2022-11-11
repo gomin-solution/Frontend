@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { Header1 } from "../components/header/Header";
 import Layout from "../components/layout/Layout";
 
 function AdviceCategory() {
@@ -24,30 +26,51 @@ function AdviceCategory() {
 
   return (
     <Layout>
-      <button
-        onClick={() => {
-          nav(-1);
-        }}
-      >
-        이전으로
-      </button>
-      <p>카테고리</p>
-      <div>
+      <Header1 title={"글 작성"} />
+      <StCate>카테고리 선택</StCate>
+      <CateSet>
         {adviceCategory.map((item) => {
           return (
-            <button
+            <CateBox
               onClick={() => {
                 onCategory(item);
               }}
               key={item}
             >
               {item}
-            </button>
+            </CateBox>
           );
         })}
-      </div>
+      </CateSet>
     </Layout>
   );
 }
 
 export default AdviceCategory;
+
+/*카테고리 명시*/
+const StCate = styled.div`
+  font-size: 24px;
+  text-align: center;
+  margin-top: 76px;
+  margin-bottom: 40px;
+`;
+
+/*카테고리 박스*/
+const CateBox = styled.div`
+  background-color: #eaeaea;
+  width: 102px;
+  height: 102px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+/*카테고리 정렬*/
+const CateSet = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14.5px;
+  /* background-color: beige; */
+`;

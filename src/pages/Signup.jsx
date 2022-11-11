@@ -183,7 +183,7 @@ const Signup = () => {
               required
               {...register("adult")}
             />
-            <label style={{ marginRight: "120px" }}>예</label>
+            <label style={{ marginRight: "30%" }}>예</label>
             <input
               style={{ marginRight: "12px" }}
               type="radio"

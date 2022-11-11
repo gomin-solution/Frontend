@@ -31,6 +31,11 @@ const Banner = () => {
 
   return (
     <StContainer>
+      <StBulletWrap style={{ display: "flex", rowGap: "10px" }}>
+        <StBullet> ● </StBullet>
+        <StBullet> ● </StBullet>
+        <StBullet> ● </StBullet>
+      </StBulletWrap>
       <StImgWrap>
         {/* <StImg className="card-active" src={a} alt="Banner" />
         <StImg className="card-left" src={b} alt="Banner" />
@@ -67,10 +72,24 @@ const Banner = () => {
 export default Banner;
 
 const StContainer = styled.div`
-  background-color: coral;
   width: 100%;
-  height: 20%;
+  height: 172px;
   overflow: hidden; // 이미지 넣었을 때 화면 넘치치 않도록 하기
+  margin-bottom: 36px;
+  position: relative;
+`;
+
+const StBulletWrap = styled.div`
+  display: flex;
+  row-gap: 30px;
+  position: absolute;
+  bottom: 5%;
+  left: 47%;
+  z-index: 99;
+`;
+
+const StBullet = styled.span`
+  font-size: 5px;
 `;
 
 const StImgWrap = styled.div`
@@ -86,22 +105,22 @@ const StImg = styled.img`
   bottom: 0;
   left: 0;
   margin: auto;
-  width: 85%;
-  height: 85%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   cursor: pointer;
   &.card-active {
-    transition: 500ms;
-    z-index: 99;
+    transition: 1000ms;
+    z-index: 1;
   }
   &.card-left {
     transform: translateX(-105%);
-    transition: 500ms;
+    transition: 1000ms;
     opacity: 0.3;
   }
   &.card-right {
     transform: translateX(105%);
-    transition: 500ms;
+    transition: 1000ms;
     opacity: 0.3;
   }
 `;

@@ -10,14 +10,16 @@ export function Header1({ title }) {
   const nav = useNavigate();
 
   return (
-    <Block>
-      <Backcon
-        onClick={() => {
-          nav(-1);
-        }}
-      />
-      <Title>{title}</Title>
-    </Block>
+    <div style={{ position: "fixed", background: "aqua" }}>
+      <Block>
+        <Backcon
+          onClick={() => {
+            nav(-1);
+          }}
+        />
+        <Title>{title}</Title>
+      </Block>
+    </div>
   );
 }
 
@@ -41,15 +43,17 @@ export function Header2({ title }) {
 export function Header3({ title }) {
   const nav = useNavigate();
   return (
-    <Block>
-      <Backcon
-        onClick={() => {
-          nav(-1);
-        }}
-      />
-      <Title>{title}</Title>
-      <Deletecon />
-    </Block>
+    <div style={{ position: "fixed" }}>
+      <Block>
+        <Backcon
+          onClick={() => {
+            nav(-1);
+          }}
+        />
+        <Title>{title}</Title>
+        <Deletecon />
+      </Block>
+    </div>
   );
 }
 

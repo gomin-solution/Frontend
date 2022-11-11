@@ -58,10 +58,10 @@ const Signup = () => {
     console.log("res1", res);
     if (res.status === 200) {
       alert("사용 가능한 아이디입니다.");
+      setIdDub(true);
     } else {
       alert("이미 사용중인 아이디입니다.");
     }
-    setIdDub(!idDub);
   };
 
   // 닉네임 중복검사
@@ -72,11 +72,13 @@ const Signup = () => {
     console.log("res2", res);
     if (res.status === 200) {
       alert("사용 가능한 닉네임입니다.");
+      setNickDub(true);
     } else {
       alert("이미 사용중인 닉네임입니다.");
     }
-    setNickDub(!idDub);
   };
+
+  console.log("여기", idDub, nickDub);
 
   return (
     <Layout>
@@ -198,19 +200,19 @@ const Signup = () => {
             <input
               style={{ marginRight: "12px" }}
               type="radio"
-              name="adult"
+              name="IsAdult"
               value={true}
               required
-              {...register("adult")}
+              {...register("IsAdult")}
             />
             <label style={{ marginRight: "30%" }}>예</label>
             <input
               style={{ marginRight: "12px" }}
               type="radio"
-              name="adult"
+              name="IsAdult"
               value={false}
               required
-              {...register("adult")}
+              {...register("IsAdult")}
             />
             <label>아니오</label>
           </div>
@@ -236,6 +238,7 @@ const StTitle = styled.div`
   margin: 76px auto 48px;
   font-size: 20px;
   text-align: center;
+  font-weight: 600;
 `;
 
 const StInputWrap = styled.div`

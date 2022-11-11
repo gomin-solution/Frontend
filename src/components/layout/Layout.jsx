@@ -13,6 +13,4 @@ const StLayout = styled.div`
   height: 100vh;
   border: 1px solid gray;
   margin: auto;
-  position: relative;
-  border: none;
 `;

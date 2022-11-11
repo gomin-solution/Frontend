@@ -9,8 +9,8 @@ export default Layout;
 
 const StLayout = styled.div`
   background-color: white;
-  width: 375px;
-  height: 100vh;
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
   border: 1px solid gray;
   margin: auto;
 `;

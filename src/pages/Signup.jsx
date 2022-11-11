@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,11 @@ import { Header1 } from "../components/header/Header";
 const Signup = () => {
   const nav = useNavigate();
 
+  // 아이디, 닉네임 중복체크
+  const [idDub, setIdDub] = useState(false);
+  const [nickDub, setNickDub] = useState(false);
+
+  // react-hook-form 사용
   const {
     register,
     handleSubmit,
@@ -21,9 +26,11 @@ const Signup = () => {
   // password 변수에 키 값 할당
   const password = watch("password");
 
+  // 회원가입 제출
   const onSubmit = async (data) => {
-    console.log("data", data);
-    console.log(typeof data.adult);
+    if (idDub === false || nickDub === false) {
+      return window.alert("아이디와 닉네임 모두 중복체크 해주세요.");
+    }
     try {
       const res = await instance.post("/signup", data);
       if (res.status === 200) {
@@ -43,25 +50,35 @@ const Signup = () => {
     }
   };
 
+  // 아이디 중복검사
   const idCheck = async () => {
     const userId = watch("userId");
+    console.log("userId", userId);
     const res = await instance.post("/signup/check", { userId: userId });
+    console.log("res1", res);
     if (res.status === 200) {
       alert("사용 가능한 아이디입니다.");
+      setIdDub(true);
     } else {
       alert("이미 사용중인 아이디입니다.");
     }
   };
 
+  // 닉네임 중복검사
   const nickCheck = async () => {
     const nickname = watch("nickname");
+    console.log("nickname", nickname);
     const res = await instance.post("/signup/check", { nickname: nickname });
+    console.log("res2", res);
     if (res.status === 200) {
       alert("사용 가능한 닉네임입니다.");
+      setNickDub(true);
     } else {
       alert("이미 사용중인 닉네임입니다.");
     }
   };
+
+  console.log("여기", idDub, nickDub);
 
   return (
     <Layout>
@@ -69,6 +86,7 @@ const Signup = () => {
       <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
         <StTitle>회원가입</StTitle>
         <StInputWrap>
+          {/* ----- 아이디 ----- */}
           <StInputInnerWrap>
             <StInput
               placeholder="아이디"
@@ -88,15 +106,16 @@ const Signup = () => {
                 },
               })}
             />
-            <StBtn type="button" onClick={idCheck}>
+            <StCheckBtn type="button" onClick={idCheck}>
               중복확인
-            </StBtn>
+            </StCheckBtn>
           </StInputInnerWrap>
           {errors?.userId?.message === undefined ? (
             <StCheck>영문을 반드시 포함한 4~10글자로 작성해주세요.</StCheck>
           ) : (
             <StErr>{errors?.userId?.message}</StErr>
           )}
+          {/* ----- 닉네임 ----- */}
           <StInputInnerWrap>
             <StInput
               placeholder="닉네임"
@@ -112,15 +131,16 @@ const Signup = () => {
                 },
               })}
             />
-            <StBtn type="button" onClick={nickCheck}>
+            <StCheckBtn type="button" onClick={nickCheck}>
               중복확인
-            </StBtn>
+            </StCheckBtn>
           </StInputInnerWrap>
           {errors?.nickname?.message === undefined ? (
             <StCheck>특수문자를 제외하여 8글자 이하로 작성해주세요.</StCheck>
           ) : (
             <StErr>{errors?.nickname?.message}</StErr>
           )}
+          {/* ----- 패스워드 ----- */}
           <StInput
             type="password"
             placeholder="패스워드"
@@ -148,6 +168,7 @@ const Signup = () => {
           ) : (
             <StErr>{errors?.password?.message}</StErr>
           )}
+          {/* ----- 패스워드 확인 ----- */}
           <StInput
             type="password"
             placeholder="패스워드 확인"
@@ -159,12 +180,13 @@ const Signup = () => {
               },
             })}
           />
-          {errors?.password?.message === undefined ? (
+          {errors?.confirm?.message === undefined ? (
             <StCheck>패스워드와 동일하게 다시 작성해주세요.</StCheck>
           ) : (
-            <StErr>{errors?.password?.message}</StErr>
+            <StErr>{errors?.confirm?.message}</StErr>
           )}
         </StInputWrap>
+        {/* ----- 성인 여부 ----- */}
         <StAdult>
           <span
             style={{
@@ -178,19 +200,19 @@ const Signup = () => {
             <input
               style={{ marginRight: "12px" }}
               type="radio"
-              name="adult"
+              name="IsAdult"
               value={true}
               required
-              {...register("adult")}
+              {...register("IsAdult")}
             />
             <label style={{ marginRight: "30%" }}>예</label>
             <input
               style={{ marginRight: "12px" }}
               type="radio"
-              name="adult"
+              name="IsAdult"
               value={false}
               required
-              {...register("adult")}
+              {...register("IsAdult")}
             />
             <label>아니오</label>
           </div>
@@ -216,6 +238,7 @@ const StTitle = styled.div`
   margin: 76px auto 48px;
   font-size: 20px;
   text-align: center;
+  font-weight: 600;
 `;
 
 const StInputWrap = styled.div`
@@ -239,7 +262,7 @@ const StInput = styled.input`
   padding-left: 10px;
 `;
 
-const StBtn = styled.button`
+const StCheckBtn = styled.button`
   background-color: #cdcdcd;
   color: #575757;
   position: absolute;
@@ -277,4 +300,5 @@ const StBtn2 = styled.button`
   height: 49px;
   margin-top: 64px;
   border: none;
+  cursor: pointer;
 `;

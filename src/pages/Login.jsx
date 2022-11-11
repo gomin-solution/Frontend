@@ -5,6 +5,8 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 import Layout from "../components/layout/Layout";
+import { Btn2 } from "../elements/button";
+
 import instance from "../shared/api";
 import { setCookie } from "../shared/cookie";
 
@@ -50,21 +52,27 @@ const Login = () => {
   return (
     <Layout>
       <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
-        <StTitle>로그인</StTitle>
+        <StTitle>로고</StTitle>
         <StInputWrap>
-          <input placeholder="아이디" required {...register("userId")} />
-          <input
+          <StInput placeholder="아이디" required {...register("userId")} />
+          <StInput
             type="password"
             placeholder="패스워드"
             required
             {...register("password")}
           />
         </StInputWrap>
-        <button>로그인</button>
+        <Btn2 text="로그인" />
       </StFormContainer>
-      <button type="button" onClick={() => nav("/signup")}>
-        회원가입하러 가기
-      </button>
+      <StBtnWrap>
+        <StBottomNav1 type="button">아이디 찾기</StBottomNav1>
+        <StHr />
+        <StBottomNav1 type="button">비밀번호 찾기</StBottomNav1>
+        <StHr />
+        <StBottomNav2 type="button" onClick={() => nav("/signup")}>
+          회원가입
+        </StBottomNav2>
+      </StBtnWrap>
     </Layout>
   );
 };
@@ -72,26 +80,59 @@ const Login = () => {
 export default Login;
 
 const StFormContainer = styled.form`
-  background-color: yellow;
-  height: 844px;
   display: flex;
   flex-flow: column;
   justify-content: space-between;
-  align-items: center;
   padding: 20px;
 `;
 
 const StTitle = styled.div`
-  background-color: skyblue;
-  width: 70%;
-  height: 5%;
-  font-size: 30px;
+  width: 100%;
+  font-size: 24px;
+  font-weight: 600;
   text-align: center;
+  margin: 224px auto 48px;
 `;
 
 const StInputWrap = styled.div`
-  background-color: orange;
+  width: 100%;
   display: flex;
   flex-flow: column;
-  row-gap: 30px;
+  align-items: center;
+  row-gap: 12px;
+  margin-bottom: 48px;
+`;
+
+const StInput = styled.input`
+  background-color: #f3f3f3;
+  width: 100%;
+  height: 52px;
+  border: none;
+  padding-left: 10px;
+`;
+
+const StBtnWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 180px 63px 0px;
+`;
+
+const StBottomNav1 = styled.span`
+  color: #8f8f8f;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+`;
+
+const StBottomNav2 = styled.span`
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+`;
+
+const StHr = styled.hr`
+  height: 14px;
+  width: 0px;
+  border-right: 0px;
 `;

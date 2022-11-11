@@ -49,10 +49,12 @@ const Choice = () => {
   // });
 
   return (
-    <>
-      <div>오늘의 인기글</div>
+    <div style={{ paddingLeft: "20px" }}>
+      <StTextWrap>
+        <span>오늘의 인기글</span>
+        <span style={{ marginRight: "20px" }}>더보기</span>
+      </StTextWrap>
       <div>
-        <span>더보기</span>
         <Swiper
           slidesPerView={1}
           spaceBetween={30}
@@ -94,16 +96,21 @@ const Choice = () => {
           </SwiperSlide>
         </Swiper>
       </div>
-    </>
+    </div>
   );
 };
 
 export default Choice;
 
+const StTextWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+`;
+
 const Stimg = styled.img`
   width: 1rem;
   height: 1rem;
-  border-radius: 1rem;
 `;
 
 const StChoiceWrap = styled.div`

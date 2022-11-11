@@ -12,5 +12,6 @@ export function Btn2({ text, active }) {
 }
 
 const Stbtn = styled.button`
+  width: 100%;
   height: 49px;
 `;

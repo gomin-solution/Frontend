@@ -104,9 +104,9 @@ const Signup = () => {
                 },
               })}
             />
-            <StBtn type="button" onClick={idCheck}>
+            <StCheckBtn type="button" onClick={idCheck}>
               중복확인
-            </StBtn>
+            </StCheckBtn>
           </StInputInnerWrap>
           {errors?.userId?.message === undefined ? (
             <StCheck>영문을 반드시 포함한 4~10글자로 작성해주세요.</StCheck>
@@ -129,9 +129,9 @@ const Signup = () => {
                 },
               })}
             />
-            <StBtn type="button" onClick={nickCheck}>
+            <StCheckBtn type="button" onClick={nickCheck}>
               중복확인
-            </StBtn>
+            </StCheckBtn>
           </StInputInnerWrap>
           {errors?.nickname?.message === undefined ? (
             <StCheck>특수문자를 제외하여 8글자 이하로 작성해주세요.</StCheck>
@@ -259,7 +259,7 @@ const StInput = styled.input`
   padding-left: 10px;
 `;
 
-const StBtn = styled.button`
+const StCheckBtn = styled.button`
   background-color: #cdcdcd;
   color: #575757;
   position: absolute;
@@ -297,4 +297,5 @@ const StBtn2 = styled.button`
   height: 49px;
   margin-top: 64px;
   border: none;
+  cursor: pointer;
 `;

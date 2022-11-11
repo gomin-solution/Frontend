@@ -1,15 +1,15 @@
 import React from "react";
-import Advice from "../components/choiceAndAdvice/Advice";
-import Choice from "../components/choiceAndAdvice/Choice";
-import Footer from "../components/footer/Footer";
 import Layout from "../components/layout/Layout";
+import { Header4 } from "../components/header/Header";
 import Banner from "../components/main/Banner";
-import Logo from "../components/main/Logo";
+import Choice from "../components/choiceAndAdvice/Choice";
+import Advice from "../components/choiceAndAdvice/Advice";
+import Footer from "../components/footer/Footer";
 
 function Main() {
   return (
     <Layout>
-      <Logo />
+      <Header4 />
       <Banner />
       <Choice />
       <Advice />

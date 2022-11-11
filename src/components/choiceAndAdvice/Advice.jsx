@@ -1,24 +1,51 @@
 import React from "react";
 import styled from "styled-components";
 
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+import "./styles.css";
+
+// import required modules
+import { Pagination, Navigation } from "swiper";
+
 const Advice = () => {
   return (
     <>
       <span>더보기</span>
-      <div>
-        <div>
-          <Stimg src="" alt="" />
-          <span>닉네임</span>
-          <span>날짜</span>
-        </div>
-      </div>
-      <p>제목</p>
-      <p>000명 참여중</p>
-      <StContent>
-        내용은 말줄임표 두 줄로 적용 내용은 말줄임표 두 줄로 적용 내용은
-        말줄임표 두 줄로 적용 내용은 말줄임표 두 줄로 적용 내용은 말줄임표 두
-        줄로 적용
-      </StContent>
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={30}
+        loop={true}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={false}
+        modules={[Pagination, Navigation]}
+        className="mySwiper"
+      >
+        <SwiperSlide>
+          <div>
+            <div>
+              <Stimg src="" alt="" />
+              <span>닉네임</span>
+              <span>날짜</span>
+            </div>
+          </div>
+          <p>제목</p>
+          <p>000명 참여중</p>
+          <StContent>
+            내용은 말줄임표 두 줄로 적용 내용은 말줄임표 두 줄로 적용 내용은
+            말줄임표 두 줄로 적용 내용은 말줄임표 두 줄로 적용 내용은 말줄임표
+            두 줄로 적용
+          </StContent>
+        </SwiperSlide>
+      </Swiper>
     </>
   );
 };

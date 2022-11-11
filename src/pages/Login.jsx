@@ -26,7 +26,7 @@ const Login = () => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: `${userId}님 환영합니다.`,
+          title: `${data?.userId}님 환영합니다.`,
           width: 350,
           height: 200,
           showConfirmButton: false,

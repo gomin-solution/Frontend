@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 
 import Layout from "../components/layout/Layout";
 import instance from "../shared/api";
+import { Header1 } from "../components/header/Header";
 
 const Signup = () => {
   const nav = useNavigate();
@@ -22,6 +23,7 @@ const Signup = () => {
 
   const onSubmit = async (data) => {
     console.log("data", data);
+    console.log(typeof data.adult);
     try {
       const res = await instance.post("/signup", data);
       if (res.status === 200) {
@@ -63,7 +65,7 @@ const Signup = () => {
 
   return (
     <Layout>
-      <StBackBtn></StBackBtn>
+      <Header1 />
       <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
         <StTitle>회원가입</StTitle>
         <StInputWrap>
@@ -164,7 +166,12 @@ const Signup = () => {
           )}
         </StInputWrap>
         <StAdult>
-          <span style={{ margin: "39px 0px 18px", fontWeight: "600" }}>
+          <span
+            style={{
+              margin: "39px 0px 18px",
+              fontWeight: "600",
+            }}
+          >
             성인이신가요?
           </span>
           <div>
@@ -172,20 +179,18 @@ const Signup = () => {
               style={{ marginRight: "12px" }}
               type="radio"
               name="adult"
-              {...register("adult", {
-                required: "반드시 하나를 선택해주세요.",
-                value: "true",
-              })}
+              value={true}
+              required
+              {...register("adult")}
             />
             <label style={{ marginRight: "120px" }}>예</label>
             <input
               style={{ marginRight: "12px" }}
               type="radio"
               name="adult"
-              {...register("adult", {
-                required: "반드시 하나를 선택해주세요.",
-                value: "false",
-              })}
+              value={false}
+              required
+              {...register("adult")}
             />
             <label>아니오</label>
           </div>
@@ -198,13 +203,6 @@ const Signup = () => {
 
 export default Signup;
 
-const StBackBtn = styled.div`
-  position: absolute;
-  margin: 40px 0px 0px 20px;
-  cursor: pointer;
-  font-size: 24px;
-`;
-
 const StFormContainer = styled.form`
   /* background-color: yellow; */
   display: flex;
@@ -215,7 +213,7 @@ const StFormContainer = styled.form`
 `;
 
 const StTitle = styled.div`
-  margin: 156px auto 48px;
+  margin: 76px auto 48px;
   font-size: 20px;
   text-align: center;
 `;
@@ -256,7 +254,7 @@ const StBtn = styled.button`
 /*유효성검사 출력*/
 const StCheck = styled.span`
   font-size: 0.7rem;
-  color: #d06400;
+  color: lightgray;
   padding-left: 10px;
 `;
 
@@ -264,6 +262,7 @@ const StCheck = styled.span`
 const StErr = styled.span`
   font-size: 0.7rem;
   color: #ff0a0a;
+  padding-left: 10px;
 `;
 
 const StAdult = styled.div`

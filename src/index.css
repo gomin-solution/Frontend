@@ -44,7 +44,6 @@ body {
   margin: auto;
   position: relative;
   background-color: #ffffff;
-  overflow-y: scroll;
 }
 
 @media all and (min-width: 360px) and (max-width: 899px) {

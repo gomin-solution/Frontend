@@ -10,13 +10,11 @@ const Advice = () => {
     <div
       style={{
         marginBottom: `${(props) => props.theme.paddings.sm}`,
-        padding: "0px 20px",
+        padding: "0rem 1.5rem",
       }}
     >
-      <StTextWrap
-        style={{ marginBottom: `${(props) => props.theme.margins.sm}` }}
-      >
-        <span style={{ fontWeight: "600" }}>실시간 인기 고민글</span>
+      <StTextWrap>
+        <StBold>실시간 인기 고민글</StBold>
         <span
           style={{ color: "#939393", cursor: "pointer" }}
           onClick={() => nav("#")}
@@ -39,6 +37,10 @@ const StTextWrap = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: ${(props) => props.theme.margins.sm};
+`;
+
+const StBold = styled.span`
+  font-weight: ${(props) => props.theme.fontWeights.lg};
 `;
 
 const StListWrap = styled.div`

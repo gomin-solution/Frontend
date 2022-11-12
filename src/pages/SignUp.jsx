@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Header1 } from "../elements/Header";
 
 import instance from "../api/api";
 
@@ -80,6 +81,7 @@ const Signup = () => {
 
   return (
     <>
+      <Header1 />
       <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
         <StTitle>회원가입</StTitle>
         <StInputWrap>

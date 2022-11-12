@@ -14,11 +14,12 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
+import Footer from "../elements/Footer";
 
 function Main() {
   return (
     <>
-      <Header3 title={"메인페이지"} />
+      <Header3 />
       {/* 모바일 하단 잘림 방지  */}
       <SwFeat
         spaceBetween={30}
@@ -40,6 +41,7 @@ function Main() {
       </SwFeat>
       <Choice />
       <Advice />
+      <Footer />
     </>
   );
 }

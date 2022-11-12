@@ -17,7 +17,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     console.log("data", data);
     try {
-      const res = await instance.post("/test", data);
+      const res = await instance.post("/login", data);
       console.log("res", res.data.accessToken);
       console.log("res", res.data.refreshToken);
 

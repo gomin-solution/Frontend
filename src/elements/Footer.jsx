@@ -10,9 +10,7 @@ export default Footer;
 const StBlock = styled.div`
   width: 100%;
   height: 4rem;
-
-  z-index: 10;
-  bottom: 0;
-
-  background-color: ${(props) => props.theme.boxColors.bg};
+  background-color: white;
+  position: absolute;
+  bottom: 0px;
 `;

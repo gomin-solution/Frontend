@@ -53,9 +53,7 @@ const Choice = () => {
   return (
     <div style={{ marginBottom: "2rem", padding: "0rem 1.5rem" }}>
       <StTextWrap>
-        <span style={{ fontWeight: `${(props) => props.theme.fontWeight.lg}` }}>
-          오늘의 인기 고민투표
-        </span>
+        <StBold>실시간 인기 고민투표</StBold>
         <span style={{ cursor: "pointer" }} onClick={() => nav("#")}>
           더보기
         </span>
@@ -96,14 +94,7 @@ const Choice = () => {
                 />
               )}
             </StChoiceTextWrap>
-            <p
-              style={{
-                fontWeight: `${(props) => props.theme.fontWeight.lg}`,
-                marginBottom: "0.5rem",
-              }}
-            >
-              퇴사 후... 직장인 vs 프리랜서
-            </p>
+            <StChoiceName>퇴사 후... 직장인 vs 프리랜서</StChoiceName>
             <StTextWrap2>
               <span
                 style={{ color: `${(props) => props.theme.fontColors.fong1}` }}
@@ -182,6 +173,10 @@ const StTextWrap = styled.div`
   margin-bottom: ${(props) => props.theme.margins.sm};
 `;
 
+const StBold = styled.span`
+  font-weight: ${(props) => props.theme.fontWeights.lg};
+`;
+
 const StTextWrap2 = styled.div`
   display: flex;
   justify-content: space-between;
@@ -198,6 +193,11 @@ const StChoiceTextWrap = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: ${(props) => props.theme.margins.lg};
+`;
+
+const StChoiceName = styled.div`
+  font-weight: ${(props) => props.theme.fontWeights.lg};
+  margin-bottom: 0.5rem;
 `;
 
 const Stimg = styled.img`

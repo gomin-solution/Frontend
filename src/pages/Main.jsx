@@ -2,6 +2,7 @@ import React from "react";
 import { Header3 } from "../elements/Header";
 import Choice from "../components/choice/Choice";
 import Advice from "../components/advice/Advice";
+import Footer from "../elements/Footer";
 import styled from "styled-components";
 import { getMain } from "../api/mainApi";
 
@@ -28,31 +29,42 @@ function Main() {
     <>
       <Header3 title={"메인페이지"} />
       {/* 모바일 하단 잘림 방지  */}
-      <SwFeat
-        spaceBetween={30}
-        centeredSlides={true}
-        loop={true}
-        autoplay={{
-          delay: 3000,
-          disableOnInteraction: false,
-        }}
-        pagination={{
-          clickable: true,
-        }}
-        navigation={false}
-        modules={[Autoplay, Pagination, Navigation]}
-      >
-        <SwSlide url={"#"} />
-        <SwSlide url={"#"} />
-        <SwSlide url={"#"} />
-      </SwFeat>
-      <Choice />
-      <Advice />
+      <StContainer>
+        <SwFeat
+          spaceBetween={30}
+          centeredSlides={true}
+          loop={true}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          navigation={false}
+          modules={[Autoplay, Pagination, Navigation]}
+        >
+          <SwSlide url={"#"} />
+          <SwSlide url={"#"} />
+          <SwSlide url={"#"} />
+        </SwFeat>
+        <Choice />
+        <Advice />
+      </StContainer>
+      <Footer />
     </>
   );
 }
 
 export default Main;
+
+const StContainer = styled.div`
+  width: 100%;
+  position: absolute;
+  top: 4rem;
+  bottom: 5rem;
+  overflow-y: scroll;
+`;
 
 const SwFeat = styled(Swiper)`
   background-color: skyblue;

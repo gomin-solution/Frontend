@@ -17,9 +17,10 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 export default function App() {
   return (
     <>
-      <Sw
+      <SwFeat
         spaceBetween={30}
         centeredSlides={true}
+        loop={true}
         autoplay={{
           delay: 3000,
           disableOnInteraction: false,
@@ -30,29 +31,26 @@ export default function App() {
         navigation={false}
         modules={[Autoplay, Pagination, Navigation]}
       >
-        <SwiperSlide>
-          <StImg src={a} alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <StImg src={b} alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <StImg src={c} alt="" />
-        </SwiperSlide>
-      </Sw>
+        <SwSlide url={a} />
+        <SwSlide url={b} />
+        <SwSlide url={c} />
+      </SwFeat>
     </>
   );
 }
 
-const Sw = styled(Swiper)`
-  background-color: gray;
+const SwFeat = styled(Swiper)`
   height: 172px;
+  margin-bottom: 36px;
   &.swiper .swiper-pagination-bullet {
     background-color: white;
+    width: 5px;
+    height: 5px;
   }
 `;
 
-const StImg = styled.img`
-  background-size: auto;
-  background-repeat: no-repeat;
+const SwSlide = styled(SwiperSlide)`
+  background-image: url(${(props) => props.url});
+  background-size: cover;
+  background-position: center;
 `;

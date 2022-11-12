@@ -4,11 +4,10 @@ import styled from "styled-components";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-import Layout from "../components/layout/Layout";
-import { Btn2 } from "../elements/button";
+import { Btn2 } from "../elements/Btn";
 
-import instance from "../shared/api";
-import { setCookie } from "../shared/cookie";
+import instance from "../api/api";
+import { setCookie } from "../api/cookie";
 
 const Login = () => {
   const nav = useNavigate();
@@ -52,7 +51,7 @@ const Login = () => {
   };
 
   return (
-    <Layout>
+    <>
       <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
         <StTitle>로고</StTitle>
         <StInputWrap>
@@ -75,7 +74,7 @@ const Login = () => {
           회원가입
         </StBottomNav2>
       </StBtnWrap>
-    </Layout>
+    </>
   );
 };
 
@@ -85,15 +84,15 @@ const StFormContainer = styled.form`
   display: flex;
   flex-flow: column;
   justify-content: space-between;
-  padding: 20px;
+  padding: ${(props) => props.theme.paddings.xxl};
 `;
 
 const StTitle = styled.div`
   width: 100%;
-  font-size: 24px;
-  font-weight: 600;
+  font-size: ${(props) => props.theme.fontSizes.xxl};
+  font-weight: ${(props) => props.theme.fontWeights.xl};
   text-align: center;
-  margin: 224px auto 48px;
+  margin: 6rem auto 3rem;
 `;
 
 const StInputWrap = styled.div`
@@ -101,40 +100,40 @@ const StInputWrap = styled.div`
   display: flex;
   flex-flow: column;
   align-items: center;
-  row-gap: 12px;
-  margin-bottom: 48px;
+  row-gap: ${(props) => props.theme.margins.lg};
+  margin-bottom: 3rem;
 `;
 
 const StInput = styled.input`
-  background-color: #f3f3f3;
+  background-color: ${(props) => props.theme.boxColors.gray1};
   width: 100%;
-  height: 52px;
+  height: 3rem;
   border: none;
-  padding-left: 10px;
+  padding-left: ${(props) => props.theme.paddings.xsm};
 `;
 
 const StBtnWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 180px 63px 0px;
+  margin: 2rem 4rem;
 `;
 
 const StBottomNav1 = styled.span`
-  color: #8f8f8f;
+  color: ${(props) => props.theme.boxColors.gray3};
   border: none;
-  font-size: 14px;
+  font-size: 0.8rem;
   cursor: pointer;
 `;
 
 const StBottomNav2 = styled.span`
   border: none;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSizes.sm};
   cursor: pointer;
 `;
 
 const StHr = styled.hr`
-  height: 14px;
-  width: 0px;
-  border-right: 0px;
+  height: 0.8rem;
+  width: 0;
+  border-right: 0;
 `;

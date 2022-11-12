@@ -39,9 +39,8 @@ const StAdviceList = styled.div`
 const StContent = styled.p`
   width: 100%;
   overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  margin-bottom: 12px;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
+  margin: ${(props) => props.theme.margins.sm};
+  text-overflow: ellipsis; // 말줄임 적용
+  white-space: nowrap; // 문장이 길어지면 다음 줄로 넘기는 것을 없앰
+  overflow: hidden;
 `;

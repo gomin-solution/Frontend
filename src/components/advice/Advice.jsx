@@ -7,9 +7,16 @@ const Advice = () => {
   const nav = useNavigate();
 
   return (
-    <div style={{ padding: "0px 20px" }}>
-      <StTextWrap style={{ marginBottom: "12px" }}>
-        <span style={{ fontWeight: "600" }}>이주의 고민글</span>
+    <div
+      style={{
+        marginBottom: `${(props) => props.theme.paddings.sm}`,
+        padding: "0px 20px",
+      }}
+    >
+      <StTextWrap
+        style={{ marginBottom: `${(props) => props.theme.margins.sm}` }}
+      >
+        <span style={{ fontWeight: "600" }}>실시간 인기 고민글</span>
         <span
           style={{ color: "#939393", cursor: "pointer" }}
           onClick={() => nav("#")}
@@ -31,14 +38,9 @@ export default Advice;
 const StTextWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: ${(props) => props.theme.margins.sm};
 `;
 
 const StListWrap = styled.div`
-  height: 148px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  height: 10rem;
 `;

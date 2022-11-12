@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import instance from "../../shared/api";
+import instance from "../../api/api";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -51,9 +51,11 @@ const Choice = () => {
   };
 
   return (
-    <div style={{ marginBottom: "36px", padding: "0px 20px" }}>
+    <div style={{ marginBottom: "2rem", padding: "0rem 1.5rem" }}>
       <StTextWrap>
-        <span style={{ fontWeight: "600" }}>이주의 고민투표</span>
+        <span style={{ fontWeight: `${(props) => props.theme.fontWeight.lg}` }}>
+          오늘의 인기 고민투표
+        </span>
         <span style={{ cursor: "pointer" }} onClick={() => nav("#")}>
           더보기
         </span>
@@ -73,7 +75,7 @@ const Choice = () => {
         >
           <SwiperSlide>
             <StChoiceTextWrap>
-              <div>
+              <div style={{ display: "flex", alignItems: "center" }}>
                 <Stimg
                   src="https://www.pngitem.com/pimgs/m/391-3918613_personal-service-platform-person-icon-circle-png-transparent.png"
                   alt=""
@@ -94,12 +96,25 @@ const Choice = () => {
                 />
               )}
             </StChoiceTextWrap>
-            <p style={{ fontWeight: "600", marginBottom: "6px" }}>
+            <p
+              style={{
+                fontWeight: `${(props) => props.theme.fontWeight.lg}`,
+                marginBottom: "0.5rem",
+              }}
+            >
               퇴사 후... 직장인 vs 프리랜서
             </p>
             <StTextWrap2>
-              <span style={{ color: "#999999" }}>000명 참여중</span>
-              <span style={{ color: "#999999" }}>2022. 11. 12.</span>
+              <span
+                style={{ color: `${(props) => props.theme.fontColors.fong1}` }}
+              >
+                000명 참여중
+              </span>
+              <span
+                style={{ color: `${(props) => props.theme.fontColors.fong1}` }}
+              >
+                2022. 11. 12.
+              </span>
             </StTextWrap2>
             <StTextWrap3>
               <span>직장인</span>
@@ -139,14 +154,13 @@ export default Choice;
 
 const Sw = styled(Swiper)`
   background-color: #f8f8f8;
-  padding: 10px;
+  padding: ${(props) => props.theme.paddings.xsm};
   position: relative;
   &.swiper .swiper-button-next {
     background: url("https://cdn-icons-png.flaticon.com/512/17/17437.png")
       no-repeat;
     background-size: 100% auto;
     background-position: center;
-    /* opacity: 0.2; */
     position: absolute;
     top: 30%;
     right: 3%;
@@ -165,31 +179,31 @@ const Sw = styled(Swiper)`
 const StTextWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: ${(props) => props.theme.margins.sm};
 `;
 
 const StTextWrap2 = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: ${(props) => props.theme.margins.xxl};
 `;
 
 const StTextWrap3 = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 6px;
+  margin-bottom: ${(props) => props.theme.margins.xxsm};
 `;
 
 const StChoiceTextWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: ${(props) => props.theme.margins.lg};
 `;
 
 const Stimg = styled.img`
-  width: 24px;
-  height: 24px;
-  margin-right: 6px;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: ${(props) => props.theme.margins.xxsm};
 `;
 
 const StChoiceWrap = styled.div`
@@ -199,10 +213,10 @@ const StChoiceWrap = styled.div`
 
 const StChoiceBtn = styled.button`
   width: 100%;
-  height: 32px;
+  height: 2rem;
   background-color: ${(props) => props.backColor};
   color: white;
-  font-weight: 600;
+  font-weight: ${(props) => props.theme.fontWeights.lg};
   border: none;
   cursor: pointer;
 `;

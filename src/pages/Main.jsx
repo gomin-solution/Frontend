@@ -3,6 +3,7 @@ import { Header3 } from "../elements/Header";
 import Choice from "../components/choice/Choice";
 import Advice from "../components/advice/Advice";
 import styled from "styled-components";
+import { getMain } from "../api/mainApi";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -16,6 +17,12 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper";
 
 function Main() {
+  const { isLoading } = useQuery("getMain", getMain, {
+    refetchOnWindowFocus: false,
+  });
+
+  if (isLoading) return <span>LOADING</span>;
+
   return (
     <>
       <Header3 title={"메인페이지"} />

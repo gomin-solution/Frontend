@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getCookie } from "./cookie";
 
-const myToken = getCookie("accesstoken");
+const myToken = getCookie("accessToken");
 // const refToken = getCookie("refreshtoken");
 
 const instance = axios.create({

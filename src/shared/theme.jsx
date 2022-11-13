@@ -1,5 +1,7 @@
 const calcRem = (size) => `${size / 16}rem`;
 
+// background-image: url(${(props) => props.url});
+
 const boxColors = {
   bg: "#FFFFFF",
   gray1: "#F3F3F3",

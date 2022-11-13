@@ -1,7 +1,7 @@
 import React from "react";
 
-const MyPage = () => {
-  return <div>MyPage</div>;
+const Mypage = () => {
+  return <div>Mypage</div>;
 };
 
-export default MyPage;
+export default Mypage;

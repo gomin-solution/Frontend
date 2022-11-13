@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Header3 } from "../elements/Header";
 import Choice from "../components/choice/Choice";
 import Advice from "../components/advice/Advice";
 import Footer from "../elements/Footer";
 import styled from "styled-components";
+import { useQuery } from "react-query";
 import { getMain } from "../api/mainApi";
 
 // Import Swiper React components
@@ -16,14 +18,25 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
-import { useQuery } from "react-query";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { choiceState, adviceState } from "../state/atom";
 
 function Main() {
-  const { isLoading } = useQuery("getMain", getMain, {
-    refetchOnWindowFocus: false,
-  });
+  const nav = useNavigate();
 
-  if (isLoading) return <span>LOADING</span>;
+  const setChoices = useSetRecoilState(choiceState);
+  const [advices, setAdvices] = useRecoilState(adviceState);
+
+  const {} = useQuery("getMain", getMain, {
+    refetchOnWindowFocus: false,
+    onSuccess: (data) => {
+      setChoices(data.data.mainpage.choice);
+      setAdvices(data.data.mainpage.advice);
+    },
+    onError: (error) => {
+      console.log(error.message);
+    },
+  });
 
   return (
     <>
@@ -48,8 +61,18 @@ function Main() {
           <SwSlide url={"#"} />
           <SwSlide url={"#"} />
         </SwFeat>
+        <StTextWrap>
+          <StBold>실시간 인기 고민투표</StBold>
+          <StPlus onClick={() => nav("#")}>더보기</StPlus>
+        </StTextWrap>
         <Choice />
-        <Advice />
+        <StTextWrap>
+          <StBold>실시간 인기 고민글</StBold>
+          <StPlus onClick={() => nav("#")}>더보기</StPlus>
+        </StTextWrap>
+        {advices?.map((advice) => (
+          <Advice advice={advice} key={advice.adviceId} />
+        ))}
       </StContainer>
       <Footer />
     </>
@@ -81,4 +104,20 @@ const SwSlide = styled(SwiperSlide)`
   background-image: url(${(props) => props.url});
   background-size: cover;
   background-position: center;
+`;
+
+const StTextWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: ${(props) => props.theme.margins.sm};
+  padding: 0rem ${(props) => props.theme.paddings.xxl};
+`;
+
+const StBold = styled.span`
+  font-weight: ${(props) => props.theme.fontWeights.lg};
+`;
+
+const StPlus = styled.span`
+  color: #939393;
+  cursor: pointer;
 `;

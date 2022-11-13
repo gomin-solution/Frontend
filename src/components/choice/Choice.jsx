@@ -18,18 +18,22 @@ import { Pagination, Navigation } from "swiper";
 // MUI Icon
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { useRecoilValue } from "recoil";
+import { choiceState } from "../../state/atom";
 
 const Choice = () => {
+  const choices = useRecoilValue(choiceState);
+  console.log("여기", choices);
+
   const { choiceId } = useParams();
   const nav = useNavigate();
 
-  const [choice1per, setChoice1per] = useState(30);
-  const [choice2per, setChoice2per] = useState(70);
+  const [choice1per, setChoice1per] = useState(0);
+  const [choice2per, setChoice2per] = useState(0);
 
   const [isBookmark, setIsBookmark] = useState(false);
   const [isChange, setIsChange] = useState(false);
 
-  //
   const [choiceNum, setChoiceNum] = useState(0);
   const [isChoice, setIsChoice] = useState(false);
 
@@ -51,36 +55,29 @@ const Choice = () => {
   };
 
   return (
-    <div style={{ marginBottom: "2rem", padding: "0rem 1.5rem" }}>
-      <StTextWrap>
-        <StBold>실시간 인기 고민투표</StBold>
-        <span style={{ cursor: "pointer" }} onClick={() => nav("#")}>
-          더보기
-        </span>
-      </StTextWrap>
-      <div>
-        <Sw
-          grabCursor={true}
-          centeredSlides={true}
-          slidesPerView={1}
-          spaceBetween={30}
-          loop={true}
-          pagination={{
-            clickable: true,
-          }}
-          navigation={true}
-          modules={[Pagination, Navigation]}
-        >
-          <SwiperSlide>
+    <div style={{ marginBottom: "1rem", padding: "0rem 1.5rem" }}>
+      <Sw
+        centeredSlides={true}
+        slidesPerView={1}
+        spaceBetween={30}
+        loop={true}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Pagination, Navigation]}
+      >
+        {choices?.map((choice) => (
+          <SwiperSlide key={choice.choiceId}>
             <StChoiceTextWrap>
               <div style={{ display: "flex", alignItems: "center" }}>
                 <Stimg
                   src="https://www.pngitem.com/pimgs/m/391-3918613_personal-service-platform-person-icon-circle-png-transparent.png"
                   alt=""
                 />
-                <span>닉네임</span>
+                <span>{choice.nickname}</span>
               </div>
-              {!isBookmark ? (
+              {!choice.isBookmark ? (
                 <BookmarkBorderIcon
                   style={{ cursor: "pointer" }}
                   value={isBookmark}
@@ -94,22 +91,22 @@ const Choice = () => {
                 />
               )}
             </StChoiceTextWrap>
-            <StChoiceName>퇴사 후... 직장인 vs 프리랜서</StChoiceName>
+            <StChoiceName>{choice.title}</StChoiceName>
             <StTextWrap2>
               <span
                 style={{ color: `${(props) => props.theme.fontColors.fong1}` }}
               >
-                000명 참여중
+                {choice.choiceCount}
               </span>
               <span
                 style={{ color: `${(props) => props.theme.fontColors.fong1}` }}
               >
-                2022. 11. 12.
+                {choice.createdAt.slice(0, 10)}
               </span>
             </StTextWrap2>
             <StTextWrap3>
-              <span>직장인</span>
-              <span>프리랜서</span>
+              <span>{choice.choice1Name}</span>
+              <span>{choice.choice2Name}</span>
             </StTextWrap3>
             {!isChange ? (
               <StChoiceWrap>
@@ -130,13 +127,17 @@ const Choice = () => {
               </StChoiceWrap>
             ) : (
               <StChoiceWrap>
-                <StChoice1 width={choice1per}>{choice1per}%</StChoice1>
-                <StChoice2 width={choice2per}>{choice2per}%</StChoice2>
+                <StChoice1 width={choice.choice1per}>
+                  {choice.choice1per}%
+                </StChoice1>
+                <StChoice2 width={choice.choice2per}>
+                  {choice.choice2per}%
+                </StChoice2>
               </StChoiceWrap>
             )}
           </SwiperSlide>
-        </Sw>
-      </div>
+        ))}
+      </Sw>
     </div>
   );
 };
@@ -165,16 +166,9 @@ const Sw = styled(Swiper)`
       display: none;
     }
   }
-`;
-
-const StTextWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: ${(props) => props.theme.margins.sm};
-`;
-
-const StBold = styled.span`
-  font-weight: ${(props) => props.theme.fontWeights.lg};
+  &.swiper .swiper-pagination-bullet {
+    display: none;
+  }
 `;
 
 const StTextWrap2 = styled.div`

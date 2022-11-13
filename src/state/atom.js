@@ -1,8 +1,13 @@
 import { atom } from "recoil";
 
-export const mainData = atom({
-  key: "mainData",
-  default: {},
+export const choiceState = atom({
+  key: "choices",
+  default: [],
+});
+
+export const adviceState = atom({
+  key: "advices",
+  default: [],
 });
 
 /* 예시 */

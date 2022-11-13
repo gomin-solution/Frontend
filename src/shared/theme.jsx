@@ -1,6 +1,6 @@
 const calcRem = (size) => `${size / 16}rem`;
 
-// background-image: url(${(props) => props.url});
+// font-size: ${(props) => props.theme.fontSizes.xl};
 
 const boxColors = {
   bg: "#FFFFFF",

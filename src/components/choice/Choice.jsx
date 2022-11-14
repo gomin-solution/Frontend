@@ -22,10 +22,7 @@ import { bookmark, postChoice } from "../../api/mainApi";
 const Choice = ({ choices }) => {
   const queryClient = useQueryClient();
 
-  const [choice1per, setChoice1per] = useState(30);
-  const [choice2per, setChoice2per] = useState(70);
-
-  const [isBookmark, setIsBookmark] = useState(false);
+  const [isBookMark, setIsBookMark] = useState(false);
   const [isChange, setIsChange] = useState(false);
 
   /* 투표 선택 시 payload 설정을 위한 useState 작성 */
@@ -47,7 +44,7 @@ const Choice = ({ choices }) => {
     //   postChoiceId(choiceId),
     // })
     setChoiceNum(Number(e.target.value));
-    setIsChoice((prev) => !prev);
+    setIsChoice(!isChoice);
     setPostChoiceId(choiceId);
   };
 
@@ -58,13 +55,13 @@ const Choice = ({ choices }) => {
   });
 
   const bookmarkChange = (choiceId) => {
-    setIsBookmark((prev) => !prev);
+    setIsBookMark(!isBookMark);
     setPostChoiceId(choiceId);
   };
 
   const bookmarkMutation = useMutation(bookmark, {
     onSuccess: () => {
-      queryClient.invalidateQueries("bookmark");
+      queryClient.invalidateQueries("getMain");
     },
   });
 
@@ -79,15 +76,15 @@ const Choice = ({ choices }) => {
   }, [choiceNum, isChoice]);
 
   useEffect(() => {
-    if (isBookmark) {
+    if (postChoiceId !== 0) {
       bookmarkMutation.mutate({
         choiceId: postChoiceId,
-        isBookmark,
+        isBookMark,
       });
     }
-  }, [isBookmark]);
+  }, [isBookMark]);
 
-  console.log("isBookmark", isBookmark);
+  console.log("isBookMark", isBookMark);
 
   return (
     <div style={{ marginBottom: "1rem", padding: "0rem 1.5rem" }}>
@@ -112,16 +109,16 @@ const Choice = ({ choices }) => {
                 />
                 <span>{choice.nickname}</span>
               </div>
-              {!choice.isBookmark ? (
+              {!choice?.isBookMark ? (
                 <BookmarkBorderIcon
                   style={{ cursor: "pointer" }}
-                  value={isBookmark}
+                  value={isBookMark}
                   onClick={() => bookmarkChange(choice.choiceId)}
                 />
               ) : (
                 <BookmarkIcon
                   style={{ cursor: "pointer" }}
-                  value={isBookmark}
+                  value={isBookMark}
                   onClick={() => bookmarkChange(choice.choiceId)}
                 />
               )}
@@ -162,8 +159,12 @@ const Choice = ({ choices }) => {
               </StChoiceWrap>
             ) : (
               <StChoiceWrap>
-                <StChoice1 width={choice1per}>{choice1per}%</StChoice1>
-                <StChoice2 width={choice2per}>{choice2per}%</StChoice2>
+                <StChoice1 width={choice.choice1Per}>
+                  {choice.choice1Per}%
+                </StChoice1>
+                <StChoice2 width={choice.choice2Per}>
+                  {choice.choice2Per}%
+                </StChoice2>
               </StChoiceWrap>
             )}
           </SwiperSlide>

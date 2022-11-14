@@ -6,12 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 function Footer() {
   const [content, setContent] = useState("홈");
-  const [navi, setNavi] = useState("/");
   const nav = useNavigate();
 
   const onMenu = (e) => {
-    setContent(e.title);
-    setNavi(e.nav);
+    setContent((e) => e.title);
+    nav(e.nav);
   };
 
   const menu = [
@@ -21,18 +20,10 @@ function Footer() {
     { title: "마이페이지", nav: "/myinfo" },
   ];
 
-  useEffect(() => {
-    if (content !== content) {
-      nav("/");
-    }
-  });
-
-  console.log("navi", navi);
-
   return (
     <StBlock>
-      {menu?.map((item) => {
-        return item.title === content ? (
+      {menu?.map((item) =>
+        item.title === content ? (
           <StAct key={item.title}>
             <StClick>
               <FiberManualRecordIcon fontSize="small" />
@@ -49,8 +40,8 @@ function Footer() {
             <ChangeHistoryIcon fontSize="small" />
             <div>{item.title}</div>
           </StCon>
-        );
-      })}
+        )
+      )}
     </StBlock>
   );
 }

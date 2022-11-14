@@ -77,8 +77,7 @@ export default Main;
 const StContainer = styled.div`
   width: 100%;
   position: absolute;
-  top: 4rem;
-  bottom: 5rem;
+  height: calc(100vh - 9rem);
   overflow-y: scroll;
 `;
 

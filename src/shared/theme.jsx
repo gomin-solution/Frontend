@@ -1,5 +1,7 @@
 const calcRem = (size) => `${size / 16}rem`;
 
+// font-size: ${(props) => props.theme.fontSizes.xl};
+
 const boxColors = {
   bg: "#FFFFFF",
   gray1: "#F3F3F3",

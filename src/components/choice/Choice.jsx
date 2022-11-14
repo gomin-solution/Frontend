@@ -40,12 +40,12 @@ const Choice = ({ choices }) => {
       choiceNum,
       isChoice,
     };
-    const { data, error } = useMutation(postChoice, {
-      onSuccess: () => {
-        // Invalidates cache and refetch
-        queryClient.invalidateQueries("choicePer");
-      },
-    });
+    // const { data, error } = useMutation(postChoice, {
+    //   onSuccess: () => {
+    //     // Invalidates cache and refetch
+    //     queryClient.invalidateQueries("choicePer");
+    //   },
+    // });
   };
 
   const bookmarkChange = () => {

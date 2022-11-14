@@ -1,20 +1,20 @@
-import React from "react";
+import { Header1 } from "../elements/Header";
 import styled from "styled-components";
 import Footer from "../elements/Footer";
-import { Header2 } from "../elements/Header";
 
-function Board() {
+function Reward() {
   return (
     <>
-      <Header2 title={"게시판"} />
-      <Stcontainer>게시판 내용~</Stcontainer>
+      <Header1 title={"획득한 종이"} />
+      <Stcontainer>획득한 종이</Stcontainer>
       <Footer />
     </>
   );
 }
 
-export default Board;
+export default Reward;
 
+/*반응형 맞춤 */
 const Stcontainer = styled.div`
   width: 100%;
   position: absolute;

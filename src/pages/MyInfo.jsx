@@ -7,7 +7,7 @@ function MyInfo() {
     <>
       <Header1 title={"마이페이지"} />
       <Stcontainer>내 정보</Stcontainer>
-      <Footer />
+      <Footer title={"마이페이지"} />
     </>
   );
 }

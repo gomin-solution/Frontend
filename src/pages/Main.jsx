@@ -67,7 +67,7 @@ function Main() {
           <Advice advice={advice} key={advice.adviceId} />
         ))}
       </StContainer>
-      <Footer />
+      <Footer title={"홈"} />
     </>
   );
 }

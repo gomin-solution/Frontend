@@ -14,8 +14,10 @@ const Mypage = () => {
 
 export default Mypage;
 
+/*반응형 맞춤 */
 const Stcontainer = styled.div`
   width: 100%;
   position: absolute;
-  overflow-y: scroll;
+  overflow: auto;
+  height: calc(100vh - 5rem);
 `;

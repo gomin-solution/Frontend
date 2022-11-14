@@ -26,8 +26,8 @@ function AdviceCategory() {
   return (
     <>
       <Header1 title={"글 작성"} />
-      <StCate>카테고리 선택</StCate>
       <Stcontainer>
+        <StCate>카테고리 선택</StCate>
         <CateSet>
           {adviceCategory.map((item) => {
             return (
@@ -53,14 +53,15 @@ export default AdviceCategory;
 const Stcontainer = styled.div`
   width: 100%;
   position: absolute;
-  overflow-y: scroll;
+  overflow: auto;
+  height: calc(100vh - 5rem);
 `;
 
 /*카테고리 명시*/
 const StCate = styled.div`
   font-size: ${(props) => props.theme.fontSizes.xxl};
   text-align: center;
-  margin-top: 4.5rem;
+  margin-top: 4rem;
   margin-bottom: 2.5rem;
 `;
 
@@ -79,4 +80,5 @@ const CateSet = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  margin-bottom: 1rem;
 `;

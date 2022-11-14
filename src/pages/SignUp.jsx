@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { Header1 } from "../elements/Header";
 
 import instance from "../api/api";
+import { Btn1 } from "../elements/Btn";
 
 const Signup = () => {
   const nav = useNavigate();
@@ -80,7 +81,7 @@ const Signup = () => {
   console.log("여기", idDub, nickDub);
 
   return (
-    <>
+    <Stcontainer>
       <Header1 />
       <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
         <StTitle>회원가입</StTitle>
@@ -216,13 +217,21 @@ const Signup = () => {
             <label>아니오</label>
           </div>
         </StAdult>
-        <StBtn2>회원가입</StBtn2>
+        <Btn1 text={"회원가입"} />
       </StFormContainer>
-    </>
+    </Stcontainer>
   );
 };
 
 export default Signup;
+
+/*반응형 맞춤 */
+const Stcontainer = styled.div`
+  width: 100%;
+  position: absolute;
+  overflow: auto;
+  height: calc(100vh - 2rem);
+`;
 
 const StFormContainer = styled.form`
   display: flex;
@@ -291,12 +300,5 @@ const StAdult = styled.div`
   display: flex;
   flex-flow: column;
   justify-content: flex-start;
-`;
-
-const StBtn2 = styled.button`
-  width: 100%;
-  height: 3rem;
-  margin-top: 2rem;
-  border: none;
-  cursor: pointer;
+  margin-bottom: 2rem;
 `;

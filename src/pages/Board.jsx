@@ -18,5 +18,6 @@ export default Board;
 const Stcontainer = styled.div`
   width: 100%;
   position: absolute;
-  overflow-y: scroll;
+  overflow: auto;
+  height: calc(100vh - 5rem);
 `;

@@ -22,9 +22,9 @@ function Footer() {
 
   return (
     <StBlock>
-      {menu.map((item) => {
+      {menu?.map((item) => {
         return item.title === content ? (
-          <StAct>
+          <StAct key={item.title}>
             <StClick>
               <FiberManualRecordIcon fontSize="small" />
             </StClick>

@@ -24,6 +24,7 @@ body {
 * {
   box-sizing: border-box;
   font-family: "Noto Sans KR", sans-serif;
+  font-family: "Ycomputer-Regular";
   resize: none;
 }
 
@@ -38,6 +39,7 @@ body {
 }
 
 #root {
+  font-family: "Noto Sans KR", sans-serif;
   width: 100%;
   max-width: 414px;
   height: 100vh;

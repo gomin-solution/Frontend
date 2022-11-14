@@ -8,6 +8,7 @@ function AdviceForm({ category }) {
   const onSubmit = () => {
     nav("/board");
   };
+
   return (
     <form onSubmit={onSubmit}>
       <StCate>{category}</StCate>

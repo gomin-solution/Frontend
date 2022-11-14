@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import ChangeHistoryIcon from "@mui/icons-material/ChangeHistory";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Footer() {
@@ -10,7 +10,7 @@ function Footer() {
 
   const onMenu = (e) => {
     setContent(e.title);
-    nav(e.nav);
+    return nav(e.nav);
   };
 
   const menu = [

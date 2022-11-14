@@ -80,11 +80,12 @@ const Login = () => {
 
 export default Login;
 
+/*반응형 맞춤 */
 const Stcontainer = styled.div`
   width: 100%;
   position: absolute;
   overflow: auto;
-  height: calc(100vh - 2rem);
+  height: 100vh;
 `;
 
 const StFormContainer = styled.form`

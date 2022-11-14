@@ -1,13 +1,13 @@
 //패키지 관련
 import Router from "./router/Router";
-import { Reset } from "styled-reset";
+import GlobalStyle from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import Theme from "./shared/theme";
 
 function App() {
   return (
     <ThemeProvider theme={Theme}>
-      <Reset />
+      <GlobalStyle />
       <Router />
     </ThemeProvider>
   );

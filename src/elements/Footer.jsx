@@ -1,16 +1,17 @@
 import styled from "styled-components";
 import ChangeHistoryIcon from "@mui/icons-material/ChangeHistory";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Footer() {
   const [content, setContent] = useState("홈");
+  const [navi, setNavi] = useState("/");
   const nav = useNavigate();
 
   const onMenu = (e) => {
     setContent(e.title);
-    return nav(e.nav);
+    setNavi(e.nav);
   };
 
   const menu = [
@@ -19,6 +20,14 @@ function Footer() {
     { title: "종이접기", nav: "/reward" },
     { title: "마이페이지", nav: "/myinfo" },
   ];
+
+  useEffect(() => {
+    if (content !== content) {
+      nav("/");
+    }
+  });
+
+  console.log("navi", navi);
 
   return (
     <StBlock>

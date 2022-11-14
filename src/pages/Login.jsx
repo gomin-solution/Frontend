@@ -35,7 +35,7 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        // nav("/");
+        nav("/");
       }
     } catch (error) {
       Swal.fire({

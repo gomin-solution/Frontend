@@ -9,6 +9,7 @@ import PostCategory from "../pages/PostCategory";
 import PostChoice from "../pages/PostChoice";
 import Mypage from "../pages/Mypage";
 import Board from "../pages/Board";
+import Reward from "../pages/Reward";
 
 const Router = () => {
   return (
@@ -22,6 +23,7 @@ const Router = () => {
         <Route path="/post-category" element={<PostCategory />} />
         <Route path="/post-advice" element={<PostAdvice />} />
         <Route path="/post-choice" element={<PostChoice />} />
+        <Route path="/reward" element={<Reward />} />
         <Route path="/mypage" element={<Mypage />} />
         {/* 그 밖의 요청시 404 페이지로 보내주기 */}
         <Route path="*" element={<NotFound />} />

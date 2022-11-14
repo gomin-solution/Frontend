@@ -1,3 +1,21 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: auto;
+
+  font-family: "Noto Sans KR", sans-serif;
+
+  /*웹 배경 이미지색 맞추기*/
+  background-color: #536480;
+  /*단어 넘치면 쪼개기*/
+  word-break: break-all;
+  /* 드래그 방지 */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 /*폰트 가져오기 */
 @font-face {
   font-family: "Noto Sans KR", sans-serif;
@@ -21,24 +39,8 @@
   display: none;
 }
 
-body {
-  font-family: "Noto Sans KR", sans-serif;
-  width: 100vw;
-  height: 100vh;
-  margin: auto;
-  /*웹 배경 이미지색 맞추기*/
-  background-color: #536480;
-  /*단어 넘치면 쪼개기*/
-  word-break: break-all;
-  /* 드래그 방지 */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
 #root {
-  width: 100vw;
+  width: 100%;
   max-width: 414px;
   height: 100vh;
   margin: auto;

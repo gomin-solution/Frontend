@@ -18,13 +18,8 @@ import { Pagination, Navigation } from "swiper";
 // MUI Icon
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { useRecoilValue } from "recoil";
-import { choiceState } from "../../state/atom";
 
-const Choice = () => {
-  const choices = useRecoilValue(choiceState);
-  console.log("여기", choices);
-
+const Choice = ({ choices }) => {
   const { choiceId } = useParams();
   const nav = useNavigate();
 

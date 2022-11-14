@@ -18,25 +18,18 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { choiceState, adviceState } from "../state/atom";
 
 function Main() {
   const nav = useNavigate();
 
-  const setChoices = useSetRecoilState(choiceState);
-  const [advices, setAdvices] = useRecoilState(adviceState);
-
-  const {} = useQuery("getMain", getMain, {
-    refetchOnWindowFocus: false,
-    onSuccess: (data) => {
-      setChoices(data.data.mainpage.choice);
-      setAdvices(data.data.mainpage.advice);
-    },
-    onError: (error) => {
-      console.log(error.message);
-    },
-  });
+  const { data, error } = useQuery("getMain", getMain);
+  if (error) {
+    return console.log(error.message);
+  }
+  const choices = data?.data.mainpage.choice;
+  console.log("111", data?.data.mainpage.choice);
+  const advices = data?.data.mainpage.advice;
+  console.log("222", data?.data.mainpage.advice);
 
   return (
     <>
@@ -65,7 +58,7 @@ function Main() {
           <StBold>실시간 인기 고민투표</StBold>
           <StPlus onClick={() => nav("#")}>더보기</StPlus>
         </StTextWrap>
-        <Choice />
+        <Choice choices={choices} />
         <StTextWrap>
           <StBold>실시간 인기 고민글</StBold>
           <StPlus onClick={() => nav("#")}>더보기</StPlus>

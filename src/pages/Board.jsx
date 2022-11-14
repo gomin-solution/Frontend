@@ -8,7 +8,7 @@ function Board() {
     <>
       <Header2 title={"게시판"} />
       <Stcontainer>게시판 내용~</Stcontainer>
-      <Footer />
+      <Footer title={"게시판"} />
     </>
   );
 }

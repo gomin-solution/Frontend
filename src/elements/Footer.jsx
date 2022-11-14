@@ -1,17 +1,13 @@
 import styled from "styled-components";
 import ChangeHistoryIcon from "@mui/icons-material/ChangeHistory";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Footer() {
-  const [content, setContent] = useState("홈");
-  const [navi, setNavi] = useState("/");
+function Footer({ title }) {
   const nav = useNavigate();
 
   const onMenu = (e) => {
-    setContent(e.title);
-    setNavi(e.nav);
+    nav(e.nav);
   };
 
   const menu = [
@@ -21,18 +17,10 @@ function Footer() {
     { title: "마이페이지", nav: "/myinfo" },
   ];
 
-  useEffect(() => {
-    if (content !== content) {
-      nav("/");
-    }
-  });
-
-  console.log("navi", navi);
-
   return (
     <StBlock>
       {menu?.map((item) => {
-        return item.title === content ? (
+        return item.title === title ? (
           <StAct key={item.title}>
             <StClick>
               <FiberManualRecordIcon fontSize="small" />

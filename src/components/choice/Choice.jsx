@@ -18,6 +18,7 @@ import { Pagination, Navigation } from "swiper";
 // MUI Icon
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { postChoice } from "../../api/mainApi";
 
 const Choice = ({ choices }) => {
   const { choiceId } = useParams();
@@ -39,10 +40,12 @@ const Choice = ({ choices }) => {
       choiceNum,
       isChoice,
     };
-    const res = await instance.post(`/choice/${choiceId}`, payload);
-    setChoice1per(res.choice1per);
-    setChoice2per(res.choice2per);
-    setIsChange(!isChange);
+    const { data, error } = useMutation(postChoice, {
+      onSuccess: () => {
+        // Invalidates cache and refetch
+        queryClient.invalidateQueries("choicePer");
+      },
+    });
   };
 
   const bookmarkChange = () => {

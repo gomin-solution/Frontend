@@ -7,6 +7,14 @@ export const getMain = async () => {
 };
 
 export const postChoice = async (payload) => {
-  const res = await instance.post("/choice/${choiceId}", payload);
+  const res = await instance.put(`/choice/${payload.choiceId}`, payload);
+  return res;
+};
+
+export const bookmark = async (payload) => {
+  const res = await instance.put(
+    `bookmark/choice/${payload.choiceId}`,
+    payload
+  );
   return res;
 };

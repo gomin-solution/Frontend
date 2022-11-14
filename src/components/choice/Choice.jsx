@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import instance from "../../api/api";
+import { useMutation, useQueryClient } from "react-query";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -18,39 +17,77 @@ import { Pagination, Navigation } from "swiper";
 // MUI Icon
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { postChoice } from "../../api/mainApi";
+import { bookmark, postChoice } from "../../api/mainApi";
 
 const Choice = ({ choices }) => {
-  const { choiceId } = useParams();
-  const nav = useNavigate();
+  const queryClient = useQueryClient();
 
-  const [choice1per, setChoice1per] = useState(0);
-  const [choice2per, setChoice2per] = useState(0);
+  const [choice1per, setChoice1per] = useState(30);
+  const [choice2per, setChoice2per] = useState(70);
 
   const [isBookmark, setIsBookmark] = useState(false);
   const [isChange, setIsChange] = useState(false);
 
+  /* 투표 선택 시 payload 설정을 위한 useState 작성 */
+  // const [choicesPost, setChoicesPost] = useState({
+  //   choiceNum: 0,
+  //   isChoice: false,
+  //   postChoiceId: 0,
+  // })
   const [choiceNum, setChoiceNum] = useState(0);
   const [isChoice, setIsChoice] = useState(false);
+  const [postChoiceId, setPostChoiceId] = useState(0);
 
-  const choiceSubmit = async (e) => {
-    setChoiceNum(e.target.value);
-    setIsChoice(!isChoice);
-    const payload = {
-      choiceNum,
-      isChoice,
-    };
-    // const { data, error } = useMutation(postChoice, {
-    //   onSuccess: () => {
-    //     // Invalidates cache and refetch
-    //     queryClient.invalidateQueries("choicePer");
-    //   },
-    // });
+  const choiceSubmit = async (e, choiceId) => {
+    e.preventDefault();
+    setIsChange(true);
+    // setChoicesPost({
+    //   choiceNum(e.target.value),
+    //   isChoice((prev) => !prev),
+    //   postChoiceId(choiceId),
+    // })
+    setChoiceNum(Number(e.target.value));
+    setIsChoice((prev) => !prev);
+    setPostChoiceId(choiceId);
   };
 
-  const bookmarkChange = () => {
-    setIsBookmark(!isBookmark);
+  const choiceMutation = useMutation(postChoice, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("postChoicehoice");
+    },
+  });
+
+  const bookmarkChange = (choiceId) => {
+    setIsBookmark((prev) => !prev);
+    setPostChoiceId(choiceId);
   };
+
+  const bookmarkMutation = useMutation(bookmark, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("bookmark");
+    },
+  });
+
+  useEffect(() => {
+    if (choiceNum !== 0 && isChoice === true) {
+      choiceMutation.mutate({
+        choiceId: postChoiceId,
+        choiceNum,
+        isChoice,
+      });
+    }
+  }, [choiceNum, isChoice]);
+
+  useEffect(() => {
+    if (isBookmark) {
+      bookmarkMutation.mutate({
+        choiceId: postChoiceId,
+        isBookmark,
+      });
+    }
+  }, [isBookmark]);
+
+  console.log("isBookmark", isBookmark);
 
   return (
     <div style={{ marginBottom: "1rem", padding: "0rem 1.5rem" }}>
@@ -79,13 +116,13 @@ const Choice = ({ choices }) => {
                 <BookmarkBorderIcon
                   style={{ cursor: "pointer" }}
                   value={isBookmark}
-                  onClick={bookmarkChange}
+                  onClick={() => bookmarkChange(choice.choiceId)}
                 />
               ) : (
                 <BookmarkIcon
                   style={{ cursor: "pointer" }}
                   value={isBookmark}
-                  onClick={bookmarkChange}
+                  onClick={() => bookmarkChange(choice.choiceId)}
                 />
               )}
             </StChoiceTextWrap>
@@ -109,14 +146,14 @@ const Choice = ({ choices }) => {
             {!isChange ? (
               <StChoiceWrap>
                 <StChoiceBtn
-                  onClick={choiceSubmit}
+                  onClick={(e) => choiceSubmit(e, choice.choiceId)}
                   value="1"
                   backColor="#9F9F9F"
                 >
                   1번
                 </StChoiceBtn>
                 <StChoiceBtn
-                  onClick={choiceSubmit}
+                  onClick={(e) => choiceSubmit(e, choice.choiceId)}
                   value="2"
                   backColor="#6D6D6D"
                 >
@@ -125,12 +162,8 @@ const Choice = ({ choices }) => {
               </StChoiceWrap>
             ) : (
               <StChoiceWrap>
-                <StChoice1 width={choice.choice1per}>
-                  {choice.choice1per}%
-                </StChoice1>
-                <StChoice2 width={choice.choice2per}>
-                  {choice.choice2per}%
-                </StChoice2>
+                <StChoice1 width={choice1per}>{choice1per}%</StChoice1>
+                <StChoice2 width={choice2per}>{choice2per}%</StChoice2>
               </StChoiceWrap>
             )}
           </SwiperSlide>
@@ -216,11 +249,15 @@ const StChoiceBtn = styled.button`
 const StChoice1 = styled.div`
   background-color: rgb(255, 206, 206);
   width: ${(props) => props.width}%;
+  height: 2rem;
   text-align: left;
+  padding: ${(props) => props.theme.paddings.xxsm};
 `;
 
 const StChoice2 = styled.div`
   background-color: #c2c2ff;
   width: ${(props) => props.width}%;
+  height: 2rem;
   text-align: right;
+  padding: ${(props) => props.theme.paddings.xxsm};
 `;

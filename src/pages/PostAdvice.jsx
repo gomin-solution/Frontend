@@ -5,13 +5,13 @@ import styled from "styled-components";
 
 function AdvicePost() {
   const location = useLocation();
-  const category = location.state;
+  const cate = location.state;
 
   return (
     <>
       <Header1 title={"글 작성"} />
       <Stcontainer>
-        <AdviceForm category={category} />
+        <AdviceForm cate={cate} />
       </Stcontainer>
     </>
   );

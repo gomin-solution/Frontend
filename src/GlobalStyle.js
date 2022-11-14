@@ -25,12 +25,20 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family: "Noto Sans KR", sans-serif;
     resize: none;
+    /* 인풋 포커스 해제 */
     &:focus {
-      outline: none;
+    outline: none;
     }
+    /*스크롤바 숨기기*/
     &::-webkit-scrollbar {
-      display: none;
+    display: none;
     }
+  }
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
   }
 
   #root {

@@ -1,12 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Header3 } from "../elements/Header";
-import Choice from "../components/choice/Choice";
-import Advice from "../components/advice/Advice";
+import Choice from "../components/main/Choice";
+import Advice from "../components/main/Advice";
 import Footer from "../elements/Footer";
-import styled from "styled-components";
 import { useQuery } from "react-query";
 import { getMain } from "../api/mainApi";
+import a from "../image/banner/a.png";
+import b from "../image/banner/b.png";
+import c from "../image/banner/c.png";
+
+import styled from "styled-components";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -50,9 +54,9 @@ function Main() {
           navigation={false}
           modules={[Autoplay, Pagination, Navigation]}
         >
-          <SwSlide url={"#"} />
-          <SwSlide url={"#"} />
-          <SwSlide url={"#"} />
+          <SwSlide url={a} />
+          <SwSlide url={b} />
+          <SwSlide url={c} />
         </SwFeat>
         <StTextWrap>
           <StBold>실시간 인기 고민투표</StBold>
@@ -67,7 +71,7 @@ function Main() {
           <Advice advice={advice} key={advice.adviceId} />
         ))}
       </StContainer>
-      <Footer />
+      <Footer title={"홈"} />
     </>
   );
 }

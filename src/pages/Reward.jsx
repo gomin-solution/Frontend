@@ -7,7 +7,7 @@ function Reward() {
     <>
       <Header1 title={"획득한 종이"} />
       <Stcontainer>획득한 종이</Stcontainer>
-      <Footer />
+      <Footer title={"종이접기"} />
     </>
   );
 }

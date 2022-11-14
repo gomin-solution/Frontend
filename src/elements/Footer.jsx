@@ -1,15 +1,12 @@
 import styled from "styled-components";
 import ChangeHistoryIcon from "@mui/icons-material/ChangeHistory";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Footer() {
-  const [content, setContent] = useState("홈");
+function Footer({ title }) {
   const nav = useNavigate();
 
   const onMenu = (e) => {
-    setContent((e) => e.title);
     nav(e.nav);
   };
 
@@ -22,8 +19,8 @@ function Footer() {
 
   return (
     <StBlock>
-      {menu?.map((item) =>
-        item.title === content ? (
+      {menu?.map((item) => {
+        return item.title === title ? (
           <StAct key={item.title}>
             <StClick>
               <FiberManualRecordIcon fontSize="small" />
@@ -40,8 +37,8 @@ function Footer() {
             <ChangeHistoryIcon fontSize="small" />
             <div>{item.title}</div>
           </StCon>
-        )
-      )}
+        );
+      })}
     </StBlock>
   );
 }

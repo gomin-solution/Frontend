@@ -3,8 +3,6 @@ body {
   height: 100vh;
   margin: auto;
 
-  font-family: "Noto Sans KR", sans-serif;
-
   /*웹 배경 이미지색 맞추기*/
   background-color: #536480;
   /*단어 넘치면 쪼개기*/
@@ -26,6 +24,7 @@ body {
 * {
   box-sizing: border-box;
   font-family: "Noto Sans KR", sans-serif;
+  font-family: "Ycomputer-Regular";
   resize: none;
 }
 
@@ -40,6 +39,7 @@ body {
 }
 
 #root {
+  font-family: "Noto Sans KR", sans-serif;
   width: 100%;
   max-width: 414px;
   height: 100vh;

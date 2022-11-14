@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import ChangeHistoryIcon from "@mui/icons-material/ChangeHistory";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Footer() {
@@ -17,7 +17,7 @@ function Footer() {
     { title: "홈", nav: "/" },
     { title: "게시판", nav: "/board" },
     { title: "종이접기", nav: "/reward" },
-    { title: "마이페이지", nav: "/mypage" },
+    { title: "마이페이지", nav: "/myinfo" },
   ];
 
   return (

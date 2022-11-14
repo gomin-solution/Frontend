@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-import { Btn2 } from "../elements/Btn";
+import { Btn1 } from "../elements/Btn";
 
 import instance from "../api/api";
 import { setCookie } from "../api/cookie";
@@ -51,7 +51,7 @@ const Login = () => {
   };
 
   return (
-    <>
+    <Stcontainer>
       <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
         <StTitle>로고</StTitle>
         <StInputWrap>
@@ -63,7 +63,7 @@ const Login = () => {
             {...register("password")}
           />
         </StInputWrap>
-        <Btn2 text="로그인" />
+        <Btn1 text={"로그인"} />
       </StFormContainer>
       <StBtnWrap>
         <StBottomNav1 type="button">아이디 찾기</StBottomNav1>
@@ -74,11 +74,19 @@ const Login = () => {
           회원가입
         </StBottomNav2>
       </StBtnWrap>
-    </>
+    </Stcontainer>
   );
 };
 
 export default Login;
+
+/*반응형 맞춤 */
+const Stcontainer = styled.div`
+  width: 100%;
+  position: absolute;
+  overflow: auto;
+  height: 100vh;
+`;
 
 const StFormContainer = styled.form`
   display: flex;

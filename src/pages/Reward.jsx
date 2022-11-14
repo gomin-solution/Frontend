@@ -2,17 +2,17 @@ import { Header1 } from "../elements/Header";
 import styled from "styled-components";
 import Footer from "../elements/Footer";
 
-const Mypage = () => {
+function Reward() {
   return (
     <>
-      <Header1 title={"마이페이지"} />
-      <Stcontainer>마이페이지</Stcontainer>
+      <Header1 title={"획득한 종이"} />
+      <Stcontainer>획득한 종이</Stcontainer>
       <Footer />
     </>
   );
-};
+}
 
-export default Mypage;
+export default Reward;
 
 /*반응형 맞춤 */
 const Stcontainer = styled.div`

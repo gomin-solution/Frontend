@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Layout from "../layout/Layout";
 import Slider from "@mui/material/Slider";
 import { useForm } from "react-hook-form";
 
@@ -11,7 +10,7 @@ function ChoiceForm() {
     console.log(data);
   };
   return (
-    <Layout>
+    <>
       <button
         onClick={() => {
           nav("/");
@@ -64,7 +63,7 @@ function ChoiceForm() {
         </StSelect>
         <button type="submit">완료</button>
       </Test>
-    </Layout>
+    </>
   );
 }
 

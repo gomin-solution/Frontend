@@ -96,8 +96,8 @@ const Choice = () => {
       {isSuccess && getChoice.pages
         ? getChoice?.pages.map((page) => (
             <React.Fragment key={page.currentPage}>
-              {}
               {page?.choices.map((choice) => (
+                // 데이터에 null 값이 없는 경우에만 화면 표시되도록??????
                 <StWrap ref={ref} key={choice.choiceId}>
                   <StChoiceTextWrap>
                     <div style={{ display: "flex", alignItems: "center" }}>

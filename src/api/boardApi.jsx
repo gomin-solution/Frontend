@@ -21,7 +21,7 @@ export const useChoiceInfiniteScroll = () => {
     isSuccess,
     hasNextPage,
   } = useInfiniteQuery(["getChoiceScroll"], getChoiceScroll, {
-    getNextPageParam: (lastPage) =>
+    getNextPageParam: (lastPage, pages) =>
       lastPage.choices[0] ? lastPage.currentPage + 1 : undefined,
   });
   return { getChoice, fetchNextPage, isSuccess, hasNextPage };

@@ -9,10 +9,12 @@ import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import axios from "axios";
 
 import { getCookie } from "../../api/cookie";
+import { addAdvice } from "../../api/postApi";
+import { useMutation } from "react-query";
 
 function AdviceForm({ cate }) {
   const nav = useNavigate();
-  const { register, handleSubmit, watch, reset } = useForm();
+  const { register, handleSubmit, watch } = useForm();
   const [imagePreview, setImagePreview] = useState("");
 
   const accessToken = getCookie("accessToken");
@@ -28,18 +30,11 @@ function AdviceForm({ cate }) {
     formData.append("isAdult", e.isAdult);
     formData.append("categoryId", cate.categoryId);
 
-    axios
-      .post("https://pyo00.shop/advice", formData, {
-        headers: {
-          authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      });
-    // nav("/board");
-    // reset();
+    wrtieAdvice.mutate(formData);
+    nav("/board");
   };
+
+  const wrtieAdvice = useMutation(addAdvice);
 
   /*사진 미리보기 */
   const previmg = watch("image");
@@ -120,10 +115,9 @@ export default AdviceForm;
 
 /*카테고리 박스 */
 const StCate = styled.div`
-  width: 3.2rem;
+  width: 100%;
   height: 1.8rem;
   font-size: ${(props) => props.theme.fontSizes.sm};
-  background-color: ${(props) => props.theme.boxColors.gray2};
 
   display: flex;
   justify-content: center;

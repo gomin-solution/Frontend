@@ -1,11 +1,15 @@
 import ChoiceForm from "../components/form/ChoiceForm";
+import { Header1 } from "../elements/Header";
 import styled from "styled-components";
 
 function ChoicePost() {
   return (
-    <Stcontainer>
-      <ChoiceForm />
-    </Stcontainer>
+    <>
+      <Header1 title={"글 작성"} />
+      <Stcontainer>
+        <ChoiceForm />
+      </Stcontainer>
+    </>
   );
 }
 
@@ -16,5 +20,6 @@ const Stcontainer = styled.div`
   width: 100%;
   position: absolute;
   overflow: auto;
+  padding: ${(props) => props.theme.paddings.xxl};
   height: calc(100vh - 4rem);
 `;

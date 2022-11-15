@@ -5,7 +5,7 @@ import Choice from "../components/main/Choice";
 import Advice from "../components/main/Advice";
 import Footer from "../elements/Footer";
 import { useQuery } from "react-query";
-import { getMain } from "../api/mainApi";
+import { getAllData } from "../api/mainApi";
 import a from "../image/banner/a.png";
 import b from "../image/banner/b.png";
 import c from "../image/banner/c.png";
@@ -26,7 +26,7 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 function Main() {
   const nav = useNavigate();
 
-  const { data, error } = useQuery("getMain", getMain);
+  const { data, error } = useQuery("getAllData", getAllData);
   if (error) {
     return console.log(error.message);
   }

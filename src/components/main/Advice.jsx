@@ -13,10 +13,8 @@ const Advice = ({ advice }) => {
           <StWrap>
             <div style={{ fontSize: "14px" }}>
               <span style={{ marginRight: "12px" }}>{advice.viewCount}</span>
-              {/* 소문자로 시작하도록 변경 */}
               <span>{advice.CommentCount}</span>
             </div>
-            {/* slice 적용 */}
             <span>{advice.createdAt.slice(0, 10)}</span>
           </StWrap>
         </StAdviceList>

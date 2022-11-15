@@ -5,6 +5,7 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 /*이전 버튼 + 제목바 */
 export function Header1({ title }) {
@@ -25,6 +26,8 @@ export function Header1({ title }) {
 /*이전 버튼 + 제목바 + 검색버튼*/
 export function Header2({ title }) {
   const nav = useNavigate();
+  // const [isSearch, setIsSearch] = useState(false);
+
   return (
     <StBlock>
       <StBackcon

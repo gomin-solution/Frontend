@@ -1,16 +1,24 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import Advice from "../components/board/Advice";
 import Choice from "../components/board/Choice";
 import Footer from "../elements/Footer";
 import { Header2 } from "../elements/Header";
+import styled from "styled-components";
 
 function Board() {
   const [boardCategory, setBoardCategory] = useState("choice");
   console.log("boardCategory", boardCategory);
 
   const menu = ["choice", "advice"];
+
+  // const { data, error } = useQuery("getBoardChoice", getBoardChoice);
+  // if (error) {
+  //   return console.log(error.message);
+  // }
+  // const choices = data?.data.choice;
+  // console.log("111", data?.data.choice);
+  // const advices = data?.data.mainpage.advice;
+  // console.log("222", data?.data.mainpage.advice);
 
   return (
     <>

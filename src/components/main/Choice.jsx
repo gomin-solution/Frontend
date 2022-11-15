@@ -73,7 +73,7 @@ const Choice = ({ choices }) => {
         isChoice,
       });
     }
-  }, [isChoice]);
+  }, [isChoice, choiceMutation, postChoiceId, choiceNum]);
 
   /* useEffect를 사용하여 setState값 할당 후 서버와 통신 (북마크) */
   useEffect(() => {
@@ -83,7 +83,7 @@ const Choice = ({ choices }) => {
         isBookMark,
       });
     }
-  }, [isBookMark]);
+  }, [isBookMark, bookmarkMutation, postChoiceId]);
 
   console.log("isBookMark", isBookMark);
 
@@ -140,7 +140,6 @@ const Choice = ({ choices }) => {
               <span>{choice.choice1Name}</span>
               <span>{choice.choice2Name}</span>
             </StTextWrap3>
-            {/* choice.isChoice로 바꿔야함 */}
             {!choice.isChoice ? (
               <StChoiceWrap>
                 <StChoiceBtn

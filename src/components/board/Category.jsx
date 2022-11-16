@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -16,29 +16,31 @@ const style = {
   bgcolor: "background.paper",
   boxShadow: 24,
   p: "1rem",
+  fontSize: "1rem",
 };
-
-export default function BasicModal() {
+const Category = ({ setCategoryId }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   /* category value 값 담기 */
-  const [categoryValue, setCategoryValue] = useState("");
   const categories = [
-    "여행",
-    "진로",
-    "쇼핑",
-    "연애",
-    "친구",
-    "반려동물",
-    "선물",
-    "건강",
-    "코디",
-    "육아",
-    "생활",
-    "기타",
+    { topic: "여행", categoryId: 1 },
+    { topic: "진로", categoryId: 2 },
+    { topic: "쇼핑", categoryId: 3 },
+    { topic: "연애", categoryId: 4 },
+    { topic: "친구", categoryId: 5 },
+    { topic: "반려동물", categoryId: 6 },
+    { topic: "선물", categoryId: 7 },
+    { topic: "건강", categoryId: 8 },
+    { topic: "코디", categoryId: 9 },
+    { topic: "육아", categoryId: 10 },
+    { topic: "생활", categoryId: 11 },
+    { topic: "기타", categoryId: 12 },
   ];
+  const categoryChange = (e) => {
+    setCategoryId(e.target.value);
+  };
 
   return (
     <div>
@@ -51,9 +53,13 @@ export default function BasicModal() {
       >
         <Box sx={style}>
           <StBtnWrap id="modal-modal-title" variant="h6" component="h2">
-            {categories.map((category) => (
-              <StBtn value={category} key={category}>
-                {category}
+            {categories?.map((category) => (
+              <StBtn
+                value={category.categoryId}
+                key={category.categoryId}
+                onClick={categoryChange}
+              >
+                {category.topic}
               </StBtn>
             ))}
           </StBtnWrap>
@@ -61,7 +67,9 @@ export default function BasicModal() {
       </Modal>
     </div>
   );
-}
+};
+
+export default Category;
 
 const StBtnWrap = styled(Typography)`
   display: flex;

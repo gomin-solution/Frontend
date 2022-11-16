@@ -1,18 +1,15 @@
 import { useInfiniteQuery } from "react-query";
 import instance from "./api";
 
-/* choice infinite scroll 전부 get */
+/* choice infinite scroll et */
 export const useChoiceInfiniteScroll = () => {
   const getChoiceScroll = async ({ pageParam = 0 }) => {
     const res = await instance.get(`/choice?page=${pageParam}`);
-    // console.log("res", res);
     return {
       // 실제 데이터
       choices: res.data.choice,
       // 반환 값에 현재 페이지를
       currentPage: pageParam,
-      // choice 배열의 길이 값을 구하여 0일땐 undefined 처리
-      choiceLength: res.data.choice.length,
     };
   };
   const {
@@ -27,28 +24,46 @@ export const useChoiceInfiniteScroll = () => {
   return { getChoice, fetchNextPage, isSuccess, hasNextPage };
 };
 
-/* choice infinite scroll 전부 get */
-export const useAdviceInfiniteScroll = () => {
-  const getAdviceScroll = async ({ pageParam = 0, categoryId }) => {
-    const res = await instance.get(`/advice/${categoryId}?page=${pageParam}`);
-    // console.log("res", res);
-    return {
-      // 실제 데이터
-      choices: res.data.choice,
-      // 반환 값에 현재 페이지를
-      currentPage: pageParam,
-      // choice 배열의 길이 값을 구하여 0일땐 undefined 처리
-      choiceLength: res.data.choice.length,
+/* advice infinite scroll get */
+export const useAdviceInfiniteScroll = (categoryId) => {
+  const getAdviceScroll =
+    (categoryId) =>
+    async ({ pageParam = 0 }) => {
+      console.log("categoryId", categoryId);
+      const res = await instance.get(
+        `/advice/category/${categoryId}?page=${pageParam}`
+      );
+      return {
+        // 실제 데이터
+        advices: res.data.advice,
+        // 반환 값에 현재 페이지를
+        currentPage: pageParam,
+      };
     };
-  };
   const {
     data: getAdvice,
     fetchNextPage,
     isSuccess,
     hasNextPage,
-  } = useInfiniteQuery(["getAdviceScroll"], getAdviceScroll, {
+    refetch,
+  } = useInfiniteQuery(["getAdviceScroll"], getAdviceScroll(categoryId), {
     getNextPageParam: (lastPage, pages) =>
-      lastPage.choices[0] ? lastPage.currentPage + 1 : undefined,
+      lastPage.advices[0] ? lastPage.currentPage + 1 : undefined,
   });
-  return { getAdvice, fetchNextPage, isSuccess, hasNextPage };
+  return { getAdvice, fetchNextPage, isSuccess, hasNextPage, refetch };
+};
+
+/* choice 선택 시 post */
+export const postChoice = async (payload) => {
+  const res = await instance.put(`/choice/${payload.choiceId}`, payload);
+  return res;
+};
+
+/* bookmark 선택 시 put */
+export const bookmark = async (payload) => {
+  const res = await instance.put(
+    `bookmark/choice/${payload.choiceId}`,
+    payload
+  );
+  return res;
 };

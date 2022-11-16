@@ -26,7 +26,7 @@ const FadeMenu = () => {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        정렬
+        ▼
       </Button>
       <Menu
         id="fade-menu"
@@ -38,7 +38,9 @@ const FadeMenu = () => {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleClose}>최신순</MenuItem>
+        <MenuItem style={{ fontSize: "1rem" }} onClick={handleClose}>
+          최신순
+        </MenuItem>
         <MenuItem onClick={handleClose}>조회순</MenuItem>
       </Menu>
     </StContainer>

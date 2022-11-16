@@ -8,7 +8,7 @@ import styled from "styled-components";
 // MUI Icon
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { bookmark, postChoice } from "../../api/mainApi";
+import { bookmark, postChoice } from "../../api/boardApi";
 import { useChoiceInfiniteScroll } from "../../api/boardApi";
 
 const Choice = () => {
@@ -17,7 +17,7 @@ const Choice = () => {
   /* 투표 get initeScroll */
   const { getChoice, fetchNextPage, isSuccess, hasNextPage } =
     useChoiceInfiniteScroll();
-  console.log("getChoice", getChoice);
+  /* 사용자가 div 요소를 보면 inView가 true, 안보면 false로 자동으로 변경 */
   const { ref, inView } = useInView();
 
   /* 북마크 클릭 */
@@ -26,7 +26,6 @@ const Choice = () => {
   /* 골라주기 선택 시 payload 설정을 위한 useState 작성 */
   const [choiceNum, setChoiceNum] = useState(0);
   const [isChoice, setIsChoice] = useState(false);
-  console.log("isChoice", isChoice);
   const [postChoiceId, setPostChoiceId] = useState(0);
   // const [choicesPost, setChoicesPost] = useState({
   //   choiceNum: 0,
@@ -50,7 +49,7 @@ const Choice = () => {
   /* 골라주기 mutation */
   const choiceMutation = useMutation(postChoice, {
     onSuccess: () => {
-      queryClient.invalidateQueries("getMain");
+      queryClient.invalidateQueries("getChoiceScroll");
     },
   });
 
@@ -62,7 +61,7 @@ const Choice = () => {
   /* 북마크 mutation */
   const bookmarkMutation = useMutation(bookmark, {
     onSuccess: () => {
-      queryClient.invalidateQueries("getMain");
+      queryClient.invalidateQueries("getChoiceScroll");
     },
   });
 
@@ -71,7 +70,7 @@ const Choice = () => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
-  }, [inView, hasNextPage, fetchNextPage]);
+  }, [inView]);
 
   /* useEffect를 사용하여 setState값 할당 후 서버와 통신 (골라주기 선택) */
   useEffect(() => {
@@ -82,7 +81,7 @@ const Choice = () => {
         isChoice,
       });
     }
-  }, [isChoice, choiceMutation, postChoiceId, choiceNum]);
+  }, [isChoice]);
 
   /* useEffect를 사용하여 setState값 할당 후 서버와 통신 (북마크) */
   useEffect(() => {
@@ -92,22 +91,22 @@ const Choice = () => {
         isBookMark,
       });
     }
-  }, [isBookMark, bookmarkMutation, postChoiceId]);
+  }, [isBookMark]);
 
   // console.log("getChoice.pages", getChoice?.pages);
 
   return (
     <StContainer>
-      {isSuccess && getChoice.pages
+      {isSuccess && getChoice?.pages
         ? getChoice?.pages.map((page) => (
             <React.Fragment key={page.currentPage}>
               {page?.choices.map((choice) => {
                 /* 마감시간 비교를 위한 변수 설정 */
                 const nowTime = Date.now();
                 const newEndTime = new Date(choice.endTime).getTime();
-                /* 데이터에 null 값이 없는 경우에만 화면 표시되도록?????? */
                 return (
-                  <StWrap ref={ref} key={choice.endTime}>
+                  // <span key={choice.choiceId}>test중</span>
+                  <StWrap ref={ref} key={choice.choiceId}>
                     <StChoiceTextWrap>
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <Stimg

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 function NotFound() {
-  return <div>NotFound</div>;
+  return <Stcontainer>NotFound</Stcontainer>;
 }
 
 export default NotFound;

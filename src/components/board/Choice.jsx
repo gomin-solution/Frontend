@@ -71,7 +71,7 @@ const Choice = () => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
-  }, [inView]);
+  }, [inView, hasNextPage, fetchNextPage]);
 
   /* useEffect를 사용하여 setState값 할당 후 서버와 통신 (골라주기 선택) */
   useEffect(() => {

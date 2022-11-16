@@ -11,15 +11,6 @@ function Board() {
 
   const menu = ["choice", "advice"];
 
-  // const { data, error } = useQuery("getBoardChoice", getBoardChoice);
-  // if (error) {
-  //   return console.log(error.message);
-  // }
-  // const choices = data?.data.choice;
-  // console.log("111", data?.data.choice);
-  // const advices = data?.data.mainpage.advice;
-  // console.log("222", data?.data.mainpage.advice);
-
   return (
     <>
       <Header2 title={"게시판"} />
@@ -53,7 +44,7 @@ const Stcontainer = styled.div`
   width: 100%;
   position: absolute;
   overflow: auto;
-  height: calc(100vh - 5rem);
+  height: calc(100vh - 8rem);
 `;
 
 const StInnerWrap = styled.div`

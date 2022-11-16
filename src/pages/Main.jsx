@@ -31,9 +31,7 @@ function Main() {
     return console.log(error.message);
   }
   const choices = data?.data.mainpage.choice;
-  console.log("111", data?.data.mainpage.choice);
   const advices = data?.data.mainpage.advice;
-  console.log("222", data?.data.mainpage.advice);
 
   return (
     <>

@@ -1,9 +1,17 @@
 import React from "react";
+import Category from "./Category";
+import Filter from "./Filter";
+
+/* css관련 */
 import styled from "styled-components";
 
 const Advice = () => {
   return (
     <StContainer>
+      <StNavWrap>
+        <Category />
+        <Filter />
+      </StNavWrap>
       <StListWrap>
         <StAdviceList>
           <p style={{ marginBottom: "0.5rem", fontWeight: "600" }}>타이틀</p>
@@ -26,6 +34,11 @@ export default Advice;
 const StContainer = styled.div`
   margin-bottom: ${(props) => props.theme.paddings.sm};
   padding: 0rem 1.5rem;
+`;
+
+const StNavWrap = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const StListWrap = styled.div`

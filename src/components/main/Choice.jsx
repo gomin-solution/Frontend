@@ -27,7 +27,6 @@ const Choice = ({ choices }) => {
   /* 투표 선택 시 payload 설정을 위한 useState 작성 */
   const [choiceNum, setChoiceNum] = useState(0);
   const [isChoice, setIsChoice] = useState(false);
-  console.log("isChoice", isChoice);
   const [postChoiceId, setPostChoiceId] = useState(0);
   // const [choicesPost, setChoicesPost] = useState({
   //   choiceNum: 0,
@@ -84,8 +83,6 @@ const Choice = ({ choices }) => {
       });
     }
   }, [isBookMark, bookmarkMutation, postChoiceId]);
-
-  console.log("isBookMark", isBookMark);
 
   return (
     <div style={{ marginBottom: "1rem", padding: "0rem 1.5rem" }}>

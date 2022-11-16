@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useInView } from "react-intersection-observer";
 import { useAdviceInfiniteScroll } from "../../api/boardApi";
 import { useInfiniteQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 const Advice = () => {
   // 서버에서 90개씩 받아오도록 해보기
@@ -20,6 +21,8 @@ const Advice = () => {
     useAdviceInfiniteScroll(categoryId);
   /* 사용자가 div 요소를 보면 inView가 true, 안보면 false로 자동으로 변경 */
   const { ref, inView } = useInView();
+
+  const nav = useNavigate();
 
   /* useEffect를 사용하여 골라주기 데이터 가져오기 */
   useEffect(() => {
@@ -38,7 +41,13 @@ const Advice = () => {
           ? getAdvice?.pages.map((page) => (
               <React.Fragment key={page.currentPage}>
                 {page?.advices.map((advice) => (
-                  <StAdviceList ref={ref} key={advice.adviceId}>
+                  <StAdviceList
+                    ref={ref}
+                    key={advice.adviceId}
+                    onClick={() => {
+                      nav(`/board/${advice.adviceId}`);
+                    }}
+                  >
                     <p style={{ marginBottom: "0.5rem", fontWeight: "600" }}>
                       {advice.title}
                     </p>

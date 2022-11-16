@@ -47,6 +47,15 @@ const GlobalStyle = createGlobalStyle`
     margin: auto;
   }
 
+  .bigImg {
+    margin: auto;
+
+    display: block;
+    max-width: 90%; 
+    max-height: 90%;
+
+  }
+
   #root {
     font-family: "Noto Sans KR", sans-serif;
     width: 100%;

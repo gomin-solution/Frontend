@@ -11,10 +11,10 @@ function Footer({ title }) {
   };
 
   const menu = [
-    { title: "홈", nav: "/" },
-    { title: "게시판", nav: "/board" },
-    { title: "종이접기", nav: "/reward" },
-    { title: "마이페이지", nav: "/myinfo" },
+    { title: "메인", nav: "/" },
+    { title: "고민접기", nav: "/board" },
+    { title: "쪽지", nav: "/message" },
+    { title: "수집함", nav: "/reward" },
   ];
 
   return (

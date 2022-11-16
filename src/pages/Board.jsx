@@ -13,7 +13,7 @@ function Board() {
 
   return (
     <>
-      <Header2 title={"게시판"} />
+      <Header2 title={"고민접기"} />
       <Stcontainer>
         {menu[0] === boardCategory ? (
           <>
@@ -33,7 +33,7 @@ function Board() {
           </>
         )}
       </Stcontainer>
-      <Footer title={"게시판"} />
+      <Footer title={"고민접기"} />
     </>
   );
 }

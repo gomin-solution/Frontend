@@ -51,6 +51,13 @@ const GlobalStyle = createGlobalStyle`
     background-color: #ffffff;
   }
 
+   /*추가, 옆으로 정렬하기*/
+   .flexbox {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+   }
+
   @media all and (min-width: 360px) and (max-width: 899px) {
     body {
       /*웹 배경 이미지색 맞추기*/

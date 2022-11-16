@@ -24,16 +24,10 @@ export function Header1({ title }) {
 
 /*이전 버튼 + 제목바 + 검색버튼*/
 export function Header2({ title }) {
-  const nav = useNavigate();
   // const [isSearch, setIsSearch] = useState(false);
 
   return (
     <StBlock>
-      <StBackcon
-        onClick={() => {
-          nav(-1);
-        }}
-      />
       <StTitle>{title}</StTitle>
       <StSearchcon />
     </StBlock>
@@ -47,6 +41,15 @@ export function Header3() {
       <StLogo>로고</StLogo>
       <StAlram />
       <StMsg />
+    </StBlock>
+  );
+}
+
+/* 제목바 */
+export function Header4({ title }) {
+  return (
+    <StBlock>
+      <StTitle>{title}</StTitle>
     </StBlock>
   );
 }

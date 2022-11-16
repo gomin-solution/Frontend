@@ -1,18 +1,18 @@
-import { Header1 } from "../elements/Header";
+import { Header4 } from "../elements/Header";
 import styled from "styled-components";
 import Footer from "../elements/Footer";
 
-function MyInfo() {
+function Message() {
   return (
     <>
-      <Header1 />
-      <Stcontainer>내 정보</Stcontainer>
-      <Footer />
+      <Header4 title={"쪽지"} />
+      <Stcontainer>Message</Stcontainer>
+      <Footer title={"쪽지"} />
     </>
   );
 }
 
-export default MyInfo;
+export default Message;
 
 const Stcontainer = styled.div`
   width: 100%;

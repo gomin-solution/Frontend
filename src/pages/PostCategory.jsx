@@ -5,18 +5,18 @@ import { Header1 } from "../elements/Header";
 function AdviceCategory() {
   const nav = useNavigate();
   const adviceCategory = [
-    "여행",
-    "진로",
-    "쇼핑",
-    "연애",
-    "친구",
-    "반려동물",
-    "선물",
-    "건강",
-    "코디",
-    "육아",
-    "생활",
-    "기타",
+    { topic: "여행", categoryId: 1 },
+    { topic: "진로", categoryId: 2 },
+    { topic: "쇼핑", categoryId: 3 },
+    { topic: "연애", categoryId: 4 },
+    { topic: "친구", categoryId: 5 },
+    { topic: "반려동물", categoryId: 6 },
+    { topic: "선물", categoryId: 7 },
+    { topic: "건강", categoryId: 8 },
+    { topic: "코디", categoryId: 9 },
+    { topic: "육아", categoryId: 10 },
+    { topic: "생활", categoryId: 11 },
+    { topic: "기타", categoryId: 12 },
   ];
 
   const onCategory = (e) => {
@@ -29,15 +29,15 @@ function AdviceCategory() {
       <Stcontainer>
         <StCate>카테고리 선택</StCate>
         <CateSet>
-          {adviceCategory.map((item) => {
+          {adviceCategory?.map((item) => {
             return (
               <CateBox
                 onClick={() => {
                   onCategory(item);
                 }}
-                key={item}
+                key={item.categoryId}
               >
-                {item}
+                {item.topic}
               </CateBox>
             );
           })}

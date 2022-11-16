@@ -41,6 +41,12 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
+  .preimg {
+    max-width: 4.4rem;
+    max-height: 4.4rem;
+    margin: auto;
+  }
+
   #root {
     font-family: "Noto Sans KR", sans-serif;
     width: 100%;

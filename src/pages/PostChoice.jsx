@@ -13,9 +13,9 @@ function ChoicePost() {
 
   //데이터 전송하기
   const onChoice = (data) => {
-    console.log(data);
-    // wrtieChoice.mutate(data);
-    // nav("/board");
+    // console.log(data);
+    wrtieChoice.mutate(data);
+    nav("/board");
   };
 
   const wrtieChoice = useMutation(addChoice);
@@ -33,8 +33,8 @@ function ChoicePost() {
           <StLabel style={{ marginTop: "3rem" }}>고민</StLabel>
           <Stinput
             type="text"
-            placeholder="고민을 적어주세요. (20자 이내)"
-            maxLength={20}
+            placeholder="고민을 적어주세요. (50자 이내)"
+            maxLength={50}
             required
             {...register("title")}
           />
@@ -42,13 +42,14 @@ function ChoicePost() {
           <Stinput
             type="text"
             placeholder="선택지1"
+            maxLength={10}
             required
             {...register("choice1Name")}
           />
           <Stinput
             type="text"
             placeholder="선택지2"
-            maxLength={20}
+            maxLength={10}
             required
             {...register("choice2Name")}
           />

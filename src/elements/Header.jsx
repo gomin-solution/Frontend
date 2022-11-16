@@ -89,6 +89,7 @@ const StBlock = styled.div`
 /*제목바*/
 const StTitle = styled.div`
   font-size: ${(props) => props.theme.fontSizes.xxl};
+  font-weight: ${(props) => props.theme.fontWeights.base};
 `;
 
 /*뒤로가기 아이콘 */

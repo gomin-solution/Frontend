@@ -73,17 +73,14 @@ function AdviceForm({ cate }) {
             id="picture"
             type="file"
             multiple
+            accept=".gif, .jpg, .png"
           />
 
           {imagePreview.length > 0
             ? imagePreview?.map((img) => {
                 return (
                   <Stprevimg key={img}>
-                    <img
-                      style={{ width: "4.4rem" }}
-                      src={img}
-                      alt="이미지 미리보기"
-                    />
+                    <img className="preimg" src={img} alt="이미지 미리보기" />
                   </Stprevimg>
                 );
               })

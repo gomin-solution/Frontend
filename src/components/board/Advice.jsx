@@ -4,21 +4,19 @@ import styled from "styled-components";
 const Advice = () => {
   return (
     <StContainer>
-      {/* <StListWrap>
+      <StListWrap>
         <StAdviceList>
-          <p style={{ marginBottom: "0.5rem", fontWeight: "600" }}>
-            {advice.title}
-          </p>
-          <StContent>{advice.content}</StContent>
+          <p style={{ marginBottom: "0.5rem", fontWeight: "600" }}>타이틀</p>
+          <StContent>내용</StContent>
           <StWrap>
             <div style={{ fontSize: "14px" }}>
-              <span style={{ marginRight: "12px" }}>{advice.viewCount}</span>
-              <span>{advice.CommentCount}</span>
+              <span style={{ marginRight: "12px" }}>조회수</span>
+              <span>코멘트</span>
             </div>
-            <span>{advice.createdAt.slice(0, 10)}</span>
+            <span>등록일</span>
           </StWrap>
         </StAdviceList>
-      </StListWrap> */}
+      </StListWrap>
     </StContainer>
   );
 };

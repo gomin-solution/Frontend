@@ -10,6 +10,7 @@ import PostChoice from "../pages/PostChoice";
 import MyInfo from "../pages/MyInfo";
 import Board from "../pages/Board";
 import Reward from "../pages/Reward";
+import Message from "../pages/Message";
 
 const Router = () => {
   return (
@@ -18,12 +19,15 @@ const Router = () => {
         <Route path="/intro" element={<Intro />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+
         <Route path="/" element={<Main />} />
         <Route path="/board" element={<Board />} />
         <Route path="/post-category" element={<PostCategory />} />
         <Route path="/post-advice" element={<PostAdvice />} />
         <Route path="/post-choice" element={<PostChoice />} />
+        <Route path="/message" element={<Message />} />
         <Route path="/reward" element={<Reward />} />
+
         <Route path="/myinfo" element={<MyInfo />} />
         {/* 그 밖의 요청시 404 페이지로 보내주기 */}
         <Route path="*" element={<NotFound />} />

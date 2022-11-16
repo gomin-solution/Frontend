@@ -2,17 +2,17 @@ import { Header1 } from "../elements/Header";
 import styled from "styled-components";
 import Footer from "../elements/Footer";
 
-function MyInfo() {
+function Message() {
   return (
     <>
       <Header1 />
-      <Stcontainer>내 정보</Stcontainer>
+      <Stcontainer>Message</Stcontainer>
       <Footer />
     </>
   );
 }
 
-export default MyInfo;
+export default Message;
 
 const Stcontainer = styled.div`
   width: 100%;

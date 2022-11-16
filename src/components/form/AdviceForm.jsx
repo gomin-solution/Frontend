@@ -6,9 +6,7 @@ import { Btn1 } from "../../elements/Btn";
 import styled from "styled-components";
 import { Switch } from "@mui/material";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
-import axios from "axios";
 
-import { getCookie } from "../../api/cookie";
 import { addAdvice } from "../../api/postApi";
 import { useMutation } from "react-query";
 
@@ -16,8 +14,6 @@ function AdviceForm({ cate }) {
   const nav = useNavigate();
   const { register, handleSubmit, watch } = useForm();
   const [imagePreview, setImagePreview] = useState("");
-
-  const accessToken = getCookie("accessToken");
 
   /*데이터 전송 */
   const onSubmit = (e) => {
@@ -83,7 +79,11 @@ function AdviceForm({ cate }) {
             ? imagePreview?.map((img) => {
                 return (
                   <Stprevimg key={img}>
-                    <img style={{ width: "4.4rem" }} src={img} />
+                    <img
+                      style={{ width: "4.4rem" }}
+                      src={img}
+                      alt="이미지 미리보기"
+                    />
                   </Stprevimg>
                 );
               })

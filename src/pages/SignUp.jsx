@@ -200,19 +200,19 @@ const Signup = () => {
             <input
               style={{ marginRight: "12px" }}
               type="radio"
-              name="IsAdult"
+              name="isAdult"
               value={true}
               required
-              {...register("IsAdult")}
+              {...register("isAdult")}
             />
             <label style={{ marginRight: "30%" }}>예</label>
             <input
               style={{ marginRight: "12px" }}
               type="radio"
-              name="IsAdult"
+              name="isAdult"
               value={false}
               required
-              {...register("IsAdult")}
+              {...register("isAdult")}
             />
             <label>아니오</label>
           </div>

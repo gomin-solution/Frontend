@@ -71,7 +71,7 @@ function Main() {
           <Advice advice={advice} key={advice.adviceId} />
         ))}
       </StContainer>
-      <Footer title={"홈"} />
+      <Footer title={"메인"} />
     </>
   );
 }

@@ -22,80 +22,77 @@ import { bookmark, postChoice } from "../../api/mainApi";
 const Choice = ({ choices }) => {
   const queryClient = useQueryClient();
 
-  const [choice1per, setChoice1per] = useState(30);
-  const [choice2per, setChoice2per] = useState(70);
-
-  const [isBookmark, setIsBookmark] = useState(false);
-  const [isChange, setIsChange] = useState(false);
+  const [isBookMark, setIsBookMark] = useState(false);
 
   /* 투표 선택 시 payload 설정을 위한 useState 작성 */
+  const [choiceNum, setChoiceNum] = useState(0);
+  const [isChoice, setIsChoice] = useState(false);
+  console.log("isChoice", isChoice);
+  const [postChoiceId, setPostChoiceId] = useState(0);
   // const [choicesPost, setChoicesPost] = useState({
   //   choiceNum: 0,
   //   isChoice: false,
   //   postChoiceId: 0,
   // })
-  const [choiceNum, setChoiceNum] = useState(0);
-  const [isChoice, setIsChoice] = useState(false);
-  const [postChoiceId, setPostChoiceId] = useState(0);
 
   const choiceSubmit = async (e, choiceId) => {
     e.preventDefault();
-    setIsChange(true);
     // setChoicesPost({
     //   choiceNum(e.target.value),
     //   isChoice((prev) => !prev),
     //   postChoiceId(choiceId),
     // })
     setChoiceNum(Number(e.target.value));
-    setIsChoice((prev) => !prev);
+    setIsChoice(!isChoice);
     setPostChoiceId(choiceId);
   };
 
   const choiceMutation = useMutation(postChoice, {
     onSuccess: () => {
-      queryClient.invalidateQueries("postChoicehoice");
+      queryClient.invalidateQueries("getMain");
     },
   });
 
   const bookmarkChange = (choiceId) => {
-    setIsBookmark((prev) => !prev);
+    setIsBookMark(!isBookMark);
     setPostChoiceId(choiceId);
   };
 
   const bookmarkMutation = useMutation(bookmark, {
     onSuccess: () => {
-      queryClient.invalidateQueries("bookmark");
+      queryClient.invalidateQueries("getMain");
     },
   });
 
+  /* useEffect를 사용하여 setState값 할당 후 서버와 통신 (투표 선택) */
   useEffect(() => {
-    if (choiceNum !== 0 && isChoice === true) {
+    if (choiceNum !== 0) {
       choiceMutation.mutate({
         choiceId: postChoiceId,
         choiceNum,
         isChoice,
       });
     }
-  }, [choiceNum, isChoice]);
+  }, [isChoice, choiceMutation, postChoiceId, choiceNum]);
 
+  /* useEffect를 사용하여 setState값 할당 후 서버와 통신 (북마크) */
   useEffect(() => {
-    if (isBookmark) {
+    if (postChoiceId !== 0) {
       bookmarkMutation.mutate({
         choiceId: postChoiceId,
-        isBookmark,
+        isBookMark,
       });
     }
-  }, [isBookmark]);
+  }, [isBookMark, bookmarkMutation, postChoiceId]);
 
-  console.log("isBookmark", isBookmark);
+  console.log("isBookMark", isBookMark);
 
   return (
     <div style={{ marginBottom: "1rem", padding: "0rem 1.5rem" }}>
       <Sw
-        centeredSlides={true}
+        centeredSlides={false}
         slidesPerView={1}
         spaceBetween={30}
-        loop={true}
         pagination={{
           clickable: true,
         }}
@@ -112,16 +109,16 @@ const Choice = ({ choices }) => {
                 />
                 <span>{choice.nickname}</span>
               </div>
-              {!choice.isBookmark ? (
+              {!choice?.isBookMark ? (
                 <BookmarkBorderIcon
                   style={{ cursor: "pointer" }}
-                  value={isBookmark}
+                  value={isBookMark}
                   onClick={() => bookmarkChange(choice.choiceId)}
                 />
               ) : (
                 <BookmarkIcon
                   style={{ cursor: "pointer" }}
-                  value={isBookmark}
+                  value={isBookMark}
                   onClick={() => bookmarkChange(choice.choiceId)}
                 />
               )}
@@ -143,7 +140,7 @@ const Choice = ({ choices }) => {
               <span>{choice.choice1Name}</span>
               <span>{choice.choice2Name}</span>
             </StTextWrap3>
-            {!isChange ? (
+            {!choice.isChoice ? (
               <StChoiceWrap>
                 <StChoiceBtn
                   onClick={(e) => choiceSubmit(e, choice.choiceId)}
@@ -162,8 +159,12 @@ const Choice = ({ choices }) => {
               </StChoiceWrap>
             ) : (
               <StChoiceWrap>
-                <StChoice1 width={choice1per}>{choice1per}%</StChoice1>
-                <StChoice2 width={choice2per}>{choice2per}%</StChoice2>
+                <StChoice1 width={choice.choice1Per}>
+                  <StPerText>{choice.choice1Per}%</StPerText>
+                </StChoice1>
+                <StChoice2 width={choice.choice2Per}>
+                  <StPerText>{choice.choice2Per}%</StPerText>
+                </StChoice2>
               </StChoiceWrap>
             )}
           </SwiperSlide>
@@ -251,7 +252,8 @@ const StChoice1 = styled.div`
   width: ${(props) => props.width}%;
   height: 2rem;
   text-align: left;
-  padding: ${(props) => props.theme.paddings.xxsm};
+  display: flex;
+  align-items: center;
 `;
 
 const StChoice2 = styled.div`
@@ -259,5 +261,11 @@ const StChoice2 = styled.div`
   width: ${(props) => props.width}%;
   height: 2rem;
   text-align: right;
-  padding: ${(props) => props.theme.paddings.xxsm};
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+const StPerText = styled.span`
+  padding: ${(props) => props.theme.paddings.xsm};
 `;

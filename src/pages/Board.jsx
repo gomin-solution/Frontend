@@ -3,22 +3,12 @@ import Advice from "../components/board/Advice";
 import Choice from "../components/board/Choice";
 import Footer from "../elements/Footer";
 import { Header2 } from "../elements/Header";
+import Dial from "../components/board/Dial";
 import styled from "styled-components";
 
 function Board() {
   const [boardCategory, setBoardCategory] = useState("choice");
-  console.log("boardCategory", boardCategory);
-
   const menu = ["choice", "advice"];
-
-  // const { data, error } = useQuery("getBoardChoice", getBoardChoice);
-  // if (error) {
-  //   return console.log(error.message);
-  // }
-  // const choices = data?.data.choice;
-  // console.log("111", data?.data.choice);
-  // const advices = data?.data.mainpage.advice;
-  // console.log("222", data?.data.mainpage.advice);
 
   return (
     <>
@@ -27,21 +17,32 @@ function Board() {
         {menu[0] === boardCategory ? (
           <>
             <StInnerWrap>
-              <StBtn1 onClick={() => setBoardCategory("choice")}>투표</StBtn1>
-              <StBtn2 onClick={() => setBoardCategory("advice")}>조언</StBtn2>
+              <StBtn1 onClick={() => setBoardCategory("choice")}>
+                골라주기
+              </StBtn1>
+              <StBtn2 onClick={() => setBoardCategory("advice")}>
+                조언하기
+              </StBtn2>
             </StInnerWrap>
             <Choice />
           </>
         ) : (
           <>
             <StInnerWrap>
-              <StBtn2 onClick={() => setBoardCategory("choice")}>투표</StBtn2>
-              <StBtn1 onClick={() => setBoardCategory("advice")}>조언</StBtn1>
+              <StBtn2 onClick={() => setBoardCategory("choice")}>
+                골라주기
+              </StBtn2>
+              <StBtn1 onClick={() => setBoardCategory("advice")}>
+                조언하기
+              </StBtn1>
             </StInnerWrap>
             <Advice />
           </>
         )}
       </Stcontainer>
+      <div style={{ position: "absolute", bottom: "3rem", right: "0" }}>
+        <Dial />
+      </div>
       <Footer title={"고민접기"} />
     </>
   );
@@ -53,7 +54,7 @@ const Stcontainer = styled.div`
   width: 100%;
   position: absolute;
   overflow: auto;
-  height: calc(100vh - 5rem);
+  height: calc(100vh - 8rem);
 `;
 
 const StInnerWrap = styled.div`

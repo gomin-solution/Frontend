@@ -11,11 +11,11 @@ import { Btn1 } from "../elements/Btn";
 const Signup = () => {
   const nav = useNavigate();
 
-  // 아이디, 닉네임 중복체크
+  /* 아이디, 닉네임 중복체크 */
   const [idDub, setIdDub] = useState(false);
   const [nickDub, setNickDub] = useState(false);
 
-  // react-hook-form 사용
+  /* react-hook-form 사용 */
   const {
     register,
     handleSubmit,
@@ -23,10 +23,10 @@ const Signup = () => {
     watch,
   } = useForm();
 
-  // password 변수에 키 값 할당
+  /* password 변수에 키 값 할당 */
   const password = watch("password");
 
-  // 회원가입 제출
+  /* 회원가입 제출 */
   const onSubmit = async (data) => {
     if (idDub === false || nickDub === false) {
       return window.alert("아이디와 닉네임 모두 중복체크 해주세요.");
@@ -50,12 +50,10 @@ const Signup = () => {
     }
   };
 
-  // 아이디 중복검사
+  /* 아이디 중복검사 */
   const idCheck = async () => {
     const userId = watch("userId");
-    console.log("userId", userId);
     const res = await instance.post("/signup/check", { userId: userId });
-    console.log("res1", res);
     if (res.status === 200) {
       alert("사용 가능한 아이디입니다.");
       setIdDub(true);
@@ -64,12 +62,10 @@ const Signup = () => {
     }
   };
 
-  // 닉네임 중복검사
+  /* 닉네임 중복검사 */
   const nickCheck = async () => {
     const nickname = watch("nickname");
-    console.log("nickname", nickname);
     const res = await instance.post("/signup/check", { nickname: nickname });
-    console.log("res2", res);
     if (res.status === 200) {
       alert("사용 가능한 닉네임입니다.");
       setNickDub(true);
@@ -77,8 +73,6 @@ const Signup = () => {
       alert("이미 사용중인 닉네임입니다.");
     }
   };
-
-  console.log("여기", idDub, nickDub);
 
   return (
     <Stcontainer>

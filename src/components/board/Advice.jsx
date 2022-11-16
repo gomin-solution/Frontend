@@ -1,21 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Category from "./Category";
+
+/* css관련 */
 import styled from "styled-components";
+import { useInView } from "react-intersection-observer";
+import { useAdviceInfiniteScroll } from "../../api/boardApi";
+import { useInfiniteQuery } from "react-query";
 
 const Advice = () => {
+  // 서버에서 90개씩 받아오도록 해보기
+  const infinityQuery = useInfiniteQuery();
+  console.log("infinityQuery", infinityQuery);
+
+  const [categoryId, setCategoryId] = useState(0);
+  console.log("categoryId", categoryId);
+
+  /* 투표 get initeScroll */
+  const { getAdvice, fetchNextPage, isSuccess, hasNextPage, refetch } =
+    useAdviceInfiniteScroll(categoryId);
+  /* 사용자가 div 요소를 보면 inView가 true, 안보면 false로 자동으로 변경 */
+  const { ref, inView } = useInView();
+
+  /* useEffect를 사용하여 골라주기 데이터 가져오기 */
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView]);
+
   return (
     <StContainer>
+      <StNavWrap>
+        <Category setCategoryId={setCategoryId} />
+      </StNavWrap>
       <StListWrap>
-        <StAdviceList>
-          <p style={{ marginBottom: "0.5rem", fontWeight: "600" }}>타이틀</p>
-          <StContent>내용</StContent>
-          <StWrap>
-            <div style={{ fontSize: "14px" }}>
-              <span style={{ marginRight: "12px" }}>조회수</span>
-              <span>코멘트</span>
-            </div>
-            <span>등록일</span>
-          </StWrap>
-        </StAdviceList>
+        {isSuccess && getAdvice?.pages
+          ? getAdvice?.pages.map((page) => (
+              <React.Fragment key={page.currentPage}>
+                {page?.advices.map((advice) => (
+                  <StAdviceList ref={ref} key={advice.adviceId}>
+                    <p style={{ marginBottom: "0.5rem", fontWeight: "600" }}>
+                      {advice.title}
+                    </p>
+                    <StContent>{advice.content}</StContent>
+                    <StWrap>
+                      <div
+                        style={{
+                          fontSize: `${(props) => props.theme.fontSize.sm}`,
+                        }}
+                      >
+                        <span
+                          style={{
+                            marginRight: `${(props) => props.theme.margins.sm}`,
+                          }}
+                        >
+                          {advice.viewCount}
+                        </span>
+                      </div>
+                      <span>{advice.createdAt.slice(0, 10)}</span>
+                    </StWrap>
+                  </StAdviceList>
+                ))}
+              </React.Fragment>
+            ))
+          : null}
       </StListWrap>
     </StContainer>
   );
@@ -26,6 +74,11 @@ export default Advice;
 const StContainer = styled.div`
   margin-bottom: ${(props) => props.theme.paddings.sm};
   padding: 0rem 1.5rem;
+`;
+
+const StNavWrap = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const StListWrap = styled.div`

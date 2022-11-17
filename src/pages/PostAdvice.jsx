@@ -61,8 +61,6 @@ function AdvicePost() {
     setModalOpen(false);
   };
 
-  console.log(modalOpen);
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
       <Header5 title={"글 작성"} />
@@ -98,8 +96,8 @@ function AdvicePost() {
             {imagePreview.length > 0
               ? imagePreview?.map((img) => {
                   return (
-                    <>
-                      <Stprevimg key={img} onClick={showModal}>
+                    <div key={img}>
+                      <Stprevimg onClick={showModal}>
                         <img
                           className="preimg"
                           src={img}
@@ -116,7 +114,7 @@ function AdvicePost() {
                           />
                         </StBigPrev>
                       )}
-                    </>
+                    </div>
                   );
                 })
               : null}

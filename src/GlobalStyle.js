@@ -41,12 +41,14 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
+  /*사진 미리보기 작게*/
   .preimg {
     max-width: 4.4rem;
     max-height: 4.4rem;
     margin: auto;
   }
 
+  /*사진 미리보기 크게*/
   .bigImg {
     margin: auto;
 
@@ -54,6 +56,11 @@ const GlobalStyle = createGlobalStyle`
     max-width: 90%; 
     max-height: 90%;
 
+  }
+  /*유저 프로필 이미지*/
+  .userimg{
+    max-width: 1.5rem;
+    max-height: 1.5rem;
   }
 
   #root {

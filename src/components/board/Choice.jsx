@@ -93,8 +93,6 @@ const Choice = () => {
     }
   }, [isBookMark]);
 
-  // console.log("getChoice.pages", getChoice?.pages);
-
   return (
     <StContainer>
       {isSuccess && getChoice?.pages

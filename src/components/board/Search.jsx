@@ -1,14 +1,23 @@
 import React, { useState } from "react";
-import Advice from "../components/board/Advice";
-import Choice from "../components/board/Choice";
-import Footer from "../elements/Footer";
-import { Header2 } from "../elements/Header";
-import Dial from "../components/board/Dial";
+import { useQuery } from "react-query";
+import { useLocation } from "react-router-dom";
+import getSearch from "../../api/searchApi";
+import Footer from "../../elements/Footer";
+import { Header2 } from "../../elements/Header";
+import Dial from "./Dial";
 import styled from "styled-components";
+import SearchChoice from "./SearchChoice";
+import SearchAdvice from "./SearchAdvice";
 
-function Board() {
+const Search = () => {
   const [boardCategory, setBoardCategory] = useState("choice");
   const menu = ["choice", "advice"];
+
+  const { state: keyword } = useLocation();
+  const { data } = useQuery(["keyword", keyword], () => getSearch(keyword));
+  console.log(data?.choice);
+  const choices = data?.choice;
+  const advices = data?.advice;
 
   return (
     <>
@@ -24,7 +33,7 @@ function Board() {
                 조언하기
               </StBtn2>
             </StInnerWrap>
-            <Choice />
+            <SearchChoice choices={choices} />
           </>
         ) : (
           <>
@@ -36,7 +45,7 @@ function Board() {
                 조언하기
               </StBtn1>
             </StInnerWrap>
-            <Advice />
+            <SearchAdvice advices={advices} />
           </>
         )}
       </Stcontainer>
@@ -46,9 +55,9 @@ function Board() {
       <Footer title={"고민접기"} />
     </>
   );
-}
+};
 
-export default Board;
+export default Search;
 
 const Stcontainer = styled.div`
   width: 100%;

@@ -4,10 +4,10 @@ import instance from "./api";
 /* choice infinite scroll et */
 export const useChoiceInfiniteScroll = () => {
   const getChoiceScroll = async ({ pageParam = 0 }) => {
-    const res = await instance.get(`/choice?page=${pageParam}`);
+    const { data } = await instance.get(`/choice?page=${pageParam}`);
     return {
       // 실제 데이터
-      choices: res.data.choice,
+      choices: data.choice,
       // 반환 값에 현재 페이지를
       currentPage: pageParam,
     };
@@ -25,32 +25,26 @@ export const useChoiceInfiniteScroll = () => {
 };
 
 /* advice infinite scroll get */
-export const useAdviceInfiniteScroll = (categoryId) => {
-  const getAdviceScroll =
-    (categoryId) =>
-    async ({ pageParam = 0 }) => {
-      console.log("categoryId", categoryId);
-      const res = await instance.get(
-        `/advice/category/${categoryId}?page=${pageParam}`
-      );
-      return {
-        // 실제 데이터
-        advices: res.data.advice,
-        // 반환 값에 현재 페이지를
-        currentPage: pageParam,
-      };
+export const useAdviceInfiniteScroll = () => {
+  const getAdviceScroll = async ({ pageParam = 0 }) => {
+    const { data } = await instance.get(`/advice/category/0?page=${pageParam}`);
+    return {
+      // 실제 데이터
+      advices: data.advice,
+      // 반환 값에 현재 페이지를
+      currentPage: pageParam,
     };
+  };
   const {
     data: getAdvice,
     fetchNextPage,
     isSuccess,
     hasNextPage,
-    refetch,
-  } = useInfiniteQuery(["getAdviceScroll"], getAdviceScroll(categoryId), {
+  } = useInfiniteQuery(["getAdviceScroll"], getAdviceScroll, {
     getNextPageParam: (lastPage, pages) =>
       lastPage.advices[0] ? lastPage.currentPage + 1 : undefined,
   });
-  return { getAdvice, fetchNextPage, isSuccess, hasNextPage, refetch };
+  return { getAdvice, fetchNextPage, isSuccess, hasNextPage };
 };
 
 /* choice 선택 시 post */

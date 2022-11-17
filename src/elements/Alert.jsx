@@ -13,4 +13,13 @@ export const Alert1 = (text) => {
   });
 };
 
+/* 회원가입창 메시지 */
+export const Alert2 = (text) => {
+  Swal.fire({
+    text: text,
+    confirmButtonColor: "#6D6D6D",
+    width: "20rem",
+  });
+};
+
 export default Alert1;

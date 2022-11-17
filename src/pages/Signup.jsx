@@ -66,6 +66,7 @@ const Signup = () => {
   const nickCheck = async () => {
     const nickname = watch("nickname");
     const res = await instance.post("/signup/check", { nickname: nickname });
+    console.log("res", res);
     if (res.status === 200) {
       alert("사용 가능한 닉네임입니다.");
       setNickDub(true);

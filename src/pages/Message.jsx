@@ -6,7 +6,7 @@ function Message() {
   return (
     <>
       <Header4 title={"쪽지"} />
-      <Stcontainer>Message</Stcontainer>
+      <Stcontainer>메세지</Stcontainer>
       <Footer title={"쪽지"} />
     </>
   );

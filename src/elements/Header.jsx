@@ -2,7 +2,7 @@ import styled from "styled-components";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -75,7 +75,7 @@ export function Header3() {
     <StBlock>
       <StLogo>로고</StLogo>
       <StAlram />
-      <StMsg />
+      <StSet />
     </StBlock>
   );
 }
@@ -85,6 +85,22 @@ export function Header4({ title }) {
   return (
     <StBlock>
       <StTitle>{title}</StTitle>
+    </StBlock>
+  );
+}
+
+/*이전 + 제목 + 완료 */
+export function Header5({ title }) {
+  const nav = useNavigate();
+  return (
+    <StBlock>
+      <StBackcon
+        onClick={() => {
+          nav(-1);
+        }}
+      />
+      <StTitle>{title}</StTitle>
+      <StBtn>완료</StBtn>
     </StBlock>
   );
 }
@@ -107,7 +123,8 @@ const StBlock = styled.div`
 
 /*제목바*/
 const StTitle = styled.div`
-  font-size: ${(props) => props.theme.fontSizes.xl};
+  font-size: ${(props) => props.theme.fontSizes.xxl};
+  font-weight: ${(props) => props.theme.fontWeights.base};
 `;
 
 /*뒤로가기 아이콘 */
@@ -134,14 +151,22 @@ const StLogo = styled.div`
 const StAlram = styled(NotificationsNoneOutlinedIcon)`
   cursor: pointer;
   position: absolute;
+  right: 4.5rem;
+`;
+
+/*설정 아이콘 */
+const StSet = styled(SettingsOutlinedIcon)`
+  cursor: pointer;
+  position: absolute;
   right: 2rem;
 `;
 
-/*메세지 아이콘 */
-const StMsg = styled(EmailOutlinedIcon)`
-  cursor: pointer;
+/*완료버튼 */
+const StBtn = styled.button`
   position: absolute;
-  right: 4.5rem;
+  right: 2rem;
+  font-size: ${(props) => props.theme.fontSizes.lg};
+  font-weight: ${(props) => props.theme.fontWeights.xl};
 `;
 
 /* 검색창 전환 */

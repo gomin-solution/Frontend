@@ -5,6 +5,7 @@ import Footer from "../elements/Footer";
 import { Header2 } from "../elements/Header";
 import Dial from "../components/board/Dial";
 import styled from "styled-components";
+import Alert from "../elements/Alert";
 
 function Board() {
   const [boardCategory, setBoardCategory] = useState("choice");
@@ -12,6 +13,7 @@ function Board() {
 
   return (
     <>
+      <Alert />
       <Header2 title={"고민접기"} />
       <Stcontainer>
         {menu[0] === boardCategory ? (
@@ -69,7 +71,7 @@ const StBtn1 = styled.button`
   width: 4rem;
   margin-bottom: ${(props) => props.theme.margins.xxl};
   padding-bottom: 0.4rem;
-  box-shadow: 0rem 0.1rem 0rem 0rem gray;
+  border-bottom: 0.1rem solid ${(props) => props.theme.boxColors.gray3};
   font-weight: ${(props) => props.theme.fontWeights.lg};
 `;
 

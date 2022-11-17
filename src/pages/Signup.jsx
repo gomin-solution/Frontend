@@ -26,10 +26,12 @@ const Signup = () => {
   /* password 변수에 키 값 할당 */
   const password = watch("password");
 
+  console.log(idDub);
+
   /* 회원가입 제출 */
   const onSubmit = async (data) => {
     if (idDub === false || nickDub === false) {
-      return window.alert("아이디와 닉네임 모두 중복체크 해주세요.");
+      return window.alert("아이디와 닉네임 모두 중복확인 해주세요.");
     }
     try {
       const res = await instance.post("/signup", data);
@@ -46,32 +48,36 @@ const Signup = () => {
         nav("/login");
       }
     } catch (error) {
-      console.log("회원가입 에러", error.message);
+      alert("중복확인을 다시 진행해주세요.");
     }
   };
 
   /* 아이디 중복검사 */
   const idCheck = async () => {
     const userId = watch("userId");
-    const res = await instance.post("/signup/check", { userId: userId });
-    if (res.status === 200) {
-      alert("사용 가능한 아이디입니다.");
-      setIdDub(true);
-    } else {
-      alert("이미 사용중인 아이디입니다.");
-    }
+    await instance
+      .post("/signup/check", { userId: userId })
+      .then(() => {
+        alert("사용 가능한 아이디입니다.");
+        setIdDub(true);
+      })
+      .catch(() => {
+        alert("중복된 아이디 입니다.");
+      });
   };
 
   /* 닉네임 중복검사 */
   const nickCheck = async () => {
     const nickname = watch("nickname");
-    const res = await instance.post("/signup/check", { nickname: nickname });
-    if (res.status === 200) {
-      alert("사용 가능한 닉네임입니다.");
-      setNickDub(true);
-    } else {
-      alert("이미 사용중인 닉네임입니다.");
-    }
+    await instance
+      .post("/signup/check", { nickname: nickname })
+      .then(() => {
+        alert("사용 가능한 닉네임입니다.");
+        setNickDub(true);
+      })
+      .catch(() => {
+        alert("중복된 닉네임 입니다.");
+      });
   };
 
   return (
@@ -96,13 +102,15 @@ const Signup = () => {
                 },
                 pattern: {
                   value: /^(?=.*[a-zA-Z])[a-zA-Z0-9]{4,10}$/,
-                  message: "형식에 맞지 않습니다.",
+                  message: "영문을 반드시 포함한 4~10글자로 작성해주세요.",
                 },
               })}
             />
-            <StCheckBtn type="button" onClick={idCheck}>
-              중복확인
-            </StCheckBtn>
+            {idDub ? null : (
+              <StCheckBtn type="button" onClick={idCheck}>
+                중복확인
+              </StCheckBtn>
+            )}
           </StInputInnerWrap>
           {errors?.userId?.message === undefined ? (
             <StCheck>영문을 반드시 포함한 4~10글자로 작성해주세요.</StCheck>
@@ -121,13 +129,15 @@ const Signup = () => {
                 },
                 pattern: {
                   value: /^[가-힣a-zA-z0-9]{1,8}$/,
-                  message: "형식에 맞지 않습니다.",
+                  message: "특수문자를 제외하여 8글자 이하로 작성해주세요.",
                 },
               })}
             />
-            <StCheckBtn type="button" onClick={nickCheck}>
-              중복확인
-            </StCheckBtn>
+            {nickDub ? null : (
+              <StCheckBtn type="button" onClick={nickCheck}>
+                중복확인
+              </StCheckBtn>
+            )}
           </StInputInnerWrap>
           {errors?.nickname?.message === undefined ? (
             <StCheck>특수문자를 제외하여 8글자 이하로 작성해주세요.</StCheck>
@@ -151,7 +161,7 @@ const Signup = () => {
               pattern: {
                 value:
                   /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/,
-                message: "형식에 맞지 않습니다.",
+                message: "영문, 숫자, 특수문자 포함 8~20글자로 작성해주세요.",
               },
             })}
           />

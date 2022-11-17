@@ -13,9 +13,9 @@ function Board() {
 
   return (
     <>
-      <Alert />
       <Header2 title={"고민접기"} />
       <Stcontainer>
+        <Alert />
         {menu[0] === boardCategory ? (
           <>
             <StInnerWrap>

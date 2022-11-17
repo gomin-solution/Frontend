@@ -40,6 +40,7 @@ const Category = ({ setCategoryId }) => {
   ];
   const categoryChange = (e) => {
     setCategoryId(e.target.value);
+    handleClose();
   };
 
   return (

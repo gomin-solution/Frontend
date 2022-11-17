@@ -5,6 +5,7 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 /*이전 버튼 + 제목바 */
 export function Header1({ title }) {
@@ -24,12 +25,46 @@ export function Header1({ title }) {
 
 /*이전 버튼 + 제목바 + 검색버튼*/
 export function Header2({ title }) {
-  // const [isSearch, setIsSearch] = useState(false);
+  const nav = useNavigate();
+
+  /* 검색어 입력 후 페이지이동 */
+  const [search, setSearch] = useState("");
+  const searchSubmit = () => {
+    nav("/search", { state: search });
+  };
+
+  /* 검색창 전환 */
+  const [isSearch, setIsSearch] = useState(false);
+  const isSearchChange1 = () => {
+    setIsSearch((prev) => !prev);
+  };
+  const isSearchChange2 = () => {
+    search ? nav("/search", { state: search }) : setIsSearch((prev) => !prev);
+  };
 
   return (
     <StBlock>
-      <StTitle>{title}</StTitle>
-      <StSearchcon />
+      {!isSearch ? (
+        <>
+          <StTitle>{title}</StTitle>
+          <StSearchcon onClick={isSearchChange1} />
+        </>
+      ) : (
+        <>
+          <form
+            onSubmit={searchSubmit}
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <StSearch
+              type="text"
+              value={search}
+              placeholder="검색어를 입력하세요."
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <StSearchcon type="button" onClick={isSearchChange2} />
+          </form>
+        </>
+      )}
     </StBlock>
   );
 }
@@ -132,4 +167,13 @@ const StBtn = styled.button`
   right: 2rem;
   font-size: ${(props) => props.theme.fontSizes.lg};
   font-weight: ${(props) => props.theme.fontWeights.xl};
+`;
+
+/* 검색창 전환 */
+const StSearch = styled.input`
+  background-color: ${(props) => props.theme.boxColors.gray1};
+  width: 16rem;
+  height: 2rem;
+  padding-left: ${(props) => props.theme.paddings.xsm};
+  border: none;
 `;

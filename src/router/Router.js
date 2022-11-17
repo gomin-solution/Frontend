@@ -12,6 +12,7 @@ import Board from "../pages/Board";
 import Reward from "../pages/Reward";
 import Message from "../pages/Message";
 import DetailAdvice from "../pages/DetailAdvice";
+import Search from "../components/board/Search";
 
 const Router = () => {
   return (
@@ -24,6 +25,7 @@ const Router = () => {
         <Route path="/" element={<Main />} />
         <Route path="/board" element={<Board />} />
         <Route path="/board/:adviceId" element={<DetailAdvice />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/post-category" element={<PostCategory />} />
         <Route path="/post-choice" element={<PostChoice />} />
         <Route path="/post-advice" element={<PostAdvice />} />

@@ -1,24 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Category from "./Category";
-
-/* css관련 */
-import styled from "styled-components";
 import { useInView } from "react-intersection-observer";
 import { useAdviceInfiniteScroll } from "../../api/boardApi";
-import { useInfiniteQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 const Advice = () => {
-  // 서버에서 90개씩 받아오도록 해보기
-  const infinityQuery = useInfiniteQuery();
-  console.log("infinityQuery", infinityQuery);
-
+  /* categoryId를 비교하여 filter 적용 */
   const [categoryId, setCategoryId] = useState(0);
-  console.log("categoryId", categoryId);
 
-  /* 투표 get initeScroll */
-  const { getAdvice, fetchNextPage, isSuccess, hasNextPage, refetch } =
-    useAdviceInfiniteScroll(categoryId);
+  /* 골라주기 get initeScroll */
+  const { getAdvice, fetchNextPage, isSuccess, hasNextPage } =
+    useAdviceInfiniteScroll();
   /* 사용자가 div 요소를 보면 inView가 true, 안보면 false로 자동으로 변경 */
   const { ref, inView } = useInView();
 
@@ -31,48 +23,94 @@ const Advice = () => {
     }
   }, [inView]);
 
+  console.log(categoryId);
+
   return (
     <StContainer>
       <StNavWrap>
         <Category setCategoryId={setCategoryId} />
       </StNavWrap>
       <StListWrap>
-        {isSuccess && getAdvice?.pages
-          ? getAdvice?.pages.map((page) => (
-              <React.Fragment key={page.currentPage}>
-                {page?.advices.map((advice) => (
-                  <StAdviceList
-                    ref={ref}
-                    key={advice.adviceId}
-                    onClick={() => {
-                      nav(`/board/${advice.adviceId}`);
-                    }}
-                  >
-                    <p style={{ marginBottom: "0.5rem", fontWeight: "600" }}>
-                      {advice.title}
-                    </p>
-                    <StContent>{advice.content}</StContent>
-                    <StWrap>
-                      <div
-                        style={{
-                          fontSize: `${(props) => props.theme.fontSize.sm}`,
-                        }}
-                      >
-                        <span
+        {categoryId === 0 && (
+          <>
+            {isSuccess && getAdvice?.pages
+              ? getAdvice?.pages.map((page) => (
+                  <React.Fragment key={page.currentPage}>
+                    {page.advices.map((advice) => (
+                      <StAdviceList ref={ref} key={advice.adviceId}>
+                        <p
                           style={{
-                            marginRight: `${(props) => props.theme.margins.sm}`,
+                            marginBottom: "0.5rem",
+                            fontWeight: "600",
                           }}
                         >
-                          {advice.viewCount}
-                        </span>
-                      </div>
-                      <span>{advice.createdAt.slice(0, 10)}</span>
-                    </StWrap>
-                  </StAdviceList>
-                ))}
-              </React.Fragment>
-            ))
-          : null}
+                          {advice.title}
+                        </p>
+                        <StContent>{advice.content}</StContent>
+                        <StWrap>
+                          <div
+                            style={{
+                              fontSize: `${(props) => props.theme.fontSize.sm}`,
+                            }}
+                          >
+                            <span
+                              style={{
+                                marginRight: `${(props) =>
+                                  props.theme.margins.sm}`,
+                              }}
+                            >
+                              {advice.viewCount}
+                            </span>
+                          </div>
+                          <span>{advice.createdAt.slice(0, 10)}</span>
+                        </StWrap>
+                      </StAdviceList>
+                    ))}
+                  </React.Fragment>
+                ))
+              : null}
+          </>
+        )}
+        {categoryId !== 0 && (
+          <>
+            {isSuccess && getAdvice?.pages
+              ? getAdvice?.pages.map((page) => (
+                  <React.Fragment key={page.currentPage}>
+                    {page.advices.map((advice) => (
+                      <StAdviceList ref={ref} key={advice.adviceId}>
+                        <p
+                          style={{
+                            marginBottom: "0.5rem",
+                            fontWeight: "600",
+                          }}
+                        >
+                          {advice.title}
+                        </p>
+                        <StContent>{advice.content}</StContent>
+                        <StWrap>
+                          <div
+                            style={{
+                              fontSize: `${(props) => props.theme.fontSize.sm}`,
+                            }}
+                          >
+                            <span
+                              style={{
+                                marginRight: `${(props) =>
+                                  props.theme.margins.sm}`,
+                              }}
+                            >
+                              {advice.viewCount}
+                            </span>
+                          </div>
+                          <span>{advice.createdAt.slice(0, 10)}</span>
+                        </StWrap>
+                      </StAdviceList>
+                    ))}
+                  </React.Fragment>
+                ))
+              : null}
+          </>
+        )}
       </StListWrap>
     </StContainer>
   );

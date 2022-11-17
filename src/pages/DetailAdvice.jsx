@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import DetailComment from "../components/detailBorad/DetailComment";
 import { Header1 } from "../elements/Header";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { MenuDial3, MenuDial4 } from "../elements/MenuDial";
 
 function DetailAdvice() {
   return (
@@ -10,7 +11,9 @@ function DetailAdvice() {
         <StUser>
           <img src="/userpic.png" alt="프로필사진" className="userimg" />
           <p>닉네임</p>
-          <StMenuCon />
+          <StMenu>
+            <MenuDial3 />
+          </StMenu>
         </StUser>
         <StBoardBox>
           <span>제목이 들어갑니다.</span>
@@ -41,11 +44,15 @@ function DetailAdvice() {
             <p style={{ position: "absolute", right: "1.5rem" }}>2022.11.22</p>
           </StBoxInfo>
         </StBoardBox>
-        <StcommentBox>
-          <div>
-            <p>답변 0</p>
-          </div>
-        </StcommentBox>
+        <StCommentSet>
+          <p>답변 0</p>
+          <StMenu>
+            <MenuDial4 />
+          </StMenu>
+        </StCommentSet>
+        <DetailComment />
+        <DetailComment />
+        <DetailComment />
       </Stcontainer>
     </>
   );
@@ -73,10 +80,10 @@ const StUser = styled.div`
   }
 `;
 
-/*메뉴 아이콘 */
-const StMenuCon = styled(MoreVertIcon)`
+/*메뉴 위치조정 */
+const StMenu = styled.div`
   position: absolute;
-  right: 1rem;
+  right: 0rem;
 `;
 
 /*글 내용 박스 */
@@ -106,10 +113,12 @@ const StBoxInfo = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.boxColors.gray3};
 `;
 
-/*댓글 박스 */
-const StcommentBox = styled.div`
-  margin-top: 1rem;
+/*하단 댓글 정보 */
+const StCommentSet = styled.div`
   p {
     font-size: ${(props) => props.theme.fontSizes.base};
   }
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
 `;

@@ -10,6 +10,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { bookmark, postChoice } from "../../api/boardApi";
 import { useChoiceInfiniteScroll } from "../../api/boardApi";
+import Alert1 from "../../elements/Alert";
 
 const Choice = () => {
   const queryClient = useQueryClient();

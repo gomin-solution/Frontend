@@ -1,46 +1,26 @@
 import React from "react";
 import { Header3 } from "../elements/Header";
 import Footer from "../elements/Footer";
-import a from "../image/banner/a.png";
-import b from "../image/banner/b.png";
-import c from "../image/banner/c.png";
-
+import Banner from "../components/main/Banner";
+import Recommend from "../components/main/Recommend";
+import DailyMessage from "../components/main/DailyMessage";
 import styled from "styled-components";
-
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-
-// import required modules
-import { Autoplay, Pagination, Navigation } from "swiper";
+import AnswerAndBookmark from "../components/main/AnswerAndBookmark";
+import TotalCount from "../components/main/TotalCount";
 
 function Main() {
   return (
     <>
       <Header3 title={"메인페이지"} />
       <StContainer>
-        <SwFeat
-          spaceBetween={30}
-          centeredSlides={true}
-          loop={true}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          pagination={{
-            clickable: true,
-          }}
-          navigation={false}
-          modules={[Autoplay, Pagination, Navigation]}
-        >
-          <SwSlide url={a} />
-          <SwSlide url={b} />
-          <SwSlide url={c} />
-        </SwFeat>
+        <Banner />
+        <StPaddingWrap>
+          <Recommend />
+          <StHr />
+          <DailyMessage />
+          <AnswerAndBookmark />
+          <TotalCount />
+        </StPaddingWrap>
       </StContainer>
       <Footer title={"메인"} />
     </>
@@ -56,19 +36,14 @@ const StContainer = styled.div`
   overflow-y: scroll;
 `;
 
-const SwFeat = styled(Swiper)`
-  background-color: skyblue;
-  height: 10rem;
-  margin-bottom: 2rem;
-  &.swiper .swiper-pagination-bullet {
-    background-color: white;
-    width: 0.3rem;
-    height: 0.3rem;
-  }
+const StPaddingWrap = styled.div`
+  height: 100%;
+  padding: 0rem ${(props) => props.theme.paddings.xxl};
 `;
 
-const SwSlide = styled(SwiperSlide)`
-  background-image: url(${(props) => props.url});
-  background-size: cover;
-  background-position: center;
+const StHr = styled.hr`
+  height: 0.1rem;
+  background-color: #dde1f9;
+  margin-bottom: ${(props) => props.theme.paddings.xxl};
+  border: none;
 `;

@@ -10,6 +10,7 @@ export const Alert1 = (text) => {
     confirmButtonColor: "#6D6D6D",
     cancelButtonColor: "#6D6D6D",
     width: "20rem",
+    fontSize: "1rem",
   });
 };
 
@@ -17,8 +18,10 @@ export const Alert1 = (text) => {
 export const Alert2 = (text) => {
   Swal.fire({
     text: text,
+    confirmButtonText: "확인",
     confirmButtonColor: "#6D6D6D",
     width: "20rem",
+    fontSize: "1rem",
   });
 };
 

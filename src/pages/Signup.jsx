@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import { Header1 } from "../elements/Header";
-
+import { Header5 } from "../elements/Header";
+import { Alert2 } from "../elements/Alert";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import instance from "../api/api";
-import { Btn1 } from "../elements/Btn";
 
 const Signup = () => {
   const nav = useNavigate();
@@ -23,62 +22,62 @@ const Signup = () => {
     watch,
   } = useForm();
 
+  /* id 변수에 키 값 할당 */
+  const userId = watch("userId");
+
   /* password 변수에 키 값 할당 */
   const password = watch("password");
+
+  console.log(idDub);
 
   /* 회원가입 제출 */
   const onSubmit = async (data) => {
     if (idDub === false || nickDub === false) {
-      return window.alert("아이디와 닉네임 모두 중복체크 해주세요.");
+      return window.alert("아이디와 닉네임 모두 중복확인 해주세요.");
     }
     try {
       const res = await instance.post("/signup", data);
       if (res.status === 200) {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "가입을 축하합니다!",
-          width: 350,
-          height: 200,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        Alert2(`${userId}님 가입을 환영합니다.`);
         nav("/login");
       }
     } catch (error) {
-      console.log("회원가입 에러", error.message);
+      Alert2("중복확인을 다시 진행해주세요.");
     }
   };
 
   /* 아이디 중복검사 */
   const idCheck = async () => {
     const userId = watch("userId");
-    const res = await instance.post("/signup/check", { userId: userId });
-    if (res.status === 200) {
-      alert("사용 가능한 아이디입니다.");
-      setIdDub(true);
-    } else {
-      alert("이미 사용중인 아이디입니다.");
-    }
+    await instance
+      .post("/signup/check", { userId: userId })
+      .then(() => {
+        Alert2("사용가능한 아이디입니다.");
+        setIdDub(true);
+      })
+      .catch(() => {
+        Alert2("중복된 아이디입니다.");
+      });
   };
 
   /* 닉네임 중복검사 */
   const nickCheck = async () => {
     const nickname = watch("nickname");
-    const res = await instance.post("/signup/check", { nickname: nickname });
-    console.log("res", res);
-    if (res.status === 200) {
-      alert("사용 가능한 닉네임입니다.");
-      setNickDub(true);
-    } else {
-      alert("이미 사용중인 닉네임입니다.");
-    }
+    await instance
+      .post("/signup/check", { nickname: nickname })
+      .then(() => {
+        Alert2("사용가능한 닉네임입니다.");
+        setNickDub(true);
+      })
+      .catch(() => {
+        Alert2("중복된 닉네임입니다.");
+      });
   };
 
   return (
-    <Stcontainer>
-      <Header1 />
-      <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
+    <Stcontainer as="form" onSubmit={handleSubmit(onSubmit)}>
+      <Header5 />
+      <StFormContainer>
         <StTitle>회원가입</StTitle>
         <StInputWrap>
           {/* ----- 아이디 ----- */}
@@ -97,13 +96,20 @@ const Signup = () => {
                 },
                 pattern: {
                   value: /^(?=.*[a-zA-Z])[a-zA-Z0-9]{4,10}$/,
-                  message: "형식에 맞지 않습니다.",
+                  message: "영문을 반드시 포함한 4~10글자로 작성해주세요.",
                 },
               })}
             />
-            <StCheckBtn type="button" onClick={idCheck}>
-              중복확인
-            </StCheckBtn>
+            {idDub ? (
+              <StCheckDub type="button">
+                <TaskAltIcon />
+                <span>&nbsp;중복확인</span>
+              </StCheckDub>
+            ) : (
+              <StCheckBtn type="button" onClick={idCheck}>
+                중복확인
+              </StCheckBtn>
+            )}
           </StInputInnerWrap>
           {errors?.userId?.message === undefined ? (
             <StCheck>영문을 반드시 포함한 4~10글자로 작성해주세요.</StCheck>
@@ -122,13 +128,20 @@ const Signup = () => {
                 },
                 pattern: {
                   value: /^[가-힣a-zA-z0-9]{1,8}$/,
-                  message: "형식에 맞지 않습니다.",
+                  message: "특수문자를 제외하여 8글자 이하로 작성해주세요.",
                 },
               })}
             />
-            <StCheckBtn type="button" onClick={nickCheck}>
-              중복확인
-            </StCheckBtn>
+            {nickDub ? (
+              <StCheckDub type="button">
+                <TaskAltIcon />
+                <span>&nbsp;중복확인</span>
+              </StCheckDub>
+            ) : (
+              <StCheckBtn type="button" onClick={nickCheck}>
+                중복확인
+              </StCheckBtn>
+            )}
           </StInputInnerWrap>
           {errors?.nickname?.message === undefined ? (
             <StCheck>특수문자를 제외하여 8글자 이하로 작성해주세요.</StCheck>
@@ -152,7 +165,7 @@ const Signup = () => {
               pattern: {
                 value:
                   /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/,
-                message: "형식에 맞지 않습니다.",
+                message: "영문, 숫자, 특수문자 포함 8~20글자로 작성해주세요.",
               },
             })}
           />
@@ -212,7 +225,6 @@ const Signup = () => {
             <label>아니오</label>
           </div>
         </StAdult>
-        <Btn1 text={"회원가입"} />
       </StFormContainer>
     </Stcontainer>
   );
@@ -221,14 +233,14 @@ const Signup = () => {
 export default Signup;
 
 /*반응형 맞춤 */
-const Stcontainer = styled.div`
+const Stcontainer = styled.form`
   width: 100%;
   position: absolute;
   overflow: auto;
   height: calc(100vh - 4rem);
 `;
 
-const StFormContainer = styled.form`
+const StFormContainer = styled.div`
   display: flex;
   flex-flow: column;
   justify-content: space-between;
@@ -237,7 +249,7 @@ const StFormContainer = styled.form`
 `;
 
 const StTitle = styled.div`
-  margin: 4.5rem auto 3rem;
+  margin: 2rem auto 3rem;
   font-size: ${(props) => props.theme.fontSizes.xl};
   text-align: center;
   font-weight: ${(props) => props.theme.fontWeights.lg};
@@ -273,7 +285,20 @@ const StCheckBtn = styled.button`
   width: 4.5rem;
   height: 2rem;
   border: none;
-  cursor: pointer;
+`;
+
+const StCheckDub = styled.button`
+  background-color: #7999ff;
+  color: white;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 6rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
 `;
 
 /*유효성검사 출력*/

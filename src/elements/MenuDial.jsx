@@ -1,11 +1,14 @@
-import * as React from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-/*수정*/
-export default function MenuDial1() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+//투표
+/*삭제,수정, 투표종료*/
+export function MenuDial1() {
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -22,8 +25,9 @@ export default function MenuDial1() {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+        sx={{ color: "black" }}
       >
-        Dashboard
+        <MoreVertIcon />
       </Button>
       <Menu
         id="basic-menu"
@@ -34,9 +38,145 @@ export default function MenuDial1() {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleClose}>삭제</MenuItem>
+        <MenuItem onClick={handleClose}>수정</MenuItem>
+        <MenuItem onClick={handleClose}>투표종료</MenuItem>
+      </Menu>
+    </div>
+  );
+}
+
+//게시판 정렬
+/*최신순, 조회순, 댓글순 */
+export function MenuDial2() {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <div>
+      <Button
+        id="basic-button"
+        aria-controls={open ? "basic-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={handleClick}
+        sx={{ color: "black" }}
+      >
+        최신순
+        <ExpandMoreIcon />
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem onClick={handleClose}>최신순</MenuItem>
+        <MenuItem onClick={handleClose}>조회순</MenuItem>
+        <MenuItem onClick={handleClose}>댓글순</MenuItem>
+      </Menu>
+    </div>
+  );
+}
+
+//게시판 상세페이지 메뉴
+/*남 : 쪽지하기, 신고하기*/
+/*본인 : 수정, 삭제 */
+export function MenuDial3() {
+  const [anchorEl, setAnchorEl] = useState(null);
+  //유저 판단하기
+  // const user = false;
+  const user = true;
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <div>
+      <Button
+        id="basic-button"
+        aria-controls={open ? "basic-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={handleClick}
+        sx={{ color: "black" }}
+      >
+        <MoreVertIcon />
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        {user ? (
+          <>
+            <MenuItem onClick={handleClose}>쪽지하기</MenuItem>
+            <MenuItem onClick={handleClose}>신고하기</MenuItem>
+          </>
+        ) : (
+          <>
+            <MenuItem onClick={handleClose}>수정</MenuItem>
+            <MenuItem onClick={handleClose}>삭제</MenuItem>
+          </>
+        )}
+      </Menu>
+    </div>
+  );
+}
+
+//게시판 상세페이지 댓글 정렬
+/*최신순, 좋아요순*/
+export function MenuDial4() {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <div>
+      <Button
+        id="basic-button"
+        aria-controls={open ? "basic-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={handleClick}
+        sx={{ color: "black" }}
+      >
+        최신순
+        <ExpandMoreIcon />
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem onClick={handleClose}>최신순</MenuItem>
+        <MenuItem onClick={handleClose}>좋아요순</MenuItem>
       </Menu>
     </div>
   );

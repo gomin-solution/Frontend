@@ -1,14 +1,14 @@
 import { Header4 } from "../elements/Header";
 import styled from "styled-components";
 import Footer from "../elements/Footer";
-import MenuDial1 from "../elements/MenuDial";
+import { MenuDial3 } from "../elements/MenuDial";
 
 function Reward() {
   return (
     <>
       <Header4 title={"수집함"} />
       <Stcontainer>
-        <MenuDial1 />
+        <MenuDial3 />
       </Stcontainer>
       <Footer title={"수집함"} />
     </>

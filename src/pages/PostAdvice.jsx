@@ -40,6 +40,7 @@ function AdvicePost() {
   const previmg = watch("image");
 
   useEffect(() => {
+    }
     if (previmg && previmg.length > 0) {
       let images = [];
       for (let i = 0; i < previmg.length; i++) {
@@ -52,13 +53,20 @@ function AdvicePost() {
   // 모달창 노출 여부 state
   const [modalOpen, setModalOpen] = useState(false);
 
+  const [selectImg, setSelectImg] = useState(null);
+
   // 모달창 노출
-  const showModal = () => {
-    setModalOpen(true);
+  const handle = (img) => () => {
+    showModal();
+    setSelectImg(img);
   };
 
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  const showModal = () => {
+    setModalOpen(true);
   };
 
   return (
@@ -97,24 +105,24 @@ function AdvicePost() {
               ? imagePreview?.map((img) => {
                   return (
                     <div key={img}>
-                      <Stprevimg onClick={showModal}>
+                      <Stprevimg onClick={handle(img)}>
                         <img
                           className="preimg"
                           src={img}
                           alt="이미지 미리보기"
                         />
                       </Stprevimg>
-                      {modalOpen && (
-                        <ImageModal
-                          modalOpen={modalOpen}
-                          closeModal={closeModal}
-                          img={img}
-                        />
-                      )}
                     </div>
                   );
                 })
               : null}
+            {modalOpen && (
+              <ImageModal
+                modalOpen={modalOpen}
+                closeModal={closeModal}
+                img={selectImg}
+              />
+            )}
           </div>
         </Stcontent>
         <StAdult>참여자 연령선택</StAdult>

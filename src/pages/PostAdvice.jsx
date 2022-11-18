@@ -40,6 +40,9 @@ function AdvicePost() {
   const previmg = watch("image");
 
   useEffect(() => {
+    if (previmg && previmg.length > 3) {
+      alert("사진은 3장만 가능합니다.");
+      return;
     }
     if (previmg && previmg.length > 0) {
       let images = [];

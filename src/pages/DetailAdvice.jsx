@@ -1,58 +1,110 @@
+import { useState } from "react";
+import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { detail } from "../api/boardApi";
 import DetailComment from "../components/detailBorad/DetailComment";
+import ImageModal from "../components/detailBorad/ImageModal";
 import { Header1 } from "../elements/Header";
 import { MenuDial3, MenuDial4 } from "../elements/MenuDial";
 
 function DetailAdvice() {
+  const param = useParams();
+  const adviceId = param.adviceId;
+  const { data } = useQuery(["getDetail", adviceId], () => detail(adviceId), {
+    refetchOnWindowFocus: false,
+  });
+  const resBoard = data?.data.data;
+  const resComment = data?.data.data.comment;
+
+  const adviceCategory = [
+    { topic: "여행", categoryId: 1 },
+    { topic: "진로", categoryId: 2 },
+    { topic: "쇼핑", categoryId: 3 },
+    { topic: "연애", categoryId: 4 },
+    { topic: "친구", categoryId: 5 },
+    { topic: "반려동물", categoryId: 6 },
+    { topic: "선물", categoryId: 7 },
+    { topic: "건강", categoryId: 8 },
+    { topic: "코디", categoryId: 9 },
+    { topic: "육아", categoryId: 10 },
+    { topic: "생활", categoryId: 11 },
+    { topic: "기타", categoryId: 12 },
+  ];
+
+  // 이미지 모달창 노출 여부 state
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectImg, setSelectImg] = useState(null);
+
+  // 모달창 노출
+  const handle = (img) => () => {
+    console.log(img);
+    showModal();
+    setSelectImg(img);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
   return (
     <>
       <Header1 title={"고민접기"} />
       <Stcontainer>
         <StUser>
-          <img src="/userpic.png" alt="프로필사진" className="userimg" />
-          <p>닉네임</p>
+          <img src={resBoard?.userImage} alt="프로필사진" className="userimg" />
+          <p>{resBoard?.nickname}</p>
           <StMenu>
             <MenuDial3 />
           </StMenu>
         </StUser>
         <StBoardBox>
-          <span>제목이 들어갑니다.</span>
-          <p>
-            옷을 이상의 충분히 지혜는 위하여서. 발휘하기 옷을 찾아 긴지라
-            아니다. 되는 위하여서 과실이 거선의 있는가? 아니한 얼마나 붙잡아
-            설산에서 현저하게 이상이 두기 석가는 생의 것이다. 피고 이것을 구하지
-            약동하다. 옷을 이상의 충분히 지혜는 위하여서. 발휘하기 옷을 찾아
-            긴지라 아니다. 되는 위하여서 과실이 거선의 있는가? 아니한 얼마나
-            붙잡아 설산에서 현저하게 이상이 두기 석가는 생의 것이다. 피고 이것을
-            구하지 약동하다. 옷을 이상의 충분히 지혜는 위하여서. 발휘하기 옷을
-            찾아 긴지라 아니다. 되는 위하여서 과실이 거선의 있는가? 아니한
-            얼마나 붙잡아 설산에서 현저하게 이상이 두기 석가는 생의 것이다. 피고
-            이것을 구하지 약동하다. 옷을 이상의 충분히 지혜는 위하여서. 발휘하기
-            옷을 찾아 긴지라 아니다. 되는 위하여서 과실이 거선의 있는가? 아니한
-            얼마나 붙잡아 설산에서 현저하게 이상이 두기 석가는 생의 것이다. 피고
-            이것을 구하지 약동하다.
-          </p>
+          <span style={{ fontWeight: "800" }}>
+            [{adviceCategory[resBoard?.categoryId - 1]?.topic}]
+          </span>
+          <span style={{ marginLeft: "0.5rem" }}>{resBoard?.title}</span>
+          <p>{resBoard?.content}</p>
+
           <StImgBox>
-            <img
-              alt="업로드사진"
-              src="/userpic.png"
-              style={{ maxWidth: "7rem", maxHeight: "7rem" }}
-            />
+            {resBoard?.adviceImage.map((img) => {
+              return (
+                <img
+                  key={img}
+                  alt="업로드사진"
+                  src={img[1]}
+                  style={{ maxWidth: "7rem", maxHeight: "7rem" }}
+                  onClick={handle(img[1])}
+                />
+              );
+            })}
           </StImgBox>
+          {modalOpen && (
+            <ImageModal
+              modalOpen={modalOpen}
+              closeModal={closeModal}
+              img={selectImg}
+            />
+          )}
           <StBoxInfo>
             <p>조회 0</p>
-            <p style={{ position: "absolute", right: "1.5rem" }}>2022.11.22</p>
+            <p style={{ position: "absolute", right: "1.5rem" }}>
+              {resBoard?.createdAt.slice(0, 10)}
+            </p>
           </StBoxInfo>
         </StBoardBox>
         <StCommentSet>
-          <p>답변 0</p>
+          <p>답변 {resBoard?.commentCount}</p>
           <StMenu>
             <MenuDial4 />
           </StMenu>
         </StCommentSet>
-        <DetailComment />
-        <DetailComment />
-        <DetailComment />
+        {resComment?.map((item) => {
+          return <DetailComment key={item.commentId} item={item} />;
+        })}
       </Stcontainer>
     </>
   );

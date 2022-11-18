@@ -61,3 +61,9 @@ export const bookmark = async (payload) => {
   );
   return res;
 };
+
+/* 상세페이지 정보 get*/
+export const detail = async (payload) => {
+  const res = await instance.get(`/advice/${payload}`);
+  return res;
+};

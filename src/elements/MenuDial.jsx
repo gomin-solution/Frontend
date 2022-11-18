@@ -42,7 +42,6 @@ export function MenuDial0() {
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
@@ -87,7 +86,6 @@ export function MenuDial1() {
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
@@ -133,7 +131,6 @@ export function MenuDial2() {
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
@@ -183,7 +180,6 @@ export function MenuDial3() {
           id="basic-menu"
           anchorEl={anchorEl}
           open={open}
-          onClose={handleClose}
           MenuListProps={{
             "aria-labelledby": "basic-button",
           }}
@@ -242,7 +238,6 @@ export function MenuDial4() {
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}

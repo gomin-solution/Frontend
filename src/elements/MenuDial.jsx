@@ -150,7 +150,7 @@ export function MenuDial2() {
   );
 }
 
-//게시판 상세페이지 게시글,
+//게시판 상세페이지 게시글, 댓글
 /*남 : 쪽지하기, 신고하기*/
 /*본인 : 수정, 삭제 */
 export function MenuDial3() {
@@ -255,65 +255,6 @@ export function MenuDial4() {
           );
         })}
       </Menu>
-    </StDiv>
-  );
-}
-
-//게시판 상세페이지 댓글,
-/*남 : 쪽지하기, 신고하기*/
-/*본인 : 수정, 삭제 */
-export function MenuDial5() {
-  const [anchorEl, setAnchorEl] = useState(null);
-  //유저 판단하기
-  // const user = false;
-  const user = true;
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  return (
-    <StDiv>
-      <Button
-        id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
-        sx={{ color: "black" }}
-      >
-        <MoreVertIcon />
-      </Button>
-      {user ? (
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-        >
-          <MenuItem onClick={handleClose}>쪽지하기</MenuItem>
-          <MenuItem onClick={handleClose}>신고하기</MenuItem>
-        </Menu>
-      ) : (
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-        >
-          <MenuItem onClick={handleClose}>수정</MenuItem>
-          <MenuItem onClick={handleClose}>삭제</MenuItem>
-        </Menu>
-      )}
     </StDiv>
   );
 }

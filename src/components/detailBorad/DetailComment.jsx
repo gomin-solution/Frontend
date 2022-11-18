@@ -1,5 +1,5 @@
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { MenuDial5 } from "../../elements/MenuDial";
+import { MenuDial3 } from "../../elements/MenuDial";
 import styled from "styled-components";
 
 function DetailComment() {
@@ -9,7 +9,7 @@ function DetailComment() {
         <img src="/userpic.png" alt="프로필사진" className="userimg" />
         <div className="username">닉네임</div>
         <div className="usermenu">
-          <MenuDial5 />
+          <MenuDial3 />
         </div>
       </StcommentUser>
       <StCommentText>

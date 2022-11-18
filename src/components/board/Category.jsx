@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 /* css관련 */
 import styled from "styled-components";
@@ -45,7 +46,10 @@ const Category = ({ setCategoryId }) => {
 
   return (
     <div>
-      <Button onClick={handleOpen}>카테고리</Button>
+      <Button onClick={handleOpen}>
+        카테고리
+        <KeyboardArrowDownIcon />
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}

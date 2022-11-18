@@ -25,9 +25,12 @@ export const useChoiceInfiniteScroll = () => {
 };
 
 /* advice infinite scroll get */
-export const useAdviceInfiniteScroll = () => {
+export const useAdviceInfiniteScroll = (categoryId) => {
+  console.log("categoryId", categoryId);
   const getAdviceScroll = async ({ pageParam = 0 }) => {
-    const { data } = await instance.get(`/advice/category/0?page=${pageParam}`);
+    const { data } = await instance.get(
+      `/advice/category/${categoryId}?page=${pageParam}`
+    );
     return {
       // 실제 데이터
       advices: data.advice,

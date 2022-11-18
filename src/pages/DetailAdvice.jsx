@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { detail } from "../api/boardApi";
 import DetailComment from "../components/detailBorad/DetailComment";
 import ImageModal from "../components/detailBorad/ImageModal";
 import { Header1 } from "../elements/Header";
 import { MenuDial3, MenuDial4 } from "../elements/MenuDial";
+import { decodeUser } from "../state/atom";
 
 function DetailAdvice() {
   const param = useParams();
@@ -14,8 +16,12 @@ function DetailAdvice() {
   const { data } = useQuery(["getDetail", adviceId], () => detail(adviceId), {
     refetchOnWindowFocus: false,
   });
+
   const resBoard = data?.data.data;
   const resComment = data?.data.data.comment;
+
+  //전역키값 불러오기
+  const isUser = useRecoilValue(decodeUser);
 
   const adviceCategory = [
     { topic: "여행", categoryId: 1 },

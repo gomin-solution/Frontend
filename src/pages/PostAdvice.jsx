@@ -18,6 +18,7 @@ function AdvicePost() {
   const nav = useNavigate();
   const { register, handleSubmit, watch } = useForm();
   const [imagePreview, setImagePreview] = useState("");
+  console.log("imagePreview", imagePreview);
 
   /*데이터 전송 */
   const onSubmit = (e) => {
@@ -105,7 +106,9 @@ function AdvicePost() {
               accept=".gif, .jpg, .png"
             />
             {imagePreview.length > 0
-              ? imagePreview?.map((img) => {
+              ? imagePreview?.map((img, idx) => {
+                  console.log("img", img);
+                  console.log("idx", idx);
                   return (
                     <Stprevimg onClick={handle(img)} key={img}>
                       <img className="preimg" src={img} alt="이미지 미리보기" />

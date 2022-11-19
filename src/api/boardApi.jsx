@@ -17,17 +17,28 @@ export const useChoiceInfiniteScroll = () => {
     fetchNextPage,
     isSuccess,
     hasNextPage,
-  } = useInfiniteQuery(["getChoiceScroll"], getChoiceScroll, {
-    getNextPageParam: (lastPage, pages) =>
-      lastPage.choices[0] ? lastPage.currentPage + 1 : undefined,
-  });
+  } = useInfiniteQuery(
+    ["getChoiceScroll"],
+    getChoiceScroll,
+    {
+      getNextPageParam: (lastPage, pages) =>
+        lastPage.choices[0] ? lastPage.currentPage + 1 : undefined,
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
   return { getChoice, fetchNextPage, isSuccess, hasNextPage };
 };
 
+// useCallback으로 categoryId가 변경될 때마다getAdviceScroll 실행
 /* advice infinite scroll get */
-export const useAdviceInfiniteScroll = () => {
+export const useAdviceInfiniteScroll = (categoryId) => {
+  console.log("categoryId", categoryId);
   const getAdviceScroll = async ({ pageParam = 0 }) => {
-    const { data } = await instance.get(`/advice/category/0?page=${pageParam}`);
+    const { data } = await instance.get(
+      `/advice/category/${categoryId}?page=${pageParam}`
+    );
     return {
       // 실제 데이터
       advices: data.advice,
@@ -49,16 +60,16 @@ export const useAdviceInfiniteScroll = () => {
 
 /* choice 선택 시 post */
 export const postChoice = async (payload) => {
-  const res = await instance.put(`/choice/${payload.choiceId}`, payload);
+  const res = await instance.put(`/choice/${payload.choiceId}`, {
+    choiceNum: +payload.choiceNum,
+  });
   return res;
 };
 
-/* 투표게시글 bookmark 선택 시 put */
-export const bookmark = async (payload) => {
-  const res = await instance.put(
-    `bookmark/choice/${payload.choiceId}`,
-    payload
-  );
+/* bookmark 선택 시 put */
+export const bookmark = async (choiceId) => {
+  console.log("choiceId", choiceId);
+  const res = await instance.put(`bookmark/choice/${choiceId}`);
   return res;
 };
 

@@ -41,6 +41,10 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
+  div {
+    font-family: "Noto Sans KR", sans-serif;
+  }
+
   /*사진 미리보기 작게*/
   .preimg {
     max-width: 4.4rem;
@@ -73,12 +77,12 @@ const GlobalStyle = createGlobalStyle`
     background-color: #ffffff;
   }
 
-   /*추가, 옆으로 정렬하기*/
-   .flexbox {
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
-   }
+  /*추가, 옆으로 정렬하기*/
+  .flexbox {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  }
 
   @media all and (min-width: 360px) and (max-width: 899px) {
     body {

@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import { Header1 } from "../elements/Header";
-
+import { Header5 } from "../elements/Header";
+import { Alert0, Alert3 } from "../elements/Alert";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import instance from "../api/api";
-import { Btn1 } from "../elements/Btn";
 
 const Signup = () => {
   const nav = useNavigate();
@@ -36,19 +35,10 @@ const Signup = () => {
     try {
       const res = await instance.post("/signup", data);
       if (res.status === 200) {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "가입을 축하합니다!",
-          width: 350,
-          height: 200,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        nav("/login");
+        Alert3(`${data?.userId}님\n환영합니다.`);
       }
     } catch (error) {
-      alert("중복확인을 다시 진행해주세요.");
+      Alert0("중복확인을 다시 진행해주세요.");
     }
   };
 
@@ -58,11 +48,11 @@ const Signup = () => {
     await instance
       .post("/signup/check", { userId: userId })
       .then(() => {
-        alert("사용 가능한 아이디입니다.");
+        Alert0("사용가능한 아이디입니다.");
         setIdDub(true);
       })
       .catch(() => {
-        alert("중복된 아이디 입니다.");
+        Alert0("중복된 아이디입니다.");
       });
   };
 
@@ -72,18 +62,18 @@ const Signup = () => {
     await instance
       .post("/signup/check", { nickname: nickname })
       .then(() => {
-        alert("사용 가능한 닉네임입니다.");
+        Alert0("사용가능한 닉네임입니다.");
         setNickDub(true);
       })
       .catch(() => {
-        alert("중복된 닉네임 입니다.");
+        Alert0("중복된 닉네임입니다.");
       });
   };
 
   return (
-    <Stcontainer>
-      <Header1 />
-      <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
+    <Stcontainer as="form" onSubmit={handleSubmit(onSubmit)}>
+      <Header5 />
+      <StFormContainer>
         <StTitle>회원가입</StTitle>
         <StInputWrap>
           {/* ----- 아이디 ----- */}
@@ -106,7 +96,12 @@ const Signup = () => {
                 },
               })}
             />
-            {idDub ? null : (
+            {idDub ? (
+              <StCheckDub type="button">
+                <TaskAltIcon />
+                <span>&nbsp;중복확인</span>
+              </StCheckDub>
+            ) : (
               <StCheckBtn type="button" onClick={idCheck}>
                 중복확인
               </StCheckBtn>
@@ -133,7 +128,12 @@ const Signup = () => {
                 },
               })}
             />
-            {nickDub ? null : (
+            {nickDub ? (
+              <StCheckDub type="button">
+                <TaskAltIcon />
+                <span>&nbsp;중복확인</span>
+              </StCheckDub>
+            ) : (
               <StCheckBtn type="button" onClick={nickCheck}>
                 중복확인
               </StCheckBtn>
@@ -221,7 +221,6 @@ const Signup = () => {
             <label>아니오</label>
           </div>
         </StAdult>
-        <Btn1 text={"회원가입"} />
       </StFormContainer>
     </Stcontainer>
   );
@@ -230,14 +229,14 @@ const Signup = () => {
 export default Signup;
 
 /*반응형 맞춤 */
-const Stcontainer = styled.div`
+const Stcontainer = styled.form`
   width: 100%;
   position: absolute;
   overflow: auto;
   height: calc(100vh - 4rem);
 `;
 
-const StFormContainer = styled.form`
+const StFormContainer = styled.div`
   display: flex;
   flex-flow: column;
   justify-content: space-between;
@@ -246,7 +245,7 @@ const StFormContainer = styled.form`
 `;
 
 const StTitle = styled.div`
-  margin: 4.5rem auto 3rem;
+  margin: 2rem auto 3rem;
   font-size: ${(props) => props.theme.fontSizes.xl};
   text-align: center;
   font-weight: ${(props) => props.theme.fontWeights.lg};
@@ -282,7 +281,20 @@ const StCheckBtn = styled.button`
   width: 4.5rem;
   height: 2rem;
   border: none;
-  cursor: pointer;
+`;
+
+const StCheckDub = styled.button`
+  background-color: #7999ff;
+  color: white;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 6rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
 `;
 
 /*유효성검사 출력*/

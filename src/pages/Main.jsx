@@ -1,45 +1,57 @@
 import { Header3 } from "../elements/Header";
+import { Header6 } from "../elements/Header";
 import Footer from "../elements/Footer";
-import a from "../image/banner/a.png";
-import b from "../image/banner/b.png";
-import c from "../image/banner/c.png";
-
+import Banner from "../components/main/Banner";
+import Recommend from "../components/main/Recommend";
+import DailyMessage from "../components/main/DailyMessage";
 import styled from "styled-components";
-
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-
-// import required modules
-import { Autoplay, Pagination, Navigation } from "swiper";
+import AnswerAndBookmark from "../components/main/AnswerAndBookmark";
+import TotalCount from "../components/main/TotalCount";
+import { useQuery } from "react-query";
+import { getMain } from "../api/mainApi";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+import { getCookie } from "../api/cookie";
 
 function Main() {
+  /* 메인페이지 get */
+  const { data, isLoading } = useQuery("getMain", getMain, {
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+  const recommend = data?.data.advice;
+  const totalCount = data?.data.totalCount;
+
+  if (isLoading) {
+    return (
+      <StLoading>
+        <Box sx={{ display: "flex" }}>
+          <CircularProgress />
+        </Box>
+        <span>고민 접는 중</span>
+      </StLoading>
+    );
+  }
+
+  /* accessToken get */
+  const isCookie = getCookie("accessToken");
+
   return (
     <>
-      <Header3 title={"메인페이지"} />
+      {isCookie ? (
+        <Header3 title={"메인페이지"} />
+      ) : (
+        <Header6 title={"메인페이지"} />
+      )}
       <StContainer>
-        <SwFeat
-          spaceBetween={30}
-          centeredSlides={true}
-          loop={true}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          pagination={{
-            clickable: true,
-          }}
-          navigation={false}
-          modules={[Autoplay, Pagination, Navigation]}
-        >
-          <SwSlide url={a} />
-          <SwSlide url={b} />
-          <SwSlide url={c} />
-        </SwFeat>
+        <Banner />
+        <StPaddingWrap>
+          <Recommend recommend={recommend} />
+          <StHr />
+          <DailyMessage isCookie={isCookie} />
+          <AnswerAndBookmark />
+          <TotalCount totalCount={totalCount} />
+        </StPaddingWrap>
       </StContainer>
       <Footer title={"메인"} />
     </>
@@ -55,19 +67,24 @@ const StContainer = styled.div`
   overflow-y: scroll;
 `;
 
-const SwFeat = styled(Swiper)`
-  background-color: skyblue;
-  height: 10rem;
-  margin-bottom: 2rem;
-  &.swiper .swiper-pagination-bullet {
-    background-color: white;
-    width: 0.3rem;
-    height: 0.3rem;
-  }
+const StPaddingWrap = styled.div`
+  height: 100%;
+  padding: 0rem ${(props) => props.theme.paddings.xxl};
 `;
 
-const SwSlide = styled(SwiperSlide)`
-  background-image: url(${(props) => props.url});
-  background-size: cover;
-  background-position: center;
+const StHr = styled.hr`
+  height: 0.1rem;
+  background-color: #dde1f9;
+  margin-bottom: ${(props) => props.theme.paddings.xxl};
+  border: none;
+`;
+
+const StLoading = styled.div`
+  width: 100%;
+  position: absolute;
+  top: 40%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  row-gap: 1rem;
 `;

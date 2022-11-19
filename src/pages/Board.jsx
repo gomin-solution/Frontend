@@ -5,7 +5,6 @@ import Footer from "../elements/Footer";
 import { Header2 } from "../elements/Header";
 import Dial from "../components/board/Dial";
 import styled from "styled-components";
-import Alert from "../elements/Alert";
 
 function Board() {
   const [boardCategory, setBoardCategory] = useState("choice");
@@ -13,7 +12,6 @@ function Board() {
 
   return (
     <>
-      <Alert />
       <Header2 title={"고민접기"} />
       <Stcontainer>
         {menu[0] === boardCategory ? (
@@ -23,7 +21,7 @@ function Board() {
                 골라주기
               </StBtn1>
               <StBtn2 onClick={() => setBoardCategory("advice")}>
-                조언하기
+                답해주기
               </StBtn2>
             </StInnerWrap>
             <Choice />
@@ -35,7 +33,7 @@ function Board() {
                 골라주기
               </StBtn2>
               <StBtn1 onClick={() => setBoardCategory("advice")}>
-                조언하기
+                답해주기
               </StBtn1>
             </StInnerWrap>
             <Advice />

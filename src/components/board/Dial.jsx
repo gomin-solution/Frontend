@@ -7,16 +7,21 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import FileCopyIcon from "@mui/icons-material/FileCopyOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const actions = [
-  { icon: <FileCopyIcon />, name: "골라주기" },
-  { icon: <SaveIcon />, name: "조언하기" },
+  { icon: <FileCopyIcon />, name: "골라주기", nav: "/post-choice" },
+  { icon: <SaveIcon />, name: "조언하기", nav: "/post-category" },
 ];
 
 export default function SpeedDialTooltipOpen() {
+  const nav = useNavigate();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const navHandler = (e) => {
+    nav(`${e}`);
+  };
 
   return (
     <Box sx={{ height: 330, transform: "translateZ(0px)", flexGrow: 1 }}>
@@ -35,7 +40,7 @@ export default function SpeedDialTooltipOpen() {
             icon={action.icon}
             tooltipTitle={action.name}
             tooltipOpen
-            onClick={handleClose}
+            onClick={() => navHandler(action.nav)}
           />
         ))}
       </StDial>

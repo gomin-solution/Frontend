@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import a from "../../image/a.png";
-import b from "../../image/b.png";
-import c from "../../image/c.png";
+import a from "../../image/banner/a.png";
+import b from "../../image/banner/b.png";
+import c from "../../image/banner/c.png";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 

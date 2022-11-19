@@ -1,13 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 import { Btn1 } from "../elements/Btn";
 
 import instance from "../api/api";
 import { setCookie } from "../api/cookie";
+import Alert1, { Alert0 } from "../elements/Alert";
 
 const Login = () => {
   const nav = useNavigate();
@@ -24,29 +24,9 @@ const Login = () => {
       // body로 전달받은 토큰을 쿠키에 저장하기
       setCookie("accessToken", res.data.accessToken);
       setCookie("refreshToken", res.data.refreshToken);
-
-      if (res.status === 200) {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: `${data?.userId}님 환영합니다.`,
-          width: 350,
-          height: 200,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        nav("/");
-      }
+      Alert1(`${res.data.nickname}님 반갑습니다.`);
     } catch (error) {
-      Swal.fire({
-        position: "center",
-        icon: "warning",
-        title: `아이디 또는 비밀번호가 일치하지 않습니다.`,
-        width: 350,
-        height: 200,
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      Alert0("아이디 또는 비밀번호가 일치하지 않습니다.");
     }
   };
 

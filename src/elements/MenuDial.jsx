@@ -78,7 +78,7 @@ export function MenuDial1() {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ color: "black" }}
+        sx={{ color: "black", padding: "0", minWidth: "0" }}
       >
         <MoreVertIcon />
       </Button>
@@ -122,7 +122,7 @@ export function MenuDial2() {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ color: "black" }}
+        sx={{ color: "black", padding: "0", minWidth: "0" }}
       >
         {menu}
         <ExpandMoreIcon />

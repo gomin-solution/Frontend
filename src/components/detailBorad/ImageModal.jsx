@@ -3,7 +3,6 @@ import Modal from "@mui/material/Modal";
 import styled from "styled-components";
 
 export default function ImageModal({ modalOpen, closeModal, img }) {
-  console.log(img);
   return (
     <div>
       <Modal

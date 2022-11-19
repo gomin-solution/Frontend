@@ -2,23 +2,20 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { MenuDial3 } from "../../elements/MenuDial";
 import styled from "styled-components";
 
-function DetailComment() {
+function DetailComment({ item }) {
+  console.log(item);
   return (
     <StcommentBox>
       <StcommentUser>
-        <img src="/userpic.png" alt="프로필사진" className="userimg" />
-        <div className="username">닉네임</div>
+        <img src={item.userImg} alt="프로필사진" className="userimg" />
+        <div className="username">{item.nickname}</div>
         <div className="usermenu">
           <MenuDial3 />
         </div>
       </StcommentUser>
-      <StCommentText>
-        옷을 이상의 충분히 지혜는 위하여서. 발휘하기 옷을 찾아 긴지라 아니다.
-        옷을 이상의 충분히 지혜는 위하여서. 발휘하기 옷을 찾아 긴지라 아니다.
-        옷을 이상의 충분히 지혜는 위하여서. 발휘하기 옷을 찾아 긴지라 아니다.
-      </StCommentText>
+      <StCommentText>{item.comment}</StCommentText>
       <StCommentDiv>
-        <p>2020.20.20</p>
+        <p>{item.createdAt.slice(0, 10)}</p>
         <div className="heart">
           <span>4554</span>
           <FavoriteBorderIcon fontSize="small" />

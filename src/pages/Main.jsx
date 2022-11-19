@@ -1,4 +1,3 @@
-import React from "react";
 import { Header3 } from "../elements/Header";
 import Footer from "../elements/Footer";
 import a from "../image/banner/a.png";

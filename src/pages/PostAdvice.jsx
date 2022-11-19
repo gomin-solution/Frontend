@@ -107,15 +107,9 @@ function AdvicePost() {
             {imagePreview.length > 0
               ? imagePreview?.map((img) => {
                   return (
-                    <div key={img}>
-                      <Stprevimg onClick={handle(img)}>
-                        <img
-                          className="preimg"
-                          src={img}
-                          alt="이미지 미리보기"
-                        />
-                      </Stprevimg>
-                    </div>
+                    <Stprevimg onClick={handle(img)} key={img}>
+                      <img className="preimg" src={img} alt="이미지 미리보기" />
+                    </Stprevimg>
                   );
                 })
               : null}

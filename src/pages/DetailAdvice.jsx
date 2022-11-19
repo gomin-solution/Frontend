@@ -17,20 +17,15 @@ function DetailAdvice() {
 
   const resBoard = data?.data.data;
   const resComment = data?.data.data.comment;
+  const [check, setCheck] = useState(false);
 
   //토큰 디코딩해서 비교
   const decode = () => {
     const key = decodeCookie("accessToken").userKey;
     if (key === resBoard?.userKey) {
-      console.log("나야");
+      setCheck(true);
     }
   };
-
-  useEffect(() => {
-    if (getCookie("accessToken") !== undefined) {
-      decode();
-    }
-  }, []);
 
   const adviceCategory = [
     { topic: "여행", categoryId: 1 },
@@ -66,24 +61,30 @@ function DetailAdvice() {
     setModalOpen(true);
   };
 
+  useEffect(() => {
+    if (getCookie("accessToken") !== undefined) {
+      decode();
+    }
+  }, []);
+
   return (
     <>
       <Header1 title={"고민접기"} />
       <Stcontainer>
         <StUser>
-          <img src={resBoard?.userImage} alt="프로필사진" className="userimg" />
+          <img src={resBoard?.userImage} alt="" className="userimg" />
           <p>{resBoard?.nickname}</p>
           <StMenu>
             <MenuDial3 />
           </StMenu>
         </StUser>
+
         <StBoardBox>
           <span style={{ fontWeight: "800" }}>
             [{adviceCategory[resBoard?.categoryId - 1]?.topic}]
           </span>
           <span style={{ marginLeft: "0.5rem" }}>{resBoard?.title}</span>
           <p>{resBoard?.content}</p>
-
           <StImgBox>
             {resBoard?.adviceImage.map((img) => {
               return (

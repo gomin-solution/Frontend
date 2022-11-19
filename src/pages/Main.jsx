@@ -6,7 +6,7 @@ import b from "../image/banner/b.png";
 import c from "../image/banner/c.png";
 
 import styled from "styled-components";
-import { decodeCookie } from "../api/cookie";
+import { decodeCookie, getCookie } from "../api/cookie";
 import { useRecoilState } from "recoil";
 
 // Import Swiper React components
@@ -25,8 +25,10 @@ function Main() {
   //토큰 디코딩해서 전역관리하기
   const [decoding, setDecoding] = useRecoilState(decodeUser);
   const decode = () => {
-    let key = decodeCookie("accessToken").userKey;
-    setDecoding(key);
+    if (getCookie == !undefined) {
+      let key = decodeCookie("accessToken").userKey;
+      setDecoding(key);
+    }
   };
 
   useEffect(() => {

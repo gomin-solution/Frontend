@@ -24,6 +24,7 @@ export const useChoiceInfiniteScroll = () => {
   return { getChoice, fetchNextPage, isSuccess, hasNextPage };
 };
 
+// useCallback으로 categoryId가 변경될 때마다getAdviceScroll 실행
 /* advice infinite scroll get */
 export const useAdviceInfiniteScroll = (categoryId) => {
   console.log("categoryId", categoryId);

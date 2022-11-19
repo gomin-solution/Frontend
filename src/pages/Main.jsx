@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Header3 } from "../elements/Header";
 import Footer from "../elements/Footer";
 import Banner from "../components/main/Banner";
@@ -7,19 +7,30 @@ import DailyMessage from "../components/main/DailyMessage";
 import styled from "styled-components";
 import AnswerAndBookmark from "../components/main/AnswerAndBookmark";
 import TotalCount from "../components/main/TotalCount";
+import { useQuery } from "react-query";
+import { getMain } from "../api/mainApi";
 
 function Main() {
+  const { data } = useQuery("getMain", getMain, {
+    refetchOnWindowFocus: false,
+  });
+  const recommend = data?.data.advice;
+  const totalCount = data?.data.totalCount;
+
+  console.log("recommend", recommend);
+  console.log("totalCount", totalCount);
+
   return (
     <>
       <Header3 title={"메인페이지"} />
       <StContainer>
         <Banner />
         <StPaddingWrap>
-          <Recommend />
+          <Recommend recommend={recommend} />
           <StHr />
           <DailyMessage />
           <AnswerAndBookmark />
-          <TotalCount />
+          <TotalCount totalCount={totalCount} />
         </StPaddingWrap>
       </StContainer>
       <Footer title={"메인"} />

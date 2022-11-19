@@ -10,8 +10,8 @@ const AnswerAndBookmark = () => {
 
   return (
     <>
-      {lists.map((list) => (
-        <StContainer>
+      {lists.map((list, idx) => (
+        <StContainer key={idx}>
           {list.title}
           <KeyboardArrowRightIcon />
         </StContainer>

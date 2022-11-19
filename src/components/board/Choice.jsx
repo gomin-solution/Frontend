@@ -11,6 +11,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { bookmark, postChoice } from "../../api/boardApi";
 import { useChoiceInfiniteScroll } from "../../api/boardApi";
 import Alert1 from "../../elements/Alert";
+import { MenuDial1 } from "../../elements/MenuDial";
 
 const Choice = () => {
   const queryClient = useQueryClient();
@@ -114,19 +115,22 @@ const Choice = () => {
                         />
                         <span>{choice.nickname}</span>
                       </div>
-                      {!choice?.isBookMark ? (
-                        <BookmarkBorderIcon
-                          style={{ cursor: "pointer" }}
-                          value={isBookMark}
-                          onClick={() => bookmarkChange(choice.choiceId)}
-                        />
-                      ) : (
-                        <BookmarkIcon
-                          style={{ cursor: "pointer" }}
-                          value={isBookMark}
-                          onClick={() => bookmarkChange(choice.choiceId)}
-                        />
-                      )}
+                      <StIconWrap>
+                        {!choice?.isBookMark ? (
+                          <BookmarkBorderIcon
+                            style={{ cursor: "pointer" }}
+                            value={isBookMark}
+                            onClick={() => bookmarkChange(choice.choiceId)}
+                          />
+                        ) : (
+                          <BookmarkIcon
+                            style={{ cursor: "pointer" }}
+                            value={isBookMark}
+                            onClick={() => bookmarkChange(choice.choiceId)}
+                          />
+                        )}
+                        <MenuDial1 />
+                      </StIconWrap>
                     </StChoiceTextWrap>
                     <StChoiceName>{choice.title}</StChoiceName>
                     <StTextWrap2>
@@ -231,6 +235,11 @@ const Stimg = styled.img`
   width: 1.5rem;
   height: 1.5rem;
   margin-right: ${(props) => props.theme.margins.xxsm};
+`;
+
+const StIconWrap = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const StChoiceWrap = styled.div`

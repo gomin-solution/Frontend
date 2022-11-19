@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { Switch } from "@mui/material";
 import { Header5 } from "../elements/Header";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
-import ClearIcon from "@mui/icons-material/Clear";
+import ImageModal from "../components/detailBorad/ImageModal";
 
 import { addAdvice } from "../api/postApi";
 import { useMutation } from "react-query";
@@ -41,6 +41,10 @@ function AdvicePost() {
   const previmg = watch("image");
 
   useEffect(() => {
+    if (previmg && previmg.length > 3) {
+      alert("사진은 3장만 가능합니다.");
+      return;
+    }
     if (previmg && previmg.length > 0) {
       let images = [];
       for (let i = 0; i < previmg.length; i++) {
@@ -53,13 +57,20 @@ function AdvicePost() {
   // 모달창 노출 여부 state
   const [modalOpen, setModalOpen] = useState(false);
 
+  const [selectImg, setSelectImg] = useState(null);
+
   // 모달창 노출
-  const showModal = () => {
-    setModalOpen(true);
+  const handle = (img) => () => {
+    showModal();
+    setSelectImg(img);
   };
 
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  const showModal = () => {
+    setModalOpen(true);
   };
 
   return (
@@ -99,8 +110,8 @@ function AdvicePost() {
                   console.log("img", img);
                   console.log("idx", idx);
                   return (
-                    <div key={idx}>
-                      <Stprevimg>
+                    <div key={img}>
+                      <Stprevimg onClick={handle(img)}>
                         <img
                           onClick={showModal}
                           className="preimg"
@@ -108,20 +119,17 @@ function AdvicePost() {
                           alt="이미지 미리보기"
                         />
                       </Stprevimg>
-                      {modalOpen && (
-                        <StBigPrev key={idx}>
-                          <ClearIcon className="clear" onClick={closeModal} />
-                          <img
-                            className="bigImg"
-                            src={img}
-                            alt="이미지 미리보기"
-                          />
-                        </StBigPrev>
-                      )}
                     </div>
                   );
                 })
               : null}
+            {modalOpen && (
+              <ImageModal
+                modalOpen={modalOpen}
+                closeModal={closeModal}
+                img={selectImg}
+              />
+            )}
           </div>
         </Stcontent>
         <StAdult>참여자 연령선택</StAdult>
@@ -232,30 +240,4 @@ const StAdult = styled.p`
 const StCheckAdult = styled.div`
   font-size: ${(props) => props.theme.fontSizes.sm};
   margin-bottom: 1.5rem;
-`;
-
-/*이미지 미리보기 크게 */
-const StBigPrev = styled.div`
-  z-index: 100;
-  width: 100%;
-  height: 100%;
-
-  position: absolute;
-
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-
-  .clear {
-    position: absolute;
-    z-index: 102;
-
-    color: #ffffff;
-    cursor: pointer;
-    top: 1rem;
-    right: 1rem;
-  }
 `;

@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { useAdviceInfiniteScroll } from "../../api/boardApi";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { MenuDial2 } from "../../elements/MenuDial";
 
 const Advice = () => {
   /* filter 적용 */
@@ -28,6 +29,7 @@ const Advice = () => {
     <StContainer>
       <StNavWrap>
         <Category setCategoryId={setCategoryId} />
+        <MenuDial2 />
       </StNavWrap>
       <StListWrap>
         {isSuccess && getAdvice?.pages

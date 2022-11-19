@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-const TotalCount = () => {
+const TotalCount = ({ totalCount }) => {
   return (
     <StContainer>
       <div style={{ fontSize: "1.5rem" }}>누적 고민접기 완료 수</div>
-      <div style={{ fontSize: "3rem", fontWeight: "600" }}> 563</div>
+      <div style={{ fontSize: "3rem", fontWeight: "600" }}>{totalCount}</div>
     </StContainer>
   );
 };

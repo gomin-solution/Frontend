@@ -17,10 +17,17 @@ export const useChoiceInfiniteScroll = () => {
     fetchNextPage,
     isSuccess,
     hasNextPage,
-  } = useInfiniteQuery(["getChoiceScroll"], getChoiceScroll, {
-    getNextPageParam: (lastPage, pages) =>
-      lastPage.choices[0] ? lastPage.currentPage + 1 : undefined,
-  });
+  } = useInfiniteQuery(
+    ["getChoiceScroll"],
+    getChoiceScroll,
+    {
+      getNextPageParam: (lastPage, pages) =>
+        lastPage.choices[0] ? lastPage.currentPage + 1 : undefined,
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
   return { getChoice, fetchNextPage, isSuccess, hasNextPage };
 };
 
@@ -53,15 +60,15 @@ export const useAdviceInfiniteScroll = (categoryId) => {
 
 /* choice 선택 시 post */
 export const postChoice = async (payload) => {
-  const res = await instance.put(`/choice/${payload.choiceId}`, payload);
+  const res = await instance.put(`/choice/${payload.choiceId}`, {
+    choiceNum: +payload.choiceNum,
+  });
   return res;
 };
 
 /* bookmark 선택 시 put */
-export const bookmark = async (payload) => {
-  const res = await instance.put(
-    `bookmark/choice/${payload.choiceId}`,
-    payload
-  );
+export const bookmark = async (choiceId) => {
+  console.log("choiceId", choiceId);
+  const res = await instance.put(`bookmark/choice/${choiceId}`);
   return res;
 };

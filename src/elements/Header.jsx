@@ -6,6 +6,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Alert5 } from "./Alert";
 
 /*이전 버튼 + 제목바 */
 export function Header1({ title }) {
@@ -105,6 +106,21 @@ export function Header5({ title }) {
   );
 }
 
+/* 로고 + 로그인 */
+export function Header6() {
+  const nav = useNavigate();
+  const loginHandler = () => {
+    nav("/login");
+  };
+
+  return (
+    <StBlock>
+      <StLogo>로고</StLogo>
+      <StLogin onClick={loginHandler}>로그인</StLogin>
+    </StBlock>
+  );
+}
+
 //스타일컴포넌트
 /*전체 블록*/
 const StBlock = styled.div`
@@ -176,4 +192,11 @@ const StSearch = styled.input`
   height: 2rem;
   padding-left: ${(props) => props.theme.paddings.xsm};
   border: none;
+`;
+
+/* 로그인 */
+const StLogin = styled.div`
+  cursor: pointer;
+  position: absolute;
+  right: 2rem;
 `;

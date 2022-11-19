@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Header5 } from "../elements/Header";
-import { Alert2 } from "../elements/Alert";
+import { Alert0, Alert3 } from "../elements/Alert";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import instance from "../api/api";
 
@@ -22,9 +22,6 @@ const Signup = () => {
     watch,
   } = useForm();
 
-  /* id 변수에 키 값 할당 */
-  const userId = watch("userId");
-
   /* password 변수에 키 값 할당 */
   const password = watch("password");
 
@@ -38,11 +35,10 @@ const Signup = () => {
     try {
       const res = await instance.post("/signup", data);
       if (res.status === 200) {
-        Alert2(`${userId}님 가입을 환영합니다.`);
-        nav("/login");
+        Alert3(`${data?.userId}님\n환영합니다.`);
       }
     } catch (error) {
-      Alert2("중복확인을 다시 진행해주세요.");
+      Alert0("중복확인을 다시 진행해주세요.");
     }
   };
 
@@ -52,11 +48,11 @@ const Signup = () => {
     await instance
       .post("/signup/check", { userId: userId })
       .then(() => {
-        Alert2("사용가능한 아이디입니다.");
+        Alert0("사용가능한 아이디입니다.");
         setIdDub(true);
       })
       .catch(() => {
-        Alert2("중복된 아이디입니다.");
+        Alert0("중복된 아이디입니다.");
       });
   };
 
@@ -66,11 +62,11 @@ const Signup = () => {
     await instance
       .post("/signup/check", { nickname: nickname })
       .then(() => {
-        Alert2("사용가능한 닉네임입니다.");
+        Alert0("사용가능한 닉네임입니다.");
         setNickDub(true);
       })
       .catch(() => {
-        Alert2("중복된 닉네임입니다.");
+        Alert0("중복된 닉네임입니다.");
       });
   };
 

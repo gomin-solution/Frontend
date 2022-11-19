@@ -24,7 +24,7 @@ const Recommend = ({ recommend }) => {
         <StInnerWrap>
           <StLeftText>추천글</StLeftText>
           <span style={{ color: "#7999FF" }}>
-            [{categories[recommend?.categoryId].topic}]
+            [{categories[recommend?.categoryId]?.topic}]
           </span>
           <span>&nbsp;{recommend?.title}</span>
         </StInnerWrap>

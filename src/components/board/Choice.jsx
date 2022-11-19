@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Moment from "react-moment";
 import "moment/locale/ko";
 import { useMutation, useQueryClient } from "react-query";
@@ -10,7 +10,6 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { bookmark, postChoice } from "../../api/boardApi";
 import { useChoiceInfiniteScroll } from "../../api/boardApi";
-import Alert1 from "../../elements/Alert";
 import { MenuDial1 } from "../../elements/MenuDial";
 
 const Choice = () => {
@@ -22,30 +21,13 @@ const Choice = () => {
   /* 사용자가 div 요소를 보면 inView가 true, 안보면 false로 자동으로 변경 */
   const { ref, inView } = useInView();
 
-  /* 북마크 클릭 */
-  const [isBookMark, setIsBookMark] = useState(false);
-
-  /* 골라주기 선택 시 payload 설정을 위한 useState 작성 */
-  const [choiceNum, setChoiceNum] = useState(0);
-  const [isChoice, setIsChoice] = useState(false);
-  const [postChoiceId, setPostChoiceId] = useState(0);
-  // const [choicesPost, setChoicesPost] = useState({
-  //   choiceNum: 0,
-  //   isChoice: false,
-  //   postChoiceId: 0,
-  // })
-
   /* 골라주기 선택 시 put */
-  const choiceSubmit = async (e, choiceId) => {
+  const choiceSubmit = async (e, choice) => {
     e.preventDefault();
-    // setChoicesPost({
-    //   choiceNum(e.target.value),
-    //   isChoice((prev) => !prev),
-    //   postChoiceId(choiceId),
-    // })
-    setChoiceNum(Number(e.target.value));
-    setIsChoice(!isChoice);
-    setPostChoiceId(choiceId);
+    choiceMutation.mutate({
+      choiceNum: e.target.value,
+      choiceId: choice.choiceId,
+    });
   };
 
   /* 골라주기 mutation */
@@ -55,9 +37,9 @@ const Choice = () => {
     },
   });
 
+  /* 북마크 선택 시 put */
   const bookmarkChange = (choiceId) => {
-    setIsBookMark(!isBookMark);
-    setPostChoiceId(choiceId);
+    bookmarkMutation.mutate(choiceId);
   };
 
   /* 북마크 mutation */
@@ -73,27 +55,6 @@ const Choice = () => {
       fetchNextPage();
     }
   }, [inView]);
-
-  /* useEffect를 사용하여 setState값 할당 후 서버와 통신 (골라주기 선택) */
-  useEffect(() => {
-    if (choiceNum !== 0) {
-      choiceMutation.mutate({
-        choiceId: postChoiceId,
-        choiceNum,
-        isChoice,
-      });
-    }
-  }, [isChoice]);
-
-  /* useEffect를 사용하여 setState값 할당 후 서버와 통신 (북마크) */
-  useEffect(() => {
-    if (postChoiceId !== 0) {
-      bookmarkMutation.mutate({
-        choiceId: postChoiceId,
-        isBookMark,
-      });
-    }
-  }, [isBookMark]);
 
   return (
     <StContainer>
@@ -119,13 +80,11 @@ const Choice = () => {
                         {!choice?.isBookMark ? (
                           <BookmarkBorderIcon
                             style={{ cursor: "pointer" }}
-                            value={isBookMark}
                             onClick={() => bookmarkChange(choice.choiceId)}
                           />
                         ) : (
                           <BookmarkIcon
                             style={{ cursor: "pointer" }}
-                            value={isBookMark}
                             onClick={() => bookmarkChange(choice.choiceId)}
                           />
                         )}
@@ -162,14 +121,14 @@ const Choice = () => {
                     {!choice.isChoice ? (
                       <StChoiceWrap>
                         <StChoiceBtn
-                          onClick={(e) => choiceSubmit(e, choice.choiceId)}
+                          onClick={(e) => choiceSubmit(e, choice)}
                           value="1"
                           backColor="#9F9F9F"
                         >
                           1번
                         </StChoiceBtn>
                         <StChoiceBtn
-                          onClick={(e) => choiceSubmit(e, choice.choiceId)}
+                          onClick={(e) => choiceSubmit(e, choice)}
                           value="2"
                           backColor="#6D6D6D"
                         >

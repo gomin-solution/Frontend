@@ -72,3 +72,15 @@ export const bookmark = async (choiceId) => {
   const res = await instance.put(`bookmark/choice/${choiceId}`);
   return res;
 };
+
+/* 상세페이지 정보 get*/
+export const detail = async (payload) => {
+  const res = await instance.get(`/advice/${payload}`);
+  return res;
+};
+
+/* 답해주기 bookmark 선택 시 put */
+export const AdBookmark = async (payload) => {
+  const res = await instance.put(`bookmark/advice/${payload}`);
+  return res;
+};

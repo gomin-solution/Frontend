@@ -110,16 +110,9 @@ function AdvicePost() {
                   console.log("img", img);
                   console.log("idx", idx);
                   return (
-                    <div key={img}>
-                      <Stprevimg onClick={handle(img)}>
-                        <img
-                          onClick={showModal}
-                          className="preimg"
-                          src={img}
-                          alt="이미지 미리보기"
-                        />
-                      </Stprevimg>
-                    </div>
+                    <Stprevimg onClick={handle(img)} key={img}>
+                      <img className="preimg" src={img} alt="이미지 미리보기" />
+                    </Stprevimg>
                   );
                 })
               : null}

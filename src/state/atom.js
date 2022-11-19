@@ -5,7 +5,10 @@ export const searchResult = atom({
   default: {},
 });
 
-console.log(searchResult);
+export const decodeUser = atom({
+  key: "decodeUser",
+  default: 0,
+});
 
 /* 예시 */
 // export const boardAdvices = atom({

@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
-import { detail } from "../api/boardApi";
+import { AdBookmark, detail } from "../api/boardApi";
 import { decodeCookie, getCookie } from "../api/cookie";
+
+import styled from "styled-components";
 import DetailComment from "../components/detailBorad/DetailComment";
 import ImageModal from "../components/detailBorad/ImageModal";
 import { Header1 } from "../elements/Header";
 import { MenuDial3, MenuDial4 } from "../elements/MenuDial";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+
 function DetailAdvice() {
+  const queryClient = useQueryClient();
+
   const param = useParams();
   const adviceId = param.adviceId;
   const { data } = useQuery(["getDetail", adviceId], () => detail(adviceId), {
@@ -26,6 +32,17 @@ function DetailAdvice() {
       setCheck(true);
     }
   };
+
+  //북마크 기능
+  const bookmarkChange = (id) => {
+    bookmark.mutate(id);
+  };
+
+  const bookmark = useMutation(AdBookmark, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getDetail");
+    },
+  });
 
   const adviceCategory = [
     { topic: "여행", categoryId: 1 },
@@ -75,10 +92,20 @@ function DetailAdvice() {
           <img src={resBoard?.userImage} alt="" className="userimg" />
           <p>{resBoard?.nickname}</p>
           <StMenu>
+            {!resBoard?.isBookMark ? (
+              <BookmarkBorderIcon
+                style={{ cursor: "pointer" }}
+                onClick={() => bookmarkChange(resBoard?.adviceId)}
+              />
+            ) : (
+              <BookmarkIcon
+                style={{ cursor: "pointer" }}
+                onClick={() => bookmarkChange(resBoard?.adviceId)}
+              />
+            )}
             <MenuDial3 />
           </StMenu>
         </StUser>
-
         <StBoardBox>
           <span style={{ fontWeight: "800" }}>
             [{adviceCategory[resBoard?.categoryId - 1]?.topic}]
@@ -106,7 +133,7 @@ function DetailAdvice() {
             />
           )}
           <StBoxInfo>
-            <p>조회 0</p>
+            <p>조회 {resBoard?.viewCount}</p>
             <p style={{ position: "absolute", right: "1.5rem" }}>
               {resBoard?.createdAt.slice(0, 10)}
             </p>
@@ -150,8 +177,10 @@ const StUser = styled.div`
 
 /*메뉴 위치조정 */
 const StMenu = styled.div`
+  display: flex;
+  align-items: center;
   position: absolute;
-  right: 0rem;
+  right: 1rem;
 `;
 
 /*글 내용 박스 */

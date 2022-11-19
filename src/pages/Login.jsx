@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Btn1 } from "../elements/Btn";
 
 import instance from "../api/api";
-import { setCookie, decodeCookie } from "../api/cookie";
+import { setCookie } from "../api/cookie";
 
 const Login = () => {
   const nav = useNavigate();
@@ -24,9 +24,6 @@ const Login = () => {
       // body로 전달받은 토큰을 쿠키에 저장하기
       setCookie("accessToken", res.data.accessToken);
       setCookie("refreshToken", res.data.refreshToken);
-
-      const userID = decodeCookie("accessToken");
-      console.log(userID);
 
       if (res.status === 200) {
         Swal.fire({

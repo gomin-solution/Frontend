@@ -1,15 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { detail } from "../api/boardApi";
+import { decodeCookie, getCookie } from "../api/cookie";
 import DetailComment from "../components/detailBorad/DetailComment";
 import ImageModal from "../components/detailBorad/ImageModal";
 import { Header1 } from "../elements/Header";
 import { MenuDial3, MenuDial4 } from "../elements/MenuDial";
-import { decodeUser } from "../state/atom";
-
 function DetailAdvice() {
   const param = useParams();
   const adviceId = param.adviceId;
@@ -20,8 +18,19 @@ function DetailAdvice() {
   const resBoard = data?.data.data;
   const resComment = data?.data.data.comment;
 
-  //전역키값 불러오기
-  const isUser = useRecoilValue(decodeUser);
+  //토큰 디코딩해서 비교
+  const decode = () => {
+    const key = decodeCookie("accessToken").userKey;
+    if (key === resBoard?.userKey) {
+      console.log("나야");
+    }
+  };
+
+  useEffect(() => {
+    if (getCookie("accessToken") !== undefined) {
+      decode();
+    }
+  }, []);
 
   const adviceCategory = [
     { topic: "여행", categoryId: 1 },

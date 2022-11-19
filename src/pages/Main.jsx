@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { Header3 } from "../elements/Header";
 import Footer from "../elements/Footer";
 import a from "../image/banner/a.png";
@@ -6,8 +5,6 @@ import b from "../image/banner/b.png";
 import c from "../image/banner/c.png";
 
 import styled from "styled-components";
-import { decodeCookie, getCookie } from "../api/cookie";
-import { useRecoilState } from "recoil";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,22 +16,8 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
-import { decodeUser } from "../state/atom";
 
 function Main() {
-  //토큰 디코딩해서 전역관리하기
-  const [decoding, setDecoding] = useRecoilState(decodeUser);
-  const decode = () => {
-    if (getCookie == !undefined) {
-      let key = decodeCookie("accessToken").userKey;
-      setDecoding(key);
-    }
-  };
-
-  useEffect(() => {
-    decode();
-  }, []);
-
   return (
     <>
       <Header3 title={"메인페이지"} />

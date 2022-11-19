@@ -7,7 +7,7 @@ export const searchResult = atom({
 
 export const decodeUser = atom({
   key: "decodeUser",
-  default: "",
+  default: 0,
 });
 
 /* 예시 */

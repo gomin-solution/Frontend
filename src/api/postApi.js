@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import instance from "./api";
 
 /*투표하기 게시글 작성 */

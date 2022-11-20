@@ -27,7 +27,7 @@ function ChoicePost() {
 
   return (
     <form as="form" onSubmit={handleSubmit(onChoice)}>
-      <Header5 title={"글 작성"} />
+      <Header5 title={"고민 적기"} />
       <Stcontainer>
         <StLabel style={{ marginTop: "3rem" }}>고민</StLabel>
         <Stinput

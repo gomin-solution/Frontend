@@ -1,24 +1,53 @@
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { MenuDial3 } from "../../elements/MenuDial";
 import styled from "styled-components";
 
-function DetailComment({ item }) {
-  console.log(item);
+import { useMutation, useQueryClient } from "react-query";
+import { commentLike } from "../../api/detailApi";
+
+function DetailComment({ comment, user }) {
+  const queryClient = useQueryClient();
+
+  //댓글 좋아요
+  const likeChange = (id) => {
+    commentLikes.mutate(id);
+  };
+
+  const commentLikes = useMutation(commentLike, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getDetail");
+    },
+  });
+
+  //댓글 수정
+  //댓글 삭제
+
   return (
     <StcommentBox>
       <StcommentUser>
-        <img src={item.userImg} alt="프로필사진" className="userimg" />
-        <div className="username">{item.nickname}</div>
+        <img src={comment.userImg} alt="프로필사진" className="userimg" />
+        <div className="username">{comment.nickname}</div>
         <StMenu>
-          <MenuDial3 />
+          <MenuDial3 user={user} />
         </StMenu>
       </StcommentUser>
-      <StCommentText>{item.comment}</StCommentText>
+      <StCommentText>{comment.comment}</StCommentText>
       <StCommentDiv>
-        <p>{item.createdAt.slice(0, 10)}</p>
+        <p>{comment.createdAt.slice(0, 10)}</p>
         <div className="heart">
-          <span>4554</span>
-          <FavoriteBorderIcon fontSize="small" />
+          <span>{comment.likeCount}</span>
+          {comment.isLike ? (
+            <FavoriteIcon
+              fontSize="small"
+              onClick={() => likeChange(comment.commentId)}
+            />
+          ) : (
+            <FavoriteBorderIcon
+              fontSize="small"
+              onClick={() => likeChange(comment.commentId)}
+            />
+          )}
         </div>
       </StCommentDiv>
     </StcommentBox>

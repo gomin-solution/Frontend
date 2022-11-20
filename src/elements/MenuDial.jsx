@@ -151,9 +151,8 @@ export function MenuDial2() {
 /*남 : 쪽지하기, 신고하기*/
 /*본인 : 수정, 삭제 */
 export function MenuDial3({ user }) {
-  console.log("유저키", user);
   const [anchorEl, setAnchorEl] = useState(null);
-  //유저 판단하기
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -184,20 +183,21 @@ export function MenuDial3({ user }) {
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem onClick={handleClose}>수정</MenuItem>
-          <MenuItem onClick={handleClose}>삭제</MenuItem>
+          <MenuItem>수정</MenuItem>
+          <MenuItem>삭제</MenuItem>
         </Menu>
       ) : (
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}
           open={open}
+          onClose={handleClose}
           MenuListProps={{
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem onClick={handleClose}>쪽지하기</MenuItem>
-          <MenuItem onClick={handleClose}>신고하기</MenuItem>
+          <MenuItem>쪽지하기</MenuItem>
+          <MenuItem>신고하기</MenuItem>
         </Menu>
       )}
     </StDiv>

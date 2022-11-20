@@ -74,7 +74,7 @@ function AdvicePost() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-      <Header5 title={"글 작성"} />
+      <Header5 title={"고민 적기"} />
       <Stcontainer>
         <StCate>{cate.topic}</StCate>
         <Stinput

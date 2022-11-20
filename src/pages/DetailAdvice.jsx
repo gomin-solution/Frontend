@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
-import { AdBookmark, detail } from "../api/boardApi";
+import { adBookmark, commentAdvice, detail } from "../api/detailApi";
 import { decodeCookie, getCookie } from "../api/cookie";
 
 import styled from "styled-components";
@@ -11,6 +11,8 @@ import { Header1 } from "../elements/Header";
 import { MenuDial3, MenuDial4 } from "../elements/MenuDial";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
+import { useForm } from "react-hook-form";
 
 function DetailAdvice() {
   const queryClient = useQueryClient();
@@ -18,6 +20,7 @@ function DetailAdvice() {
   const param = useParams();
   const adviceId = param.adviceId;
 
+  //상세페이지 정보 가져오기
   const { data } = useQuery(["getDetail", adviceId], () => detail(adviceId), {
     refetchOnWindowFocus: false,
   });
@@ -26,12 +29,26 @@ function DetailAdvice() {
   const resComment = data?.data.data.comment;
   const [user, setUser] = useState(false);
 
+  //댓글 작성
+  const { register, handleSubmit, reset } = useForm();
+
+  const onSubmitComment = (comment) => {
+    adviceComment.mutate({ adviceId: adviceId, comment });
+    reset();
+  };
+
+  const adviceComment = useMutation(commentAdvice, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getDetail");
+    },
+  });
+
   //북마크 기능
   const bookmarkChange = (id) => {
     bookmark.mutate(id);
   };
 
-  const bookmark = useMutation(AdBookmark, {
+  const bookmark = useMutation(adBookmark, {
     onSuccess: () => {
       queryClient.invalidateQueries("getDetail");
     },
@@ -82,7 +99,7 @@ function DetailAdvice() {
 
   return (
     <>
-      <Header1 title={"고민접기"} />
+      <Header1 title={"고민 적기"} />
       <Stcontainer>
         <StUser>
           <img src={resBoard?.userImage} alt="" className="userimg" />
@@ -140,10 +157,27 @@ function DetailAdvice() {
 
           <MenuDial4 />
         </StCommentSet>
-        {resComment?.map((item) => {
-          return <DetailComment key={item.commentId} item={item} />;
+        {resComment?.map((comment) => {
+          return (
+            <DetailComment
+              key={comment.commentId}
+              comment={comment}
+              user={user}
+            />
+          );
         })}
       </Stcontainer>
+      <StCommentform onSubmit={handleSubmit(onSubmitComment)}>
+        <input
+          type="text"
+          required
+          {...register("comment")}
+          placeholder="답변해주기"
+        />
+        <button>
+          <SendOutlinedIcon />
+        </button>
+      </StCommentform>
     </>
   );
 }
@@ -214,4 +248,29 @@ const StCommentSet = styled.div`
   align-items: center;
   margin: 1rem 0;
   justify-content: space-between;
+`;
+
+const StCommentform = styled.form`
+  width: 100%;
+  height: 3rem;
+  padding: 1rem 0.6rem;
+
+  position: absolute;
+  bottom: 0px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: #dce7e7;
+  border: none;
+
+  input {
+    border: none;
+    width: 100%;
+    background-color: transparent;
+  }
+  button {
+    display: flex;
+  }
 `;

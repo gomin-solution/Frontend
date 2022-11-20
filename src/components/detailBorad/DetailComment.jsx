@@ -9,9 +9,9 @@ function DetailComment({ item }) {
       <StcommentUser>
         <img src={item.userImg} alt="프로필사진" className="userimg" />
         <div className="username">{item.nickname}</div>
-        <div className="usermenu">
+        <StMenu>
           <MenuDial3 />
-        </div>
+        </StMenu>
       </StcommentUser>
       <StCommentText>{item.comment}</StCommentText>
       <StCommentDiv>
@@ -34,6 +34,12 @@ const StcommentBox = styled.div`
   margin-bottom: ${(props) => props.theme.margins.xxsm};
 `;
 
+/*메뉴 위치조정 */
+const StMenu = styled.div`
+  position: absolute;
+  right: 2rem;
+`;
+
 /*댓글 유저 정보 */
 const StcommentUser = styled.div`
   display: flex;
@@ -42,11 +48,6 @@ const StcommentUser = styled.div`
   .username {
     margin-left: ${(props) => props.theme.margins.sm};
     font-size: ${(props) => props.theme.fontSizes.sm};
-  }
-
-  .usermenu {
-    position: absolute;
-    right: 0rem;
   }
 `;
 
@@ -70,7 +71,8 @@ const StCommentDiv = styled.div`
     align-items: center;
     color: #ff5449;
     span {
-      margin-right: 0.5rem;
+      margin-right: 0.3rem;
+      margin-bottom: 0.15rem;
     }
   }
 `;

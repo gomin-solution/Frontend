@@ -40,14 +40,14 @@ function ChoicePost() {
         <StLabel style={{ marginTop: "4rem" }}>선택지 추가</StLabel>
         <Stinput
           type="text"
-          placeholder="선택지1"
+          placeholder="선택지1 (10자이내)"
           maxLength={10}
           required
           {...register("choice1Name")}
         />
         <Stinput
           type="text"
-          placeholder="선택지2"
+          placeholder="선택지2 (10자이내)"
           maxLength={10}
           required
           {...register("choice2Name")}
@@ -62,7 +62,7 @@ function ChoicePost() {
           {...register("endTime")}
         />
         <p style={{ marginTop: "1.5rem" }}>
-          한번 작성한 게시물은 수정할 수 없습니다.
+          한번 작성한 골라주기 글은 수정할 수 없습니다.
         </p>
       </Stcontainer>
     </form>

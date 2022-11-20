@@ -133,21 +133,20 @@ const StBlock = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: center;
   background-color: ${(props) => props.theme.boxColors.bg};
 `;
 
 /*제목바*/
 const StTitle = styled.div`
-  font-size: ${(props) => props.theme.fontSizes.xxl};
-  font-weight: ${(props) => props.theme.fontWeights.base};
+  margin-left: 1rem;
+  font-size: ${(props) => props.theme.fontSizes.xl};
+  font-weight: ${(props) => props.theme.fontWeights.xl};
 `;
 
 /*뒤로가기 아이콘 */
 const StBackcon = styled(ArrowBackIosNewIcon)`
   cursor: pointer;
-  position: absolute;
-  left: 2rem;
+  margin-left: 2rem;
 `;
 
 /*돋보기 아이콘*/

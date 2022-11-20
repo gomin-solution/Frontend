@@ -17,21 +17,14 @@ function DetailAdvice() {
 
   const param = useParams();
   const adviceId = param.adviceId;
+
   const { data } = useQuery(["getDetail", adviceId], () => detail(adviceId), {
     refetchOnWindowFocus: false,
   });
 
   const resBoard = data?.data.data;
   const resComment = data?.data.data.comment;
-  const [check, setCheck] = useState(false);
-
-  //토큰 디코딩해서 비교
-  const decode = () => {
-    const key = decodeCookie("accessToken").userKey;
-    if (key === resBoard?.userKey) {
-      setCheck(true);
-    }
-  };
+  const [user, setUser] = useState(false);
 
   //북마크 기능
   const bookmarkChange = (id) => {
@@ -65,7 +58,6 @@ function DetailAdvice() {
 
   // 모달창 노출
   const handle = (img) => () => {
-    console.log(img);
     showModal();
     setSelectImg(img);
   };
@@ -78,11 +70,15 @@ function DetailAdvice() {
     setModalOpen(true);
   };
 
+  //토큰 디코딩해서 비교
   useEffect(() => {
     if (getCookie("accessToken") !== undefined) {
-      decode();
+      const key = decodeCookie("accessToken").userKey;
+      if (key === resBoard?.userKey) {
+        setUser(true);
+      }
     }
-  }, []);
+  }, [resBoard]);
 
   return (
     <>
@@ -94,16 +90,16 @@ function DetailAdvice() {
           <StMenu>
             {!resBoard?.isBookMark ? (
               <BookmarkBorderIcon
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", marginRight: "0.5rem" }}
                 onClick={() => bookmarkChange(resBoard?.adviceId)}
               />
             ) : (
               <BookmarkIcon
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", marginRight: "0.5rem" }}
                 onClick={() => bookmarkChange(resBoard?.adviceId)}
               />
             )}
-            <MenuDial3 />
+            <MenuDial3 user={user} />
           </StMenu>
         </StUser>
         <StBoardBox>
@@ -141,9 +137,8 @@ function DetailAdvice() {
         </StBoardBox>
         <StCommentSet>
           <p>답변 {resBoard?.commentCount}</p>
-          <StMenu>
-            <MenuDial4 />
-          </StMenu>
+
+          <MenuDial4 />
         </StCommentSet>
         {resComment?.map((item) => {
           return <DetailComment key={item.commentId} item={item} />;
@@ -180,7 +175,7 @@ const StMenu = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  right: 1rem;
+  right: 2rem;
 `;
 
 /*글 내용 박스 */
@@ -218,4 +213,5 @@ const StCommentSet = styled.div`
   display: flex;
   align-items: center;
   margin: 1rem 0;
+  justify-content: space-between;
 `;

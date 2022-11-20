@@ -34,6 +34,7 @@ function DetailAdvice() {
 
   const onSubmitComment = (comment) => {
     adviceComment.mutate({ adviceId: adviceId, comment });
+    //댓글 비워주기
     reset();
   };
 
@@ -43,12 +44,8 @@ function DetailAdvice() {
     },
   });
 
-  //북마크 기능
-  const bookmarkChange = (id) => {
-    bookmark.mutate(id);
-  };
-
-  const bookmark = useMutation(adBookmark, {
+  //북마크 실행,취소
+  const { mutate } = useMutation(adBookmark, {
     onSuccess: () => {
       queryClient.invalidateQueries("getDetail");
     },
@@ -108,12 +105,12 @@ function DetailAdvice() {
             {!resBoard?.isBookMark ? (
               <BookmarkBorderIcon
                 style={{ cursor: "pointer", marginRight: "0.5rem" }}
-                onClick={() => bookmarkChange(resBoard?.adviceId)}
+                onClick={() => mutate(resBoard?.adviceId)}
               />
             ) : (
               <BookmarkIcon
                 style={{ cursor: "pointer", marginRight: "0.5rem" }}
-                onClick={() => bookmarkChange(resBoard?.adviceId)}
+                onClick={() => mutate(resBoard?.adviceId)}
               />
             )}
             <MenuDial3 user={user} />

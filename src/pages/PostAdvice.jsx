@@ -31,7 +31,6 @@ function AdvicePost() {
     formData.append("categoryId", cate.categoryId);
 
     wrtieAdvice.mutate(formData);
-    nav("/board");
   };
 
   const wrtieAdvice = useMutation(addAdvice);

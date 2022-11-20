@@ -29,7 +29,7 @@ function ChoicePost() {
     <form as="form" onSubmit={handleSubmit(onChoice)}>
       <Header5 title={"고민 적기"} />
       <Stcontainer>
-        <StLabel style={{ marginTop: "3rem" }}>고민</StLabel>
+        <StLabel style={{ marginTop: "3rem" }}>제목</StLabel>
         <Stinput
           type="text"
           placeholder="고민을 적어주세요. (50자 이내)"
@@ -52,7 +52,7 @@ function ChoicePost() {
           required
           {...register("choice2Name")}
         />
-        <StLabel style={{ marginTop: "3rem" }}>마감시간</StLabel>
+        <StLabel style={{ marginTop: "3rem" }}>마감 시간</StLabel>
         <Stinput
           type="datetime-local"
           defaultValue={nowTime}

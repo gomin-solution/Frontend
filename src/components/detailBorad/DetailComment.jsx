@@ -1,6 +1,6 @@
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { MenuDial3 } from "../../elements/MenuDial";
+import { MenuDial5 } from "../../elements/MenuDial";
 import styled from "styled-components";
 
 import { useMutation, useQueryClient } from "react-query";
@@ -29,7 +29,7 @@ function DetailComment({ comment, user }) {
         <img src={comment.userImg} alt="프로필사진" className="userimg" />
         <div className="username">{comment.nickname}</div>
         <StMenu>
-          <MenuDial3 user={user} />
+          <MenuDial5 user={user} id={comment.commentId} />
         </StMenu>
       </StcommentUser>
       <StCommentText>{comment.comment}</StCommentText>

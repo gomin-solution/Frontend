@@ -38,6 +38,10 @@ export const commentAdvice = async (payload) => {
 /* 답해주기 댓글 수정 시 put */
 
 /* 답해주기 댓글 삭제 시 delete */
+export const commentDelete = async (payload) => {
+  const res = await instance.delete(`/advice/comment/${payload}`);
+  return res;
+};
 
 /* 답해주기 댓글 좋아요 시 put */
 export const commentLike = async (payload) => {

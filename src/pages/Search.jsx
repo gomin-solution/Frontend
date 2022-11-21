@@ -18,9 +18,6 @@ const Search = () => {
   return (
     <>
       <Header7 title={"고민 접기"} />
-      <StDial>
-        <Dial />
-      </StDial>
       <Footer title={"고민 접기"} />
       <Stcontainer>
         <StRankTitleWrap>

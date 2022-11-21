@@ -14,9 +14,8 @@ function ChoicePost() {
 
   //데이터 전송하기
   const onChoice = (data) => {
-    // console.log(data);
     wrtieChoice.mutate(data);
-    nav("/board");
+    nav("/board-choice");
   };
 
   const wrtieChoice = useMutation(addChoice, {

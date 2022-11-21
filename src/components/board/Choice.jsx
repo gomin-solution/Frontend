@@ -14,6 +14,13 @@ import { MenuDial0, MenuDial1 } from "../../elements/MenuDial";
 import { decodeCookie } from "../../api/cookie";
 
 const Choice = () => {
+  const dayjs = require("dayjs");
+  const timezone = require("dayjs/plugin/timezone");
+  const utc = require("dayjs/plugin/utc");
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
+  const tz = "Asia/Seoul";
+
   const queryClient = useQueryClient();
 
   const [filterId, setFilterId] = useState(0);
@@ -64,8 +71,6 @@ const Choice = () => {
     }
   }, [inView]);
 
-  /* refetchpage.currentPage 값을 index와 비교하기 */
-
   return (
     <StContainer>
       <StNavWrap>
@@ -77,7 +82,9 @@ const Choice = () => {
               {page?.choices.map((choice) => {
                 /* 마감시간 비교를 위한 변수 설정 */
                 const nowTime = Date.now();
-                const newEndTime = new Date(choice.endTime).getTime();
+                const newEndTime = dayjs(choice.endTime).tz(tz);
+                console.log("여기", newEndTime);
+                console.log("endTime", choice.endTime);
                 return (
                   // <span key={choice.choiceId}>test중</span>
                   <StWrap ref={ref} key={choice.choiceId}>
@@ -128,7 +135,7 @@ const Choice = () => {
                         }}
                       >
                         {newEndTime > nowTime ? (
-                          <span key={choice.endTime}>
+                          <span>
                             <Moment fromNow>{choice.endTime}</Moment>&nbsp; 마감
                           </span>
                         ) : (

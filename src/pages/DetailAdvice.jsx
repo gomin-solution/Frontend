@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
-import { adBookmark, commentAdvice, detail } from "../api/detailApi";
+import { adviceBookmark, commentAdvice, adviceDetail } from "../api/detailApi";
 import { decodeCookie, getCookie } from "../api/cookie";
 
 import styled from "styled-components";
@@ -21,31 +21,34 @@ function DetailAdvice() {
   const adviceId = param.adviceId;
 
   //상세페이지 정보 가져오기
-  const { data } = useQuery(["getDetail", adviceId], () => detail(adviceId), {
-    refetchOnWindowFocus: false,
-  });
+  const { data } = useQuery(
+    ["getDetail", adviceId],
+    () => adviceDetail(adviceId),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
 
   const resBoard = data?.data.data;
   const resComment = data?.data.data.comment;
   const [user, setUser] = useState(false);
+
+  //북마크 실행,취소
+  const { mutate } = useMutation(adviceBookmark, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getDetail");
+    },
+  });
 
   //댓글 작성
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmitComment = (comment) => {
     adviceComment.mutate({ adviceId: adviceId, comment });
-    //댓글 비워주기
     reset();
   };
 
   const adviceComment = useMutation(commentAdvice, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("getDetail");
-    },
-  });
-
-  //북마크 실행,취소
-  const { mutate } = useMutation(adBookmark, {
     onSuccess: () => {
       queryClient.invalidateQueries("getDetail");
     },
@@ -84,15 +87,15 @@ function DetailAdvice() {
     setModalOpen(true);
   };
 
+  const decodeKey = decodeCookie("accessToken").userKey;
   //토큰 디코딩해서 비교
   useEffect(() => {
     if (getCookie("accessToken") !== undefined) {
-      const key = decodeCookie("accessToken").userKey;
-      if (key === resBoard?.userKey) {
+      if (decodeKey === resBoard?.userKey) {
         setUser(true);
       }
     }
-  }, [resBoard]);
+  }, [resBoard, decodeKey]);
 
   return (
     <>
@@ -145,7 +148,7 @@ function DetailAdvice() {
           <StBoxInfo>
             <p>조회 {resBoard?.viewCount}</p>
             <p style={{ position: "absolute", right: "1.5rem" }}>
-              {resBoard?.createdAt.slice(0, 10)}
+              {resBoard?.createdAt}
             </p>
           </StBoxInfo>
         </StBoardBox>
@@ -159,7 +162,7 @@ function DetailAdvice() {
             <DetailComment
               key={comment.commentId}
               comment={comment}
-              user={user}
+              decodeKey={decodeKey}
             />
           );
         })}

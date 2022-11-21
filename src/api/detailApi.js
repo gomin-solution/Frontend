@@ -1,7 +1,7 @@
 import instance from "./api";
 
 /* 답해주기 상세페이지 정보 get*/
-export const detail = async (payload) => {
+export const adviceDetail = async (payload) => {
   const res = await instance.get(`/advice/${payload}`);
   return res;
 };
@@ -13,13 +13,13 @@ export const detail = async (payload) => {
 // };
 
 /* 답해주기 게시글 수정 시 put */
-export const editAdvice = async (payload) => {
+export const adviceEdit = async (payload) => {
   const res = await instance.put(`/advice/${payload}`, payload);
   return res;
 };
 
 /* 답해주기 bookmark 선택 시 put */
-export const adBookmark = async (payload) => {
+export const adviceBookmark = async (payload) => {
   const res = await instance.put(`bookmark/advice/${payload}`);
   return res;
 };
@@ -36,6 +36,13 @@ export const commentAdvice = async (payload) => {
 };
 
 /* 답해주기 댓글 수정 시 put */
+export const commenEdit = async (payload) => {
+  const res = await instance.put(
+    `/advice/comment/${payload.adviceId}`,
+    payload.comment
+  );
+  return res;
+};
 
 /* 답해주기 댓글 삭제 시 delete */
 export const commentDelete = async (payload) => {

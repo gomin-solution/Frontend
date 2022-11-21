@@ -217,10 +217,10 @@ export function MenuDial3({ user }) {
 }
 
 //게시판 상세페이지 댓글 정렬 필터
-/*최신순, 좋아요순*/
+/*등록순, 좋아요순*/
 export function MenuDial4() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [menu, setMenu] = useState("최신순");
+  const [menu, setMenu] = useState("등록순");
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -230,7 +230,7 @@ export function MenuDial4() {
   };
 
   //선택시 이름 바꾸기
-  const list = ["최신순", "좋아요순"];
+  const list = ["등록순", "좋아요순"];
   const changeMenu = (e) => {
     setMenu(e);
     setAnchorEl(null);
@@ -277,7 +277,7 @@ const StDiv = styled.div`
 //게시판 상세페이지 댓글
 /*남 : 쪽지하기, 신고하기*/
 /*본인 : 수정, 삭제 */
-export function MenuDial5({ user, id }) {
+export function MenuDial5({ user, id, setIsEdit }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -288,6 +288,7 @@ export function MenuDial5({ user, id }) {
     setAnchorEl(null);
   };
 
+  //쿼리 초기화
   const queryClient = useQueryClient();
 
   //댓글 삭제
@@ -319,7 +320,13 @@ export function MenuDial5({ user, id }) {
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem>수정</MenuItem>
+          <MenuItem
+            onClick={() => {
+              setIsEdit(false);
+            }}
+          >
+            수정
+          </MenuItem>
           <MenuItem
             onClick={() => {
               mutate(id);

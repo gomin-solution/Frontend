@@ -24,7 +24,7 @@ export function Header1({ title }) {
   );
 }
 
-/*이전 버튼 + 제목바 + 검색버튼*/
+/*제목바 + 검색버튼*/
 export function Header2({ title }) {
   const nav = useNavigate();
 

@@ -5,52 +5,91 @@ import styled from "styled-components";
 
 import { useMutation, useQueryClient } from "react-query";
 import { commentLike } from "../../api/detailApi";
+import { useEffect, useState } from "react";
 
-function DetailComment({ comment, user }) {
+function DetailComment({ comment, decodeKey }) {
   const queryClient = useQueryClient();
 
-  //댓글 좋아요
-  const likeChange = (id) => {
-    commentLikes.mutate(id);
-  };
+  //댓글 수정
+  const [isEdit, setIsEdit] = useState(true);
 
-  const commentLikes = useMutation(commentLike, {
+  //유저키 비교
+  const [user, setUser] = useState(false);
+
+  const { mutate } = useMutation(commentLike, {
     onSuccess: () => {
       queryClient.invalidateQueries("getDetail");
     },
   });
 
-  //댓글 수정
-  //댓글 삭제
+  //유저키 비교
+  useEffect(() => {
+    if (decodeKey === comment.userKey) {
+      setUser(true);
+    }
+  }, []);
 
   return (
-    <StcommentBox>
-      <StcommentUser>
-        <img src={comment.userImg} alt="프로필사진" className="userimg" />
-        <div className="username">{comment.nickname}</div>
-        <StMenu>
-          <MenuDial5 user={user} id={comment.commentId} />
-        </StMenu>
-      </StcommentUser>
-      <StCommentText>{comment.comment}</StCommentText>
-      <StCommentDiv>
-        <p>{comment.createdAt.slice(0, 10)}</p>
-        <div className="heart">
-          <span>{comment.likeCount}</span>
-          {comment.isLike ? (
-            <FavoriteIcon
-              fontSize="small"
-              onClick={() => likeChange(comment.commentId)}
-            />
-          ) : (
-            <FavoriteBorderIcon
-              fontSize="small"
-              onClick={() => likeChange(comment.commentId)}
-            />
-          )}
-        </div>
-      </StCommentDiv>
-    </StcommentBox>
+    <>
+      {isEdit ? (
+        <StcommentBox>
+          <StcommentUser>
+            <img src={comment.userImg} alt="프로필사진" className="userimg" />
+            <div className="username">{comment.nickname}</div>
+            <StMenu>
+              <MenuDial5
+                user={user}
+                id={comment.commentId}
+                setIsEdit={setIsEdit}
+              />
+            </StMenu>
+          </StcommentUser>
+          <StCommentText>{comment.comment}</StCommentText>
+          <StCommentDiv>
+            <p>{comment.createdAt}</p>
+            <div className="heart">
+              <span>{comment.likeCount}</span>
+              {comment.isLike ? (
+                <FavoriteIcon
+                  fontSize="small"
+                  onClick={() => mutate(comment.commentId)}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  fontSize="small"
+                  onClick={() => mutate(comment.commentId)}
+                />
+              )}
+            </div>
+          </StCommentDiv>
+        </StcommentBox>
+      ) : (
+        <StEditBox>
+          <StcommentUser>
+            <img src={comment.userImg} alt="프로필사진" className="userimg" />
+            <div className="username">{comment.nickname}</div>
+          </StcommentUser>
+          <StCommentText>{comment.comment}</StCommentText>
+          <StCommentDiv>
+            <p>{comment.createdAt}</p>
+            <div className="heart">
+              <span>{comment.likeCount}</span>
+              {comment.isLike ? (
+                <FavoriteIcon
+                  fontSize="small"
+                  onClick={() => mutate(comment.commentId)}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  fontSize="small"
+                  onClick={() => mutate(comment.commentId)}
+                />
+              )}
+            </div>
+          </StCommentDiv>
+        </StEditBox>
+      )}
+    </>
   );
 }
 
@@ -59,6 +98,13 @@ export default DetailComment;
 /*댓글 박스 */
 const StcommentBox = styled.div`
   background-color: #fefbff;
+  padding: ${(props) => props.theme.paddings.base};
+  margin-bottom: ${(props) => props.theme.margins.xxsm};
+`;
+
+/*수정 댓글 박스 */
+const StEditBox = styled.div`
+  background-color: #a3a3a3;
   padding: ${(props) => props.theme.paddings.base};
   margin-bottom: ${(props) => props.theme.margins.xxsm};
 `;

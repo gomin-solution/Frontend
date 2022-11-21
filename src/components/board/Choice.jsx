@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import "moment/locale/ko";
 import { useMutation, useQueryClient } from "react-query";
@@ -8,16 +8,24 @@ import styled from "styled-components";
 // MUI Icon
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { bookmark, postChoice } from "../../api/boardApi";
-import { useChoiceInfiniteScroll } from "../../api/boardApi";
-import { MenuDial1 } from "../../elements/MenuDial";
+import { bookmark, postChoice } from "../../api/boardChoiceApi";
+import { useChoiceInfiniteScroll } from "../../api/boardChoiceApi";
+import { MenuDial0, MenuDial1 } from "../../elements/MenuDial";
+import { decodeCookie } from "../../api/cookie";
 
 const Choice = () => {
   const queryClient = useQueryClient();
 
+  const [filterId, setFilterId] = useState(0);
+  console.log("filterId", filterId);
+
+  //유저키 가져오기
+  const decodeKey = decodeCookie("accessToken")?.userKey;
+  console.log(decodeKey);
+
   /* 투표 get initeScroll */
   const { getChoice, fetchNextPage, isSuccess, hasNextPage } =
-    useChoiceInfiniteScroll();
+    useChoiceInfiniteScroll(filterId);
   /* 사용자가 div 요소를 보면 inView가 true, 안보면 false로 자동으로 변경 */
   const { ref, inView } = useInView();
 
@@ -56,14 +64,13 @@ const Choice = () => {
     }
   }, [inView]);
 
-  // useEffect(() => {
-  //   refetchPage
-  // }, [isBookMark])
-
   /* refetchpage.currentPage 값을 index와 비교하기 */
 
   return (
     <StContainer>
+      <StNavWrap>
+        <MenuDial0 setFilterId={setFilterId} />
+      </StNavWrap>
       {isSuccess && getChoice?.pages
         ? getChoice?.pages.map((page) => (
             <React.Fragment key={page.currentPage}>
@@ -76,25 +83,24 @@ const Choice = () => {
                   <StWrap ref={ref} key={choice.choiceId}>
                     <StChoiceTextWrap>
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <Stimg
-                          src="https://www.pngitem.com/pimgs/m/391-3918613_personal-service-platform-person-icon-circle-png-transparent.png"
-                          alt=""
-                        />
+                        <Stimg src={choice.userImage} alt="profile" />
                         <span>{choice.nickname}</span>
                       </div>
                       <StIconWrap>
                         {!choice?.isBookMark ? (
                           <BookmarkBorderIcon
-                            style={{ cursor: "pointer", marginRight: "0.5rem" }}
+                            style={{ cursor: "pointer" }}
                             onClick={() => bookmarkChange(choice.choiceId)}
                           />
                         ) : (
                           <BookmarkIcon
-                            style={{ cursor: "pointer", marginRight: "0.5rem" }}
+                            style={{ cursor: "pointer" }}
                             onClick={() => bookmarkChange(choice.choiceId)}
                           />
                         )}
-                        <MenuDial1 />
+                        {decodeKey === choice.userKey ? (
+                          <MenuDial1 choiceId={choice.choiceId} />
+                        ) : null}
                       </StIconWrap>
                     </StChoiceTextWrap>
                     <StChoiceName>{choice.title}</StChoiceName>
@@ -126,7 +132,7 @@ const Choice = () => {
                             <Moment fromNow>{choice.endTime}</Moment>&nbsp; 마감
                           </span>
                         ) : (
-                          <span>마감되었습니다.</span>
+                          <span>투표 마감</span>
                         )}
                       </span>
                     </StTextWrap2>
@@ -154,10 +160,10 @@ const Choice = () => {
                     ) : (
                       <StChoiceWrap>
                         <StChoice1 width={choice.choice1Per}>
-                          <StPerText>{choice.choice1Per}%</StPerText>
+                          <StPerText1>{choice.choice1Per}%</StPerText1>
                         </StChoice1>
                         <StChoice2 width={choice.choice2Per}>
-                          <StPerText>{choice.choice2Per}%</StPerText>
+                          <StPerText2>{choice.choice2Per}%</StPerText2>
                         </StChoice2>
                       </StChoiceWrap>
                     )}
@@ -177,6 +183,11 @@ const StContainer = styled.div`
   padding: 0rem ${(props) => props.theme.paddings.xxl};
 `;
 
+const StNavWrap = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 const StWrap = styled.div`
   background-color: ${(props) => props.theme.boxColors.gray1};
   margin-bottom: ${(props) => props.theme.margins.xxl};
@@ -186,7 +197,8 @@ const StWrap = styled.div`
 const StTextWrap2 = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: ${(props) => props.theme.margins.xxl};
+  margin-bottom: ${(props) => props.theme.margins.sm};
+  font-size: ${(props) => props.theme.fontSizes.sm};
 `;
 
 const StTextWrap3 = styled.div`
@@ -239,6 +251,7 @@ const StChoice1 = styled.div`
   text-align: left;
   display: flex;
   align-items: center;
+  position: relative;
 `;
 
 const StChoice2 = styled.div`
@@ -247,10 +260,20 @@ const StChoice2 = styled.div`
   height: 2rem;
   text-align: right;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  position: relative;
 `;
 
-const StPerText = styled.span`
+const StPerText1 = styled.span`
   padding: ${(props) => props.theme.paddings.xsm};
+  position: absolute;
+  left: 0;
+  z-index: 99;
+`;
+
+const StPerText2 = styled.span`
+  padding: ${(props) => props.theme.paddings.xsm};
+  position: absolute;
+  right: 0;
+  z-index: 99;
 `;

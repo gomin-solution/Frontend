@@ -10,7 +10,7 @@ function Board() {
   const nav = useNavigate();
   return (
     <>
-      <Header2 title={"고민접기"} />
+      <Header2 title={"고민 접기"} />
       <Stcontainer>
         <StInnerWrap>
           <StBtn1 onClick={() => nav("/board-choice")}>골라주기</StBtn1>
@@ -21,7 +21,7 @@ function Board() {
       <div style={{ position: "absolute", bottom: "2.5rem", right: "0.5rem" }}>
         <Dial />
       </div>
-      <Footer title={"고민접기"} />
+      <Footer title={"고민 접기"} />
     </>
   );
 }
@@ -40,11 +40,11 @@ const StInnerWrap = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: ${(props) => props.theme.margins.xxl};
-  column-gap: 6rem;
+  column-gap: 4rem;
 `;
 
 const StBtn1 = styled.button`
-  width: 4rem;
+  width: 6rem;
   margin-bottom: ${(props) => props.theme.margins.xxl};
   padding-bottom: 0.4rem;
   border-bottom: 0.1rem solid ${(props) => props.theme.boxColors.gray3};
@@ -52,7 +52,7 @@ const StBtn1 = styled.button`
 `;
 
 const StBtn2 = styled.button`
-  width: 4rem;
+  width: 6rem;
   margin-bottom: ${(props) => props.theme.margins.xxl};
   padding-bottom: 0.4rem;
   font-weight: ${(props) => props.theme.fontWeights.lg};

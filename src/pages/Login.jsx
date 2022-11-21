@@ -8,6 +8,7 @@ import { Btn1 } from "../elements/Btn";
 import instance from "../api/api";
 import { setCookie } from "../api/cookie";
 import Alert1, { Alert0 } from "../elements/Alert";
+import { Header1 } from "../elements/Header";
 
 const Login = () => {
   const nav = useNavigate();
@@ -31,30 +32,33 @@ const Login = () => {
   };
 
   return (
-    <Stcontainer>
-      <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
-        <StTitle>로고</StTitle>
-        <StInputWrap>
-          <StInput placeholder="아이디" required {...register("userId")} />
-          <StInput
-            type="password"
-            placeholder="패스워드"
-            required
-            {...register("password")}
-          />
-        </StInputWrap>
-        <Btn1 text={"로그인"} />
-      </StFormContainer>
-      <StBtnWrap>
-        <StBottomNav1 type="button">아이디 찾기</StBottomNav1>
-        <StHr />
-        <StBottomNav1 type="button">비밀번호 찾기</StBottomNav1>
-        <StHr />
-        <StBottomNav2 type="button" onClick={() => nav("/signup")}>
-          회원가입
-        </StBottomNav2>
-      </StBtnWrap>
-    </Stcontainer>
+    <>
+      <Header1 />
+      <Stcontainer>
+        <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
+          <StTitle>로고</StTitle>
+          <StInputWrap>
+            <StInput placeholder="아이디" required {...register("userId")} />
+            <StInput
+              type="password"
+              placeholder="비밀번호"
+              required
+              {...register("password")}
+            />
+          </StInputWrap>
+          <Btn1 text={"로그인"} />
+        </StFormContainer>
+        <StBtnWrap>
+          <StBottomNav1 type="button">아이디 찾기</StBottomNav1>
+          <StHr />
+          <StBottomNav1 type="button">비밀번호 찾기</StBottomNav1>
+          <StHr />
+          <StBottomNav2 type="button" onClick={() => nav("/signup")}>
+            회원가입
+          </StBottomNav2>
+        </StBtnWrap>
+      </Stcontainer>
+    </>
   );
 };
 

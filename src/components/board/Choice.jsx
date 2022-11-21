@@ -85,12 +85,12 @@ const Choice = () => {
                       <StIconWrap>
                         {!choice?.isBookMark ? (
                           <BookmarkBorderIcon
-                            style={{ cursor: "pointer" }}
+                            style={{ cursor: "pointer", marginRight: "0.5rem" }}
                             onClick={() => bookmarkChange(choice.choiceId)}
                           />
                         ) : (
                           <BookmarkIcon
-                            style={{ cursor: "pointer" }}
+                            style={{ cursor: "pointer", marginRight: "0.5rem" }}
                             onClick={() => bookmarkChange(choice.choiceId)}
                           />
                         )}

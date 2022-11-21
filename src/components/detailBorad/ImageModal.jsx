@@ -21,6 +21,10 @@ export default function ImageModal({ modalOpen, closeModal, img }) {
 
 /*이미지 미리보기 크게 */
 const StBigPrev = styled.div`
+  @media all and (min-width: 26rem) {
+    max-width: 26rem;
+  }
+
   z-index: 100;
   width: 100%;
   height: 100%;

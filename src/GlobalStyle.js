@@ -70,7 +70,7 @@ const GlobalStyle = createGlobalStyle`
   #root {
     font-family: "Noto Sans KR", sans-serif;
     width: 100%;
-    max-width: 414px;
+    max-width: 26rem;
     height: 100vh;
     margin: auto;
     position: relative;

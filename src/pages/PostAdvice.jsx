@@ -18,7 +18,6 @@ function AdvicePost() {
   const nav = useNavigate();
   const { register, handleSubmit, watch } = useForm();
   const [imagePreview, setImagePreview] = useState("");
-  console.log("imagePreview", imagePreview);
 
   /*데이터 전송 */
   const onSubmit = (e) => {
@@ -32,7 +31,6 @@ function AdvicePost() {
     formData.append("categoryId", cate.categoryId);
 
     wrtieAdvice.mutate(formData);
-    nav("/board");
   };
 
   const wrtieAdvice = useMutation(addAdvice);
@@ -75,19 +73,21 @@ function AdvicePost() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-      <Header5 title={"글 작성"} />
+      <Header5 title={"고민 적기"} />
       <Stcontainer>
         <StCate>{cate.topic}</StCate>
         <Stinput
           type="text"
-          placeholder="제목을 입력해주세요."
+          placeholder="제목을 입력해주세요. (30자 이내)"
           required
+          maxLength={30}
           {...register("title")}
         />
         <Stcontent>
           <StText
-            placeholder="내용을 입력해주세요."
+            placeholder="내용을 입력해주세요. (500자 이내)"
             required
+            maxLength={500}
             {...register("content")}
           />
           <div className="flexbox">
@@ -106,9 +106,7 @@ function AdvicePost() {
               accept=".gif, .jpg, .png"
             />
             {imagePreview.length > 0
-              ? imagePreview?.map((img, idx) => {
-                  console.log("img", img);
-                  console.log("idx", idx);
+              ? imagePreview?.map((img) => {
                   return (
                     <Stprevimg onClick={handle(img)} key={img}>
                       <img className="preimg" src={img} alt="이미지 미리보기" />

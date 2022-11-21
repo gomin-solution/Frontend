@@ -9,5 +9,5 @@ export const addChoice = async (payload) => {
 /*조언하기 게시글 작성 */
 export const addAdvice = async (payload) => {
   const res = await instance.post(`/advice`, payload);
-  return res;
+  return (window.location.href = `/board/${res.data.adviceId}`);
 };

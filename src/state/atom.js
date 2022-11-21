@@ -1,13 +1,9 @@
 import { atom } from "recoil";
 
-export const searchResult = atom({
-  key: "searchRusult",
-  default: {},
-});
-
-export const decodeUser = atom({
-  key: "decodeUser",
-  default: 0,
+/*수정하기 누를시 컴포넌트 변경 */
+export const userEdit = atom({
+  key: "userEdit",
+  default: true,
 });
 
 /* 예시 */

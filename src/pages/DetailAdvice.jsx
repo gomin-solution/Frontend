@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
-import { AdBookmark, detail } from "../api/boardApi";
+import { adviceBookmark, commentAdvice, adviceDetail } from "../api/detailApi";
 import { decodeCookie, getCookie } from "../api/cookie";
 
 import styled from "styled-components";
@@ -11,34 +11,44 @@ import { Header1 } from "../elements/Header";
 import { MenuDial3, MenuDial4 } from "../elements/MenuDial";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
+import { useForm } from "react-hook-form";
 
 function DetailAdvice() {
   const queryClient = useQueryClient();
 
   const param = useParams();
   const adviceId = param.adviceId;
-  const { data } = useQuery(["getDetail", adviceId], () => detail(adviceId), {
-    refetchOnWindowFocus: false,
-  });
+
+  //상세페이지 정보 가져오기
+  const { data } = useQuery(
+    ["getDetail", adviceId],
+    () => adviceDetail(adviceId),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
 
   const resBoard = data?.data.data;
   const resComment = data?.data.data.comment;
-  const [check, setCheck] = useState(false);
+  const [user, setUser] = useState(false);
 
-  //토큰 디코딩해서 비교
-  const decode = () => {
-    const key = decodeCookie("accessToken").userKey;
-    if (key === resBoard?.userKey) {
-      setCheck(true);
-    }
+  //북마크 실행,취소
+  const { mutate } = useMutation(adviceBookmark, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getDetail");
+    },
+  });
+
+  //댓글 작성
+  const { register, handleSubmit, reset } = useForm();
+
+  const onSubmitComment = (comment) => {
+    adviceComment.mutate({ adviceId: adviceId, comment });
+    reset();
   };
 
-  //북마크 기능
-  const bookmarkChange = (id) => {
-    bookmark.mutate(id);
-  };
-
-  const bookmark = useMutation(AdBookmark, {
+  const adviceComment = useMutation(commentAdvice, {
     onSuccess: () => {
       queryClient.invalidateQueries("getDetail");
     },
@@ -65,7 +75,6 @@ function DetailAdvice() {
 
   // 모달창 노출
   const handle = (img) => () => {
-    console.log(img);
     showModal();
     setSelectImg(img);
   };
@@ -78,15 +87,19 @@ function DetailAdvice() {
     setModalOpen(true);
   };
 
+  const decodeKey = decodeCookie("accessToken").userKey;
+  //토큰 디코딩해서 비교
   useEffect(() => {
     if (getCookie("accessToken") !== undefined) {
-      decode();
+      if (decodeKey === resBoard?.userKey) {
+        setUser(true);
+      }
     }
-  }, []);
+  }, [resBoard, decodeKey]);
 
   return (
     <>
-      <Header1 title={"고민접기"} />
+      <Header1 title={"고민 적기"} />
       <Stcontainer>
         <StUser>
           <img src={resBoard?.userImage} alt="" className="userimg" />
@@ -94,16 +107,16 @@ function DetailAdvice() {
           <StMenu>
             {!resBoard?.isBookMark ? (
               <BookmarkBorderIcon
-                style={{ cursor: "pointer" }}
-                onClick={() => bookmarkChange(resBoard?.adviceId)}
+                style={{ cursor: "pointer", marginRight: "0.5rem" }}
+                onClick={() => mutate(resBoard?.adviceId)}
               />
             ) : (
               <BookmarkIcon
-                style={{ cursor: "pointer" }}
-                onClick={() => bookmarkChange(resBoard?.adviceId)}
+                style={{ cursor: "pointer", marginRight: "0.5rem" }}
+                onClick={() => mutate(resBoard?.adviceId)}
               />
             )}
-            <MenuDial3 />
+            <MenuDial3 user={user} />
           </StMenu>
         </StUser>
         <StBoardBox>
@@ -135,20 +148,36 @@ function DetailAdvice() {
           <StBoxInfo>
             <p>조회 {resBoard?.viewCount}</p>
             <p style={{ position: "absolute", right: "1.5rem" }}>
-              {resBoard?.createdAt.slice(0, 10)}
+              {resBoard?.createdAt}
             </p>
           </StBoxInfo>
         </StBoardBox>
         <StCommentSet>
           <p>답변 {resBoard?.commentCount}</p>
-          <StMenu>
-            <MenuDial4 />
-          </StMenu>
+
+          <MenuDial4 />
         </StCommentSet>
-        {resComment?.map((item) => {
-          return <DetailComment key={item.commentId} item={item} />;
+        {resComment?.map((comment) => {
+          return (
+            <DetailComment
+              key={comment.commentId}
+              comment={comment}
+              decodeKey={decodeKey}
+            />
+          );
         })}
       </Stcontainer>
+      <StCommentform onSubmit={handleSubmit(onSubmitComment)}>
+        <input
+          type="text"
+          required
+          {...register("comment")}
+          placeholder="답변해주기"
+        />
+        <button>
+          <SendOutlinedIcon />
+        </button>
+      </StCommentform>
     </>
   );
 }
@@ -180,7 +209,7 @@ const StMenu = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  right: 1rem;
+  right: 2rem;
 `;
 
 /*글 내용 박스 */
@@ -218,4 +247,30 @@ const StCommentSet = styled.div`
   display: flex;
   align-items: center;
   margin: 1rem 0;
+  justify-content: space-between;
+`;
+
+const StCommentform = styled.form`
+  width: 100%;
+  height: 3rem;
+  padding: 1rem 0.6rem;
+
+  position: absolute;
+  bottom: 0px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: #dce7e7;
+  border: none;
+
+  input {
+    border: none;
+    width: 100%;
+    background-color: transparent;
+  }
+  button {
+    display: flex;
+  }
 `;

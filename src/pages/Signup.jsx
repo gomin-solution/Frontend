@@ -72,7 +72,7 @@ const Signup = () => {
 
   return (
     <Stcontainer as="form" onSubmit={handleSubmit(onSubmit)}>
-      <Header5 />
+      <Header5 title={"회원가입"} />
       <StFormContainer>
         <StTitle>회원가입</StTitle>
         <StInputWrap>
@@ -144,12 +144,12 @@ const Signup = () => {
           ) : (
             <StErr>{errors?.nickname?.message}</StErr>
           )}
-          {/* ----- 패스워드 ----- */}
+          {/* ----- 비밀번호 ----- */}
           <StInput
             type="password"
-            placeholder="패스워드"
+            placeholder="비밀번호"
             {...register("password", {
-              required: "패스워드를 작성해주세요.",
+              required: "비밀번호를 작성해주세요.",
               maxLength: {
                 value: 20,
                 message: "20글자 이하로 작성해주세요",
@@ -172,12 +172,12 @@ const Signup = () => {
           ) : (
             <StErr>{errors?.password?.message}</StErr>
           )}
-          {/* ----- 패스워드 확인 ----- */}
+          {/* ----- 비밀번호 확인 ----- */}
           <StInput
             type="password"
-            placeholder="패스워드 확인"
+            placeholder="비밀번호 확인"
             {...register("confirm", {
-              required: "패스워드 확인을 작성해주세요.",
+              required: "비밀번호를 재입력해주세요.",
               validate: {
                 confirmPw: (v) =>
                   v === password || "비밀번호가 일치하지 않습니다.",
@@ -185,7 +185,7 @@ const Signup = () => {
             })}
           />
           {errors?.confirm?.message === undefined ? (
-            <StCheck>패스워드와 동일하게 다시 작성해주세요.</StCheck>
+            <StCheck>비밀번호와 동일하게 다시 작성해주세요.</StCheck>
           ) : (
             <StErr>{errors?.confirm?.message}</StErr>
           )}

@@ -12,7 +12,7 @@ function Board() {
 
   return (
     <>
-      <Header2 title={"고민접기"} />
+      <Header2 title={"고민 접기"} />
       <Stcontainer>
         {menu[0] === boardCategory ? (
           <>

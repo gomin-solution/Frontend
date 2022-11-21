@@ -1,27 +1,95 @@
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { MenuDial3 } from "../../elements/MenuDial";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { MenuDial5 } from "../../elements/MenuDial";
 import styled from "styled-components";
 
-function DetailComment({ item }) {
-  console.log(item);
+import { useMutation, useQueryClient } from "react-query";
+import { commentLike } from "../../api/detailApi";
+import { useEffect, useState } from "react";
+
+function DetailComment({ comment, decodeKey }) {
+  const queryClient = useQueryClient();
+
+  //댓글 수정
+  const [isEdit, setIsEdit] = useState(true);
+
+  //유저키 비교
+  const [user, setUser] = useState(false);
+
+  const { mutate } = useMutation(commentLike, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getDetail");
+    },
+  });
+
+  //유저키 비교
+  useEffect(() => {
+    if (decodeKey === comment.userKey) {
+      setUser(true);
+    }
+  }, []);
+
   return (
-    <StcommentBox>
-      <StcommentUser>
-        <img src={item.userImg} alt="프로필사진" className="userimg" />
-        <div className="username">{item.nickname}</div>
-        <div className="usermenu">
-          <MenuDial3 />
-        </div>
-      </StcommentUser>
-      <StCommentText>{item.comment}</StCommentText>
-      <StCommentDiv>
-        <p>{item.createdAt.slice(0, 10)}</p>
-        <div className="heart">
-          <span>4554</span>
-          <FavoriteBorderIcon fontSize="small" />
-        </div>
-      </StCommentDiv>
-    </StcommentBox>
+    <>
+      {isEdit ? (
+        <StcommentBox>
+          <StcommentUser>
+            <img src={comment.userImg} alt="프로필사진" className="userimg" />
+            <div className="username">{comment.nickname}</div>
+            <StMenu>
+              <MenuDial5
+                user={user}
+                id={comment.commentId}
+                setIsEdit={setIsEdit}
+              />
+            </StMenu>
+          </StcommentUser>
+          <StCommentText>{comment.comment}</StCommentText>
+          <StCommentDiv>
+            <p>{comment.createdAt}</p>
+            <div className="heart">
+              <span>{comment.likeCount}</span>
+              {comment.isLike ? (
+                <FavoriteIcon
+                  fontSize="small"
+                  onClick={() => mutate(comment.commentId)}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  fontSize="small"
+                  onClick={() => mutate(comment.commentId)}
+                />
+              )}
+            </div>
+          </StCommentDiv>
+        </StcommentBox>
+      ) : (
+        <StEditBox>
+          <StcommentUser>
+            <img src={comment.userImg} alt="프로필사진" className="userimg" />
+            <div className="username">{comment.nickname}</div>
+          </StcommentUser>
+          <StCommentText>{comment.comment}</StCommentText>
+          <StCommentDiv>
+            <p>{comment.createdAt}</p>
+            <div className="heart">
+              <span>{comment.likeCount}</span>
+              {comment.isLike ? (
+                <FavoriteIcon
+                  fontSize="small"
+                  onClick={() => mutate(comment.commentId)}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  fontSize="small"
+                  onClick={() => mutate(comment.commentId)}
+                />
+              )}
+            </div>
+          </StCommentDiv>
+        </StEditBox>
+      )}
+    </>
   );
 }
 
@@ -34,6 +102,19 @@ const StcommentBox = styled.div`
   margin-bottom: ${(props) => props.theme.margins.xxsm};
 `;
 
+/*수정 댓글 박스 */
+const StEditBox = styled.div`
+  background-color: #a3a3a3;
+  padding: ${(props) => props.theme.paddings.base};
+  margin-bottom: ${(props) => props.theme.margins.xxsm};
+`;
+
+/*메뉴 위치조정 */
+const StMenu = styled.div`
+  position: absolute;
+  right: 2rem;
+`;
+
 /*댓글 유저 정보 */
 const StcommentUser = styled.div`
   display: flex;
@@ -42,11 +123,6 @@ const StcommentUser = styled.div`
   .username {
     margin-left: ${(props) => props.theme.margins.sm};
     font-size: ${(props) => props.theme.fontSizes.sm};
-  }
-
-  .usermenu {
-    position: absolute;
-    right: 0rem;
   }
 `;
 
@@ -70,7 +146,8 @@ const StCommentDiv = styled.div`
     align-items: center;
     color: #ff5449;
     span {
-      margin-right: 0.5rem;
+      margin-right: 0.3rem;
+      margin-bottom: 0.15rem;
     }
   }
 `;

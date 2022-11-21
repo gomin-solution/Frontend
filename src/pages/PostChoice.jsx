@@ -16,12 +16,12 @@ function ChoicePost() {
   const onChoice = (data) => {
     // console.log(data);
     wrtieChoice.mutate(data);
-    nav("/board");
   };
 
   const wrtieChoice = useMutation(addChoice, {
     onSuccess: () => {
       queryClient.invalidateQueries("getChoiceScroll");
+      nav("/board-choice");
     },
   });
 

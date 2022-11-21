@@ -5,7 +5,6 @@ import NotFound from "../pages/NotFound";
 import Intro from "../pages/Intro";
 import Signup from "../pages/Signup";
 import PostAdvice from "../pages/PostAdvice";
-import PostCategory from "../pages/PostCategory";
 import PostChoice from "../pages/PostChoice";
 import MyInfo from "../pages/MyInfo";
 import BoardChoice from "../pages/BoardChoice";
@@ -28,7 +27,7 @@ const Router = () => {
         <Route path="/board-advice" element={<BoardAdvice />} />
         <Route path="/board-advice/:adviceId" element={<DetailAdvice />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/post-category" element={<PostCategory />} />
+
         <Route path="/post-choice" element={<PostChoice />} />
         <Route path="/post-advice" element={<PostAdvice />} />
         <Route path="/message" element={<Message />} />

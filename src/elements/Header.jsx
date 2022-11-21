@@ -9,14 +9,14 @@ import { useState } from "react";
 import { Alert5 } from "./Alert";
 
 /*이전 버튼 + 제목바 */
-export function Header1({ title }) {
+export function Header1({ title, navi = -1 }) {
   const nav = useNavigate();
 
   return (
     <StBlock>
       <StBackcon
         onClick={() => {
-          nav(-1);
+          nav(navi);
         }}
       />
       <StTitle>{title}</StTitle>
@@ -67,13 +67,7 @@ export function Header5({ title }) {
         }}
       />
       <StTitle>{title}</StTitle>
-      <StBtn
-        onClick={() => {
-          nav(-1);
-        }}
-      >
-        완료
-      </StBtn>
+      <StBtn>완료</StBtn>
     </StBlock>
   );
 }

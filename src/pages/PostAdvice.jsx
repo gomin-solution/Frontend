@@ -67,11 +67,38 @@ function AdvicePost({ resBoard }) {
     setModalOpen(true);
   };
 
+  const categories = [
+    { topic: "전체", categoryId: 0 },
+    { topic: "여행", categoryId: 1 },
+    { topic: "진로", categoryId: 2 },
+    { topic: "쇼핑", categoryId: 3 },
+    { topic: "연애", categoryId: 4 },
+    { topic: "친구", categoryId: 5 },
+    { topic: "반려동물", categoryId: 6 },
+    { topic: "선물", categoryId: 7 },
+    { topic: "건강", categoryId: 8 },
+    { topic: "코디", categoryId: 9 },
+    { topic: "육아", categoryId: 10 },
+    { topic: "생활", categoryId: 11 },
+    { topic: "기타", categoryId: 12 },
+  ];
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
       <Header5 title={"고민 적기"} />
       <Stcontainer>
-        <StCate>dd</StCate>
+        <StCate>
+          <select>
+            <option>안녕</option>
+            {categories.map((cate) => {
+              return (
+                <option key={cate.categoryId} value={cate.categoryId}>
+                  {cate.topic}
+                </option>
+              );
+            })}
+          </select>
+        </StCate>
         <Stinput
           type="text"
           placeholder="제목을 입력해주세요. (30자 이내)"

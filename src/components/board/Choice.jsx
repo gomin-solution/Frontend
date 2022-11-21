@@ -17,7 +17,6 @@ const Choice = () => {
   const queryClient = useQueryClient();
 
   const [filterId, setFilterId] = useState(0);
-  console.log("filterId", filterId);
 
   //유저키 가져오기
   const decodeKey = decodeCookie("accessToken")?.userKey;

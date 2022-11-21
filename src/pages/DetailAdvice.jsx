@@ -21,17 +21,21 @@ function DetailAdvice() {
   const param = useParams();
   const adviceId = param.adviceId;
 
+  //댓글 필터
+  const [filterId, setFilterId] = useState(0);
+
   //상세페이지 정보 가져오기
   const { data } = useQuery(
-    ["getDetail", adviceId],
-    () => adviceDetail(adviceId),
+    ["getDetail", adviceId, filterId],
+    () => adviceDetail(adviceId, filterId),
     {
       refetchOnWindowFocus: false,
     }
   );
 
-  const resBoard = data?.data.data;
-  const resComment = data?.data.data.comment;
+  const resBoard = data?.data.findAdvice;
+  const resComment = data?.data.findAdvice.comment;
+
   const [user, setUser] = useState(false);
 
   //게시글 수정
@@ -150,7 +154,7 @@ function DetailAdvice() {
             </StBoardBox>
             <StCommentSet>
               <p>답변 {resBoard?.commentCount}</p>
-              <MenuDial4 />
+              <MenuDial4 setFilterId={setFilterId} />
             </StCommentSet>
             {resComment?.map((comment) => {
               return (

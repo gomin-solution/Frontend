@@ -1,8 +1,8 @@
 import instance from "./api";
 
 /* 답해주기 상세페이지 정보 get*/
-export const adviceDetail = async (payload) => {
-  const res = await instance.get(`/advice/${payload}`);
+export const adviceDetail = async (adviceId, filterId) => {
+  const res = await instance.get(`/advice/${adviceId}/${filterId}`);
   return res;
 };
 

@@ -67,13 +67,7 @@ export function Header5({ title }) {
         }}
       />
       <StTitle>{title}</StTitle>
-      <StBtn
-        onClick={() => {
-          nav(-1);
-        }}
-      >
-        완료
-      </StBtn>
+      <StBtn>완료</StBtn>
     </StBlock>
   );
 }

@@ -273,7 +273,7 @@ export function MenuDial3({ user, id, setAdEdit }) {
 
 //게시판 상세페이지 댓글 정렬 필터
 /*등록순, 좋아요순*/
-export function MenuDial4() {
+export function MenuDial4({ setFilterId }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menu, setMenu] = useState("등록순");
   const open = Boolean(anchorEl);
@@ -291,6 +291,7 @@ export function MenuDial4() {
   ];
   const changeMenu = (item) => {
     setMenu(item.filter);
+    setFilterId(item.filterId);
     setAnchorEl(null);
   };
 
@@ -437,6 +438,7 @@ export function MenuDial6({ setCategoryId }) {
     { topic: "생활", categoryId: 11 },
     { topic: "기타", categoryId: 12 },
   ];
+
   const changeMenu = (category) => {
     setMenu(category.topic);
     setCategoryId(category.categoryId);

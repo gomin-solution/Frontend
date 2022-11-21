@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import { adviceBookmark, commentAdvice, adviceDetail } from "../api/detailApi";
 import { decodeCookie, getCookie } from "../api/cookie";
+import { useForm } from "react-hook-form";
 
 import styled from "styled-components";
 import DetailComment from "../components/detailBorad/DetailComment";
@@ -12,7 +13,6 @@ import { MenuDial3, MenuDial4 } from "../elements/MenuDial";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
-import { useForm } from "react-hook-form";
 
 function DetailAdvice() {
   const queryClient = useQueryClient();
@@ -54,20 +54,8 @@ function DetailAdvice() {
     },
   });
 
-  const adviceCategory = [
-    { topic: "여행", categoryId: 1 },
-    { topic: "진로", categoryId: 2 },
-    { topic: "쇼핑", categoryId: 3 },
-    { topic: "연애", categoryId: 4 },
-    { topic: "친구", categoryId: 5 },
-    { topic: "반려동물", categoryId: 6 },
-    { topic: "선물", categoryId: 7 },
-    { topic: "건강", categoryId: 8 },
-    { topic: "코디", categoryId: 9 },
-    { topic: "육아", categoryId: 10 },
-    { topic: "생활", categoryId: 11 },
-    { topic: "기타", categoryId: 12 },
-  ];
+  //댓글 수정
+  const [isEdit, setIsEdit] = useState(true);
 
   // 이미지 모달창 노출 여부 state
   const [modalOpen, setModalOpen] = useState(false);
@@ -87,8 +75,8 @@ function DetailAdvice() {
     setModalOpen(true);
   };
 
-  const decodeKey = decodeCookie("accessToken").userKey;
   //토큰 디코딩해서 비교
+  const decodeKey = decodeCookie("accessToken")?.userKey;
   useEffect(() => {
     if (getCookie("accessToken") !== undefined) {
       if (decodeKey === resBoard?.userKey) {
@@ -99,7 +87,7 @@ function DetailAdvice() {
 
   return (
     <>
-      <Header1 title={"고민 적기"} />
+      <Header1 title={"고민 적기"} navi="/board-advice" />
       <Stcontainer>
         <StUser>
           <img src={resBoard?.userImage} alt="" className="userimg" />
@@ -116,13 +104,11 @@ function DetailAdvice() {
                 onClick={() => mutate(resBoard?.adviceId)}
               />
             )}
-            <MenuDial3 user={user} />
+            <MenuDial3 user={user} id={resBoard?.adviceId} />
           </StMenu>
         </StUser>
         <StBoardBox>
-          <span style={{ fontWeight: "800" }}>
-            [{adviceCategory[resBoard?.categoryId - 1]?.topic}]
-          </span>
+          <span style={{ fontWeight: "800" }}>[{resBoard?.category}]</span>
           <span style={{ marginLeft: "0.5rem" }}>{resBoard?.title}</span>
           <p>{resBoard?.content}</p>
           <StImgBox>
@@ -154,7 +140,6 @@ function DetailAdvice() {
         </StBoardBox>
         <StCommentSet>
           <p>답변 {resBoard?.commentCount}</p>
-
           <MenuDial4 />
         </StCommentSet>
         {resComment?.map((comment) => {
@@ -163,21 +148,25 @@ function DetailAdvice() {
               key={comment.commentId}
               comment={comment}
               decodeKey={decodeKey}
+              setIsEdit={setIsEdit}
+              isEdit={isEdit}
             />
           );
         })}
       </Stcontainer>
-      <StCommentform onSubmit={handleSubmit(onSubmitComment)}>
-        <input
-          type="text"
-          required
-          {...register("comment")}
-          placeholder="답변해주기"
-        />
-        <button>
-          <SendOutlinedIcon />
-        </button>
-      </StCommentform>
+      {isEdit && (
+        <StCommentform onSubmit={handleSubmit(onSubmitComment)}>
+          <input
+            type="text"
+            required
+            {...register("comment")}
+            placeholder="답변해주기"
+          />
+          <button>
+            <SendOutlinedIcon />
+          </button>
+        </StCommentform>
+      )}
     </>
   );
 }
@@ -188,7 +177,7 @@ const Stcontainer = styled.div`
   width: 100%;
   position: absolute;
   overflow: auto;
-  height: calc(100vh - 4rem);
+  height: calc(100vh - 7rem);
   padding: ${(props) => props.theme.paddings.xxl};
 `;
 
@@ -250,6 +239,7 @@ const StCommentSet = styled.div`
   justify-content: space-between;
 `;
 
+/*댓글 입력 폼 */
 const StCommentform = styled.form`
   width: 100%;
   height: 3rem;

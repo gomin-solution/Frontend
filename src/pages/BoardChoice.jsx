@@ -10,7 +10,7 @@ function Board() {
   const nav = useNavigate();
   return (
     <>
-      <Header2 title={"고민접기"} />
+      <Header2 title={"고민 접기"} />
       <Stcontainer>
         <StInnerWrap>
           <StBtn1 onClick={() => nav("/board-choice")}>골라주기</StBtn1>

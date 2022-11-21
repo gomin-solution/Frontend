@@ -7,10 +7,10 @@ export const adviceDetail = async (payload) => {
 };
 
 // /* 답해주기 게시글 삭제 시 delete */
-// export const deleteAdvice = async (payload) => {
-//   const res = await instance.put(`bookmark/advice/${payload}`);
-//   return res;
-// };
+export const adviceDelete = async (payload) => {
+  const res = await instance.delete(`/advice/${payload}`);
+  return res;
+};
 
 /* 답해주기 게시글 수정 시 put */
 export const adviceEdit = async (payload) => {
@@ -38,7 +38,7 @@ export const commentAdvice = async (payload) => {
 /* 답해주기 댓글 수정 시 put */
 export const commenEdit = async (payload) => {
   const res = await instance.put(
-    `/advice/comment/${payload.adviceId}`,
+    `/advice/comment/${payload.commentId}`,
     payload.comment
   );
   return res;

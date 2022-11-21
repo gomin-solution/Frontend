@@ -4,23 +4,36 @@ import { MenuDial5 } from "../../elements/MenuDial";
 import styled from "styled-components";
 
 import { useMutation, useQueryClient } from "react-query";
-import { commentLike } from "../../api/detailApi";
+import { commenEdit, commentLike } from "../../api/detailApi";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
-function DetailComment({ comment, decodeKey }) {
+function DetailComment({ comment, decodeKey, isEdit, setIsEdit }) {
   const queryClient = useQueryClient();
 
-  //댓글 수정
-  const [isEdit, setIsEdit] = useState(true);
+  //댓글 수정 하기
+  const { register, handleSubmit } = useForm();
+  const commentId = comment.commentId;
+  const onEdit = (comment) => {
+    editComment.mutate({ commentId: commentId, comment });
+    setIsEdit(true);
+  };
 
-  //유저키 비교
-  const [user, setUser] = useState(false);
+  const editComment = useMutation(commenEdit, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getDetail");
+    },
+  });
 
+  //댓글 좋아요
   const { mutate } = useMutation(commentLike, {
     onSuccess: () => {
       queryClient.invalidateQueries("getDetail");
     },
   });
+
+  //유저키 비교
+  const [user, setUser] = useState(false);
 
   //유저키 비교
   useEffect(() => {
@@ -69,24 +82,19 @@ function DetailComment({ comment, decodeKey }) {
             <img src={comment.userImg} alt="프로필사진" className="userimg" />
             <div className="username">{comment.nickname}</div>
           </StcommentUser>
-          <StCommentText>{comment.comment}</StCommentText>
-          <StCommentDiv>
-            <p>{comment.createdAt}</p>
-            <div className="heart">
-              <span>{comment.likeCount}</span>
-              {comment.isLike ? (
-                <FavoriteIcon
-                  fontSize="small"
-                  onClick={() => mutate(comment.commentId)}
-                />
-              ) : (
-                <FavoriteBorderIcon
-                  fontSize="small"
-                  onClick={() => mutate(comment.commentId)}
-                />
-              )}
+          <StCommentEdit onSubmit={handleSubmit(onEdit)}>
+            <input
+              type="text"
+              defaultValue={comment.comment}
+              {...register("comment")}
+            />
+            <div>
+              <button type="button" onClick={() => setIsEdit(true)}>
+                취소
+              </button>
+              <button>완료</button>
             </div>
-          </StCommentDiv>
+          </StCommentEdit>
         </StEditBox>
       )}
     </>
@@ -104,7 +112,7 @@ const StcommentBox = styled.div`
 
 /*수정 댓글 박스 */
 const StEditBox = styled.div`
-  background-color: #a3a3a3;
+  background-color: #fefbff;
   padding: ${(props) => props.theme.paddings.base};
   margin-bottom: ${(props) => props.theme.margins.xxsm};
 `;
@@ -149,5 +157,22 @@ const StCommentDiv = styled.div`
       margin-right: 0.3rem;
       margin-bottom: 0.15rem;
     }
+  }
+`;
+
+/*수정 댓글란 */
+
+const StCommentEdit = styled.form`
+  margin: ${(props) => props.theme.margins.xxsm} 0;
+  input {
+    width: 100%;
+    border: none;
+    font-size: ${(props) => props.theme.fontSizes.base};
+  }
+  div {
+    float: right;
+  }
+  button {
+    margin-left: 0.5rem;
   }
 `;

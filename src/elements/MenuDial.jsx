@@ -7,7 +7,8 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import styled from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
-import { commentDelete } from "../api/detailApi";
+import { adviceDelete, commentDelete } from "../api/detailApi";
+import { useNavigate } from "react-router-dom";
 
 //투표 정렬 필터
 /*최신순, 참여자순, 마감임박순*/
@@ -162,7 +163,7 @@ export function MenuDial2() {
 //게시판 상세페이지 게시글
 /*남 : 쪽지하기, 신고하기*/
 /*본인 : 수정, 삭제 */
-export function MenuDial3({ user }) {
+export function MenuDial3({ user, id }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -172,6 +173,18 @@ export function MenuDial3({ user }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  //쿼리 초기화
+  const queryClient = useQueryClient();
+  const nav = useNavigate();
+
+  //게시글 삭제
+  const { mutate } = useMutation(adviceDelete, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getAdviceScroll");
+      nav("/board-advice");
+    },
+  });
 
   return (
     <StDiv>
@@ -196,7 +209,13 @@ export function MenuDial3({ user }) {
           }}
         >
           <MenuItem>수정</MenuItem>
-          <MenuItem>삭제</MenuItem>
+          <MenuItem
+            onClick={() => {
+              mutate(id);
+            }}
+          >
+            삭제
+          </MenuItem>
         </Menu>
       ) : (
         <Menu

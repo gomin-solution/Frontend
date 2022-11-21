@@ -40,7 +40,7 @@ const Advice = () => {
                     ref={ref}
                     key={advice.adviceId}
                     onClick={() => {
-                      nav(`/board/${advice.adviceId}`);
+                      nav(`/board-advice/${advice.adviceId}`);
                     }}
                   >
                     <p

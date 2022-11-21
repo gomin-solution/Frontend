@@ -1,6 +1,4 @@
-import { useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import styled from "styled-components";
@@ -12,10 +10,8 @@ import ImageModal from "../components/detailBorad/ImageModal";
 import { addAdvice } from "../api/postApi";
 import { useMutation } from "react-query";
 
-function AdvicePost() {
-  const location = useLocation();
-  const cate = location.state;
-  const nav = useNavigate();
+function AdvicePost({ resBoard }) {
+  console.log(resBoard);
   const { register, handleSubmit, watch } = useForm();
   const [imagePreview, setImagePreview] = useState("");
 
@@ -28,7 +24,7 @@ function AdvicePost() {
     formData.append("title", e.title);
     formData.append("content", e.content);
     formData.append("isAdult", e.isAdult);
-    formData.append("categoryId", cate.categoryId);
+    formData.append("categoryId", e.categoryId);
 
     wrtieAdvice.mutate(formData);
   };
@@ -75,7 +71,7 @@ function AdvicePost() {
     <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
       <Header5 title={"고민 적기"} />
       <Stcontainer>
-        <StCate>{cate.topic}</StCate>
+        <StCate>dd</StCate>
         <Stinput
           type="text"
           placeholder="제목을 입력해주세요. (30자 이내)"

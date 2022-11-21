@@ -16,7 +16,7 @@ function ChoicePost() {
   const onChoice = (data) => {
     // console.log(data);
     wrtieChoice.mutate(data);
-    nav("/board");
+    nav("/board-choice");
   };
 
   const wrtieChoice = useMutation(addChoice, {

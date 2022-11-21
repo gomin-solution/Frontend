@@ -13,6 +13,7 @@ import { MenuDial3, MenuDial4 } from "../elements/MenuDial";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
+import PostAdvice from "../pages/PostAdvice";
 
 function DetailAdvice() {
   const queryClient = useQueryClient();
@@ -32,6 +33,9 @@ function DetailAdvice() {
   const resBoard = data?.data.data;
   const resComment = data?.data.data.comment;
   const [user, setUser] = useState(false);
+
+  //게시글 수정
+  const [adEdit, setAdEdit] = useState(true);
 
   //북마크 실행,취소
   const { mutate } = useMutation(adviceBookmark, {
@@ -87,85 +91,95 @@ function DetailAdvice() {
 
   return (
     <>
-      <Header1 title={"고민 적기"} navi="/board-advice" />
-      <Stcontainer>
-        <StUser>
-          <img src={resBoard?.userImage} alt="" className="userimg" />
-          <p>{resBoard?.nickname}</p>
-          <StMenu>
-            {!resBoard?.isBookMark ? (
-              <BookmarkBorderIcon
-                style={{ cursor: "pointer", marginRight: "0.5rem" }}
-                onClick={() => mutate(resBoard?.adviceId)}
-              />
-            ) : (
-              <BookmarkIcon
-                style={{ cursor: "pointer", marginRight: "0.5rem" }}
-                onClick={() => mutate(resBoard?.adviceId)}
-              />
-            )}
-            <MenuDial3 user={user} id={resBoard?.adviceId} />
-          </StMenu>
-        </StUser>
-        <StBoardBox>
-          <span style={{ fontWeight: "800" }}>[{resBoard?.category}]</span>
-          <span style={{ marginLeft: "0.5rem" }}>{resBoard?.title}</span>
-          <p>{resBoard?.content}</p>
-          <StImgBox>
-            {resBoard?.adviceImage.map((img) => {
+      {adEdit ? (
+        <>
+          <Header1 title={"고민 적기"} navi="/board-advice" />
+          <Stcontainer>
+            <StUser>
+              <img src={resBoard?.userImage} alt="" className="userimg" />
+              <p>{resBoard?.nickname}</p>
+              <StMenu>
+                {!resBoard?.isBookMark ? (
+                  <BookmarkBorderIcon
+                    style={{ cursor: "pointer", marginRight: "0.5rem" }}
+                    onClick={() => mutate(resBoard?.adviceId)}
+                  />
+                ) : (
+                  <BookmarkIcon
+                    style={{ cursor: "pointer", marginRight: "0.5rem" }}
+                    onClick={() => mutate(resBoard?.adviceId)}
+                  />
+                )}
+                <MenuDial3
+                  user={user}
+                  id={resBoard?.adviceId}
+                  setAdEdit={setAdEdit}
+                />
+              </StMenu>
+            </StUser>
+            <StBoardBox>
+              <span style={{ fontWeight: "800" }}>[{resBoard?.category}]</span>
+              <span style={{ marginLeft: "0.5rem" }}>{resBoard?.title}</span>
+              <p>{resBoard?.content}</p>
+              <StImgBox>
+                {resBoard?.adviceImage.map((img) => {
+                  return (
+                    <img
+                      key={img}
+                      alt="업로드사진"
+                      src={img[1]}
+                      style={{ maxWidth: "7rem", maxHeight: "7rem" }}
+                      onClick={handle(img[1])}
+                    />
+                  );
+                })}
+              </StImgBox>
+              {modalOpen && (
+                <ImageModal
+                  modalOpen={modalOpen}
+                  closeModal={closeModal}
+                  img={selectImg}
+                />
+              )}
+              <StBoxInfo>
+                <p>조회 {resBoard?.viewCount}</p>
+                <p style={{ position: "absolute", right: "1.5rem" }}>
+                  {resBoard?.createdAt}
+                </p>
+              </StBoxInfo>
+            </StBoardBox>
+            <StCommentSet>
+              <p>답변 {resBoard?.commentCount}</p>
+              <MenuDial4 />
+            </StCommentSet>
+            {resComment?.map((comment) => {
               return (
-                <img
-                  key={img}
-                  alt="업로드사진"
-                  src={img[1]}
-                  style={{ maxWidth: "7rem", maxHeight: "7rem" }}
-                  onClick={handle(img[1])}
+                <DetailComment
+                  key={comment.commentId}
+                  comment={comment}
+                  decodeKey={decodeKey}
+                  setIsEdit={setIsEdit}
+                  isEdit={isEdit}
                 />
               );
             })}
-          </StImgBox>
-          {modalOpen && (
-            <ImageModal
-              modalOpen={modalOpen}
-              closeModal={closeModal}
-              img={selectImg}
-            />
+          </Stcontainer>
+          {isEdit && (
+            <StCommentform onSubmit={handleSubmit(onSubmitComment)}>
+              <input
+                type="text"
+                required
+                {...register("comment")}
+                placeholder="답변해주기"
+              />
+              <button>
+                <SendOutlinedIcon />
+              </button>
+            </StCommentform>
           )}
-          <StBoxInfo>
-            <p>조회 {resBoard?.viewCount}</p>
-            <p style={{ position: "absolute", right: "1.5rem" }}>
-              {resBoard?.createdAt}
-            </p>
-          </StBoxInfo>
-        </StBoardBox>
-        <StCommentSet>
-          <p>답변 {resBoard?.commentCount}</p>
-          <MenuDial4 />
-        </StCommentSet>
-        {resComment?.map((comment) => {
-          return (
-            <DetailComment
-              key={comment.commentId}
-              comment={comment}
-              decodeKey={decodeKey}
-              setIsEdit={setIsEdit}
-              isEdit={isEdit}
-            />
-          );
-        })}
-      </Stcontainer>
-      {isEdit && (
-        <StCommentform onSubmit={handleSubmit(onSubmitComment)}>
-          <input
-            type="text"
-            required
-            {...register("comment")}
-            placeholder="답변해주기"
-          />
-          <button>
-            <SendOutlinedIcon />
-          </button>
-        </StCommentform>
+        </>
+      ) : (
+        <PostAdvice resBoard={resBoard} />
       )}
     </>
   );

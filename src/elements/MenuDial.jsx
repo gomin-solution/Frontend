@@ -163,7 +163,7 @@ export function MenuDial2() {
 //게시판 상세페이지 게시글
 /*남 : 쪽지하기, 신고하기*/
 /*본인 : 수정, 삭제 */
-export function MenuDial3({ user, id }) {
+export function MenuDial3({ user, id, setAdEdit }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -208,7 +208,13 @@ export function MenuDial3({ user, id }) {
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem>수정</MenuItem>
+          <MenuItem
+            onClick={() => {
+              setAdEdit(false);
+            }}
+          >
+            수정
+          </MenuItem>
           <MenuItem
             onClick={() => {
               mutate(id);

@@ -14,7 +14,7 @@ export const adviceDelete = async (payload) => {
 
 /* 답해주기 게시글 수정 시 put */
 export const adviceEdit = async (payload) => {
-  const res = await instance.put(`/advice/${payload}`, payload);
+  const res = await instance.put(`/advice/${payload.adviceId}`, payload.advice);
   return res;
 };
 

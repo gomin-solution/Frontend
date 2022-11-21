@@ -37,7 +37,7 @@ export const useAdviceInfiniteScroll = (categoryId) => {
   console.log("categoryId", categoryId);
   const getAdviceScroll = async ({ pageParam = 0 }) => {
     const { data } = await instance.get(
-      `/advice/category/${categoryId}?page=${pageParam}`
+      `/advice/category/${categoryId}/recent?page=${pageParam}`
     );
     return {
       // 실제 데이터

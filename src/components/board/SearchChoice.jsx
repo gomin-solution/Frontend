@@ -7,7 +7,7 @@ import styled from "styled-components";
 // MUI Icon
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { bookmark, postChoice } from "../../api/boardApi";
+import { bookmark, postChoice } from "../../api/boardChoiceApi";
 
 const SearchChoice = ({ choices }) => {
   /* 검색어 결과 받아오기 */

@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import Category from "./Category";
 import { useInView } from "react-intersection-observer";
-import { useAdviceInfiniteScroll } from "../../api/boardApi";
+import { useAdviceInfiniteScroll } from "../../api/boardAdviceApi";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { MenuDial2 } from "../../elements/MenuDial";
+import { MenuDial2, MenuDial6 } from "../../elements/MenuDial";
 
 const Advice = () => {
   /* filter 적용 */
   const [categoryId, setCategoryId] = useState(0);
+  const [filterId, setFilterId] = useState(0);
 
   /* 골라주기 get initeScroll */
   const { getAdvice, fetchNextPage, isSuccess, hasNextPage } =
-    useAdviceInfiniteScroll(categoryId);
+    useAdviceInfiniteScroll(categoryId, filterId);
   /* 사용자가 div 요소를 보면 inView가 true, 안보면 false로 자동으로 변경 */
   const { ref, inView } = useInView();
 
@@ -28,8 +28,8 @@ const Advice = () => {
   return (
     <StContainer>
       <StNavWrap>
-        <Category setCategoryId={setCategoryId} />
-        <MenuDial2 />
+        <MenuDial6 setCategoryId={setCategoryId} />
+        <MenuDial2 setFilterId={setFilterId} />
       </StNavWrap>
       <StListWrap>
         {isSuccess && getAdvice?.pages
@@ -89,6 +89,7 @@ const StContainer = styled.div`
 const StNavWrap = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 `;
 
 const StListWrap = styled.div`

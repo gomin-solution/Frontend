@@ -87,7 +87,7 @@ function DetailAdvice() {
     setModalOpen(true);
   };
 
-  const decodeKey = decodeCookie("accessToken").userKey;
+  const decodeKey = decodeCookie("accessToken")?.userKey;
   //토큰 디코딩해서 비교
   useEffect(() => {
     if (getCookie("accessToken") !== undefined) {

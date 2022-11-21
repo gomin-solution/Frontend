@@ -8,7 +8,8 @@ import PostAdvice from "../pages/PostAdvice";
 import PostCategory from "../pages/PostCategory";
 import PostChoice from "../pages/PostChoice";
 import MyInfo from "../pages/MyInfo";
-import Board from "../pages/Board";
+import BoardChoice from "../pages/BoardChoice";
+import BoardAdvice from "../pages/BoardAdvice";
 import Reward from "../pages/Reward";
 import Message from "../pages/Message";
 import DetailAdvice from "../pages/DetailAdvice";
@@ -23,8 +24,9 @@ const Router = () => {
         <Route path="/signup" element={<Signup />} />
 
         <Route path="/" element={<Main />} />
-        <Route path="/board" element={<Board />} />
-        <Route path="/board/:adviceId" element={<DetailAdvice />} />
+        <Route path="/board-choice" element={<BoardChoice />} />
+        <Route path="/board-advice" element={<BoardAdvice />} />
+        <Route path="/board-advice/:adviceId" element={<DetailAdvice />} />
         <Route path="/search" element={<Search />} />
         <Route path="/post-category" element={<PostCategory />} />
         <Route path="/post-choice" element={<PostChoice />} />

@@ -56,6 +56,12 @@ const Choice = () => {
     }
   }, [inView]);
 
+  // useEffect(() => {
+  //   refetchPage
+  // }, [isBookMark])
+
+  /* refetchpage.currentPage 값을 index와 비교하기 */
+
   return (
     <StContainer>
       {isSuccess && getChoice?.pages
@@ -93,13 +99,23 @@ const Choice = () => {
                     </StChoiceTextWrap>
                     <StChoiceName>{choice.title}</StChoiceName>
                     <StTextWrap2>
-                      <span
-                        style={{
-                          color: `${(props) => props.theme.fontColors.fong1}`,
-                        }}
-                      >
-                        {choice.choiceCount}
-                      </span>
+                      {choice.choiceCount === null ? (
+                        <span
+                          style={{
+                            color: `${(props) => props.theme.fontColors.fong1}`,
+                          }}
+                        >
+                          0명 참여
+                        </span>
+                      ) : (
+                        <span
+                          style={{
+                            color: `${(props) => props.theme.fontColors.fong1}`,
+                          }}
+                        >
+                          {choice.choiceCount}명 참여
+                        </span>
+                      )}
                       <span
                         style={{
                           color: `${(props) => props.theme.fontColors.fong1}`,

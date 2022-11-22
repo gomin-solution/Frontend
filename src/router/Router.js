@@ -13,8 +13,9 @@ import Reward from "../pages/Reward";
 import Message from "../pages/Message";
 import DetailAdvice from "../pages/DetailAdvice";
 import Search from "../pages/Search";
+import SearchResult from "../pages/SearchResult";
 import Setting from "../pages/Setting";
-import SearchChoice from "../pages/SearchChoice";
+import MessageDetail from "../pages/MessageDetail";
 
 const Router = () => {
   return (
@@ -31,12 +32,14 @@ const Router = () => {
         <Route path="/board-advice/:adviceId" element={<DetailAdvice />} />
 
         <Route path="/search" element={<Search />} />
-        <Route path="/search-choice" element={<SearchChoice />} />
-        {/* <Route path="/search-advice" element={<SearchAdvice />} /> */}
+        <Route path="/search-result" element={<SearchResult />} />
 
         <Route path="/post-choice" element={<PostChoice />} />
         <Route path="/post-advice" element={<PostAdvice />} />
+
         <Route path="/message" element={<Message />} />
+        <Route path="/message/detail" element={<MessageDetail />} />
+
         <Route path="/reward" element={<Reward />} />
 
         <Route path="/myinfo" element={<MyInfo />} />

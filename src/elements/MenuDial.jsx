@@ -89,6 +89,7 @@ export function MenuDial1({ choiceId }) {
   const removeChoiceMutation = useMutation(removeChoice, {
     onSuccess: () => {
       queryClient.invalidateQueries("getChoiceScroll");
+      queryClient.invalidateQueries("getSearch");
     },
   });
 
@@ -96,6 +97,7 @@ export function MenuDial1({ choiceId }) {
   const endChoiceMutation = useMutation(endChoice, {
     onSuccess: () => {
       queryClient.invalidateQueries("getChoiceScroll");
+      queryClient.invalidateQueries("getSearch");
     },
   });
 

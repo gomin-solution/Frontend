@@ -6,6 +6,11 @@ export const userEdit = atom({
   default: true,
 });
 
+export const searchAdvices = atom({
+  key: "searchAdvices",
+  default: "",
+});
+
 /* 예시 */
 // export const boardAdvices = atom({
 //   key: "boardAdvices",

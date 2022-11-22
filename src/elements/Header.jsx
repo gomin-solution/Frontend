@@ -30,7 +30,10 @@ export function Header2({ title }) {
   return (
     <StBlock>
       <StTitle>{title}</StTitle>
-      <StSearchcon onClick={() => nav("/search")} />
+      <StSearchcon
+        style={{ position: "absolute", right: "5.1%" }}
+        onClick={() => nav("/search")}
+      />
     </StBlock>
   );
 }
@@ -103,24 +106,23 @@ export function Header7() {
 
   return (
     <>
-      <StBlock>
+      <StBlock as="form" onSubmit={searchSubmit}>
         <StBackcon
           onClick={() => {
             nav(-1);
           }}
         />
-        <StSearchcon />
-        <form
-          onSubmit={searchSubmit}
-          style={{ display: "flex", alignItems: "center" }}
+        <StSearch
+          type="text"
+          value={search}
+          placeholder="검색어를 입력하세요."
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <button
+          style={{ display: "flex", alignItems: "center", margin: "0rem 1rem" }}
         >
-          <StSearch
-            type="text"
-            value={search}
-            placeholder="검색어를 입력하세요."
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </form>
+          <StSearchcon />
+        </button>
       </StBlock>
       <hr />
     </>
@@ -158,7 +160,7 @@ const StBackcon = styled(ArrowBackIosNewIcon)`
 /*돋보기 아이콘*/
 const StSearchcon = styled(SearchIcon)`
   cursor: pointer;
-  position: absolute;
+  /* position: absolute; */
   right: 2rem;
 `;
 
@@ -193,7 +195,7 @@ const StBtn = styled.button`
 /* 검색바 */
 const StSearch = styled.input`
   background-color: ${(props) => props.theme.boxColors.gray1};
-  width: 16rem;
+  width: 100%;
   height: 2rem;
   margin-left: ${(props) => props.theme.paddings.base};
   padding-left: ${(props) => props.theme.paddings.xsm};

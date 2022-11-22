@@ -53,7 +53,11 @@ const Choice = ({ choices, keyword }) => {
 
   return (
     <StContainer>
-      <StResult>{keyword}에 대한 검색 결과입니다.</StResult>
+      {choices?.length > 0 ? (
+        <StResult>{keyword}에 대한 검색 결과입니다.</StResult>
+      ) : (
+        <StResult>{keyword}에 대한 검색 결과가 없습니다.</StResult>
+      )}
       {choices?.map((choice) => {
         /* 마감시간 비교를 위한 변수 설정 */
         const nowTime = dayjs().format("YYYY-MM-DD HH:mm:ss");

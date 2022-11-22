@@ -3,7 +3,6 @@ import instance from "./api";
 
 /* advice infinite scroll get */
 export const useAdviceInfiniteScroll = (categoryId, filterId) => {
-  console.log(categoryId, filterId);
   const getAdviceScroll = async ({ pageParam = 0 }) => {
     const { data } = await instance.get(
       `/advice/category/${categoryId}/${filterId}?page=${pageParam}`

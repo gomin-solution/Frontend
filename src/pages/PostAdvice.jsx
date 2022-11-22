@@ -10,32 +10,59 @@ import ImageModal from "../components/detailBorad/ImageModal";
 import { addAdvice } from "../api/postApi";
 import { useMutation } from "react-query";
 import { MenuDial7 } from "../elements/MenuDial";
+import { adviceEdit } from "../api/detailApi";
 
 function AdvicePost({ resBoard }) {
   const { register, handleSubmit, watch } = useForm();
   const [imagePreview, setImagePreview] = useState("");
   const [categoryId, setCategoryId] = useState("");
-  console.log(categoryId);
 
   /*데이터 전송 */
   const onSubmit = (e) => {
-    if (categoryId === "" || e.title.trim() === "" || e.content.trim() === "") {
-      return alert("게시글 작성을 완료해주세요.");
-    } else {
-      const formData = new FormData();
-      for (let i = 0; i < e.image.length; i++) {
-        formData.append(`image`, e.image[i]);
-      }
-      formData.append("title", e.title);
-      formData.append("content", e.content);
-      formData.append("isAdult", e.isAdult);
-      formData.append("categoryId", categoryId);
+    if (resBoard === undefined) {
+      if (
+        categoryId === "" ||
+        e.title.trim() === "" ||
+        e.content.trim() === ""
+      ) {
+        return alert("게시글 작성을 완료해주세요.");
+      } else {
+        const formData = new FormData();
+        for (let i = 0; i < e.image.length; i++) {
+          formData.append(`image`, e.image[i]);
+        }
+        formData.append("title", e.title);
+        formData.append("content", e.content);
+        formData.append("isAdult", e.isAdult);
+        formData.append("categoryId", categoryId);
 
-      wrtieAdvice.mutate(formData);
+        wrtieAdvice.mutate(formData);
+      }
+    } else {
+      if (e.title.trim() === "" || e.content.trim() === "") {
+        return alert("게시글 작성을 완료해주세요.");
+      } else {
+        const formData = new FormData();
+        for (let i = 0; i < e.image.length; i++) {
+          formData.append(`image`, e.image[i]);
+        }
+        formData.append("title", e.title);
+        formData.append("content", e.content);
+        formData.append("isAdult", e.isAdult);
+
+        EditAdvice.mutate({ formData, adviceId: resBoard?.adviceId });
+      }
     }
   };
 
   const wrtieAdvice = useMutation(addAdvice);
+
+  //게시글 수정하고 업데이트
+  const EditAdvice = useMutation(adviceEdit, {
+    onSuccess: () => {
+      window.location.reload();
+    },
+  });
 
   /*사진 미리보기 */
   const previmg = watch("image");
@@ -53,6 +80,8 @@ function AdvicePost({ resBoard }) {
       }
     }
   }, [previmg]);
+
+  /*사진 삭제 */
 
   // 모달창 노출 여부 state
   const [modalOpen, setModalOpen] = useState(false);
@@ -77,19 +106,28 @@ function AdvicePost({ resBoard }) {
     <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
       <Header5 title={"고민 적기"} />
       <Stcontainer>
-        <StLabel>카테고리 선택</StLabel>
-        <MenuDial7 setCategoryId={setCategoryId} />
+        {resBoard === undefined ? (
+          <>
+            <StLabel>카테고리 선택</StLabel>
+            <MenuDial7 setCategoryId={setCategoryId} />
+          </>
+        ) : (
+          <div style={{ fontWeight: "700" }}>{resBoard.category}</div>
+        )}
+
         <StLabel style={{ marginTop: "1rem" }}>제목</StLabel>
         <Stinput
           type="text"
           placeholder="제목을 입력해주세요. (30자 이내)"
           maxLength={30}
+          defaultValue={resBoard?.title}
           {...register("title")}
         />
         <StLabel style={{ marginTop: "0.5rem" }}>내용</StLabel>
         <Stcontent>
           <StText
             placeholder="내용을 입력해주세요. (500자 이내)"
+            defaultValue={resBoard?.content}
             maxLength={500}
             {...register("content")}
           />
@@ -106,7 +144,7 @@ function AdvicePost({ resBoard }) {
               id="picture"
               type="file"
               multiple
-              accept=".gif, .jpg, .png"
+              accept="image/*"
             />
             {imagePreview.length > 0
               ? imagePreview?.map((img) => {

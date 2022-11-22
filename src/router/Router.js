@@ -13,6 +13,7 @@ import Reward from "../pages/Reward";
 import Message from "../pages/Message";
 import DetailAdvice from "../pages/DetailAdvice";
 import Search from "../pages/Search";
+import Setting from "../pages/Setting";
 
 const Router = () => {
   return (
@@ -23,6 +24,7 @@ const Router = () => {
         <Route path="/signup" element={<Signup />} />
 
         <Route path="/" element={<Main />} />
+        <Route path="/setting" element={<Setting />} />
         <Route path="/board-choice" element={<BoardChoice />} />
         <Route path="/board-advice" element={<BoardAdvice />} />
         <Route path="/board-advice/:adviceId" element={<DetailAdvice />} />

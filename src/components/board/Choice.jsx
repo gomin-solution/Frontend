@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Moment from "react-moment";
-import "moment/locale/ko";
 import { useMutation, useQueryClient } from "react-query";
 import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
@@ -16,9 +14,17 @@ import { decodeCookie } from "../../api/cookie";
 const Choice = () => {
   const queryClient = useQueryClient();
 
+  /* 마감시간 */
+  const dayjs = require("dayjs");
+  const timezone = require("dayjs/plugin/timezone");
+  const utc = require("dayjs/plugin/utc");
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
+
+  /* filterId params 전달 */
   const [filterId, setFilterId] = useState(0);
 
-  //유저키 가져오기
+  /* 유저키 가져오기 */
   const decodeKey = decodeCookie("accessToken")?.userKey;
   console.log(decodeKey);
 
@@ -56,14 +62,12 @@ const Choice = () => {
     },
   });
 
-  /* useEffect를 사용하여 골라주기 데이터 가져오기 */
+  /* useEffect를 사용하여 마지막 항목을 바라볼 때 다음 페이지 데이터 요청하기 */
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
   }, [inView]);
-
-  /* refetchpage.currentPage 값을 index와 비교하기 */
 
   return (
     <StContainer>
@@ -75,8 +79,22 @@ const Choice = () => {
             <React.Fragment key={page.currentPage}>
               {page?.choices.map((choice) => {
                 /* 마감시간 비교를 위한 변수 설정 */
-                const nowTime = Date.now();
-                const newEndTime = new Date(choice.endTime).getTime();
+                const nowTime = dayjs().format("YYYY-MM-DD HH:mm:ss");
+                const newEndTime = dayjs(choice.endTime).format(
+                  "YYYY-MM-DD HH:mm:ss"
+                );
+                const diffDayTime = dayjs(newEndTime).diff(nowTime, "day");
+                const diffHourTime = dayjs(newEndTime).diff(nowTime, "hour");
+                const diffMinTime = dayjs(newEndTime).diff(nowTime, "minute");
+                let diffTime;
+                if (diffDayTime >= 1) {
+                  diffTime = diffDayTime + "일";
+                } else if (diffDayTime < 1 && 59 < diffMinTime) {
+                  diffTime = diffHourTime + "시간";
+                } else {
+                  diffTime = diffMinTime + "분";
+                }
+
                 return (
                   // <span key={choice.choiceId}>test중</span>
                   <StWrap ref={ref} key={choice.choiceId}>
@@ -127,9 +145,7 @@ const Choice = () => {
                         }}
                       >
                         {newEndTime > nowTime ? (
-                          <span key={choice.endTime}>
-                            <Moment fromNow>{choice.endTime}</Moment>&nbsp; 마감
-                          </span>
+                          <span>{diffTime} 후 마감</span>
                         ) : (
                           <span>투표 마감</span>
                         )}

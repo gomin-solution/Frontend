@@ -1,32 +1,43 @@
-import React, { useEffect, useState } from "react";
-import Moment from "react-moment";
-import "moment/locale/ko";
-import { useMutation, useQueryClient } from "react-query";
+import React, { useEffect } from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import styled from "styled-components";
 
 // MUI Icon
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { bookmark, postChoice } from "../../api/boardChoiceApi";
+import { MenuDial1 } from "../../elements/MenuDial";
+import { decodeCookie } from "../../api/cookie";
+import getSearch from "../../api/searchApi";
+import { useLocation } from "react-router-dom";
 
-const SearchChoice = ({ choices }) => {
-  /* 검색어 결과 받아오기 */
+const SearchChoice = () => {
   const queryClient = useQueryClient();
 
-  /* 북마크 클릭 */
-  const [isBookMark, setIsBookMark] = useState(false);
+  const { state: search } = useLocation();
+  console.log("search", search);
 
-  /* 골라주기 선택 시 payload 설정을 위한 useState 작성 */
-  const [choiceNum, setChoiceNum] = useState(0);
-  const [isChoice, setIsChoice] = useState(false);
-  const [postChoiceId, setPostChoiceId] = useState(0);
+  const { data } = useQuery(["getSearch", search], () => getSearch(search));
+  console.log(data);
+
+  /* 마감시간 */
+  const dayjs = require("dayjs");
+  const timezone = require("dayjs/plugin/timezone");
+  const utc = require("dayjs/plugin/utc");
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
+
+  /* 유저키 가져오기 */
+  const decodeKey = decodeCookie("accessToken")?.userKey;
+  console.log(decodeKey);
 
   /* 골라주기 선택 시 put */
-  const choiceSubmit = async (e, choiceId) => {
+  const choiceSubmit = async (e, choice) => {
     e.preventDefault();
-    setChoiceNum(Number(e.target.value));
-    setIsChoice(!isChoice);
-    setPostChoiceId(choiceId);
+    choiceMutation.mutate({
+      choiceNum: e.target.value,
+      choiceId: choice.choiceId,
+    });
   };
 
   /* 골라주기 mutation */
@@ -36,10 +47,9 @@ const SearchChoice = ({ choices }) => {
     },
   });
 
-  /* 북마크 전환 */
+  /* 북마크 선택 시 put */
   const bookmarkChange = (choiceId) => {
-    setIsBookMark(!isBookMark);
-    setPostChoiceId(choiceId);
+    bookmarkMutation.mutate(choiceId);
   };
 
   /* 북마크 mutation */
@@ -49,78 +59,77 @@ const SearchChoice = ({ choices }) => {
     },
   });
 
-  /* useEffect를 사용하여 setState값 할당 후 서버와 통신 (골라주기 선택) */
-  useEffect(() => {
-    if (choiceNum !== 0) {
-      choiceMutation.mutate({
-        choiceId: postChoiceId,
-        choiceNum,
-        isChoice,
-      });
-    }
-  }, [isChoice]);
-
-  /* useEffect를 사용하여 setState값 할당 후 서버와 통신 (북마크) */
-  useEffect(() => {
-    if (postChoiceId !== 0) {
-      bookmarkMutation.mutate({
-        choiceId: postChoiceId,
-        isBookMark,
-      });
-    }
-  }, [isBookMark]);
-
   return (
     // <div>aaa</div>
     <StContainer>
-      {choices?.map((choice) => {
+      {data?.choice.map((choice) => {
         /* 마감시간 비교를 위한 변수 설정 */
-        const nowTime = Date.now();
-        const newEndTime = new Date(choice.endTime).getTime();
+        const nowTime = dayjs().format("YYYY-MM-DD HH:mm:ss");
+        const newEndTime = dayjs(choice.endTime).format("YYYY-MM-DD HH:mm:ss");
+        const diffDayTime = dayjs(newEndTime).diff(nowTime, "day");
+        const diffHourTime = dayjs(newEndTime).diff(nowTime, "hour");
+        const diffMinTime = dayjs(newEndTime).diff(nowTime, "minute");
+        let diffTime;
+        if (diffDayTime >= 1) {
+          diffTime = diffDayTime + "일";
+        } else if (diffDayTime < 1 && 59 < diffMinTime) {
+          diffTime = diffHourTime + "시간";
+        } else {
+          diffTime = diffMinTime + "분";
+        }
+
         return (
           <StWrap key={choice.choiceId}>
             <StChoiceTextWrap>
               <div style={{ display: "flex", alignItems: "center" }}>
-                <Stimg
-                  src="https://www.pngitem.com/pimgs/m/391-3918613_personal-service-platform-person-icon-circle-png-transparent.png"
-                  alt=""
-                />
+                <Stimg src={choice.userImage} alt="profile" />
                 <span>{choice.nickname}</span>
               </div>
-              {!choice?.isBookMark ? (
-                <BookmarkBorderIcon
-                  style={{ cursor: "pointer" }}
-                  value={isBookMark}
-                  onClick={() => bookmarkChange(choice.choiceId)}
-                />
-              ) : (
-                <BookmarkIcon
-                  style={{ cursor: "pointer" }}
-                  value={isBookMark}
-                  onClick={() => bookmarkChange(choice.choiceId)}
-                />
-              )}
+              <StIconWrap>
+                {!choice?.isBookMark ? (
+                  <BookmarkBorderIcon
+                    style={{ cursor: "pointer" }}
+                    onClick={() => bookmarkChange(choice.choiceId)}
+                  />
+                ) : (
+                  <BookmarkIcon
+                    style={{ cursor: "pointer" }}
+                    onClick={() => bookmarkChange(choice.choiceId)}
+                  />
+                )}
+                {decodeKey === choice.userKey ? (
+                  <MenuDial1 choiceId={choice.choiceId} />
+                ) : null}
+              </StIconWrap>
             </StChoiceTextWrap>
             <StChoiceName>{choice.title}</StChoiceName>
             <StTextWrap2>
-              <span
-                style={{
-                  color: `${(props) => props.theme.fontColors.fong1}`,
-                }}
-              >
-                {choice.choiceCount}
-              </span>
+              {choice.choiceCount === null ? (
+                <span
+                  style={{
+                    color: `${(props) => props.theme.fontColors.fong1}`,
+                  }}
+                >
+                  0명 참여
+                </span>
+              ) : (
+                <span
+                  style={{
+                    color: `${(props) => props.theme.fontColors.fong1}`,
+                  }}
+                >
+                  {choice.choiceCount}명 참여
+                </span>
+              )}
               <span
                 style={{
                   color: `${(props) => props.theme.fontColors.fong1}`,
                 }}
               >
                 {newEndTime > nowTime ? (
-                  <span key={choice.endTime}>
-                    <Moment fromNow>{choice.endTime}</Moment>&nbsp; 마감
-                  </span>
+                  <span>{diffTime} 후 마감</span>
                 ) : (
-                  <span>마감되었습니다.</span>
+                  <span>투표 마감</span>
                 )}
               </span>
             </StTextWrap2>
@@ -131,14 +140,14 @@ const SearchChoice = ({ choices }) => {
             {!choice.isChoice ? (
               <StChoiceWrap>
                 <StChoiceBtn
-                  onClick={(e) => choiceSubmit(e, choice.choiceId)}
+                  onClick={(e) => choiceSubmit(e, choice)}
                   value="1"
                   backColor="#9F9F9F"
                 >
                   1번
                 </StChoiceBtn>
                 <StChoiceBtn
-                  onClick={(e) => choiceSubmit(e, choice.choiceId)}
+                  onClick={(e) => choiceSubmit(e, choice)}
                   value="2"
                   backColor="#6D6D6D"
                 >
@@ -148,10 +157,10 @@ const SearchChoice = ({ choices }) => {
             ) : (
               <StChoiceWrap>
                 <StChoice1 width={choice.choice1Per}>
-                  <StPerText>{choice.choice1Per}%</StPerText>
+                  <StPerText1>{choice.choice1Per}%</StPerText1>
                 </StChoice1>
                 <StChoice2 width={choice.choice2Per}>
-                  <StPerText>{choice.choice2Per}%</StPerText>
+                  <StPerText2>{choice.choice2Per}%</StPerText2>
                 </StChoice2>
               </StChoiceWrap>
             )}
@@ -177,7 +186,8 @@ const StWrap = styled.div`
 const StTextWrap2 = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: ${(props) => props.theme.margins.xxl};
+  margin-bottom: ${(props) => props.theme.margins.sm};
+  font-size: ${(props) => props.theme.fontSizes.sm};
 `;
 
 const StTextWrap3 = styled.div`
@@ -203,6 +213,11 @@ const Stimg = styled.img`
   margin-right: ${(props) => props.theme.margins.xxsm};
 `;
 
+const StIconWrap = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const StChoiceWrap = styled.div`
   width: 100%;
   display: flex;
@@ -225,6 +240,7 @@ const StChoice1 = styled.div`
   text-align: left;
   display: flex;
   align-items: center;
+  position: relative;
 `;
 
 const StChoice2 = styled.div`
@@ -233,10 +249,20 @@ const StChoice2 = styled.div`
   height: 2rem;
   text-align: right;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  position: relative;
 `;
 
-const StPerText = styled.span`
+const StPerText1 = styled.span`
   padding: ${(props) => props.theme.paddings.xsm};
+  position: absolute;
+  left: 0;
+  z-index: 99;
+`;
+
+const StPerText2 = styled.span`
+  padding: ${(props) => props.theme.paddings.xsm};
+  position: absolute;
+  right: 0;
+  z-index: 99;
 `;

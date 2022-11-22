@@ -54,20 +54,13 @@ const Advice = () => {
                     </p>
                     <StContent>{advice.content}</StContent>
                     <StWrap>
-                      <div
-                        style={{
-                          fontSize: `${(props) => props.theme.fontSize.sm}`,
-                        }}
-                      >
-                        <span
-                          style={{
-                            marginRight: `${(props) => props.theme.margins.sm}`,
-                          }}
-                        >
-                          {advice.viewCount}
-                        </span>
+                      <div style={{ fontSize: "0.875rem" }}>
+                        <span>조회수 {advice.viewCount}&nbsp;&nbsp;</span>
+                        <span>댓글수 {advice.commentCount}</span>
                       </div>
-                      <span>{advice.createdAt.slice(0, 10)}</span>
+                      <span style={{ fontSize: "0.875rem" }}>
+                        {advice.createdAt.slice(0, 10)}
+                      </span>
                     </StWrap>
                   </StAdviceList>
                 ))}

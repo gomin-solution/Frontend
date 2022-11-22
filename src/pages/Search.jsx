@@ -1,10 +1,7 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "../elements/Footer";
 import { Header7 } from "../elements/Header";
-import Dial from "../components/board/Dial";
 import styled from "styled-components";
-import Choice from "../components/board/Choice";
 import NorthIcon from "@mui/icons-material/North";
 import SouthIcon from "@mui/icons-material/South";
 import Chip from "@mui/material/Chip";
@@ -18,9 +15,6 @@ const Search = () => {
   return (
     <>
       <Header7 title={"고민 접기"} />
-      <StDial>
-        <Dial />
-      </StDial>
       <Footer title={"고민 접기"} />
       <Stcontainer>
         <StRankTitleWrap>

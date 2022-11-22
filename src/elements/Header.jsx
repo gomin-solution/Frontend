@@ -6,7 +6,6 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Alert5 } from "./Alert";
 
 /*이전 버튼 + 제목바 */
 export function Header1({ title, navi = -1 }) {
@@ -94,16 +93,11 @@ export function Header7() {
   /* 검색어 입력 후 페이지이동 */
   const [search, setSearch] = useState("");
   const searchSubmit = () => {
-    nav("/search", { state: search });
-  };
-
-  /* 검색창 전환 */
-  const [isSearch, setIsSearch] = useState(false);
-  const isSearchChange1 = () => {
-    setIsSearch((prev) => !prev);
-  };
-  const isSearchChange2 = () => {
-    search ? nav("/search", { state: search }) : setIsSearch((prev) => !prev);
+    if (search) {
+      nav("/search-choice", { state: search });
+    } else {
+      return;
+    }
   };
 
   return (
@@ -114,7 +108,7 @@ export function Header7() {
             nav(-1);
           }}
         />
-        <StSearchcon onClick={() => nav("/search")} />
+        <StSearchcon />
         <form
           onSubmit={searchSubmit}
           style={{ display: "flex", alignItems: "center" }}
@@ -125,7 +119,6 @@ export function Header7() {
             placeholder="검색어를 입력하세요."
             onChange={(e) => setSearch(e.target.value)}
           />
-          <StSearchcon type="button" onClick={isSearchChange2} />
         </form>
       </StBlock>
       <hr />

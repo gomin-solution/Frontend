@@ -1,18 +1,13 @@
-import React, { useState } from "react";
-import { useQuery } from "react-query";
-import { useLocation, useNavigate } from "react-router-dom";
-import getSearch from "../api/searchApi";
+import React from "react";
+import Choice from "../components/search/Choice";
 import Footer from "../elements/Footer";
 import { Header2 } from "../elements/Header";
 import Dial from "../components/board/Dial";
 import styled from "styled-components";
-import SearchChoice from "../components/board/SearchChoice";
-import SearchAdvice from "../components/board/SearchAdvice";
-import Choice from "../components/board/Choice";
+import { useNavigate } from "react-router-dom";
 
-const Search = () => {
+function Board() {
   const nav = useNavigate();
-
   return (
     <>
       <Header2 title={"고민 접기"} />
@@ -29,9 +24,9 @@ const Search = () => {
       <Footer title={"고민 접기"} />
     </>
   );
-};
+}
 
-export default Search;
+export default Board;
 
 const Stcontainer = styled.div`
   width: 100%;
@@ -45,19 +40,19 @@ const StInnerWrap = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: ${(props) => props.theme.margins.xxl};
-  column-gap: 6rem;
+  column-gap: 4rem;
 `;
 
 const StBtn1 = styled.button`
-  width: 4rem;
+  width: 6rem;
   margin-bottom: ${(props) => props.theme.margins.xxl};
   padding-bottom: 0.4rem;
-  box-shadow: 0rem 0.1rem 0rem 0rem gray;
+  border-bottom: 0.1rem solid ${(props) => props.theme.boxColors.gray3};
   font-weight: ${(props) => props.theme.fontWeights.lg};
 `;
 
 const StBtn2 = styled.button`
-  width: 4rem;
+  width: 6rem;
   margin-bottom: ${(props) => props.theme.margins.xxl};
   padding-bottom: 0.4rem;
   font-weight: ${(props) => props.theme.fontWeights.lg};

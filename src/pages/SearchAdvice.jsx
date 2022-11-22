@@ -1,5 +1,5 @@
 import React from "react";
-import Choice from "../components/search/Choice";
+import SearchAdvice from "../components/search/Advice";
 import Footer from "../elements/Footer";
 import { Header2 } from "../elements/Header";
 import Dial from "../components/board/Dial";
@@ -13,10 +13,10 @@ function Board() {
       <Header2 title={"고민 접기"} />
       <Stcontainer>
         <StInnerWrap>
-          <StBtn1 onClick={() => nav("/board-choice")}>골라주기</StBtn1>
-          <StBtn2 onClick={() => nav("/board-advice")}>답해주기</StBtn2>
+          <StBtn2 onClick={() => nav("/board-choice")}>골라주기</StBtn2>
+          <StBtn1 onClick={() => nav("/board-advice")}>답해주기</StBtn1>
         </StInnerWrap>
-        <Choice />
+        <SearchAdvice />
       </Stcontainer>
       <div style={{ position: "absolute", bottom: "2.5rem", right: "0.5rem" }}>
         <Dial />

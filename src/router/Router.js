@@ -13,7 +13,7 @@ import Reward from "../pages/Reward";
 import Message from "../pages/Message";
 import DetailAdvice from "../pages/DetailAdvice";
 import Search from "../pages/Search";
-import SearchChoice from "../components/board/SearchChoice";
+import SearchChoice from "../pages/SearchChoice";
 
 const Router = () => {
   return (

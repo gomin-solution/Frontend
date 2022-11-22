@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import dayjs from "dayjs";
-import "moment/locale/ko";
 import { useMutation, useQueryClient } from "react-query";
 import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
@@ -12,18 +10,16 @@ import { bookmark, postChoice } from "../../api/boardChoiceApi";
 import { useChoiceInfiniteScroll } from "../../api/boardChoiceApi";
 import { MenuDial0, MenuDial1 } from "../../elements/MenuDial";
 import { decodeCookie } from "../../api/cookie";
-import Moment from "react-moment";
 
 const Choice = () => {
+  const queryClient = useQueryClient();
+
   /* 마감시간 */
   const dayjs = require("dayjs");
   const timezone = require("dayjs/plugin/timezone");
   const utc = require("dayjs/plugin/utc");
   dayjs.extend(utc);
   dayjs.extend(timezone);
-  const tz = "Asia/Seoul";
-
-  const queryClient = useQueryClient();
 
   /* filterId params 전달 */
   const [filterId, setFilterId] = useState(0);

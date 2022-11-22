@@ -6,7 +6,8 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import styled from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
-import { commentDelete } from "../api/detailApi";
+import { adviceDelete, commentDelete } from "../api/detailApi";
+import { useNavigate } from "react-router-dom";
 import { endChoice, removeChoice } from "../api/boardChoiceApi";
 
 //투표 정렬 필터
@@ -192,7 +193,7 @@ export function MenuDial2({ setFilterId }) {
 //게시판 상세페이지 게시글
 /*남 : 쪽지하기, 신고하기*/
 /*본인 : 수정, 삭제 */
-export function MenuDial3({ user }) {
+export function MenuDial3({ user, id, setAdEdit }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -202,6 +203,18 @@ export function MenuDial3({ user }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  //쿼리 초기화
+  const queryClient = useQueryClient();
+  const nav = useNavigate();
+
+  //게시글 삭제
+  const { mutate } = useMutation(adviceDelete, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getAdviceScroll");
+      nav("/board-advice");
+    },
+  });
 
   return (
     <StDiv>
@@ -225,8 +238,20 @@ export function MenuDial3({ user }) {
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem>수정</MenuItem>
-          <MenuItem>삭제</MenuItem>
+          <MenuItem
+            onClick={() => {
+              setAdEdit(false);
+            }}
+          >
+            수정
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              mutate(id);
+            }}
+          >
+            삭제
+          </MenuItem>
         </Menu>
       ) : (
         <Menu
@@ -248,7 +273,7 @@ export function MenuDial3({ user }) {
 
 //게시판 상세페이지 댓글 정렬 필터
 /*등록순, 좋아요순*/
-export function MenuDial4() {
+export function MenuDial4({ setFilterId }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menu, setMenu] = useState("등록순");
   const open = Boolean(anchorEl);
@@ -266,6 +291,7 @@ export function MenuDial4() {
   ];
   const changeMenu = (item) => {
     setMenu(item.filter);
+    setFilterId(item.filterId);
     setAnchorEl(null);
   };
 
@@ -412,6 +438,7 @@ export function MenuDial6({ setCategoryId }) {
     { topic: "생활", categoryId: 11 },
     { topic: "기타", categoryId: 12 },
   ];
+
   const changeMenu = (category) => {
     setMenu(category.topic);
     setCategoryId(category.categoryId);

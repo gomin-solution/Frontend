@@ -9,14 +9,14 @@ import { useState } from "react";
 import { Alert5 } from "./Alert";
 
 /*이전 버튼 + 제목바 */
-export function Header1({ title }) {
+export function Header1({ title, navi = -1 }) {
   const nav = useNavigate();
 
   return (
     <StBlock>
       <StBackcon
         onClick={() => {
-          nav(-1);
+          nav(navi);
         }}
       />
       <StTitle>{title}</StTitle>
@@ -67,13 +67,7 @@ export function Header5({ title }) {
         }}
       />
       <StTitle>{title}</StTitle>
-      <StBtn
-        onClick={() => {
-          nav(-1);
-        }}
-      >
-        완료
-      </StBtn>
+      <StBtn>완료</StBtn>
     </StBlock>
   );
 }
@@ -100,16 +94,14 @@ export function Header7() {
   /* 검색어 입력 후 페이지이동 */
   const [search, setSearch] = useState("");
   const searchSubmit = () => {
-    nav("/search", { state: search });
+    nav("/search-advice", { state: search });
   };
-
-  /* 검색창 전환 */
-  const [isSearch, setIsSearch] = useState(false);
-  const isSearchChange1 = () => {
-    setIsSearch((prev) => !prev);
-  };
-  const isSearchChange2 = () => {
-    search ? nav("/search", { state: search }) : setIsSearch((prev) => !prev);
+  const isSearchChange = () => {
+    if (search) {
+      nav("/search", { state: search });
+    } else {
+      return;
+    }
   };
 
   return (
@@ -131,7 +123,7 @@ export function Header7() {
             placeholder="검색어를 입력하세요."
             onChange={(e) => setSearch(e.target.value)}
           />
-          <StSearchcon type="button" onClick={isSearchChange2} />
+          <StSearchcon type="button" onClick={isSearchChange} />
         </form>
       </StBlock>
       <hr />

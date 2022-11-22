@@ -15,12 +15,12 @@ function ChoicePost() {
   //데이터 전송하기
   const onChoice = (data) => {
     wrtieChoice.mutate(data);
-    nav("/board-choice");
   };
 
   const wrtieChoice = useMutation(addChoice, {
     onSuccess: () => {
       queryClient.invalidateQueries("getChoiceScroll");
+      nav("/board-choice");
     },
   });
 

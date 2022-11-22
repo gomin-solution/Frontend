@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const actions = [
   { icon: <FileCopyIcon />, name: "골라주기", nav: "/post-choice" },
-  { icon: <SaveIcon />, name: "조언하기", nav: "/post-advice" },
+  { icon: <SaveIcon />, name: "답해주기", nav: "/post-advice" },
 ];
 
 export default function SpeedDialTooltipOpen() {

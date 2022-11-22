@@ -19,8 +19,8 @@ function AdvicePost({ resBoard }) {
 
   /*데이터 전송 */
   const onSubmit = (e) => {
-    if (categoryId === "") {
-      return alert("카테고리를 선택해주세요.");
+    if (categoryId === "" || e.title.trim() === "" || e.content.trim() === "") {
+      return alert("게시글 작성을 완료해주세요.");
     } else {
       const formData = new FormData();
       for (let i = 0; i < e.image.length; i++) {
@@ -83,7 +83,6 @@ function AdvicePost({ resBoard }) {
         <Stinput
           type="text"
           placeholder="제목을 입력해주세요. (30자 이내)"
-          required
           maxLength={30}
           {...register("title")}
         />
@@ -91,7 +90,6 @@ function AdvicePost({ resBoard }) {
         <Stcontent>
           <StText
             placeholder="내용을 입력해주세요. (500자 이내)"
-            required
             maxLength={500}
             {...register("content")}
           />

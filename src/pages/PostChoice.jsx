@@ -14,7 +14,15 @@ function ChoicePost() {
 
   //데이터 전송하기
   const onChoice = (data) => {
-    wrtieChoice.mutate(data);
+    if (
+      data.title.trim() === "" ||
+      data.choice1Name.trim() === "" ||
+      data.choice2Name.trim() === ""
+    ) {
+      return alert("게시글 작성을 완료해주세요.");
+    } else {
+      wrtieChoice.mutate(data);
+    }
   };
 
   const wrtieChoice = useMutation(addChoice, {
@@ -38,7 +46,6 @@ function ChoicePost() {
           type="text"
           placeholder="고민을 적어주세요. (50자 이내)"
           maxLength={50}
-          required
           {...register("title")}
         />
         <StLabel>선택지 추가</StLabel>
@@ -46,14 +53,12 @@ function ChoicePost() {
           type="text"
           placeholder="선택지1 (10자이내)"
           maxLength={10}
-          required
           {...register("choice1Name")}
         />
         <Stinput
           type="text"
           placeholder="선택지2 (10자이내)"
           maxLength={10}
-          required
           {...register("choice2Name")}
         />
         <StLabel>마감 시간</StLabel>

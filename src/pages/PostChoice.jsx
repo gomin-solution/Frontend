@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { addChoice } from "../api/postApi";
 import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
-import moment from "moment/moment";
+import dayjs from "dayjs";
 
 function ChoicePost() {
   const queryClient = useQueryClient();
@@ -26,9 +26,9 @@ function ChoicePost() {
   });
 
   //현재시간 설정하기
-  const nowTime = moment().format("YYYY-MM-DD HH:mm");
-  const minTime = moment().add(1, "hour").format().slice(0, -9);
-  const maxTime = moment().add(7, "days").format().slice(0, -9);
+  const nowTime = dayjs().format("YYYY-MM-DD HH:mm");
+  const minTime = dayjs().add(1, "hour").format().slice(0, -9);
+  const maxTime = dayjs().add(7, "days").format().slice(0, -9);
 
   return (
     <form as="form" onSubmit={handleSubmit(onChoice)}>

@@ -14,6 +14,7 @@ import Message from "../pages/Message";
 import DetailAdvice from "../pages/DetailAdvice";
 import Search from "../pages/Search";
 import Setting from "../pages/Setting";
+import SearchChoice from "../pages/SearchChoice";
 
 const Router = () => {
   return (
@@ -28,7 +29,10 @@ const Router = () => {
         <Route path="/board-choice" element={<BoardChoice />} />
         <Route path="/board-advice" element={<BoardAdvice />} />
         <Route path="/board-advice/:adviceId" element={<DetailAdvice />} />
+
         <Route path="/search" element={<Search />} />
+        <Route path="/search-choice" element={<SearchChoice />} />
+        {/* <Route path="/search-advice" element={<SearchAdvice />} /> */}
 
         <Route path="/post-choice" element={<PostChoice />} />
         <Route path="/post-advice" element={<PostAdvice />} />

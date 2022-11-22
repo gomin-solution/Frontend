@@ -1,14 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Recommend = ({ recommend }) => {
+  const nav = useNavigate();
+
   return (
     <StContainer>
       <StWrap>
         <StInnerWrap>
           <StLeftText>추천글</StLeftText>
-          <span style={{ color: "#7999FF" }}>[{recommend?.title}]</span>
-          <span>&nbsp;{recommend?.title}</span>
+          <div onClick={() => nav(`/board-advice/${recommend?.adviceId}`)}>
+            <span style={{ color: "#7999FF" }}>[{recommend?.category}]</span>
+            <span>&nbsp;{recommend?.title}</span>
+          </div>
         </StInnerWrap>
       </StWrap>
     </StContainer>
@@ -31,6 +36,7 @@ const StWrap = styled.div`
 const StInnerWrap = styled.div`
   display: flex;
   align-items: center;
+  font-size: ${(props) => props.theme.fontSizes.sm};
 `;
 
 const StLeftText = styled.div`

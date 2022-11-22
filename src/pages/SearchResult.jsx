@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import getSearch from "../api/searchApi";
 import Footer from "../elements/Footer";
-import { Header2 } from "../elements/Header";
+import { Header1 } from "../elements/Header";
 import styled from "styled-components";
 import Choice from "../components/search/Choice";
 import Advice from "../components/search/Advice";
@@ -23,7 +23,7 @@ const SearchResult = () => {
 
   return (
     <>
-      <Header2 title={"고민접기"} />
+      <Header1 title={"검색 결과"} />
       <Stcontainer>
         {menu[0] === boardCategory ? (
           <>
@@ -54,7 +54,7 @@ const SearchResult = () => {
       <div
         style={{ position: "absolute", bottom: "2.5rem", right: "0.5rem" }}
       ></div>
-      <Footer title={"고민접기"} />
+      <Footer title={"고민 접기"} />
     </>
   );
 };

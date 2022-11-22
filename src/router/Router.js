@@ -30,7 +30,6 @@ const Router = () => {
         <Route path="/board-choice" element={<BoardChoice />} />
         <Route path="/board-advice" element={<BoardAdvice />} />
         <Route path="/board-advice/:adviceId" element={<DetailAdvice />} />
-
         <Route path="/search" element={<Search />} />
         <Route path="/search-result" element={<SearchResult />} />
 
@@ -43,6 +42,7 @@ const Router = () => {
         <Route path="/reward" element={<Reward />} />
 
         <Route path="/myinfo" element={<MyInfo />} />
+
         {/* 그 밖의 요청시 404 페이지로 보내주기 */}
         <Route path="*" element={<NotFound />} />
       </Routes>

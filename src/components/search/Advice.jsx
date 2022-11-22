@@ -27,7 +27,7 @@ const Advice = ({ advices, keyword }) => {
                 fontWeight: "600",
               }}
             >
-              {advice.categoryId}
+              {advice.category}&nbsp;
               {advice.title}
             </p>
             <StContent>{advice.content}</StContent>

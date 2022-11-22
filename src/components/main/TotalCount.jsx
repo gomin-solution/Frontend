@@ -4,8 +4,10 @@ import styled from "styled-components";
 const TotalCount = ({ totalCount }) => {
   return (
     <StContainer>
-      <div style={{ fontSize: "1.5rem" }}>누적 고민접기 완료 수</div>
-      <div style={{ fontSize: "3rem", fontWeight: "600" }}>{totalCount}</div>
+      <StWrap>
+        <div style={{ fontSize: "0.8rem" }}>지금까지 해결된 고민</div>
+        <div style={{ fontSize: "3rem", fontWeight: "600" }}>{totalCount}</div>
+      </StWrap>
     </StContainer>
   );
 };
@@ -16,11 +18,14 @@ const StContainer = styled.div`
   background-color: #f4f2fb;
   width: 100%;
   height: 9rem;
+`;
+
+const StWrap = styled.div`
+  background-color: #f4f2fb;
   display: flex;
-  flex-flow: column;
   justify-content: center;
   align-items: center;
-  row-gap: 1rem;
+  column-gap: 1rem;
   padding: 0rem ${(props) => props.theme.paddings.xsm};
   margin-top: ${(props) => props.theme.margins.xxl};
 `;

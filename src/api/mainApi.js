@@ -7,8 +7,7 @@ export const getMain = async () => {
 };
 
 /* 행운메시지 get */
-export const getNote = async (userKey) => {
-  console.log("여기", userKey);
-  const res = await instance.get(`/note/${userKey}`);
+export const getNote = async () => {
+  const res = await instance.get("/msg");
   return res;
 };

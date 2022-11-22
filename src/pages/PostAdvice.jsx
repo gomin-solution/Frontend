@@ -9,24 +9,30 @@ import ImageModal from "../components/detailBorad/ImageModal";
 
 import { addAdvice } from "../api/postApi";
 import { useMutation } from "react-query";
+import { MenuDial7 } from "../elements/MenuDial";
 
 function AdvicePost({ resBoard }) {
-  console.log(resBoard);
   const { register, handleSubmit, watch } = useForm();
   const [imagePreview, setImagePreview] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  console.log(categoryId);
 
   /*데이터 전송 */
   const onSubmit = (e) => {
-    const formData = new FormData();
-    for (let i = 0; i < e.image.length; i++) {
-      formData.append(`image`, e.image[i]);
-    }
-    formData.append("title", e.title);
-    formData.append("content", e.content);
-    formData.append("isAdult", e.isAdult);
-    formData.append("categoryId", e.categoryId);
+    if (categoryId === "") {
+      return alert("카테고리를 선택해주세요.");
+    } else {
+      const formData = new FormData();
+      for (let i = 0; i < e.image.length; i++) {
+        formData.append(`image`, e.image[i]);
+      }
+      formData.append("title", e.title);
+      formData.append("content", e.content);
+      formData.append("isAdult", e.isAdult);
+      formData.append("categoryId", categoryId);
 
-    wrtieAdvice.mutate(formData);
+      wrtieAdvice.mutate(formData);
+    }
   };
 
   const wrtieAdvice = useMutation(addAdvice);
@@ -67,38 +73,13 @@ function AdvicePost({ resBoard }) {
     setModalOpen(true);
   };
 
-  const categories = [
-    { topic: "전체", categoryId: 0 },
-    { topic: "여행", categoryId: 1 },
-    { topic: "진로", categoryId: 2 },
-    { topic: "쇼핑", categoryId: 3 },
-    { topic: "연애", categoryId: 4 },
-    { topic: "친구", categoryId: 5 },
-    { topic: "반려동물", categoryId: 6 },
-    { topic: "선물", categoryId: 7 },
-    { topic: "건강", categoryId: 8 },
-    { topic: "코디", categoryId: 9 },
-    { topic: "육아", categoryId: 10 },
-    { topic: "생활", categoryId: 11 },
-    { topic: "기타", categoryId: 12 },
-  ];
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
       <Header5 title={"고민 적기"} />
       <Stcontainer>
-        <StCate>
-          <select>
-            <option>안녕</option>
-            {categories.map((cate) => {
-              return (
-                <option key={cate.categoryId} value={cate.categoryId}>
-                  {cate.topic}
-                </option>
-              );
-            })}
-          </select>
-        </StCate>
+        <StLabel>카테고리 선택</StLabel>
+        <MenuDial7 setCategoryId={setCategoryId} />
+        <StLabel style={{ marginTop: "1rem" }}>제목</StLabel>
         <Stinput
           type="text"
           placeholder="제목을 입력해주세요. (30자 이내)"
@@ -106,6 +87,7 @@ function AdvicePost({ resBoard }) {
           maxLength={30}
           {...register("title")}
         />
+        <StLabel style={{ marginTop: "0.5rem" }}>내용</StLabel>
         <Stcontent>
           <StText
             placeholder="내용을 입력해주세요. (500자 이내)"
@@ -181,15 +163,10 @@ const Stcontainer = styled.div`
   padding: ${(props) => props.theme.paddings.xxl};
 `;
 
-/*카테고리 박스 */
-const StCate = styled.div`
-  width: 100%;
-  height: 1.8rem;
-  font-size: ${(props) => props.theme.fontSizes.sm};
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/*라벨링 */
+const StLabel = styled.div`
+  margin-bottom: 0.4rem;
+  font-size: ${(props) => props.theme.fontSizes.base};
 `;
 
 /*제목 */
@@ -200,18 +177,18 @@ const Stinput = styled.input`
   border: none;
   background-color: ${(props) => props.theme.boxColors.gray1};
   padding: ${(props) => props.theme.paddings.base};
-  margin: ${(props) => props.theme.margins.lg} 0rem;
   font-size: ${(props) => props.theme.fontSizes.sm};
 `;
 
 /*글 내용 */
 const StText = styled.textarea`
   width: 100%;
-  height: 16rem;
+  height: 14rem;
   margin-bottom: ${(props) => props.theme.margins.sm};
 
   border: none;
   background-color: ${(props) => props.theme.boxColors.gray1};
+  font-size: ${(props) => props.theme.fontSizes.sm};
 `;
 
 /*이미지 업로드 박스*/

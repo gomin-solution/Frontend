@@ -37,11 +37,12 @@ export function Header2({ title }) {
 
 /*로고 + 알림바*/
 export function Header3() {
+  const nav = useNavigate();
   return (
     <StBlock>
       <StLogo>로고</StLogo>
       <StAlram />
-      <StSet />
+      <StSet onClick={() => nav("/setting")} />
     </StBlock>
   );
 }

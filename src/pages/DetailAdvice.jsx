@@ -36,6 +36,7 @@ function DetailAdvice() {
   const resBoard = data?.data.findAdvice;
   const resComment = data?.data.findAdvice.comment;
 
+  //유저 판단
   const [user, setUser] = useState(false);
 
   //게시글 수정
@@ -129,7 +130,7 @@ function DetailAdvice() {
                 {resBoard?.adviceImage.map((img) => {
                   return (
                     <img
-                      key={img}
+                      key={img[0]}
                       alt="업로드사진"
                       src={img[1]}
                       style={{ maxWidth: "7rem", maxHeight: "7rem" }}

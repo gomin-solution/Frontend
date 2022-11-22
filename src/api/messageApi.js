@@ -1,7 +1,13 @@
 import instance from "./api";
 
-/*투표하기 게시글 작성 */
+/* messageRoom get */
 export const getRoom = async () => {
   const res = await instance.get(`/note`);
+  return res;
+};
+
+/* message get */
+export const getMessage = async (messageId) => {
+  const res = await instance.get(`/note/${messageId}`);
   return res;
 };

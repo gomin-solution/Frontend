@@ -15,6 +15,7 @@ import DetailAdvice from "../pages/DetailAdvice";
 import Search from "../pages/Search";
 import SearchResult from "../pages/SearchResult";
 import Setting from "../pages/Setting";
+import MessageDetail from "../pages/MessageDetail";
 
 const Router = () => {
   return (
@@ -35,7 +36,10 @@ const Router = () => {
 
         <Route path="/post-choice" element={<PostChoice />} />
         <Route path="/post-advice" element={<PostAdvice />} />
+
         <Route path="/message" element={<Message />} />
+        <Route path="/message/detail" element={<MessageDetail />} />
+
         <Route path="/reward" element={<Reward />} />
 
         <Route path="/myinfo" element={<MyInfo />} />

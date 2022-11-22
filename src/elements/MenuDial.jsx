@@ -408,7 +408,7 @@ export function MenuDial5({ user, id, setIsEdit }) {
   );
 }
 
-/* 답해주기 카테고리 */
+/* 답해주기 카테고리 필터 (전체) */
 export function MenuDial6({ setCategoryId }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menu, setMenu] = useState("카테고리");
@@ -425,6 +425,82 @@ export function MenuDial6({ setCategoryId }) {
   //선택시 이름 바꾸기
   const categories = [
     { topic: "전체", categoryId: 0 },
+    { topic: "여행", categoryId: 1 },
+    { topic: "진로", categoryId: 2 },
+    { topic: "쇼핑", categoryId: 3 },
+    { topic: "연애", categoryId: 4 },
+    { topic: "친구", categoryId: 5 },
+    { topic: "반려동물", categoryId: 6 },
+    { topic: "선물", categoryId: 7 },
+    { topic: "건강", categoryId: 8 },
+    { topic: "코디", categoryId: 9 },
+    { topic: "육아", categoryId: 10 },
+    { topic: "생활", categoryId: 11 },
+    { topic: "기타", categoryId: 12 },
+  ];
+
+  const changeMenu = (category) => {
+    setMenu(category.topic);
+    setCategoryId(category.categoryId);
+    setAnchorEl(null);
+  };
+
+  return (
+    <StCategory>
+      <Button
+        id="basic-button"
+        aria-controls={open ? "basic-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={handleClick}
+        sx={{ color: "black" }}
+      >
+        {menu}
+        <ExpandMoreIcon />
+      </Button>
+      <Menu
+        style={{
+          height: "22rem",
+        }}
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+        onClose={handleClose}
+      >
+        {categories?.map((category) => {
+          return (
+            <div key={category.categoryId}>
+              <MenuItem onClick={() => changeMenu(category)}>
+                {category.topic}
+              </MenuItem>
+              <hr style={{ margin: "0" }} />
+            </div>
+          );
+        })}
+      </Menu>
+    </StCategory>
+  );
+}
+
+/* 답해주기 카테고리 */
+export function MenuDial7({ setCategoryId }) {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [menu, setMenu] = useState("선택");
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  //선택시 이름 바꾸기
+  const categories = [
     { topic: "여행", categoryId: 1 },
     { topic: "진로", categoryId: 2 },
     { topic: "쇼핑", categoryId: 3 },

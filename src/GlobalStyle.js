@@ -7,8 +7,8 @@ const GlobalStyle = createGlobalStyle`
   body {
     width: 100vw;
     height: 100vh;
+    height: -webkit-fill-available;
     margin: auto;
-
     /*웹 배경 이미지색 맞추기*/
     background-color: #536480;
     /*단어 넘치면 쪼개기*/
@@ -94,7 +94,7 @@ const GlobalStyle = createGlobalStyle`
   /*배경이미지보고 다시 조정하기*/
   @media all and (min-width: 900px) and (min-height: 500px) {
     body {
-      background-image: url("../src/image/background.png");
+      /* background-image: url("../src/image/background.png"); */
       /* background-size: contain;
       background-position: center;
       background-repeat: no-repeat; */

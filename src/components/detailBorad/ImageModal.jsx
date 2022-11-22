@@ -9,6 +9,7 @@ export default function ImageModal({ modalOpen, closeModal, img }) {
         open={modalOpen}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        hideBackdrop={true}
       >
         <StBigPrev>
           <ClearIcon className="clear" onClick={closeModal} />
@@ -35,7 +36,7 @@ const StBigPrev = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
 
   .clear {

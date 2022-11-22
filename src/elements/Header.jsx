@@ -95,7 +95,7 @@ export function Header7() {
   const [search, setSearch] = useState("");
   const searchSubmit = () => {
     if (search) {
-      nav("/search-choice", { state: search });
+      nav("/search-result", { state: search });
     } else {
       return;
     }

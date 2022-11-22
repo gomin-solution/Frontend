@@ -10,9 +10,10 @@ const Advice = () => {
   const [categoryId, setCategoryId] = useState(0);
   const [filterId, setFilterId] = useState(0);
 
-  /* 골라주기 get initeScroll */
+  /* 답해주기 get initeScroll */
   const { getAdvice, fetchNextPage, isSuccess, hasNextPage } =
     useAdviceInfiniteScroll(categoryId, filterId);
+
   /* 사용자가 div 요소를 보면 inView가 true, 안보면 false로 자동으로 변경 */
   const { ref, inView } = useInView();
 
@@ -49,8 +50,7 @@ const Advice = () => {
                         fontWeight: "600",
                       }}
                     >
-                      {advice.categoryId}
-                      {advice.title}
+                      [{advice.category}]&nbsp;{advice.title}
                     </p>
                     <StContent>{advice.content}</StContent>
                     <StWrap>

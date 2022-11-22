@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import styled from "styled-components";
 
@@ -8,17 +8,9 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { bookmark, postChoice } from "../../api/boardChoiceApi";
 import { MenuDial1 } from "../../elements/MenuDial";
 import { decodeCookie } from "../../api/cookie";
-import getSearch from "../../api/searchApi";
-import { useLocation } from "react-router-dom";
 
-const SearchChoice = () => {
+const Choice = ({ choices, keyword }) => {
   const queryClient = useQueryClient();
-
-  const { state: search } = useLocation();
-  console.log("search", search);
-
-  const { data } = useQuery(["getSearch", search], () => getSearch(search));
-  console.log(data);
 
   /* 마감시간 */
   const dayjs = require("dayjs");
@@ -43,7 +35,7 @@ const SearchChoice = () => {
   /* 골라주기 mutation */
   const choiceMutation = useMutation(postChoice, {
     onSuccess: () => {
-      queryClient.invalidateQueries("getChoiceScroll");
+      queryClient.invalidateQueries("getSearch");
     },
   });
 
@@ -55,14 +47,14 @@ const SearchChoice = () => {
   /* 북마크 mutation */
   const bookmarkMutation = useMutation(bookmark, {
     onSuccess: () => {
-      queryClient.invalidateQueries("getChoiceScroll");
+      queryClient.invalidateQueries("getSearch");
     },
   });
 
   return (
-    // <div>aaa</div>
     <StContainer>
-      {data?.choice.map((choice) => {
+      <StResult>{keyword}에 대한 검색 결과입니다.</StResult>
+      {choices?.map((choice) => {
         /* 마감시간 비교를 위한 변수 설정 */
         const nowTime = dayjs().format("YYYY-MM-DD HH:mm:ss");
         const newEndTime = dayjs(choice.endTime).format("YYYY-MM-DD HH:mm:ss");
@@ -171,10 +163,15 @@ const SearchChoice = () => {
   );
 };
 
-export default SearchChoice;
+export default Choice;
 
 const StContainer = styled.div`
   padding: 0rem ${(props) => props.theme.paddings.xxl};
+`;
+
+const StResult = styled.div`
+  width: 100%;
+  margin-bottom: ${(props) => props.theme.margins.base};
 `;
 
 const StWrap = styled.div`

@@ -3,7 +3,6 @@ import instance from "./api";
 
 /* choice infinite scroll get */
 export const useChoiceInfiniteScroll = (filterId) => {
-  console.log("filterId", filterId);
   const getChoiceScroll = async ({ pageParam = 0 }) => {
     const { data } = await instance.get(
       `/choice/${filterId}?page=${pageParam}`

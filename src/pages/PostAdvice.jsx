@@ -5,12 +5,12 @@ import styled from "styled-components";
 import { Switch } from "@mui/material";
 import { Header5 } from "../elements/Header";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
-import ImageModal from "../components/detailBorad/ImageModal";
 
 import { addAdvice } from "../api/postApi";
 import { useMutation } from "react-query";
 import { MenuDial7 } from "../elements/MenuDial";
 import { adviceEdit } from "../api/detailApi";
+import { ImageModal } from "../components/detailBorad/ImageModal";
 
 function AdvicePost({ resBoard }) {
   const { register, handleSubmit, watch } = useForm();

@@ -1,7 +1,8 @@
 import { Header4 } from "../elements/Header";
 import styled from "styled-components";
 import Footer from "../elements/Footer";
-import LockIcon from "@mui/icons-material/Lock";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 
 function Reward() {
   const missions = [{}];
@@ -17,28 +18,27 @@ function Reward() {
           </span>
         </StWrap1>
         <StWrap2>
-          <span>해결한 고민 수</span>
+          <span style={{ marginRight: "2rem" }}>해결한 고민 수</span>
           <span>45</span>
         </StWrap2>
+
         <StMissionWrap>
-          <StMissionBox>?</StMissionBox>
-          <StMissionBox>?</StMissionBox>
-          <StMissionBox>?</StMissionBox>
-          <StMissionBox>?</StMissionBox>
-          <StMissionBox>?</StMissionBox>
-          <StMissionBox>?</StMissionBox>
-          <StMissionBox>?</StMissionBox>
-          <StMissionBox>?</StMissionBox>
-          <StMissionBox>?</StMissionBox>
           <StMissionBox>
-            <LockIcon />
+            <LockOutlinedIcon className="inner" />
           </StMissionBox>
           <StMissionBox>
-            <LockIcon />
+            <QuestionMarkIcon className="inner" />
+          </StMissionBox>
+          <StMissionBox></StMissionBox>
+        </StMissionWrap>
+        <StMissionWrap>
+          <StMissionBox>
+            <LockOutlinedIcon className="inner" />
           </StMissionBox>
           <StMissionBox>
-            <LockIcon />
+            <QuestionMarkIcon className="inner" />
           </StMissionBox>
+          <StMissionBox></StMissionBox>
         </StMissionWrap>
       </Stcontainer>
       <Footer title={"수집함"} />
@@ -57,6 +57,7 @@ const Stcontainer = styled.div`
   padding: ${(props) => props.theme.paddings.xl};
 `;
 
+/*주니어 해결사 등급*/
 const StWrap1 = styled.div`
   height: 3rem;
   display: flex;
@@ -66,31 +67,50 @@ const StWrap1 = styled.div`
   margin-bottom: 1.75rem;
 `;
 
+/*주니어 해결한 고민수*/
 const StWrap2 = styled.div`
   background-color: #2764be;
   color: white;
   height: 4rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: ${(props) => props.theme.margins.xl};
-  padding: 0rem 3.25rem;
   font-size: ${(props) => props.theme.fontSizes.xl};
   font-weight: ${(props) => props.theme.fontWeights.lg};
 `;
 
+/*미션 박스 감싸기*/
 const StMissionWrap = styled.div`
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
   gap: 0.6rem;
+  margin-bottom: 0.6rem;
 `;
 
 const StMissionBox = styled.div`
-  background-color: #449b9b;
+  background-color: #d6e6e5;
   color: white;
-  width: 6.5rem;
-  height: 6.5rem;
-  font-size: 5rem;
+  float: left;
+  width: 33%;
   text-align: center;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+  .inner {
+    position: absolute;
+    width: 70%;
+    height: 70%;
+  }
+`;
+
+const stClearBox = styled.div`
+  font-size: ${(props) => props.theme.fontSizes.sm};
 `;

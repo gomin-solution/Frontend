@@ -91,7 +91,6 @@ function Message() {
 export default Message;
 
 const Stcontainer = styled.div`
-  background-color: tomato;
   width: 100%;
   position: absolute;
   overflow: auto;
@@ -107,7 +106,7 @@ const Stcontainer = styled.div`
 `;
 
 const StWrap = styled.div`
-  background-color: white;
+  background-color: #f3f3f3;
   width: 100%;
   height: 5rem;
   margin-bottom: ${(props) => props.theme.margins.sm};

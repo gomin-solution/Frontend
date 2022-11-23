@@ -1,6 +1,7 @@
 import { Header4 } from "../elements/Header";
 import styled from "styled-components";
 import Footer from "../elements/Footer";
+import LockIcon from "@mui/icons-material/Lock";
 
 function Reward() {
   const missions = [{}];
@@ -29,9 +30,15 @@ function Reward() {
           <StMissionBox>?</StMissionBox>
           <StMissionBox>?</StMissionBox>
           <StMissionBox>?</StMissionBox>
-          <StMissionBox>?</StMissionBox>
-          <StMissionBox>?</StMissionBox>
-          <StMissionBox>?</StMissionBox>
+          <StMissionBox>
+            <LockIcon />
+          </StMissionBox>
+          <StMissionBox>
+            <LockIcon />
+          </StMissionBox>
+          <StMissionBox>
+            <LockIcon />
+          </StMissionBox>
         </StMissionWrap>
       </Stcontainer>
       <Footer title={"수집함"} />
@@ -74,9 +81,9 @@ const StWrap2 = styled.div`
 
 const StMissionWrap = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
-  row-gap: 0.6rem;
+  gap: 0.6rem;
 `;
 
 const StMissionBox = styled.div`

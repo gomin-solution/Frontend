@@ -18,7 +18,7 @@ export default function App() {
   return (
     <>
       <SwFeat
-        spaceBetween={30}
+        spaceBetween={0}
         centeredSlides={true}
         loop={true}
         autoplay={{
@@ -40,12 +40,12 @@ export default function App() {
 }
 
 const SwFeat = styled(Swiper)`
-  height: 172px;
-  margin-bottom: 36px;
+  height: 11rem;
+  margin-bottom: 1rem;
   &.swiper .swiper-pagination-bullet {
     background-color: white;
-    width: 5px;
-    height: 5px;
+    width: 0.4rem;
+    height: 0.4rem;
   }
 `;
 

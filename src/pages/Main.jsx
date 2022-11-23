@@ -67,7 +67,6 @@ const StContainer = styled.div`
 `;
 
 const StPaddingWrap = styled.div`
-  height: 100%;
   padding: 0rem ${(props) => props.theme.paddings.xxl};
 `;
 

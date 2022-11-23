@@ -10,12 +10,13 @@ import MyInfo from "../pages/MyInfo";
 import BoardChoice from "../pages/BoardChoice";
 import BoardAdvice from "../pages/BoardAdvice";
 import Reward from "../pages/Reward";
-import Message from "../pages/Message";
+import Note from "../pages/Note";
+import NoteDetail from "../pages/NoteDetail";
 import DetailAdvice from "../pages/DetailAdvice";
 import Search from "../pages/Search";
 import SearchResult from "../pages/SearchResult";
 import Setting from "../pages/Setting";
-import MessageDetail from "../pages/MessageDetail";
+import Bookmark from "../pages/Bookmark";
 
 const Router = () => {
   return (
@@ -26,7 +27,9 @@ const Router = () => {
         <Route path="/signup" element={<Signup />} />
 
         <Route path="/" element={<Main />} />
+        <Route path="/bookmark" element={<Bookmark />} />
         <Route path="/setting" element={<Setting />} />
+
         <Route path="/board-choice" element={<BoardChoice />} />
         <Route path="/board-advice" element={<BoardAdvice />} />
         <Route path="/board-advice/:adviceId" element={<DetailAdvice />} />
@@ -36,8 +39,8 @@ const Router = () => {
         <Route path="/post-choice" element={<PostChoice />} />
         <Route path="/post-advice" element={<PostAdvice />} />
 
-        <Route path="/message" element={<Message />} />
-        <Route path="/message/detail" element={<MessageDetail />} />
+        <Route path="/note" element={<Note />} />
+        <Route path="/note/:roomId" element={<NoteDetail />} />
 
         <Route path="/reward" element={<Reward />} />
 

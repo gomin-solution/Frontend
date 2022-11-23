@@ -13,7 +13,7 @@ function Footer({ title }) {
   const menu = [
     { title: "메인", nav: "/" },
     { title: "고민 접기", nav: "/board-choice" },
-    { title: "쪽지", nav: "/message" },
+    { title: "쪽지", nav: "/note" },
     { title: "수집함", nav: "/reward" },
   ];
 

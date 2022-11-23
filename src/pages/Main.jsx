@@ -17,7 +17,6 @@ function Main() {
   /* 메인페이지 get */
   const { data, isLoading } = useQuery("getMain", getMain, {
     refetchOnWindowFocus: false,
-    retry: false,
   });
   const recommend = data?.data.advice;
   const totalCount = data?.data.totalCount;

@@ -63,7 +63,7 @@ export default Main;
 const StContainer = styled.div`
   width: 100%;
   position: absolute;
-  height: calc(100vh - 9rem);
+  height: calc(100vh - 8rem);
   overflow-y: scroll;
 `;
 

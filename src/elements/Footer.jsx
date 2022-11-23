@@ -60,7 +60,6 @@ const StBlock = styled.div`
 /*아이콘 버튼 */
 const StCon = styled.button`
   width: 5rem;
-  height: 2rem;
   border: none;
   margin-top: 0.5rem;
   background-color: #ffffff;
@@ -73,7 +72,6 @@ const StAct = styled.button`
   border: none;
   border-radius: 2rem;
   width: 5rem;
-  height: 2rem;
   margin-top: 0.5rem;
   font-size: ${(props) => props.theme.fontSizes.sm};
   &:div {

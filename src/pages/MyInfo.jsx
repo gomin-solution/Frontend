@@ -18,5 +18,5 @@ const Stcontainer = styled.div`
   width: 100%;
   position: absolute;
   overflow: auto;
-  height: calc(100vh - 9rem);
+  height: calc(100vh - 8rem);
 `;

@@ -4,10 +4,20 @@ import reset from "styled-reset";
 const GlobalStyle = createGlobalStyle`
   ${reset}
 
+  #root {
+    font-family: "Noto Sans KR", sans-serif;
+    width: 100%;
+    max-width: 26rem;
+    height: 100vh;
+    margin: auto;
+    position: relative;
+    background-color: #ffffff;
+  }
+
   body {
     width: 100vw;
     height: 100vh;
-    height: -webkit-fill-available;
+    
     margin: auto;
     /*웹 배경 이미지색 맞추기*/
     background-color: #536480;
@@ -18,6 +28,25 @@ const GlobalStyle = createGlobalStyle`
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    /* 사파리에서 input 클릭시 확대되는 오류 */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media all and (min-width: 360px) and (max-width: 899px) {
+    body {
+      /*웹 배경 이미지색 맞추기*/
+      background-color: #536480;
+    }
+  }
+
+  /*배경이미지보고 다시 조정하기*/
+  @media all and (min-width: 900px) and (min-height: 500px) {
+    body {
+      /* background-image: url("../src/image/background.png"); */
+      /* background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat; */
+    }
   }
 
   /*엘리먼트 전체 적용*/
@@ -67,15 +96,6 @@ const GlobalStyle = createGlobalStyle`
     max-height: 1.5rem;
   }
 
-  #root {
-    font-family: "Noto Sans KR", sans-serif;
-    width: 100%;
-    max-width: 26rem;
-    height: 100vh;
-    margin: auto;
-    position: relative;
-    background-color: #ffffff;
-  }
 
   /*추가, 옆으로 정렬하기*/
   .flexbox {
@@ -84,22 +104,7 @@ const GlobalStyle = createGlobalStyle`
   gap: 0.5rem;
   }
 
-  @media all and (min-width: 360px) and (max-width: 899px) {
-    body {
-      /*웹 배경 이미지색 맞추기*/
-      background-color: #536480;
-    }
-  }
 
-  /*배경이미지보고 다시 조정하기*/
-  @media all and (min-width: 900px) and (min-height: 500px) {
-    body {
-      /* background-image: url("../src/image/background.png"); */
-      /* background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat; */
-    }
-  }
 `;
 
 export default GlobalStyle;

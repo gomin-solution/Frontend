@@ -6,8 +6,10 @@ import { Alert4 } from "../../elements/Alert";
 
 const DailyMessage = ({ isCookie }) => {
   /* 행운 메시지 get */
-  const { data } = useQuery("getNote", getNote);
-  console.log("행운메시지", data);
+  const { data } = useQuery("getNote", getNote, {
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
 
   /* 로그인한 유저만 행운메시지 get */
   const noteHandler = () => {

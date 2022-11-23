@@ -7,7 +7,6 @@ export const Alert0 = (text) => {
     confirmButtonText: "확인",
     confirmButtonColor: "#6D6D6D",
     width: "20rem",
-    fontSize: "1rem",
   });
 };
 
@@ -18,7 +17,6 @@ export const Alert1 = (text) => {
     confirmButtonText: "확인",
     confirmButtonColor: "#6D6D6D",
     width: "20rem",
-    fontSize: "1rem",
   }).then(() => {
     window.location.href = "/";
   });
@@ -34,7 +32,6 @@ export const Alert2 = (text) => {
     confirmButtonColor: "#6D6D6D",
     cancelButtonColor: "#6D6D6D",
     width: "20rem",
-    fontSize: "1rem",
   });
 };
 
@@ -43,9 +40,8 @@ export const Alert3 = (text) => {
   Swal.fire({
     text: text,
     confirmButtonText: "확인",
-    confirmButtonColor: "#6D6D6D",
+    confirmButtonColor: "#e20606",
     width: "20rem",
-    fontSize: "1rem",
   }).then(() => {
     window.location.replace("/login");
   });
@@ -58,7 +54,6 @@ export const Alert4 = (text) => {
     confirmButtonText: "확인",
     confirmButtonColor: "#6D6D6D",
     width: "20rem",
-    fontSize: "1rem",
   });
 };
 

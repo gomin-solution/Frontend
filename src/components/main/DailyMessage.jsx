@@ -35,7 +35,7 @@ export default DailyMessage;
 
 const StContainer = styled.div`
   width: 100%;
-  height: 100% - 4rem;
+  height: 16rem;
   margin-bottom: ${(props) => props.theme.margins.sm};
 `;
 

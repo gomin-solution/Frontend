@@ -1,3 +1,6 @@
+import { rewardGet } from "../api/rewardApi";
+import { useQuery } from "react-query";
+
 import { Header4 } from "../elements/Header";
 import styled from "styled-components";
 import Footer from "../elements/Footer";
@@ -5,7 +8,15 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 
 function Reward() {
-  const missions = [{}];
+  const { data } = useQuery("rewardGet", rewardGet, {
+    refetchOnWindowFocus: false,
+  });
+
+  const missions = [
+    { id: 1, mission: ["게시글 작성 "] },
+    { id: 2, mission: ["골라주기", "답해주기"] },
+    { id: 3, mission: ["골라주기", "답해주기"] },
+  ];
 
   return (
     <>
@@ -19,7 +30,7 @@ function Reward() {
         </StWrap1>
         <StWrap2>
           <span style={{ marginRight: "2rem" }}>해결한 고민 수</span>
-          <span>45</span>
+          <span>??</span>
         </StWrap2>
 
         <StMissionWrap>
@@ -30,8 +41,6 @@ function Reward() {
             <QuestionMarkIcon className="inner" />
           </StMissionBox>
           <StMissionBox></StMissionBox>
-        </StMissionWrap>
-        <StMissionWrap>
           <StMissionBox>
             <LockOutlinedIcon className="inner" />
           </StMissionBox>
@@ -84,21 +93,26 @@ const StWrap2 = styled.div`
 const StMissionWrap = styled.div`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 0.6rem;
-  margin-bottom: 0.6rem;
 `;
 
 const StMissionBox = styled.div`
   background-color: #d6e6e5;
   color: white;
   float: left;
-  width: 33%;
-  text-align: center;
+  width: 31.5%;
   position: relative;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  //작은 화면에서도 1줄에 3개 고정
+  @media all and (min-width: 200px) and (max-width: 384px) {
+    width: 30%;
+  }
+
   &:after {
     content: "";
     display: block;

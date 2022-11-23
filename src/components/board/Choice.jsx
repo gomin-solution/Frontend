@@ -26,7 +26,6 @@ const Choice = () => {
 
   /* 유저키 가져오기 */
   const decodeKey = decodeCookie("accessToken")?.userKey;
-  console.log(decodeKey);
 
   /* 투표 get initeScroll */
   const { getChoice, fetchNextPage, isSuccess, hasNextPage } =

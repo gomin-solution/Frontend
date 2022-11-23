@@ -10,6 +10,7 @@ const DailyMessage = ({ isCookie }) => {
     retry: false,
     refetchOnWindowFocus: false,
   });
+  console.log("data", data);
 
   /* 로그인한 유저만 행운메시지 get */
   const noteHandler = () => {

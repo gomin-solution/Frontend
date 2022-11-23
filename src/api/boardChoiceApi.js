@@ -3,7 +3,6 @@ import instance from "./api";
 
 /* choice infinite scroll get */
 export const useChoiceInfiniteScroll = (filterId) => {
-  console.log("filterId", filterId);
   const getChoiceScroll = async ({ pageParam = 0 }) => {
     const { data } = await instance.get(
       `/choice/${filterId}?page=${pageParam}`
@@ -57,6 +56,6 @@ export const removeChoice = async (choiceId) => {
 
 /* choice 게시글 마감 */
 export const endChoice = async (choiceId) => {
-  const res = await instance.delete(`/choice/${choiceId}`);
+  const res = await instance.put(`/choice/early/${choiceId}`);
   return res;
 };

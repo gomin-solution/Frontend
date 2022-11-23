@@ -6,7 +6,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import styled from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
-import { adviceDelete, commentDelete } from "../api/detailApi";
+import { adviceDelete, commentDelete, messageNav } from "../api/detailApi";
 import { useNavigate } from "react-router-dom";
 import { endChoice, removeChoice } from "../api/boardChoiceApi";
 
@@ -72,7 +72,7 @@ export function MenuDial0({ setFilterId }) {
 }
 
 //투표 점
-/*삭제, 투표종료*/
+/*삭제, 골라주기 종료*/
 export function MenuDial1({ choiceId }) {
   const queryClient = useQueryClient();
 
@@ -126,7 +126,7 @@ export function MenuDial1({ choiceId }) {
           삭제
         </MenuItem>
         <MenuItem onClick={() => endChoiceMutation.mutate(choiceId)}>
-          투표종료
+          골라주기 종료
         </MenuItem>
       </Menu>
     </StDiv>
@@ -195,7 +195,7 @@ export function MenuDial2({ setFilterId }) {
 //게시판 상세페이지 게시글
 /*남 : 쪽지하기, 신고하기*/
 /*본인 : 수정, 삭제 */
-export function MenuDial3({ user, id, setAdEdit }) {
+export function MenuDial3({ user, id, setAdEdit, resBoard }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -217,6 +217,18 @@ export function MenuDial3({ user, id, setAdEdit }) {
       nav("/board-advice");
     },
   });
+
+  // 쪽지 보내기
+  const payload = {
+    userKey: resBoard?.userKey,
+    category: resBoard?.category,
+    title: resBoard?.title,
+  };
+
+  const MessageMutation = useMutation(messageNav);
+  const MessageHandler = () => {
+    MessageMutation.mutate(payload);
+  };
 
   return (
     <StDiv>
@@ -265,7 +277,7 @@ export function MenuDial3({ user, id, setAdEdit }) {
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem>쪽지하기</MenuItem>
+          <MenuItem onClick={MessageHandler}>쪽지하기</MenuItem>
           <MenuItem>신고하기</MenuItem>
         </Menu>
       )}

@@ -27,7 +27,7 @@ export const adviceBookmark = async (payload) => {
   return res;
 };
 
-////////////댓글/////////////////
+/* ----------------------댓글---------------------- */
 
 /* 답해주기 댓글 생성 시 post */
 export const commentAdvice = async (payload) => {
@@ -57,4 +57,10 @@ export const commentDelete = async (payload) => {
 export const commentLike = async (payload) => {
   const res = await instance.put(`/advice/comment/like/${payload}`);
   return res;
+};
+
+/* ----------------------쪽지---------------------- */
+export const messageNav = async (payload) => {
+  const res = await instance.post(`/note`, payload);
+  return (window.location.href = `/note/${res?.data.roomId}`);
 };

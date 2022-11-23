@@ -116,6 +116,7 @@ function DetailAdvice() {
                   />
                 )}
                 <MenuDial3
+                  resBoard={resBoard}
                   user={user}
                   id={resBoard?.adviceId}
                   setAdEdit={setAdEdit}

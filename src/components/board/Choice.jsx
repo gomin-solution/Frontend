@@ -26,7 +26,6 @@ const Choice = () => {
 
   /* 유저키 가져오기 */
   const decodeKey = decodeCookie("accessToken")?.userKey;
-  console.log(decodeKey);
 
   /* 투표 get initeScroll */
   const { getChoice, fetchNextPage, isSuccess, hasNextPage } =
@@ -96,8 +95,7 @@ const Choice = () => {
                 }
 
                 return (
-                  // <span key={choice.choiceId}>test중</span>
-                  <StWrap ref={ref} key={choice.choiceId}>
+                  <StWrap ref={ref} key={choice.choiceId} isEnd={choice.isEnd}>
                     <StChoiceTextWrap>
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <Stimg src={choice.userImage} alt="profile" />
@@ -123,33 +121,19 @@ const Choice = () => {
                     <StChoiceName>{choice.title}</StChoiceName>
                     <StTextWrap2>
                       {choice.choiceCount === null ? (
-                        <span
-                          style={{
-                            color: `${(props) => props.theme.fontColors.fong1}`,
-                          }}
-                        >
-                          0명 참여
-                        </span>
+                        <StParticipant>0명 참여</StParticipant>
                       ) : (
-                        <span
-                          style={{
-                            color: `${(props) => props.theme.fontColors.fong1}`,
-                          }}
-                        >
+                        <StParticipant>
                           {choice.choiceCount}명 참여
-                        </span>
+                        </StParticipant>
                       )}
-                      <span
-                        style={{
-                          color: `${(props) => props.theme.fontColors.fong1}`,
-                        }}
-                      >
+                      <StParticipant>
                         {newEndTime > nowTime ? (
                           <span>{diffTime} 후 마감</span>
                         ) : (
-                          <span>투표 마감</span>
+                          <span style={{ color: "white" }}>투표 마감</span>
                         )}
-                      </span>
+                      </StParticipant>
                     </StTextWrap2>
                     <StTextWrap3>
                       <span>{choice.choice1Name}</span>
@@ -161,6 +145,7 @@ const Choice = () => {
                           onClick={(e) => choiceSubmit(e, choice)}
                           value="1"
                           backColor="#9F9F9F"
+                          isEnd={choice.isEnd}
                         >
                           1번
                         </StChoiceBtn>
@@ -168,12 +153,13 @@ const Choice = () => {
                           onClick={(e) => choiceSubmit(e, choice)}
                           value="2"
                           backColor="#6D6D6D"
+                          isEnd={choice.isEnd}
                         >
                           2번
                         </StChoiceBtn>
                       </StChoiceWrap>
                     ) : (
-                      <StChoiceWrap>
+                      <StChoiceWrap isEnd={choice.isEnd}>
                         <StChoice1 width={choice.choice1Per}>
                           <StPerText1>{choice.choice1Per}%</StPerText1>
                         </StChoice1>
@@ -204,7 +190,9 @@ const StNavWrap = styled.div`
 `;
 
 const StWrap = styled.div`
-  background-color: ${(props) => props.theme.boxColors.gray1};
+  /* background-color: ${(props) => props.theme.boxColors.gray1}; */
+  background-color: ${(props) =>
+    props.isEnd ? "lightgray" : props.theme.boxColors.gray1};
   margin-bottom: ${(props) => props.theme.margins.xxl};
   padding: ${(props) => props.theme.paddings.lg};
 `;
@@ -214,6 +202,10 @@ const StTextWrap2 = styled.div`
   justify-content: space-between;
   margin-bottom: ${(props) => props.theme.margins.sm};
   font-size: ${(props) => props.theme.fontSizes.sm};
+`;
+
+const StParticipant = styled.span`
+  color: ${(props) => props.theme.fontColors.fong1};
 `;
 
 const StTextWrap3 = styled.div`
@@ -246,7 +238,7 @@ const StIconWrap = styled.div`
 
 const StChoiceWrap = styled.div`
   width: 100%;
-  display: flex;
+  display: ${(props) => (props.isEnd ? "none" : "flex")};
 `;
 
 const StChoiceBtn = styled.button`
@@ -256,6 +248,7 @@ const StChoiceBtn = styled.button`
   color: white;
   font-weight: ${(props) => props.theme.fontWeights.lg};
   border: none;
+  display: ${(props) => (props.isEnd ? "none" : null)};
   cursor: pointer;
 `;
 

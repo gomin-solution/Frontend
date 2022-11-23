@@ -7,13 +7,13 @@ import { useForm } from "react-hook-form";
 
 import styled from "styled-components";
 import DetailComment from "../components/detailBorad/DetailComment";
-import ImageModal from "../components/detailBorad/ImageModal";
 import { Header1 } from "../elements/Header";
 import { MenuDial3, MenuDial4 } from "../elements/MenuDial";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import PostAdvice from "../pages/PostAdvice";
+import { ImageModal } from "../components/detailBorad/ImageModal";
 
 function DetailAdvice() {
   const queryClient = useQueryClient();

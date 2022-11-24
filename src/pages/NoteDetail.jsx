@@ -20,7 +20,7 @@ function Message() {
   const [messages, setMessages] = useState([]);
 
   /* 쪽지 내용 전부 가져오기 */
-  const { data: res } = useQuery(
+  const { isLoading } = useQuery(
     ["getNotes", roomId, setMessages],
     () => getNotes(roomId, setMessages),
     {

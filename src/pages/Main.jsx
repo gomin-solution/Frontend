@@ -18,8 +18,12 @@ function Main() {
   const { data, isLoading } = useQuery("getMain", getMain, {
     refetchOnWindowFocus: false,
   });
-  const recommend = data?.data.advice;
-  const totalCount = data?.data.totalCount;
+  console.log("data", data);
+
+  const recommend = data?.data.mainpage.advice;
+  const totalCount = data?.data.mainpage.totalCount;
+  const dailyMessage = data?.data.dailyMessage;
+  const isOpen = data?.data.mainpage.isOpen;
 
   if (isLoading) {
     return (
@@ -47,7 +51,11 @@ function Main() {
         <StPaddingWrap>
           <Recommend recommend={recommend} />
           <StHr />
-          <DailyMessage isCookie={isCookie} />
+          <DailyMessage
+            isCookie={isCookie}
+            dailyMessage={dailyMessage}
+            isOpen={isOpen}
+          />
           <AnswerAndBookmark />
           <TotalCount totalCount={totalCount} />
         </StPaddingWrap>

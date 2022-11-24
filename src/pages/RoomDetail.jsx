@@ -56,7 +56,7 @@ function Message() {
 
   return (
     <>
-      <Header1 title={"쪽지"} navi="/rooms" roomId={roomId} />
+      <Header1 title={"쪽지"} navi="/rooms" roomId={roomId} leave={true} />
       <Stcontainer>
         {messages?.map((message, idx) => (
           <StWrap key={idx}>

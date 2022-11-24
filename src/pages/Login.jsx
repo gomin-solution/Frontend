@@ -1,14 +1,13 @@
-import React from "react";
 import { useForm } from "react-hook-form";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-
-import { Btn1 } from "../elements/Btn";
-
 import instance from "../api/api";
 import { setCookie } from "../api/cookie";
+
+/*스타일 관련 */
 import Alert1, { Alert0 } from "../elements/Alert";
+import styled from "styled-components";
 import { Header1 } from "../elements/Header";
+import { Container } from "../shared/css";
 
 const Login = () => {
   const nav = useNavigate();
@@ -34,7 +33,7 @@ const Login = () => {
   return (
     <>
       <Header1 />
-      <Stcontainer>
+      <StContainer>
         <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
           <StTitle>로고</StTitle>
           <StInputWrap>
@@ -46,7 +45,7 @@ const Login = () => {
               {...register("password")}
             />
           </StInputWrap>
-          <Btn1 text={"로그인"} />
+          <Stbtn>로그인</Stbtn>
         </StFormContainer>
         <StBtnWrap>
           <StBottomNav1 type="button">아이디 찾기</StBottomNav1>
@@ -57,19 +56,16 @@ const Login = () => {
             회원가입
           </StBottomNav2>
         </StBtnWrap>
-      </Stcontainer>
+      </StContainer>
     </>
   );
 };
 
 export default Login;
 
-/*반응형 맞춤 */
-const Stcontainer = styled.div`
-  width: 100%;
-  position: absolute;
-  overflow: auto;
-  height: calc(100vh);
+const StContainer = styled.div`
+  ${Container};
+  height: calc(100vh - 4rem);
 `;
 
 const StFormContainer = styled.form`
@@ -97,7 +93,7 @@ const StInputWrap = styled.div`
 `;
 
 const StInput = styled.input`
-  background-color: ${(props) => props.theme.boxColors.gray1};
+  background-color: ${(props) => props.theme.Colors.blueGray1};
   width: 100%;
   height: 3rem;
   border: none;
@@ -111,16 +107,19 @@ const StBtnWrap = styled.div`
   margin: 2rem 4rem;
 `;
 
+/*아이디 찾기, 비밀번호 찾기*/
 const StBottomNav1 = styled.span`
-  color: ${(props) => props.theme.boxColors.gray3};
+  color: ${(props) => props.theme.Colors.gray3};
   border: none;
-  font-size: 0.8rem;
+  font-size: ${(props) => props.theme.fontSizes.sm};
   cursor: pointer;
 `;
 
+/*회원가입*/
 const StBottomNav2 = styled.span`
   border: none;
   font-size: ${(props) => props.theme.fontSizes.sm};
+  color: #404040;
   cursor: pointer;
 `;
 
@@ -128,4 +127,13 @@ const StHr = styled.hr`
   height: 0.8rem;
   width: 0;
   border-right: 0;
+`;
+
+/*로그인 버튼*/
+const Stbtn = styled.button`
+  font-size: ${(props) => props.theme.fontSizes.base};
+  background-color: ${(props) => props.theme.Colors.blueGreen3};
+  color: #ffffff;
+  width: 100%;
+  height: 3rem;
 `;

@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import instance from "../api/api";
+
+/*스타일 관련*/
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import { Header5 } from "../elements/Header";
 import { Alert0, Alert3 } from "../elements/Alert";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
-import instance from "../api/api";
+import { Container, FlexCenter } from "../shared/css";
 
 const Signup = () => {
-  const nav = useNavigate();
-
   /* 아이디, 닉네임 중복체크 */
   const [idDub, setIdDub] = useState(false);
   const [nickDub, setNickDub] = useState(false);
@@ -24,8 +24,6 @@ const Signup = () => {
 
   /* password 변수에 키 값 할당 */
   const password = watch("password");
-
-  console.log(idDub);
 
   /* 회원가입 제출 */
   const onSubmit = async (data) => {
@@ -74,7 +72,6 @@ const Signup = () => {
     <Stcontainer as="form" onSubmit={handleSubmit(onSubmit)}>
       <Header5 title={"회원가입"} />
       <StFormContainer>
-        <StTitle>회원가입</StTitle>
         <StInputWrap>
           {/* ----- 아이디 ----- */}
           <StInputInnerWrap>
@@ -230,9 +227,7 @@ export default Signup;
 
 /*반응형 맞춤 */
 const Stcontainer = styled.form`
-  width: 100%;
-  position: absolute;
-  overflow: auto;
+  ${Container}
   height: calc(100vh - 4rem);
 `;
 
@@ -242,13 +237,6 @@ const StFormContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: ${(props) => props.theme.paddings.xxl};
-`;
-
-const StTitle = styled.div`
-  margin: 2rem auto 3rem;
-  font-size: ${(props) => props.theme.fontSizes.xl};
-  text-align: center;
-  font-weight: ${(props) => props.theme.fontWeights.lg};
 `;
 
 const StInputWrap = styled.div`
@@ -265,7 +253,7 @@ const StInputInnerWrap = styled.div`
 `;
 
 const StInput = styled.input`
-  background-color: ${(props) => props.theme.boxColors.gray1};
+  background-color: ${(props) => props.theme.Colors.blueGray1};
   width: 100%;
   height: 3rem;
   border: none;
@@ -273,14 +261,13 @@ const StInput = styled.input`
 `;
 
 const StCheckBtn = styled.button`
-  background-color: ${(props) => props.theme.boxColors.gray2};
-  color: ${(props) => props.theme.fontColors.fong2};
+  background-color: ${(props) => props.theme.Colors.blueGreen3};
+  color: #ffffff;
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
   width: 4.5rem;
   height: 2rem;
-  border: none;
 `;
 
 const StCheckDub = styled.button`
@@ -291,15 +278,12 @@ const StCheckDub = styled.button`
   right: 0.5rem;
   width: 6rem;
   height: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: default;
+  ${FlexCenter};
 `;
 
 /*유효성검사 출력*/
 const StCheck = styled.span`
-  color: ${(props) => props.theme.boxColors.gray3};
+  color: ${(props) => props.theme.Colors.gray2};
   font-size: ${(props) => props.theme.fontSizes.xsm};
   padding-left: ${(props) => props.theme.paddings.xsm};
 `;

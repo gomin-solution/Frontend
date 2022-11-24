@@ -1,17 +1,20 @@
 const calcRem = (size) => `${size / 16}rem`;
 
-const boxColors = {
-  bg: "#FFFFFF",
-  gray1: "#F3F3F3",
-  gray2: "#D9D9D9",
-  gray3: "#9F9F9F",
-  gray4: "#6D6D6D",
-};
-
-const fontColors = {
-  fong1: "#999999",
-  fong2: "#545454",
-  fong3: "#000000",
+const Colors = {
+  black: "#002020",
+  gray3: "#737878",
+  gray2: "#939393",
+  gray1: "#CDCDCD",
+  bg1: "#FCFCFB",
+  bg2: "#E9F3F2",
+  bg3: "#DCE7E7",
+  blueGreen3: "#19696A",
+  blueGreen2: "#00A1A3",
+  blueGreen1: "#A7EFF0",
+  foot: "#EAF0EF",
+  blueGray3: "#4A6363",
+  blueGray2: "#7B9696",
+  blueGray1: "#F1F5F4",
 };
 
 const fontSizes = {
@@ -55,8 +58,7 @@ const margins = {
 };
 
 export const theme = {
-  boxColors,
-  fontColors,
+  Colors,
   fontSizes,
   fontWeights,
   paddings,

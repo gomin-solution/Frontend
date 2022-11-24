@@ -6,7 +6,6 @@ import Intro from "../pages/Intro";
 import Signup from "../pages/Signup";
 import PostAdvice from "../pages/PostAdvice";
 import PostChoice from "../pages/PostChoice";
-import MyInfo from "../pages/MyInfo";
 import BoardChoice from "../pages/BoardChoice";
 import BoardAdvice from "../pages/BoardAdvice";
 import Reward from "../pages/Reward";
@@ -43,8 +42,6 @@ const Router = () => {
         <Route path="/note/:roomId" element={<NoteDetail />} />
 
         <Route path="/reward" element={<Reward />} />
-
-        <Route path="/myinfo" element={<MyInfo />} />
 
         {/* 그 밖의 요청시 404 페이지로 보내주기 */}
         <Route path="*" element={<NotFound />} />

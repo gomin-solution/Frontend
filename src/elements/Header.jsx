@@ -12,18 +12,18 @@ import { socket } from "../api/socketio";
 export function Header1({ title, roomId, navi = -1, leave = false }) {
   const nav = useNavigate();
 
-  // 이전 버튼 클릭 시 room 나가기 요청
-  if (leave) {
-    socket.emit("leave_room", roomId);
-  }
+  const backHandler = () => {
+    // 이전 버튼 클릭 시 room 나가기 요청
+    if (leave) {
+      socket.emit("leave_room", roomId);
+      console.log("방 나가기");
+    }
+    nav(navi);
+  };
 
   return (
     <StBlock>
-      <StBackcon
-        onClick={() => {
-          nav(navi);
-        }}
-      />
+      <StBackcon onClick={backHandler} />
       <StTitle>{title}</StTitle>
     </StBlock>
   );

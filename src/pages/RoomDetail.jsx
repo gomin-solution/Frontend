@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { decodeCookie } from "../api/cookie";
 import { useQuery } from "react-query";
 import { getNotes } from "../api/room";
-
 function Message() {
   /* params로 roomId 가져오기 */
   const { roomId } = useParams();
@@ -28,7 +27,17 @@ function Message() {
     }
   );
 
+  /* 쪽지 입력 */
+  const { register, handleSubmit, reset } = useForm();
+  const onSubmit = ({ note }) => {
+    const payload = { roomId, note, userKey };
+    socket.emit("chat_message", payload);
+    reset();
+  };
+
+  /* 보낸 쪽지내용 바로 get */
   socket.on("message", (data) => {
+    console.log("통신 테스트");
     setMessages([
       ...messages,
       {
@@ -39,14 +48,6 @@ function Message() {
     ]);
   });
   console.log("messages", messages);
-
-  /* 쪽지 입력 */
-  const { register, handleSubmit, reset } = useForm();
-  const onSubmit = ({ note }) => {
-    const payload = { roomId, note, userKey };
-    socket.emit("chat_message", payload);
-    reset();
-  };
 
   /* 마운트 시, userKey, roomId 전달 */
   useEffect(() => {

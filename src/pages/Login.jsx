@@ -8,6 +8,7 @@ import Alert1, { Alert0 } from "../elements/Alert";
 import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container } from "../shared/css";
+import logoBirdSquare from "../image/logo/logoBirdSquare.svg";
 
 const Login = () => {
   const nav = useNavigate();
@@ -35,7 +36,7 @@ const Login = () => {
       <Header1 />
       <StContainer>
         <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
-          <StTitle>로고</StTitle>
+          <StLogo src={logoBirdSquare} alt="logoBirdSquare" />
           <StInputWrap>
             <StInput placeholder="아이디" required {...register("userId")} />
             <StInput
@@ -75,12 +76,11 @@ const StFormContainer = styled.form`
   padding: ${(props) => props.theme.paddings.xxl};
 `;
 
-const StTitle = styled.div`
-  width: 100%;
-  font-size: ${(props) => props.theme.fontSizes.xxl};
-  font-weight: ${(props) => props.theme.fontWeights.xl};
+const StLogo = styled.img`
+  width: 40%;
+  height: 40%;
   text-align: center;
-  margin: 6rem auto 3rem;
+  margin: 4rem auto;
 `;
 
 const StInputWrap = styled.div`

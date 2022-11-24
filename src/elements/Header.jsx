@@ -6,18 +6,24 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { socket } from "../api/socketio";
 
 /*이전 버튼 + 제목바 */
-export function Header1({ title, navi = -1 }) {
+export function Header1({ title, roomId, navi = -1, leave = false }) {
   const nav = useNavigate();
+
+  const backHandler = () => {
+    // 이전 버튼 클릭 시 room 나가기 요청
+    if (leave) {
+      socket.emit("leave_room", roomId);
+      console.log("방 나가기");
+    }
+    nav(navi);
+  };
 
   return (
     <StBlock>
-      <StBackcon
-        onClick={() => {
-          nav(navi);
-        }}
-      />
+      <StBackcon onClick={backHandler} />
       <StTitle>{title}</StTitle>
     </StBlock>
   );

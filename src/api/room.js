@@ -7,7 +7,8 @@ export const getRooms = async () => {
 };
 
 /* 이전 쪽지내용 전부 get */
-export const getNotes = async (roomId) => {
+export const getNotes = async (roomId, setMessage) => {
   const res = await instance.get(`/rooms/${roomId}`);
+  setMessage(res.data.notes);
   return res;
 };

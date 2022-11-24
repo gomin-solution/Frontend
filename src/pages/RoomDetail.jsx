@@ -7,17 +7,25 @@ import { socket } from "../api/socketio";
 import { useEffect, useState } from "react";
 import { decodeCookie } from "../api/cookie";
 import { useQuery } from "react-query";
-import { getNotes } from "../api/note";
-
+import { getNotes } from "../api/room";
 function Message() {
   /* params로 roomId 가져오기 */
   const { roomId } = useParams();
+
   /* 유저키 가져오기 */
   const userKey = decodeCookie("accessToken")?.userKey;
 
+  /* 보낸 메시지 화면에 출력 */
+  const [messages, setMessages] = useState([]);
+
   /* 쪽지 내용 전부 가져오기 */
-  const { data: res } = useQuery(["getNotes", roomId], () => getNotes(roomId));
-  console.log("res", res);
+  const { isLoading } = useQuery(
+    ["getNotes", roomId, setMessages],
+    () => getNotes(roomId, setMessages),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
 
   /* 쪽지 입력 */
   const { register, handleSubmit, reset } = useForm();
@@ -27,14 +35,19 @@ function Message() {
     reset();
   };
 
-  /* 보낸 메시지 화면에 출력 */
-  const [reqMessage, setReqMessage] = useState("");
+  /* 보낸 쪽지내용 바로 get */
   socket.on("message", (data) => {
-    console.log("data", data);
-    setReqMessage(data);
+    console.log("통신 테스트");
+    setMessages([
+      ...messages,
+      {
+        note: data.note,
+        date: data.date,
+        userKey: data.userKey,
+      },
+    ]);
   });
-
-  console.log("reqMessage", reqMessage);
+  console.log("messages", messages);
 
   /* 마운트 시, userKey, roomId 전달 */
   useEffect(() => {
@@ -44,24 +57,21 @@ function Message() {
 
   return (
     <>
-      <Header1 title={"쪽지"} navi="/note" />
+      <Header1 title={"쪽지"} navi="/rooms" roomId={roomId} leave={true} />
       <Stcontainer>
-        <StWrap>
-          <StInnerWrap>
-            <span style={{ fontWeight: "600" }}>보낸 쪽지</span>
-            <span style={{ fontSize: "0.75rem" }}>22022. 11. 22. 15:00</span>
-          </StInnerWrap>
-          <div style={{ fontSize: "0.875rem" }}>{reqMessage}</div>
-        </StWrap>
-        <StWrap>
-          <StInnerWrap>
-            <span style={{ fontWeight: "600" }}>받은 쪽지</span>
-            <span style={{ fontSize: "0.75rem" }}>22022. 11. 22. 15:00</span>
-          </StInnerWrap>
-          <div style={{ fontSize: "0.875rem" }}>
-            오늘 점심으로 뭐가 좋을까요?
-          </div>
-        </StWrap>
+        {messages?.map((message, idx) => (
+          <StWrap key={idx}>
+            <StInnerWrap>
+              {userKey === message.userKey ? (
+                <span style={{ fontWeight: "600" }}>보낸 쪽지</span>
+              ) : (
+                <span style={{ fontWeight: "600" }}>받은 쪽지</span>
+              )}
+              <span style={{ fontSize: "0.75rem" }}>{message.date}</span>
+            </StInnerWrap>
+            <div style={{ fontSize: "0.875rem" }}>{message.note}</div>
+          </StWrap>
+        ))}
       </Stcontainer>
       <StCommentform onSubmit={handleSubmit(onSubmit)}>
         <input

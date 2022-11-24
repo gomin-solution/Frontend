@@ -7,7 +7,7 @@ export const getMain = async () => {
 };
 
 /* 행운메시지 get */
-export const getNote = async () => {
-  const res = await instance.get("/msg");
+export const putIsOpen = async () => {
+  const res = await instance.put("/msg");
   return res;
 };

@@ -61,6 +61,6 @@ export const commentLike = async (payload) => {
 
 /* ----------------------쪽지---------------------- */
 export const messageNav = async (payload) => {
-  const res = await instance.post(`/note`, payload);
-  return (window.location.href = `/note/${res?.data.roomId}`);
+  const res = await instance.post(`/rooms`, payload);
+  return (window.location.href = `/rooms/${res?.data.roomId}`);
 };

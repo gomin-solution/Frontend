@@ -7,7 +7,7 @@ import { socket } from "../api/socketio";
 import { useEffect, useState } from "react";
 import { decodeCookie } from "../api/cookie";
 import { useQuery } from "react-query";
-import { getNotes } from "../api/note";
+import { getNotes } from "../api/room";
 
 function Message() {
   /* params로 roomId 가져오기 */
@@ -56,7 +56,7 @@ function Message() {
 
   return (
     <>
-      <Header1 title={"쪽지"} navi="/note" />
+      <Header1 title={"쪽지"} navi="/rooms" roomId={roomId} />
       <Stcontainer>
         {messages?.map((message, idx) => (
           <StWrap key={idx}>

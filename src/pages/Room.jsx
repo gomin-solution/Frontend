@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Footer from "../elements/Footer";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import { getRooms } from "../api/note";
+import { getRooms } from "../api/room";
 
 function Message() {
   const nav = useNavigate();
@@ -16,7 +16,10 @@ function Message() {
       <Header4 title={"쪽지"} />
       <Stcontainer>
         {rooms?.map((room) => (
-          <StWrap key={room.roomId} onClick={() => nav(`/note/${room.roomId}`)}>
+          <StWrap
+            key={room.roomId}
+            onClick={() => nav(`/rooms/${room.roomId}`)}
+          >
             <StInnerWrap>
               <span style={{ fontWeight: "600" }}>{room.title}</span>
               <span style={{ fontSize: "0.75rem" }}>{room.recentDate}</span>

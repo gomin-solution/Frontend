@@ -10,8 +10,8 @@ import MyInfo from "../pages/MyInfo";
 import BoardChoice from "../pages/BoardChoice";
 import BoardAdvice from "../pages/BoardAdvice";
 import Reward from "../pages/Reward";
-import Note from "../pages/Note";
-import NoteDetail from "../pages/NoteDetail";
+import Note from "../pages/Room";
+import NoteDetail from "../pages/RoomDetail";
 import DetailAdvice from "../pages/DetailAdvice";
 import Search from "../pages/Search";
 import SearchResult from "../pages/SearchResult";
@@ -39,8 +39,8 @@ const Router = () => {
         <Route path="/post-choice" element={<PostChoice />} />
         <Route path="/post-advice" element={<PostAdvice />} />
 
-        <Route path="/note" element={<Note />} />
-        <Route path="/note/:roomId" element={<NoteDetail />} />
+        <Route path="/rooms" element={<Note />} />
+        <Route path="/rooms/:roomId" element={<NoteDetail />} />
 
         <Route path="/reward" element={<Reward />} />
 

@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import styled from "styled-components";
 import { putIsOpen } from "../../api/mainApi";
-import { Alert4 } from "../../elements/Alert";
 import Lottie from "react-lottie";
+
+/*스타일 관련 */
+import styled from "styled-components";
+import { Alert4 } from "../../elements/Alert";
 import animationData from "../../image/dailyMessage/letter_lottie.json";
 import letterOpen from "../../image/dailyMessage/letterOpen.svg";
 import letterClose from "../../image/dailyMessage/letterClose.svg";
+import { FlexCenter } from "../../shared/css";
 
 const DailyMessage = ({ isCookie, dailyMessage, isOpen }) => {
   const queryClient = useQueryClient();
@@ -80,6 +83,8 @@ const StContainer = styled.div`
   width: 100%;
   height: 13rem;
   margin-bottom: ${(props) => props.theme.margins.sm};
+  background-color: ${(props) => props.theme.Colors.bg3};
+  padding: ${(props) => props.theme.paddings.xxl};
 `;
 
 const StTitle = styled.div`
@@ -90,9 +95,7 @@ const StTitle = styled.div`
 
 const StWrap = styled.div`
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${FlexCenter};
 `;
 
 const StOpen = styled.img`

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useAdviceInfiniteScroll } from "../../api/boardAdviceApi";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+
+import styled from "styled-components";
 import { MenuDial2, MenuDial6 } from "../../elements/MenuDial";
 
 const Advice = () => {
@@ -47,16 +48,24 @@ const Advice = () => {
                     <p
                       style={{
                         marginBottom: "0.5rem",
-                        fontWeight: "600",
                       }}
                     >
-                      [{advice.category}]&nbsp;{advice.title}
+                      <span
+                        style={{
+                          fontWeight: "700",
+                          marginRight: "0.3rem",
+                          color: "#19696A",
+                        }}
+                      >
+                        [{advice.category}]
+                      </span>
+                      {advice.title}
                     </p>
                     <StContent>{advice.content}</StContent>
                     <StWrap>
                       <div style={{ fontSize: "0.875rem" }}>
-                        <span>조회수 {advice.viewCount}&nbsp;&nbsp;</span>
-                        <span>댓글수 {advice.commentCount}</span>
+                        <span>조회 {advice.viewCount}&nbsp;&nbsp;</span>
+                        <span>조언 {advice.commentCount}</span>
                       </div>
                       <span style={{ fontSize: "0.875rem" }}>
                         {advice.createdAt.slice(0, 10)}
@@ -90,7 +99,7 @@ const StListWrap = styled.div`
 `;
 
 const StAdviceList = styled.div`
-  background-color: #f6f6f6;
+  background-color: ${(props) => props.theme.Colors.blueGray1};
   height: 6rem;
   margin-bottom: ${(props) => props.theme.margins.xsm};
   padding: ${(props) => props.theme.paddings.sm};
@@ -99,15 +108,18 @@ const StAdviceList = styled.div`
 const StContent = styled.p`
   width: 100%;
   overflow: hidden;
+  font-size: ${(props) => props.theme.fontSizes.sm};
   margin-top: ${(props) => props.theme.margins.sm};
   margin-bottom: ${(props) => props.theme.margins.xsm};
   text-overflow: ellipsis; // 말줄임 적용
   white-space: nowrap; // 문장이 길어지면 다음 줄로 넘기는 것을 없앰
   overflow: hidden;
+  color: #1a1c1c;
 `;
 
 const StWrap = styled.div`
-  color: #999999;
+  color: ${(props) => props.theme.Colors.gray3};
+  font-size: ${(props) => props.theme.fontSizes.xsm};
   display: flex;
   justify-content: space-between;
 `;

@@ -74,13 +74,21 @@ const RoomDetail = () => {
           <StWrap key={idx}>
             <StInnerWrap>
               {userKey === message.userKey ? (
-                <span style={{ fontWeight: "600" }}>보낸 쪽지</span>
+                <span style={{ fontWeight: "600", color: "#9CD67E" }}>
+                  보낸 쪽지
+                </span>
               ) : (
-                <span style={{ fontWeight: "600" }}>받은 쪽지</span>
+                <span style={{ fontWeight: "600", color: "#19696A" }}>
+                  받은 쪽지
+                </span>
               )}
-              <span style={{ fontSize: "0.75rem" }}>{message.date}</span>
+              <span style={{ fontSize: "0.75rem", color: "#737878" }}>
+                {message.date}
+              </span>
             </StInnerWrap>
-            <div style={{ fontSize: "0.875rem" }}>{message.note}</div>
+            <div style={{ fontSize: "0.875rem", color: "#474747" }}>
+              {message.note}
+            </div>
           </StWrap>
         ))}
       </Stcontainer>
@@ -143,15 +151,20 @@ const StCommentform = styled.form`
   align-items: center;
   justify-content: space-between;
 
-  background-color: #dce7e7;
+  background-color: ${(props) => props.theme.Colors.blueGreen3};
   border: none;
 
   input {
+    color: #ffffff;
     border: none;
     width: 100%;
     background-color: transparent;
+    ::placeholder {
+      color: #ffffff;
+    }
   }
   button {
     display: flex;
+    color: ${(props) => props.theme.Colors.blueGreen1};
   }
 `;

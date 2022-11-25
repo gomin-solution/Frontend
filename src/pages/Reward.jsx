@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { rewardGet, rewardNew } from "../api/rewardApi";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
@@ -7,7 +8,9 @@ import Footer from "../elements/Footer";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import { RewardModal } from "../components/detailBorad/ImageModal";
-import { useState } from "react";
+import { Container, FlexCenter } from "../shared/css";
+import graphic_fox from "../image/reward/graphic_fox.svg";
+import graphic_rabbit from "../image/reward/graphic_rabbit.svg";
 
 function Reward() {
   const { data, isSuccess } = useQuery("rewardGet", rewardGet, {
@@ -124,8 +127,14 @@ function Reward() {
         <Header4 title={"수집함"} />
         <Stcontainer>
           <StWrap1>
-            <span style={{ fontSize: "1.125rem" }}>등급</span>
-            <span style={{ fontSize: "1.375rem", fontWeight: "600" }}>
+            <span style={{ fontSize: "1.1rem" }}>등급</span>
+            <span
+              style={{
+                fontSize: "1.4rem",
+                fontWeight: "600",
+                color: "#19696A",
+              }}
+            >
               주니어 해결사
             </span>
           </StWrap1>
@@ -138,7 +147,7 @@ function Reward() {
               return item.complete ? (
                 <StMissionBox key={item.id}>
                   {item.get ? (
-                    <img alt="보상" src="/userpic.png" />
+                    <img alt="보상" src={graphic_rabbit} />
                   ) : (
                     <StClick className="inner" onClick={() => mutate(item.id)}>
                       보상 받기
@@ -210,9 +219,7 @@ export default Reward;
 
 /*반응형 맞춤 */
 const Stcontainer = styled.div`
-  width: 100%;
-  position: absolute;
-  overflow: auto;
+  ${Container};
   height: calc(100vh - 8rem);
   padding: ${(props) => props.theme.paddings.xl};
 `;
@@ -229,12 +236,10 @@ const StWrap1 = styled.div`
 
 /*주니어 해결한 고민수*/
 const StWrap2 = styled.div`
-  background-color: #2764be;
-  color: white;
+  background-color: ${(props) => props.theme.Colors.blueGreen3};
+  color: #ffffff;
   height: 4rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${FlexCenter};
   margin-bottom: ${(props) => props.theme.margins.xl};
   font-size: ${(props) => props.theme.fontSizes.xl};
   font-weight: ${(props) => props.theme.fontWeights.lg};
@@ -255,9 +260,7 @@ const StMissionBox = styled.div`
   width: 31.5%;
   position: relative;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${FlexCenter};
 
   //작은 화면에서도 1줄에 3개 고정
   @media all and (min-width: 200px) and (max-width: 384px) {
@@ -274,11 +277,14 @@ const StMissionBox = styled.div`
     width: 70%;
     height: 70%;
   }
+
+  img {
+    width: 90%;
+  }
 `;
 
 const StClick = styled.div`
-  display: flex;
   font-size: ${(props) => props.theme.fontSizes.sm};
-  justify-content: center;
-  align-items: center;
+  ${FlexCenter};
+  color: ${(props) => props.theme.Colors.gray3};
 `;

@@ -99,7 +99,9 @@ const Choice = () => {
                     <StChoiceTextWrap>
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <Stimg src={choice.userImage} alt="profile" />
-                        <span>{choice.nickname}</span>
+                        <span style={{ color: "#526161" }}>
+                          {choice.nickname}
+                        </span>
                       </div>
                       <StIconWrap>
                         {!choice?.isBookMark ? (
@@ -131,7 +133,9 @@ const Choice = () => {
                         {newEndTime > nowTime ? (
                           <span>{diffTime} 후 마감</span>
                         ) : (
-                          <span style={{ color: "white" }}>투표 마감</span>
+                          <span style={{ color: "#BA1A1A", fontWeight: "700" }}>
+                            투표 마감
+                          </span>
                         )}
                       </StParticipant>
                     </StTextWrap2>
@@ -144,18 +148,18 @@ const Choice = () => {
                         <StChoiceBtn
                           onClick={(e) => choiceSubmit(e, choice)}
                           value="1"
-                          backColor="#9F9F9F"
+                          backColor="#9CD67E"
                           isEnd={choice.isEnd}
                         >
-                          1번
+                          선택
                         </StChoiceBtn>
                         <StChoiceBtn
                           onClick={(e) => choiceSubmit(e, choice)}
                           value="2"
-                          backColor="#6D6D6D"
+                          backColor="#A7EFF0"
                           isEnd={choice.isEnd}
                         >
-                          2번
+                          선택
                         </StChoiceBtn>
                       </StChoiceWrap>
                     ) : (
@@ -190,9 +194,9 @@ const StNavWrap = styled.div`
 `;
 
 const StWrap = styled.div`
-  /* background-color: ${(props) => props.theme.boxColors.gray1}; */
   background-color: ${(props) =>
-    props.isEnd ? "lightgray" : props.theme.boxColors.gray1};
+    props.isEnd ? "#ffffff" : props.theme.Colors.blueGray1};
+  filter: ${(props) => (props.isEnd ? "brightness(70%)" : "none")};
   margin-bottom: ${(props) => props.theme.margins.xxl};
   padding: ${(props) => props.theme.paddings.lg};
 `;
@@ -205,10 +209,11 @@ const StTextWrap2 = styled.div`
 `;
 
 const StParticipant = styled.span`
-  color: ${(props) => props.theme.fontColors.fong1};
+  color: #627c7c;
 `;
 
 const StTextWrap3 = styled.div`
+  font-size: ${(props) => props.theme.fontSizes.lg};
   display: flex;
   justify-content: space-between;
   margin-bottom: ${(props) => props.theme.margins.xxsm};
@@ -221,7 +226,6 @@ const StChoiceTextWrap = styled.div`
 `;
 
 const StChoiceName = styled.div`
-  font-weight: ${(props) => props.theme.fontWeights.lg};
   margin-bottom: 0.5rem;
 `;
 
@@ -232,6 +236,7 @@ const Stimg = styled.img`
 `;
 
 const StIconWrap = styled.div`
+  color: ${(props) => props.theme.Colors.blueGreen3};
   display: flex;
   align-items: center;
 `;
@@ -245,15 +250,11 @@ const StChoiceBtn = styled.button`
   width: 100%;
   height: 2rem;
   background-color: ${(props) => props.backColor};
-  color: white;
-  font-weight: ${(props) => props.theme.fontWeights.lg};
-  border: none;
   display: ${(props) => (props.isEnd ? "none" : null)};
-  cursor: pointer;
 `;
 
 const StChoice1 = styled.div`
-  background-color: rgb(255, 206, 206);
+  background-color: #9cd67e;
   width: ${(props) => props.width}%;
   height: 2rem;
   text-align: left;
@@ -263,7 +264,7 @@ const StChoice1 = styled.div`
 `;
 
 const StChoice2 = styled.div`
-  background-color: #c2c2ff;
+  background-color: #a7eff0;
   width: ${(props) => props.width}%;
   height: 2rem;
   text-align: right;
@@ -276,12 +277,10 @@ const StPerText1 = styled.span`
   padding: ${(props) => props.theme.paddings.xsm};
   position: absolute;
   left: 0;
-  z-index: 99;
 `;
 
 const StPerText2 = styled.span`
   padding: ${(props) => props.theme.paddings.xsm};
   position: absolute;
   right: 0;
-  z-index: 99;
 `;

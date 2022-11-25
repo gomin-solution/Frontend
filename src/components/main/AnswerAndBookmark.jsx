@@ -1,4 +1,3 @@
-import React from "react";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +15,7 @@ const AnswerAndBookmark = () => {
       {lists.map((list, idx) => (
         <StContainer key={idx} onClick={() => nav(`${list.nav}`)}>
           {list.title}
-          <KeyboardArrowRightIcon />
+          <KeyboardArrowRightIcon sx={{ color: "#19696A" }} />
         </StContainer>
       ))}
     </>
@@ -26,7 +25,7 @@ const AnswerAndBookmark = () => {
 export default AnswerAndBookmark;
 
 const StContainer = styled.div`
-  background-color: #f4f2fb;
+  background-color: ${(props) => props.theme.Colors.foot};
   width: 100%;
   height: 3.5rem;
   display: flex;

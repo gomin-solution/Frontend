@@ -45,10 +45,10 @@ export function MenuDial0({ setFilterId }) {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ color: "black" }}
+        sx={{ color: "#737878" }}
       >
         {menu}
-        <ExpandMoreIcon />
+        <ExpandMoreIcon sx={{ color: "#737878" }} />
       </Button>
       <Menu
         id="basic-menu"
@@ -58,10 +58,22 @@ export function MenuDial0({ setFilterId }) {
           "aria-labelledby": "basic-button",
         }}
         onClose={handleClose}
+        sx={{
+          "& .MuiMenu-list": {
+            backgroundColor: "#19696A",
+            padding: "0",
+          },
+        }}
       >
         {filters.map((item) => {
           return (
-            <MenuItem onClick={() => changeMenu(item)} key={item.filterId}>
+            <MenuItem
+              sx={{
+                color: "#FFFFFF",
+              }}
+              onClick={() => changeMenu(item)}
+              key={item.filterId}
+            >
               {item.filter}
             </MenuItem>
           );
@@ -109,7 +121,7 @@ export function MenuDial1({ choiceId }) {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ color: "black", padding: "0", minWidth: "0" }}
+        sx={{ color: "#737878", padding: "0", minWidth: "0" }}
       >
         <MoreVertIcon />
       </Button>
@@ -121,11 +133,23 @@ export function MenuDial1({ choiceId }) {
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
+        sx={{
+          "& .MuiMenu-list": {
+            backgroundColor: "#19696A",
+            padding: "0",
+          },
+        }}
       >
-        <MenuItem onClick={() => removeChoiceMutation.mutate(choiceId)}>
+        <MenuItem
+          sx={{ color: "#FFFFFF" }}
+          onClick={() => removeChoiceMutation.mutate(choiceId)}
+        >
           삭제
         </MenuItem>
-        <MenuItem onClick={() => endChoiceMutation.mutate(choiceId)}>
+        <MenuItem
+          sx={{ color: "#FFFFFF" }}
+          onClick={() => endChoiceMutation.mutate(choiceId)}
+        >
           골라주기 종료
         </MenuItem>
       </Menu>
@@ -166,7 +190,7 @@ export function MenuDial2({ setFilterId }) {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ color: "black", padding: "0", minWidth: "0" }}
+        sx={{ color: "#737878", padding: "0", minWidth: "0" }}
       >
         {menu}
         <ExpandMoreIcon />
@@ -179,10 +203,22 @@ export function MenuDial2({ setFilterId }) {
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
+        sx={{
+          "& .MuiMenu-list": {
+            backgroundColor: "#19696A",
+            padding: "0",
+          },
+        }}
       >
         {filters.map((item) => {
           return (
-            <MenuItem onClick={() => changeMenu(item)} key={item.filterId}>
+            <MenuItem
+              onClick={() => changeMenu(item)}
+              key={item.filterId}
+              sx={{
+                color: "#FFFFFF",
+              }}
+            >
               {item.filter}
             </MenuItem>
           );
@@ -238,7 +274,7 @@ export function MenuDial3({ user, id, setAdEdit, resBoard }) {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ color: "black", padding: "0", minWidth: "0" }}
+        sx={{ color: "#19696A", padding: "0", minWidth: "0" }}
       >
         <MoreVertIcon />
       </Button>
@@ -251,8 +287,15 @@ export function MenuDial3({ user, id, setAdEdit, resBoard }) {
           MenuListProps={{
             "aria-labelledby": "basic-button",
           }}
+          sx={{
+            "& .MuiMenu-list": {
+              backgroundColor: "#19696A",
+              padding: "0",
+            },
+          }}
         >
           <MenuItem
+            sx={{ color: "#FFFFFF" }}
             onClick={() => {
               setAdEdit(false);
             }}
@@ -260,6 +303,7 @@ export function MenuDial3({ user, id, setAdEdit, resBoard }) {
             수정
           </MenuItem>
           <MenuItem
+            sx={{ color: "#FFFFFF" }}
             onClick={() => {
               mutate(id);
             }}
@@ -276,9 +320,17 @@ export function MenuDial3({ user, id, setAdEdit, resBoard }) {
           MenuListProps={{
             "aria-labelledby": "basic-button",
           }}
+          sx={{
+            "& .MuiMenu-list": {
+              backgroundColor: "#19696A",
+              padding: "0",
+            },
+          }}
         >
-          <MenuItem onClick={MessageHandler}>쪽지하기</MenuItem>
-          <MenuItem>신고하기</MenuItem>
+          <MenuItem sx={{ color: "#FFFFFF" }} onClick={MessageHandler}>
+            쪽지하기
+          </MenuItem>
+          <MenuItem sx={{ color: "#FFFFFF" }}>신고하기</MenuItem>
         </Menu>
       )}
     </StDiv>
@@ -317,7 +369,7 @@ export function MenuDial4({ setFilterId }) {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ color: "black", padding: "0", minWidth: "0" }}
+        sx={{ color: "#737878", padding: "0", minWidth: "0" }}
       >
         {menu}
         <ExpandMoreIcon />
@@ -330,10 +382,20 @@ export function MenuDial4({ setFilterId }) {
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
+        sx={{
+          "& .MuiMenu-list": {
+            backgroundColor: "#19696A",
+            padding: "0",
+          },
+        }}
       >
         {filters.map((item) => {
           return (
-            <MenuItem onClick={() => changeMenu(item)} key={item.filterId}>
+            <MenuItem
+              sx={{ color: "#FFFFFF" }}
+              onClick={() => changeMenu(item)}
+              key={item.filterId}
+            >
               {item.filter}
             </MenuItem>
           );
@@ -346,7 +408,7 @@ export function MenuDial4({ setFilterId }) {
 //게시판 상세페이지 댓글
 /*남 : 쪽지하기, 신고하기*/
 /*본인 : 수정, 삭제 */
-export function MenuDial5({ user, id, setIsEdit }) {
+export function MenuDial5({ user, id, setIsEdit, resBoard }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -367,6 +429,18 @@ export function MenuDial5({ user, id, setIsEdit }) {
     },
   });
 
+  // 쪽지 보내기
+  const payload = {
+    userKey: resBoard?.userKey,
+    category: resBoard?.category,
+    title: resBoard?.title,
+  };
+
+  const MessageMutation = useMutation(messageNav);
+  const MessageHandler = () => {
+    MessageMutation.mutate(payload);
+  };
+
   return (
     <StDiv>
       <Button
@@ -375,7 +449,7 @@ export function MenuDial5({ user, id, setIsEdit }) {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ color: "black", padding: "0", minWidth: "0" }}
+        sx={{ color: "#19696A", padding: "0", minWidth: "0" }}
       >
         <MoreVertIcon />
       </Button>
@@ -388,8 +462,15 @@ export function MenuDial5({ user, id, setIsEdit }) {
           MenuListProps={{
             "aria-labelledby": "basic-button",
           }}
+          sx={{
+            "& .MuiMenu-list": {
+              backgroundColor: "#19696A",
+              padding: "0",
+            },
+          }}
         >
           <MenuItem
+            sx={{ color: "#FFFFFF" }}
             onClick={() => {
               setIsEdit(false);
             }}
@@ -397,6 +478,7 @@ export function MenuDial5({ user, id, setIsEdit }) {
             수정
           </MenuItem>
           <MenuItem
+            sx={{ color: "#FFFFFF" }}
             onClick={() => {
               mutate(id);
             }}
@@ -413,9 +495,17 @@ export function MenuDial5({ user, id, setIsEdit }) {
           MenuListProps={{
             "aria-labelledby": "basic-button",
           }}
+          sx={{
+            "& .MuiMenu-list": {
+              backgroundColor: "#19696A",
+              padding: "0",
+            },
+          }}
         >
-          <MenuItem>쪽지하기</MenuItem>
-          <MenuItem>신고하기</MenuItem>
+          <MenuItem sx={{ color: "#FFFFFF" }} onClick={MessageHandler}>
+            쪽지하기
+          </MenuItem>
+          <MenuItem sx={{ color: "#FFFFFF" }}>신고하기</MenuItem>
         </Menu>
       )}
     </StDiv>
@@ -467,14 +557,18 @@ export function MenuDial6({ setCategoryId }) {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ color: "black" }}
+        sx={{ color: "#737878", padding: "0", minWidth: "0" }}
       >
         {menu}
         <ExpandMoreIcon />
       </Button>
       <Menu
-        style={{
+        sx={{
           height: "22rem",
+          "& .MuiMenu-list": {
+            backgroundColor: "#19696A",
+            padding: "0",
+          },
         }}
         id="basic-menu"
         anchorEl={anchorEl}
@@ -486,11 +580,18 @@ export function MenuDial6({ setCategoryId }) {
       >
         {categories?.map((category) => {
           return (
-            <div key={category.categoryId}>
-              <MenuItem onClick={() => changeMenu(category)}>
+            <div
+              key={category.categoryId}
+              style={{ borderBottom: "1px solid #D6E6E5" }}
+            >
+              <MenuItem
+                onClick={() => changeMenu(category)}
+                sx={{
+                  color: "#FFFFFF",
+                }}
+              >
                 {category.topic}
               </MenuItem>
-              <hr style={{ margin: "0" }} />
             </div>
           );
         })}
@@ -543,14 +644,17 @@ export function MenuDial7({ setCategoryId }) {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ color: "black" }}
+        sx={{ color: "#19696A", backgroundColor: "#F1F5F4" }}
       >
         {menu}
-        <ExpandMoreIcon />
+        <ExpandMoreIcon sx={{ color: "#737878" }} />
       </Button>
       <Menu
-        style={{
+        sx={{
           height: "22rem",
+          "& .MuiMenu-list": {
+            padding: "0",
+          },
         }}
         id="basic-menu"
         anchorEl={anchorEl}
@@ -562,11 +666,13 @@ export function MenuDial7({ setCategoryId }) {
       >
         {categories?.map((category) => {
           return (
-            <div key={category.categoryId}>
+            <div
+              key={category.categoryId}
+              style={{ borderBottom: "1px solid #D6E6E5" }}
+            >
               <MenuItem onClick={() => changeMenu(category)}>
                 {category.topic}
               </MenuItem>
-              <hr style={{ margin: "0" }} />
             </div>
           );
         })}

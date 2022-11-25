@@ -1,16 +1,15 @@
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
+import { addAdvice } from "../api/postApi";
+import { adviceEdit } from "../api/detailApi";
+import { useMutation } from "react-query";
 
 import styled from "styled-components";
-import { Switch } from "@mui/material";
 import { Header5 } from "../elements/Header";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
-
-import { addAdvice } from "../api/postApi";
-import { useMutation } from "react-query";
 import { MenuDial7 } from "../elements/MenuDial";
-import { adviceEdit } from "../api/detailApi";
 import { ImageModal } from "../components/detailBorad/ImageModal";
+import { Container, FlexCenter } from "../shared/css";
 
 function AdvicePost({ resBoard }) {
   const { register, handleSubmit, watch } = useForm();
@@ -164,26 +163,6 @@ function AdvicePost({ resBoard }) {
             )}
           </div>
         </Stcontent>
-        <StAdult>참여자 연령선택</StAdult>
-        <StCheckAdult>
-          <span style={{ marginRight: "2rem" }}>성인에게만 공개</span>
-          <Switch
-            sx={{
-              width: 80,
-              height: 47,
-              "& .MuiSwitch-thumb": {
-                width: 38,
-                borderRadius: 3,
-                height: 22,
-              },
-              "& .MuiSwitch-track": {
-                borderRadius: 3,
-                marginTop: -0.4,
-              },
-            }}
-            {...register("isAdult")}
-          />
-        </StCheckAdult>
       </Stcontainer>
     </form>
   );
@@ -192,16 +171,14 @@ function AdvicePost({ resBoard }) {
 export default AdvicePost;
 
 const Stcontainer = styled.div`
-  width: 100%;
+  ${Container}
   height: calc(100vh - 4rem);
-  position: absolute;
-  overflow-y: scroll;
   padding: ${(props) => props.theme.paddings.xxl};
 `;
 
 /*라벨링 */
 const StLabel = styled.div`
-  margin-bottom: 0.4rem;
+  margin: 0.5rem 0;
   font-size: ${(props) => props.theme.fontSizes.base};
 `;
 
@@ -211,30 +188,28 @@ const Stinput = styled.input`
   height: 2.8rem;
 
   border: none;
-  background-color: ${(props) => props.theme.boxColors.gray1};
+  background-color: ${(props) => props.theme.Colors.blueGray1};
   padding: ${(props) => props.theme.paddings.base};
   font-size: ${(props) => props.theme.fontSizes.sm};
+  margin-bottom: ${(props) => props.theme.margins.sm};
 `;
 
 /*글 내용 */
 const StText = styled.textarea`
   width: 100%;
   height: 14rem;
-  margin-bottom: ${(props) => props.theme.margins.sm};
 
   border: none;
-  background-color: ${(props) => props.theme.boxColors.gray1};
+  background-color: ${(props) => props.theme.Colors.blueGray1};
   font-size: ${(props) => props.theme.fontSizes.sm};
 `;
 
 /*이미지 업로드 박스*/
 const StUpload = styled.div`
-  display: flex;
+  ${FlexCenter};
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 
-  background-color: ${(props) => props.theme.boxColors.gray2};
+  background-color: #8cd3d4;
   width: 4.4rem;
   height: 4.4rem;
   color: #ffffff;
@@ -245,7 +220,7 @@ const StUpload = styled.div`
 const Stprevimg = styled.div`
   width: 4.4rem;
   height: 4.4rem;
-  background-color: #ffffff;
+  background-color: #dee3e3;
 
   display: flex;
   align-items: center;
@@ -253,18 +228,12 @@ const Stprevimg = styled.div`
 
 /*이미지 업로드 + 글내용  */
 const Stcontent = styled.div`
-  background-color: ${(props) => props.theme.boxColors.gray1};
+  background-color: ${(props) => props.theme.Colors.blueGray1};
   padding: ${(props) => props.theme.paddings.base};
-`;
-
-/*연령확인 텍스트 */
-const StAdult = styled.p`
-  margin-top: 2.5rem;
-  font-size: ${(props) => props.theme.fontSizes.base};
-`;
-
-/*스위치 버튼 + 텍스트 묶가 */
-const StCheckAdult = styled.div`
-  font-size: ${(props) => props.theme.fontSizes.sm};
-  margin-bottom: 1.5rem;
+  /*추가, 옆으로 정렬하기*/
+  .flexbox {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+  }
 `;

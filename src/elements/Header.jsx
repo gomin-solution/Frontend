@@ -1,12 +1,14 @@
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { socket } from "../api/socketio";
+
+/*스타일 관련*/
 import styled from "styled-components";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { socket } from "../api/socketio";
+import logoFolding from "../image/logo/logoFolding.svg";
 
 /*이전 버튼 + 제목바 */
 export function Header1({ title, roomId, navi = -1, leave = false }) {
@@ -48,8 +50,8 @@ export function Header2({ title }) {
 export function Header3() {
   const nav = useNavigate();
   return (
-    <StBlock>
-      <StLogo>로고</StLogo>
+    <StBlock style={{ color: "#19696A" }}>
+      <StLogo alt="로고" src={logoFolding} />
       <StAlram />
       <StSet onClick={() => nav("/setting")} />
     </StBlock>
@@ -90,8 +92,8 @@ export function Header6() {
 
   return (
     <StBlock>
-      <StLogo>로고</StLogo>
-      <StLogin onClick={loginHandler}>로그인</StLogin>
+      <StLogo alt="로고" src={logoFolding} />
+      <StBtn onClick={loginHandler}>로그인</StBtn>
     </StBlock>
   );
 }
@@ -147,7 +149,7 @@ const StBlock = styled.div`
 
   display: flex;
   align-items: center;
-  background-color: ${(props) => props.theme.boxColors.bg};
+  background-color: ${(props) => props.theme.Colors.bg2};
 `;
 
 /*제목바*/
@@ -165,13 +167,15 @@ const StBackcon = styled(ArrowBackIosNewIcon)`
 
 /*돋보기 아이콘*/
 const StSearchcon = styled(SearchIcon)`
+  color: #19696a;
   cursor: pointer;
   /* position: absolute; */
   right: 2rem;
 `;
 
 /*로고 아이콘 */
-const StLogo = styled.div`
+const StLogo = styled.img`
+  width: 25%;
   position: absolute;
   left: 2rem;
 `;
@@ -190,27 +194,23 @@ const StSet = styled(SettingsOutlinedIcon)`
   right: 2rem;
 `;
 
-/*완료버튼 */
+/*완료버튼 */ /* 로그인 */
 const StBtn = styled.button`
   position: absolute;
+  cursor: pointer;
   right: 2rem;
+  color: ${(props) => props.theme.Colors.blueGreen3};
   font-size: ${(props) => props.theme.fontSizes.lg};
   font-weight: ${(props) => props.theme.fontWeights.xl};
 `;
 
 /* 검색바 */
 const StSearch = styled.input`
-  background-color: ${(props) => props.theme.boxColors.gray1};
+  background-color: #b0cccc;
+  color: ${(props) => props.theme.Colors.blueGreen3};
   width: 100%;
   height: 2rem;
   margin-left: ${(props) => props.theme.paddings.base};
   padding-left: ${(props) => props.theme.paddings.xsm};
   border: none;
-`;
-
-/* 로그인 */
-const StLogin = styled.div`
-  cursor: pointer;
-  position: absolute;
-  right: 2rem;
 `;

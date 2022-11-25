@@ -9,6 +9,7 @@ import AnswerAndBookmark from "../components/main/AnswerAndBookmark";
 import TotalCount from "../components/main/TotalCount";
 import { useQuery } from "react-query";
 import { getMain } from "../api/mainApi";
+import { Container } from "../shared/css";
 import { decodeCookie, decodeCookieRefresh, getCookie } from "../api/cookie";
 import Loading from "../components/Loading";
 
@@ -61,19 +62,17 @@ function Main() {
 export default Main;
 
 const StContainer = styled.div`
-  width: 100%;
-  position: absolute;
+  ${Container}
   height: calc(100vh - 8rem);
-  overflow-y: scroll;
 `;
 
 const StPaddingWrap = styled.div`
-  padding: 0rem ${(props) => props.theme.paddings.xxl};
+  padding: ${(props) => props.theme.paddings.xxl};
 `;
 
 const StHr = styled.hr`
   height: 0.1rem;
-  background-color: #dde1f9;
+  background-color: #cce8e8;
   margin-bottom: ${(props) => props.theme.paddings.xxl};
   border: none;
 `;

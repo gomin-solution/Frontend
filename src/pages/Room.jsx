@@ -4,6 +4,7 @@ import Footer from "../elements/Footer";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getRooms } from "../api/room";
+import { Container } from "../shared/css";
 
 const Room = () => {
   const nav = useNavigate();
@@ -22,9 +23,13 @@ const Room = () => {
           >
             <StInnerWrap>
               <span style={{ fontWeight: "600" }}>{room.title}</span>
-              <span style={{ fontSize: "0.75rem" }}>{room.recentDate}</span>
+              <span style={{ fontSize: "0.75rem", color: "#737878" }}>
+                {room.recentDate}
+              </span>
             </StInnerWrap>
-            <div style={{ fontSize: "0.875rem" }}>{room.nickname}</div>
+            <div style={{ fontSize: "0.875rem", color: "#474747" }}>
+              {room.nickname}
+            </div>
           </StWrap>
         ))}
       </Stcontainer>
@@ -36,12 +41,9 @@ const Room = () => {
 export default Room;
 
 const Stcontainer = styled.div`
-  width: 100%;
-  position: absolute;
-  overflow: auto;
+  ${Container};
   height: calc(100vh - 9rem);
   padding: ${(props) => props.theme.paddings.xl};
-  overflow: auto;
   &::-webkit-scrollbar {
     background: none;
   }
@@ -51,7 +53,7 @@ const Stcontainer = styled.div`
 `;
 
 const StWrap = styled.div`
-  background-color: #f3f3f3;
+  background-color: ${(props) => props.theme.Colors.blueGray2};
   width: 100%;
   height: 5rem;
   margin-bottom: ${(props) => props.theme.margins.sm};

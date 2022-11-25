@@ -21,7 +21,7 @@ const Choice = ({ choices, keyword }) => {
 
   /* 유저키 가져오기 */
   const decodeKey = decodeCookie("accessToken")?.userKey;
-  console.log(decodeKey);
+  // console.log(decodeKey);
 
   /* 골라주기 선택 시 put */
   const choiceSubmit = async (e, choice) => {
@@ -179,7 +179,7 @@ const StResult = styled.div`
 `;
 
 const StWrap = styled.div`
-  background-color: ${(props) => props.theme.boxColors.gray1};
+  background-color: ${(props) => props.theme.Colors.gray1};
   margin-bottom: ${(props) => props.theme.margins.xxl};
   padding: ${(props) => props.theme.paddings.lg};
 `;

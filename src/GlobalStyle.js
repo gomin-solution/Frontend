@@ -5,18 +5,19 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
 
   #root {
-    font-family: "Noto Sans KR", sans-serif;
+    font-family: sans-serif;
     width: 100%;
     max-width: 26rem;
     height: 100vh;
     margin: auto;
     position: relative;
-    background-color: #ffffff;
+    background-color: #FCFCFB;
   }
 
   body {
     width: 100vw;
     height: 100vh;
+    color: #002020;
     
     margin: auto;
     /*웹 배경 이미지색 맞추기*/
@@ -30,6 +31,9 @@ const GlobalStyle = createGlobalStyle`
     user-select: none;
     /* 사파리에서 input 클릭시 확대되는 오류 */
     -webkit-overflow-scrolling: touch;
+    div {
+      font-family: "Noto Sans KR", sans-serif;
+    }
   }
 
   @media all and (min-width: 360px) and (max-width: 899px) {
@@ -64,14 +68,12 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+
+  /*버튼 배경제거, 테두리 제거 */
   button {
     background: none;
     border: none;
     cursor: pointer;
-  }
-
-  div {
-    font-family: "Noto Sans KR", sans-serif;
   }
 
   /*사진 미리보기 작게*/
@@ -88,21 +90,8 @@ const GlobalStyle = createGlobalStyle`
     display: block;
     max-width: 90%; 
     max-height: 90%;
-
-  }
-  /*유저 프로필 이미지*/
-  .userimg{
-    max-width: 1.5rem;
-    max-height: 1.5rem;
   }
 
-
-  /*추가, 옆으로 정렬하기*/
-  .flexbox {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  }
 
 
 `;

@@ -7,6 +7,7 @@ import { Header1 } from "../elements/Header";
 import styled from "styled-components";
 import Choice from "../components/search/Choice";
 import Advice from "../components/search/Advice";
+import { Container, FlexCenter } from "../shared/css";
 
 const SearchResult = () => {
   const [boardCategory, setBoardCategory] = useState("choice");
@@ -14,12 +15,12 @@ const SearchResult = () => {
 
   const { state: keyword } = useLocation();
   const { data } = useQuery(["keyword", keyword], () => getSearch(keyword));
-  console.log(data?.choice);
+  // console.log(data?.choice);
   const choices = data?.choice;
   const advices = data?.advice;
 
-  console.log("choices", choices);
-  console.log("advices", advices);
+  // console.log("choices", choices);
+  // console.log("advices", advices);
 
   return (
     <>
@@ -62,16 +63,12 @@ const SearchResult = () => {
 export default SearchResult;
 
 const Stcontainer = styled.div`
-  width: 100%;
-  position: absolute;
-  overflow: auto;
+  ${Container};
   height: calc(100vh - 8rem);
 `;
 
 const StInnerWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${FlexCenter};
   margin-top: ${(props) => props.theme.margins.xxl};
   column-gap: 6rem;
 `;

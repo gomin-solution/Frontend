@@ -9,10 +9,9 @@ import AnswerAndBookmark from "../components/main/AnswerAndBookmark";
 import TotalCount from "../components/main/TotalCount";
 import { useQuery } from "react-query";
 import { getMain } from "../api/mainApi";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
-import { getCookie } from "../api/cookie";
 import { Container } from "../shared/css";
+import { decodeCookie, decodeCookieRefresh, getCookie } from "../api/cookie";
+import Loading from "../components/Loading";
 
 function Main() {
   /* 메인페이지 get */
@@ -26,18 +25,13 @@ function Main() {
   const isOpen = data?.data.mainpage.isOpen;
 
   if (isLoading) {
-    return (
-      <StLoading>
-        <Box sx={{ display: "flex" }}>
-          <CircularProgress />
-        </Box>
-        <span>고민 접는 중</span>
-      </StLoading>
-    );
+    return <Loading />;
   }
 
   /* accessToken get */
   const isCookie = getCookie("accessToken");
+
+  const refresh = decodeCookieRefresh("refreshToken");
 
   return (
     <>
@@ -81,14 +75,4 @@ const StHr = styled.hr`
   background-color: #cce8e8;
   margin-bottom: ${(props) => props.theme.paddings.xxl};
   border: none;
-`;
-
-const StLoading = styled.div`
-  width: 100%;
-  position: absolute;
-  top: 40%;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  row-gap: 1rem;
 `;

@@ -9,11 +9,12 @@ export const useAdviceInfiniteScroll = (categoryId, filterId) => {
     );
     return {
       // 실제 데이터
-      advices: data.advice,
+      advices: data.allAdvice,
       // 반환 값에 현재 페이지를
       currentPage: pageParam,
     };
   };
+  // console.log("advices", advices);
 
   const {
     data: getAdvice,
@@ -25,8 +26,10 @@ export const useAdviceInfiniteScroll = (categoryId, filterId) => {
     ["getAdviceScroll", categoryId, filterId],
     getAdviceScroll,
     {
-      getNextPageParam: (lastPage, pages) =>
-        lastPage.advices[0] ? lastPage.currentPage + 1 : undefined,
+      getNextPageParam: (lastPage, pages) => {
+        console.log("aaa", lastPage.advices);
+        return lastPage.advices[0] ? lastPage.currentPage + 1 : undefined;
+      },
     },
     {
       refetchOnWindowFocus: false,

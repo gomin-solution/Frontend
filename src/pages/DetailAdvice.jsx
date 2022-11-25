@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { adviceBookmark, commentAdvice, adviceDetail } from "../api/detailApi";
 import { decodeCookie, getCookie } from "../api/cookie";
 import { useForm } from "react-hook-form";
@@ -18,6 +18,8 @@ import { Container } from "../shared/css";
 
 function DetailAdvice() {
   const queryClient = useQueryClient();
+
+  const { state: bookmarkNav } = useLocation();
 
   const param = useParams();
   const adviceId = param.adviceId;
@@ -64,9 +66,6 @@ function DetailAdvice() {
     },
   });
 
-  //댓글 수정
-  const [isEdit, setIsEdit] = useState(true);
-
   // 이미지 모달창 노출 여부 state
   const [modalOpen, setModalOpen] = useState(false);
   const [selectImg, setSelectImg] = useState(null);
@@ -99,7 +98,11 @@ function DetailAdvice() {
     <>
       {adEdit ? (
         <>
-          <Header1 title={"고민 적기"} navi="/board-advice" />
+          {bookmarkNav ? (
+            <Header1 title={"고민 적기"} navi="/bookmark" />
+          ) : (
+            <Header1 title={"고민 적기"} navi="/board-advice" />
+          )}
           <Stcontainer>
             <StUser>
               <img src={resBoard?.userImage} alt="" />
@@ -167,25 +170,22 @@ function DetailAdvice() {
                   key={comment.commentId}
                   comment={comment}
                   decodeKey={decodeKey}
-                  setIsEdit={setIsEdit}
                   resBoard={resBoard}
                 />
               );
             })}
           </Stcontainer>
-          {isEdit && (
-            <StCommentform onSubmit={handleSubmit(onSubmitComment)}>
-              <input
-                type="text"
-                required
-                {...register("comment")}
-                placeholder="답변해주기"
-              />
-              <button>
-                <SendOutlinedIcon />
-              </button>
-            </StCommentform>
-          )}
+          <StCommentform onSubmit={handleSubmit(onSubmitComment)}>
+            <input
+              type="text"
+              required
+              {...register("comment")}
+              placeholder="답변해주기"
+            />
+            <button>
+              <SendOutlinedIcon />
+            </button>
+          </StCommentform>
         </>
       ) : (
         <PostAdvice resBoard={resBoard} />

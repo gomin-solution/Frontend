@@ -35,7 +35,7 @@ const BookmarkChoice = ({ choices }) => {
   /* 골라주기 mutation */
   const choiceMutation = useMutation(postChoice, {
     onSuccess: () => {
-      queryClient.invalidateQueries("getBookmarkChoice");
+      queryClient.invalidateQueries("getBookmark");
     },
   });
 
@@ -47,7 +47,7 @@ const BookmarkChoice = ({ choices }) => {
   /* 북마크 mutation */
   const bookmarkMutation = useMutation(bookmark, {
     onSuccess: () => {
-      queryClient.invalidateQueries("getBookmarkChoice");
+      queryClient.invalidateQueries("getBookmark");
     },
   });
 
@@ -78,7 +78,7 @@ const BookmarkChoice = ({ choices }) => {
         }
 
         return (
-          <StWrap key={choice.choiceId}>
+          <StWrap key={choice.choiceId} isEnd={choice.isEnd}>
             <StChoiceTextWrap>
               <div style={{ display: "flex", alignItems: "center" }}>
                 <Stimg src={choice.userImage} alt="profile" />
@@ -128,7 +128,9 @@ const BookmarkChoice = ({ choices }) => {
                 {newEndTime > nowTime ? (
                   <span>{diffTime} 후 마감</span>
                 ) : (
-                  <span>투표 마감</span>
+                  <span style={{ color: "#BA1A1A", fontWeight: "700" }}>
+                    투표 마감
+                  </span>
                 )}
               </span>
             </StTextWrap2>
@@ -141,14 +143,14 @@ const BookmarkChoice = ({ choices }) => {
                 <StChoiceBtn
                   onClick={(e) => choiceSubmit(e, choice)}
                   value="1"
-                  backColor="#9F9F9F"
+                  backColor="#9CD67E"
                 >
                   1번
                 </StChoiceBtn>
                 <StChoiceBtn
                   onClick={(e) => choiceSubmit(e, choice)}
                   value="2"
-                  backColor="#6D6D6D"
+                  backColor="#A7EFF0"
                 >
                   2번
                 </StChoiceBtn>
@@ -183,6 +185,9 @@ const StResult = styled.div`
 `;
 
 const StWrap = styled.div`
+  background-color: ${(props) =>
+    props.isEnd ? "#ffffff" : props.theme.Colors.blueGray1};
+  filter: ${(props) => (props.isEnd ? "brightness(70%)" : "none")};
   margin-bottom: ${(props) => props.theme.margins.xxl};
   padding: ${(props) => props.theme.paddings.lg};
 `;
@@ -238,7 +243,7 @@ const StChoiceBtn = styled.button`
 `;
 
 const StChoice1 = styled.div`
-  background-color: rgb(255, 206, 206);
+  background-color: #9cd67e;
   width: ${(props) => props.width}%;
   height: 2rem;
   text-align: left;
@@ -248,7 +253,7 @@ const StChoice1 = styled.div`
 `;
 
 const StChoice2 = styled.div`
-  background-color: #c2c2ff;
+  background-color: #a7eff0;
   width: ${(props) => props.width}%;
   height: 2rem;
   text-align: right;

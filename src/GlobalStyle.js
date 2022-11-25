@@ -73,6 +73,7 @@ const GlobalStyle = createGlobalStyle`
   button {
     background: none;
     border: none;
+    color: #002020;
     cursor: pointer;
   }
 

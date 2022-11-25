@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getRooms } from "../api/room";
 
-function Message() {
+const Room = () => {
   const nav = useNavigate();
 
   const { data: res } = useQuery("getRooms", getRooms);
@@ -31,9 +31,9 @@ function Message() {
       <Footer title={"쪽지"} />
     </>
   );
-}
+};
 
-export default Message;
+export default Room;
 
 const Stcontainer = styled.div`
   width: 100%;

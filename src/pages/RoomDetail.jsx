@@ -4,22 +4,24 @@ import { useForm } from "react-hook-form";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import { useParams } from "react-router-dom";
 import { socket } from "../api/socketio";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { decodeCookie } from "../api/cookie";
 import { useQuery } from "react-query";
 import { getNotes } from "../api/room";
-function Message() {
+const RoomDetail = () => {
+  const chatContainerEl = useRef(null);
+
   /* params로 roomId 가져오기 */
   const { roomId } = useParams();
 
   /* 유저키 가져오기 */
   const userKey = decodeCookie("accessToken")?.userKey;
 
-  /* 보낸 메시지 화면에 출력 */
+  /* 기존 쪽지 내용 담기 */
   const [messages, setMessages] = useState([]);
 
   /* 쪽지 내용 전부 가져오기 */
-  const { isLoading } = useQuery(
+  useQuery(
     ["getNotes", roomId, setMessages],
     () => getNotes(roomId, setMessages),
     {
@@ -55,10 +57,19 @@ function Message() {
     socket.emit("enter_room", payload);
   }, [userKey, roomId]);
 
+  useEffect(() => {
+    if (!chatContainerEl.current) return;
+    const chatContainer = chatContainerEl.current;
+    const { scrollHeight, clientHeight } = chatContainer;
+    if (scrollHeight > clientHeight) {
+      chatContainer.scrollTop = scrollHeight - clientHeight;
+    }
+  }, [messages.length]);
+
   return (
     <>
       <Header1 title={"쪽지"} navi="/rooms" roomId={roomId} leave={true} />
-      <Stcontainer>
+      <Stcontainer ref={chatContainerEl}>
         {messages?.map((message, idx) => (
           <StWrap key={idx}>
             <StInnerWrap>
@@ -86,9 +97,9 @@ function Message() {
       </StCommentform>
     </>
   );
-}
+};
 
-export default Message;
+export default RoomDetail;
 
 const Stcontainer = styled.div`
   width: 100%;

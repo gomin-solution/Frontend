@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { useLocation } from "react-router-dom";
-import getSearch from "../api/searchApi";
 import Footer from "../elements/Footer";
 import { Header1 } from "../elements/Header";
 import styled from "styled-components";
-import BookmarkChoice from "../components/main/BookmarkChoice";
 import BookmarkAdvice from "../components/main/BookmarkAdvice";
 import { getBookmark } from "../api/mainApi";
+import Choice from "../components/bookmark/Choice";
 
 const SearchResult = () => {
   const [boardCategory, setBoardCategory] = useState("choice");
@@ -20,7 +18,7 @@ const SearchResult = () => {
 
   return (
     <>
-      <Header1 title={"북마크"} />
+      <Header1 title={"북마크"} navi="/" />
       <Stcontainer>
         {menu[0] === boardCategory ? (
           <>
@@ -29,10 +27,10 @@ const SearchResult = () => {
                 골라주기
               </StBtn1>
               <StBtn2 onClick={() => setBoardCategory("advice")}>
-                조언하기
+                답해주기
               </StBtn2>
             </StInnerWrap>
-            <BookmarkChoice choices={choices} />
+            <Choice choices={choices} />
           </>
         ) : (
           <>
@@ -41,7 +39,7 @@ const SearchResult = () => {
                 골라주기
               </StBtn2>
               <StBtn1 onClick={() => setBoardCategory("advice")}>
-                조언하기
+                답해주기
               </StBtn1>
             </StInnerWrap>
             <BookmarkAdvice

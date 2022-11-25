@@ -19,7 +19,7 @@ const BookmarkAdvice = ({ advices }) => {
           <StAdviceList
             key={advice.adviceId}
             onClick={() => {
-              nav(`/board-advice/${advice.adviceId}`);
+              nav(`/board-advice/${advice.adviceId}`, { state: "/bookmark" });
             }}
           >
             <p

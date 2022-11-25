@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import ChoiceList from "../ChoiceList";
 
-const Choice = ({ choices, keyword }) => {
+const Choice = ({ choices }) => {
   return (
     <StContainer>
       {choices?.length > 0 ? (
-        <StResult>{keyword}에 대한 검색 결과입니다.</StResult>
+        <StResult>북마크한 골라주기 목록입니다.</StResult>
       ) : (
-        <StResult>{keyword}에 대한 검색 결과가 없습니다.</StResult>
+        <StResult>북마크한 골라주기가 없습니다.</StResult>
       )}
       {choices?.map((choice) => {
         return <ChoiceList choice={choice} key={choice.choiceId} />;

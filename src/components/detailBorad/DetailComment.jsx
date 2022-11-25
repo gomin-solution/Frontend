@@ -8,9 +8,10 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { MenuDial5 } from "../../elements/MenuDial";
 import styled from "styled-components";
 
-function DetailComment({ comment, decodeKey, setIsEdit, resBoard }) {
+function DetailComment({ comment, decodeKey, resBoard }) {
   const queryClient = useQueryClient();
 
+  /* 댓글 수정 */
   const [commentEdit, setCommentEdit] = useState(true);
 
   //댓글 수정 하기
@@ -57,7 +58,6 @@ function DetailComment({ comment, decodeKey, setIsEdit, resBoard }) {
                 user={user}
                 id={comment.commentId}
                 setCommentEdit={setCommentEdit}
-                setIsEdit={setIsEdit}
                 resBoard={resBoard}
               />
             </StMenu>
@@ -98,7 +98,6 @@ function DetailComment({ comment, decodeKey, setIsEdit, resBoard }) {
                 type="button"
                 onClick={() => {
                   setCommentEdit(true);
-                  setIsEdit(true);
                 }}
               >
                 취소

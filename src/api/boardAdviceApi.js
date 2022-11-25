@@ -27,7 +27,6 @@ export const useAdviceInfiniteScroll = (categoryId, filterId) => {
     getAdviceScroll,
     {
       getNextPageParam: (lastPage, pages) => {
-        console.log("aaa", lastPage.advices);
         return lastPage.advices[0] ? lastPage.currentPage + 1 : undefined;
       },
     },

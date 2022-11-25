@@ -51,13 +51,15 @@ const BookmarkChoice = ({ choices }) => {
     },
   });
 
+  console.log("choices", choices);
+
   return (
     // <div>테스트중</div>
     <StContainer>
-      {choices?.length > 0 ? (
-        <StResult>북마크한 골라주기 글이 없습니다.</StResult>
+      {choices?.length < 1 ? (
+        <StResult>북마크한 골라주기가 없습니다.</StResult>
       ) : (
-        <StResult>북마크한 골라주기 글 목록입니다.</StResult>
+        <StResult>북마크한 골라주기 목록입니다.</StResult>
       )}
       {choices?.map((choice) => {
         /* 마감시간 비교를 위한 변수 설정 */
@@ -176,11 +178,11 @@ const StContainer = styled.div`
 
 const StResult = styled.div`
   width: 100%;
+  font-size: ${(props) => props.theme.fontSizes.sm};
   margin-bottom: ${(props) => props.theme.margins.base};
 `;
 
 const StWrap = styled.div`
-  background-color: ${(props) => props.theme.boxColors.gray1};
   margin-bottom: ${(props) => props.theme.margins.xxl};
   padding: ${(props) => props.theme.paddings.lg};
 `;

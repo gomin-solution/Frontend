@@ -8,15 +8,18 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { MenuDial5 } from "../../elements/MenuDial";
 import styled from "styled-components";
 
-function DetailComment({ comment, decodeKey, isEdit, setIsEdit, resBoard }) {
+function DetailComment({ comment, decodeKey, setIsEdit, resBoard }) {
   const queryClient = useQueryClient();
+
+  const [commentEdit, setCommentEdit] = useState(true);
 
   //댓글 수정 하기
   const { register, handleSubmit } = useForm();
   const commentId = comment.commentId;
   const onEdit = (comment) => {
     editComment.mutate({ commentId: commentId, comment });
-    setIsEdit(true);
+    setCommentEdit(true);
+    // setIsEdit(true);
   };
 
   const editComment = useMutation(commenEdit, {
@@ -44,7 +47,7 @@ function DetailComment({ comment, decodeKey, isEdit, setIsEdit, resBoard }) {
 
   return (
     <>
-      {isEdit ? (
+      {commentEdit ? (
         <StcommentBox>
           <StcommentUser>
             <img src={comment.userImg} alt="프로필사진" />
@@ -53,6 +56,7 @@ function DetailComment({ comment, decodeKey, isEdit, setIsEdit, resBoard }) {
               <MenuDial5
                 user={user}
                 id={comment.commentId}
+                setCommentEdit={setCommentEdit}
                 setIsEdit={setIsEdit}
                 resBoard={resBoard}
               />
@@ -90,7 +94,13 @@ function DetailComment({ comment, decodeKey, isEdit, setIsEdit, resBoard }) {
               {...register("comment")}
             />
             <div>
-              <button type="button" onClick={() => setIsEdit(true)}>
+              <button
+                type="button"
+                onClick={() => {
+                  setCommentEdit(true);
+                  setIsEdit(true);
+                }}
+              >
                 취소
               </button>
               <button>완료</button>

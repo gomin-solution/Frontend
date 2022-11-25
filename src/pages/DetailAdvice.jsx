@@ -168,7 +168,6 @@ function DetailAdvice() {
                   comment={comment}
                   decodeKey={decodeKey}
                   setIsEdit={setIsEdit}
-                  isEdit={isEdit}
                   resBoard={resBoard}
                 />
               );

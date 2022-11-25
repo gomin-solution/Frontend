@@ -3,48 +3,48 @@ import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const BookmarkAdvice = () => {
+const BookmarkAdvice = ({ advices }) => {
   const nav = useNavigate();
 
   return (
-    <div>테스트중</div>
-    // <StContainer>
-    //   <StListWrap>
-    //     {advices?.length > 0 ? (
-    //       <StResult>{keyword}에 대한 검색 결과입니다.</StResult>
-    //     ) : (
-    //       <StResult>{keyword}에 대한 검색 결과가 없습니다.</StResult>
-    //     )}
-    //     {advices?.map((advice) => (
-    //       <StAdviceList
-    //         key={advice.adviceId}
-    //         onClick={() => {
-    //           nav(`/board-advice/${advice.adviceId}`);
-    //         }}
-    //       >
-    //         <p
-    //           style={{
-    //             marginBottom: "0.5rem",
-    //             fontWeight: "600",
-    //           }}
-    //         >
-    //           {advice.category}&nbsp;
-    //           {advice.title}
-    //         </p>
-    //         <StContent>{advice.content}</StContent>
-    //         <StWrap>
-    //           <div style={{ fontSize: "0.875rem" }}>
-    //             <span>조회수 {advice.viewCount}&nbsp;&nbsp;</span>
-    //             <span>댓글수 {advice.commentCount}</span>
-    //           </div>
-    //           <span style={{ fontSize: "0.875rem" }}>
-    //             {advice.createdAt.slice(0, 10)}
-    //           </span>
-    //         </StWrap>
-    //       </StAdviceList>
-    //     ))}
-    //   </StListWrap>
-    // </StContainer>
+    // <div>테스트중</div>
+    <StContainer>
+      <StListWrap>
+        {advices?.length < 1 ? (
+          <StResult>북마크한 답해주기가 없습니다.</StResult>
+        ) : (
+          <StResult>북마크한 답해주기 목록입니다.</StResult>
+        )}
+        {advices?.map((advice) => (
+          <StAdviceList
+            key={advice.adviceId}
+            onClick={() => {
+              nav(`/board-advice/${advice.adviceId}`);
+            }}
+          >
+            <p
+              style={{
+                marginBottom: "0.5rem",
+                fontWeight: "600",
+              }}
+            >
+              {advice.category}&nbsp;
+              {advice.title}
+            </p>
+            <StContent>{advice.content}</StContent>
+            <StWrap>
+              <div style={{ fontSize: "0.875rem" }}>
+                <span>조회수 {advice.viewCount}&nbsp;&nbsp;</span>
+                <span>댓글수 {advice.commentCount}</span>
+              </div>
+              <span style={{ fontSize: "0.875rem" }}>
+                {advice.createdAt.slice(0, 10)}
+              </span>
+            </StWrap>
+          </StAdviceList>
+        ))}
+      </StListWrap>
+    </StContainer>
   );
 };
 
@@ -57,6 +57,7 @@ const StContainer = styled.div`
 
 const StResult = styled.div`
   width: 100%;
+  font-size: ${(props) => props.theme.fontSizes.sm};
   margin-bottom: ${(props) => props.theme.margins.base};
 `;
 

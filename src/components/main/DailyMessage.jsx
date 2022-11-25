@@ -61,8 +61,8 @@ const DailyMessage = ({ isCookie, dailyMessage, isOpen }) => {
             <div onClick={messageHandler}>
               <Lottie
                 options={defaultOptions}
-                height="12rem"
-                width="12rem"
+                height="10rem"
+                width="10rem"
                 isStopped={open}
               />
             </div>
@@ -99,11 +99,11 @@ const StWrap = styled.div`
 `;
 
 const StOpen = styled.img`
-  width: 10rem;
-  height: 10rem;
+  width: 9rem;
+  height: 9rem;
 `;
 
 const StClose = styled.img`
-  width: 10rem;
-  height: 10rem;
+  width: 9rem;
+  height: 9rem;
 `;

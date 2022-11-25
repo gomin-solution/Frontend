@@ -22,8 +22,8 @@ const Login = () => {
       console.log("res", res.data.refreshToken);
 
       // body로 전달받은 토큰을 쿠키에 저장하기
-      setCookie("accessToken", res.data.accessToken);
-      setCookie("refreshToken", res.data.refreshToken);
+      // setCookie("accessToken", res.data.accessToken);
+      // setCookie("refreshToken", res.data.refreshToken);
       Alert1(`${res.data.nickname}님 반갑습니다.`);
     } catch (error) {
       Alert0("아이디 또는 비밀번호가 일치하지 않습니다.");

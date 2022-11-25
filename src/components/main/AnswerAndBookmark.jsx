@@ -1,17 +1,20 @@
 import React from "react";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const AnswerAndBookmark = () => {
+  const nav = useNavigate();
+
   const lists = [
-    { title: "답변을 기다리고 있는 내 고민" },
-    { title: "북마크 한 고민" },
+    { title: "답변을 기다리고 있는 내 고민", nav: "#" },
+    { title: "북마크 한 고민", nav: "/bookmark" },
   ];
 
   return (
     <>
       {lists.map((list, idx) => (
-        <StContainer key={idx}>
+        <StContainer key={idx} onClick={() => nav(`${list.nav}`)}>
           {list.title}
           <KeyboardArrowRightIcon />
         </StContainer>

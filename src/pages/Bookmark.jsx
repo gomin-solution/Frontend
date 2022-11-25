@@ -5,25 +5,22 @@ import getSearch from "../api/searchApi";
 import Footer from "../elements/Footer";
 import { Header1 } from "../elements/Header";
 import styled from "styled-components";
-import Choice from "../components/search/Choice";
-import Advice from "../components/search/Advice";
+import BookmarkChoice from "../components/main/BookmarkChoice";
+import BookmarkAdvice from "../components/main/BookmarkAdvice";
+import { getBookmark } from "../api/mainApi";
 
 const SearchResult = () => {
   const [boardCategory, setBoardCategory] = useState("choice");
   const menu = ["choice", "advice"];
 
-  const { state: keyword } = useLocation();
-  const { data } = useQuery(["keyword", keyword], () => getSearch(keyword));
-  console.log(data?.choice);
-  const choices = data?.choice;
-  const advices = data?.advice;
-
-  console.log("choices", choices);
-  console.log("advices", advices);
+  const { data } = useQuery("getBookmark", getBookmark);
+  console.log("data", data);
+  const choices = data?.data.choice;
+  const advices = data?.data.advice;
 
   return (
     <>
-      <Header1 title={"검색 결과"} />
+      <Header1 title={"북마크"} />
       <Stcontainer>
         {menu[0] === boardCategory ? (
           <>
@@ -35,7 +32,7 @@ const SearchResult = () => {
                 조언하기
               </StBtn2>
             </StInnerWrap>
-            <Choice choices={choices} keyword={keyword} />
+            <BookmarkChoice choices={choices} />
           </>
         ) : (
           <>
@@ -47,7 +44,10 @@ const SearchResult = () => {
                 조언하기
               </StBtn1>
             </StInnerWrap>
-            <Advice advices={advices} keyword={keyword} />
+            <BookmarkAdvice
+              setBoardCategory={setBoardCategory}
+              advices={advices}
+            />
           </>
         )}
       </Stcontainer>

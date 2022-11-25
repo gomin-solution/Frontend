@@ -11,3 +11,9 @@ export const putIsOpen = async () => {
   const res = await instance.put("/msg");
   return res;
 };
+
+/* 북마크 get */
+export const getBookmark = async () => {
+  const res = await instance.get("/bookmark");
+  return res;
+};

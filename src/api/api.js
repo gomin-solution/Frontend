@@ -6,6 +6,7 @@ const myToken = getCookie("accessToken");
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_API,
+  withCredentials: true,
   headers: {
     authorization: `Bearer ${myToken}`,
   },

@@ -12,13 +12,13 @@ import { getMain } from "../api/mainApi";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { getCookie } from "../api/cookie";
+import { Container } from "../shared/css";
 
 function Main() {
   /* 메인페이지 get */
   const { data, isLoading } = useQuery("getMain", getMain, {
     refetchOnWindowFocus: false,
   });
-  console.log("data", data);
 
   const recommend = data?.data.mainpage.advice;
   const totalCount = data?.data.mainpage.totalCount;
@@ -68,19 +68,17 @@ function Main() {
 export default Main;
 
 const StContainer = styled.div`
-  width: 100%;
-  position: absolute;
+  ${Container}
   height: calc(100vh - 8rem);
-  overflow-y: scroll;
 `;
 
 const StPaddingWrap = styled.div`
-  padding: 0rem ${(props) => props.theme.paddings.xxl};
+  padding: ${(props) => props.theme.paddings.xxl};
 `;
 
 const StHr = styled.hr`
   height: 0.1rem;
-  background-color: #dde1f9;
+  background-color: #cce8e8;
   margin-bottom: ${(props) => props.theme.paddings.xxl};
   border: none;
 `;

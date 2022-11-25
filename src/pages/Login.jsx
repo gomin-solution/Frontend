@@ -33,7 +33,7 @@ const Login = () => {
 
   return (
     <>
-      <Header1 />
+      <Header1 title={"로그인"} />
       <StContainer>
         <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
           <StLogo src={logoBirdSquare} alt="logoBirdSquare" />

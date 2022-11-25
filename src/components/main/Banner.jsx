@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import a from "../../image/banner/a.png";
 import b from "../../image/banner/b.png";
@@ -41,7 +40,6 @@ export default function App() {
 
 const SwFeat = styled(Swiper)`
   height: 11rem;
-  margin-bottom: 1rem;
   &.swiper .swiper-pagination-bullet {
     background-color: white;
     width: 0.4rem;

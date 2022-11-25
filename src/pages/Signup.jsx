@@ -4,7 +4,7 @@ import instance from "../api/api";
 
 /*스타일 관련*/
 import styled from "styled-components";
-import { Header5 } from "../elements/Header";
+import { Header1 } from "../elements/Header";
 import { Alert0, Alert3 } from "../elements/Alert";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { Container, FlexCenter } from "../shared/css";
@@ -70,7 +70,7 @@ const Signup = () => {
 
   return (
     <Stcontainer as="form" onSubmit={handleSubmit(onSubmit)}>
-      <Header5 title={"회원가입"} />
+      <Header1 title={"회원가입"} />
       <StFormContainer>
         <StInputWrap>
           {/* ----- 아이디 ----- */}
@@ -187,37 +187,7 @@ const Signup = () => {
             <StErr>{errors?.confirm?.message}</StErr>
           )}
         </StInputWrap>
-        {/* ----- 성인 여부 ----- */}
-        <StAdult>
-          <span
-            style={{
-              margin: "39px 0px 18px",
-              fontWeight: "600",
-            }}
-          >
-            성인이신가요?
-          </span>
-          <div>
-            <input
-              style={{ marginRight: "12px" }}
-              type="radio"
-              name="isAdult"
-              value={true}
-              required
-              {...register("isAdult")}
-            />
-            <label style={{ marginRight: "30%" }}>예</label>
-            <input
-              style={{ marginRight: "12px" }}
-              type="radio"
-              name="isAdult"
-              value={false}
-              required
-              {...register("isAdult")}
-            />
-            <label>아니오</label>
-          </div>
-        </StAdult>
+        <Stbtn>회원가입</Stbtn>
       </StFormContainer>
     </Stcontainer>
   );
@@ -237,6 +207,7 @@ const StFormContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: ${(props) => props.theme.paddings.xxl};
+  margin-top: 3rem;
 `;
 
 const StInputWrap = styled.div`
@@ -261,8 +232,7 @@ const StInput = styled.input`
 `;
 
 const StCheckBtn = styled.button`
-  background-color: ${(props) => props.theme.Colors.blueGreen3};
-  color: #ffffff;
+  background-color: #8cd3d4;
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
@@ -271,7 +241,7 @@ const StCheckBtn = styled.button`
 `;
 
 const StCheckDub = styled.button`
-  background-color: #7999ff;
+  background-color: ${(props) => props.theme.Colors.blueGreen3};
   color: white;
   position: absolute;
   top: 0.5rem;
@@ -291,14 +261,16 @@ const StCheck = styled.span`
 /*유효성 검사 오류*/
 const StErr = styled.span`
   font-size: 0.7rem;
-  color: #ff0a0a;
+  color: #ba1a1a;
   padding-left: ${(props) => props.theme.paddings.xsm};
 `;
 
-const StAdult = styled.div`
+/*로그인 버튼*/
+const Stbtn = styled.button`
+  font-size: ${(props) => props.theme.fontSizes.base};
+  background-color: ${(props) => props.theme.Colors.blueGreen3};
+  color: #ffffff;
   width: 100%;
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-start;
-  margin-bottom: 2rem;
+  height: 3rem;
+  margin-top: 3rem;
 `;

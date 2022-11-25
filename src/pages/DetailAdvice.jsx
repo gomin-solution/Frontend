@@ -14,6 +14,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import PostAdvice from "../pages/PostAdvice";
 import { ImageModal } from "../components/detailBorad/ImageModal";
+import { Container } from "../shared/css";
 
 function DetailAdvice() {
   const queryClient = useQueryClient();
@@ -101,7 +102,7 @@ function DetailAdvice() {
           <Header1 title={"고민 적기"} navi="/board-advice" />
           <Stcontainer>
             <StUser>
-              <img src={resBoard?.userImage} alt="" className="userimg" />
+              <img src={resBoard?.userImage} alt="" />
               <p>{resBoard?.nickname}</p>
               <StMenu>
                 {!resBoard?.isBookMark ? (
@@ -124,7 +125,9 @@ function DetailAdvice() {
               </StMenu>
             </StUser>
             <StBoardBox>
-              <span style={{ fontWeight: "800" }}>[{resBoard?.category}]</span>
+              <span style={{ fontWeight: "700", color: "#19696A" }}>
+                [{resBoard?.category}]
+              </span>
               <span style={{ marginLeft: "0.5rem" }}>{resBoard?.title}</span>
               <p>{resBoard?.content}</p>
               <StImgBox>
@@ -166,6 +169,7 @@ function DetailAdvice() {
                   decodeKey={decodeKey}
                   setIsEdit={setIsEdit}
                   isEdit={isEdit}
+                  resBoard={resBoard}
                 />
               );
             })}
@@ -194,9 +198,7 @@ function DetailAdvice() {
 export default DetailAdvice;
 
 const Stcontainer = styled.div`
-  width: 100%;
-  position: absolute;
-  overflow: auto;
+  ${Container};
   height: calc(100vh - 7rem);
   padding: ${(props) => props.theme.paddings.xxl};
 `;
@@ -211,6 +213,12 @@ const StUser = styled.div`
     margin-left: ${(props) => props.theme.margins.sm};
     font-size: ${(props) => props.theme.fontSizes.base};
   }
+
+  /*유저 프로필 이미지*/
+  img {
+    max-width: 1.5rem;
+    max-height: 1.5rem;
+  }
 `;
 
 /*메뉴 위치조정 */
@@ -219,6 +227,7 @@ const StMenu = styled.div`
   align-items: center;
   position: absolute;
   right: 2rem;
+  color: ${(props) => props.theme.Colors.blueGreen3};
 `;
 
 /*글 내용 박스 */
@@ -245,14 +254,12 @@ const StBoxInfo = styled.div`
   display: flex;
   gap: 0.5rem;
   font-size: ${(props) => props.theme.fontSizes.xsm};
-  border-bottom: 1px solid ${(props) => props.theme.boxColors.gray3};
+  border-bottom: 1px solid ${(props) => props.theme.Colors.gray3};
+  color: #95b0b0;
 `;
 
 /*하단 댓글 정보 */
 const StCommentSet = styled.div`
-  p {
-    font-size: ${(props) => props.theme.fontSizes.base};
-  }
   display: flex;
   align-items: center;
   margin: 1rem 0;
@@ -272,15 +279,20 @@ const StCommentform = styled.form`
   align-items: center;
   justify-content: space-between;
 
-  background-color: #dce7e7;
+  background-color: ${(props) => props.theme.Colors.blueGreen3};
   border: none;
 
   input {
+    color: #ffffff;
     border: none;
     width: 100%;
     background-color: transparent;
+    ::placeholder {
+      color: #ffffff;
+    }
   }
   button {
     display: flex;
+    color: ${(props) => props.theme.Colors.blueGreen1};
   }
 `;

@@ -1,7 +1,6 @@
 const calcRem = (size) => `${size / 16}rem`;
 
 const Colors = {
-  black: "#002020",
   gray3: "#737878",
   gray2: "#939393",
   gray1: "#CDCDCD",
@@ -13,7 +12,7 @@ const Colors = {
   blueGreen1: "#A7EFF0",
   foot: "#EAF0EF",
   blueGray3: "#4A6363",
-  blueGray2: "#7B9696",
+  blueGray2: "#D6E6E5",
   blueGray1: "#F1F5F4",
 };
 

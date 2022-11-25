@@ -1,14 +1,14 @@
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { MenuDial5 } from "../../elements/MenuDial";
-import styled from "styled-components";
-
 import { useMutation, useQueryClient } from "react-query";
 import { commenEdit, commentLike } from "../../api/detailApi";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-function DetailComment({ comment, decodeKey, isEdit, setIsEdit }) {
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { MenuDial5 } from "../../elements/MenuDial";
+import styled from "styled-components";
+
+function DetailComment({ comment, decodeKey, isEdit, setIsEdit, resBoard }) {
   const queryClient = useQueryClient();
 
   //댓글 수정 하기
@@ -47,13 +47,14 @@ function DetailComment({ comment, decodeKey, isEdit, setIsEdit }) {
       {isEdit ? (
         <StcommentBox>
           <StcommentUser>
-            <img src={comment.userImg} alt="프로필사진" className="userimg" />
+            <img src={comment.userImg} alt="프로필사진" />
             <div className="username">{comment.nickname}</div>
             <StMenu>
               <MenuDial5
                 user={user}
                 id={comment.commentId}
                 setIsEdit={setIsEdit}
+                resBoard={resBoard}
               />
             </StMenu>
           </StcommentUser>
@@ -77,7 +78,7 @@ function DetailComment({ comment, decodeKey, isEdit, setIsEdit }) {
           </StCommentDiv>
         </StcommentBox>
       ) : (
-        <StEditBox>
+        <StcommentBox>
           <StcommentUser>
             <img src={comment.userImg} alt="프로필사진" className="userimg" />
             <div className="username">{comment.nickname}</div>
@@ -95,7 +96,7 @@ function DetailComment({ comment, decodeKey, isEdit, setIsEdit }) {
               <button>완료</button>
             </div>
           </StCommentEdit>
-        </StEditBox>
+        </StcommentBox>
       )}
     </>
   );
@@ -105,14 +106,7 @@ export default DetailComment;
 
 /*댓글 박스 */
 const StcommentBox = styled.div`
-  background-color: #fefbff;
-  padding: ${(props) => props.theme.paddings.base};
-  margin-bottom: ${(props) => props.theme.margins.xxsm};
-`;
-
-/*수정 댓글 박스 */
-const StEditBox = styled.div`
-  background-color: #fefbff;
+  background-color: ${(props) => props.theme.Colors.blueGray1};
   padding: ${(props) => props.theme.paddings.base};
   margin-bottom: ${(props) => props.theme.margins.xxsm};
 `;
@@ -132,6 +126,11 @@ const StcommentUser = styled.div`
     margin-left: ${(props) => props.theme.margins.sm};
     font-size: ${(props) => props.theme.fontSizes.sm};
   }
+  /*유저 프로필 이미지*/
+  img {
+    max-width: 1.5rem;
+    max-height: 1.5rem;
+  }
 `;
 
 /*댓글 작성란*/
@@ -146,13 +145,13 @@ const StCommentDiv = styled.div`
 
   p {
     font-size: ${(props) => props.theme.fontSizes.xsm};
-    color: ${(props) => props.theme.fontColors.fong1};
+    color: ${(props) => props.theme.Colors.gray3};
   }
 
   .heart {
     display: flex;
     align-items: center;
-    color: #ff5449;
+    color: #de3730;
     span {
       margin-right: 0.3rem;
       margin-bottom: 0.15rem;
@@ -167,7 +166,6 @@ const StCommentEdit = styled.form`
   input {
     width: 100%;
     border: none;
-    font-size: ${(props) => props.theme.fontSizes.base};
   }
   div {
     float: right;

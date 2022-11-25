@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -11,7 +10,9 @@ const Recommend = ({ recommend }) => {
         <StInnerWrap>
           <StLeftText>추천글</StLeftText>
           <div onClick={() => nav(`/board-advice/${recommend?.adviceId}`)}>
-            <span style={{ color: "#7999FF" }}>[{recommend?.category}]</span>
+            <span style={{ color: "#19696A", fontWeight: "700" }}>
+              [{recommend?.category}]
+            </span>
             <span>&nbsp;{recommend?.title}</span>
           </div>
         </StInnerWrap>
@@ -40,8 +41,8 @@ const StInnerWrap = styled.div`
 `;
 
 const StLeftText = styled.div`
-  background-color: #7999ff;
-  color: white;
+  background-color: ${(props) => props.theme.Colors.blueGreen3};
+  color: ${(props) => props.theme.Colors.blueGreen1};
   padding: 0.3rem;
   margin-right: ${(props) => props.theme.margins.xsm};
 `;

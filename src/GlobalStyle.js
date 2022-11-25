@@ -5,7 +5,7 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
 
   #root {
-    font-family: "Noto Sans KR", sans-serif;
+    font-family: sans-serif;
     width: 100%;
     max-width: 26rem;
     height: 100vh;
@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     width: 100vw;
     height: 100vh;
+    color: #002020;
     
     margin: auto;
     /*웹 배경 이미지색 맞추기*/
@@ -91,19 +92,8 @@ const GlobalStyle = createGlobalStyle`
     max-height: 90%;
 
   }
-  /*유저 프로필 이미지*/
-  .userimg{
-    max-width: 1.5rem;
-    max-height: 1.5rem;
-  }
 
 
-  /*추가, 옆으로 정렬하기*/
-  .flexbox {
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
-  }
 
 `;
 

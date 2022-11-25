@@ -1,10 +1,11 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import Advice from "../components/board/Advice";
 import Footer from "../elements/Footer";
 import { Header2 } from "../elements/Header";
 import Dial from "../components/board/Dial";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Container, FlexCenter } from "../shared/css";
 
 function Board() {
   const nav = useNavigate();
@@ -29,31 +30,29 @@ function Board() {
 export default Board;
 
 const Stcontainer = styled.div`
-  width: 100%;
-  position: absolute;
-  overflow: auto;
+  ${Container};
   height: calc(100vh - 8rem);
 `;
 
 const StInnerWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${FlexCenter};
   margin-top: ${(props) => props.theme.margins.xxl};
   column-gap: 4rem;
-`;
-
-const StBtn1 = styled.button`
-  width: 6rem;
-  margin-bottom: ${(props) => props.theme.margins.xxl};
-  padding-bottom: 0.4rem;
-  border-bottom: 0.1rem solid ${(props) => props.theme.boxColors.gray3};
   font-weight: ${(props) => props.theme.fontWeights.lg};
 `;
 
-const StBtn2 = styled.button`
-  width: 6rem;
+const StBtn1 = styled.div`
+  ${FlexCenter};
+  color: ${(props) => props.theme.Colors.blueGreen3};
+  width: 5rem;
   margin-bottom: ${(props) => props.theme.margins.xxl};
   padding-bottom: 0.4rem;
-  font-weight: ${(props) => props.theme.fontWeights.lg};
+  border-bottom: 0.1rem solid ${(props) => props.theme.Colors.blueGreen3};
+`;
+
+const StBtn2 = styled.div`
+  ${FlexCenter};
+  width: 5rem;
+  margin-bottom: ${(props) => props.theme.margins.xxl};
+  padding-bottom: 0.4rem;
 `;

@@ -90,7 +90,6 @@ const GlobalStyle = createGlobalStyle`
     display: block;
     max-width: 90%; 
     max-height: 90%;
-
   }
 
 

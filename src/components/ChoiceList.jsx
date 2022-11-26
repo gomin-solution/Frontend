@@ -63,6 +63,9 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
     diffTime = diffMinTime + "분";
   }
 
+  console.log("1", nowTime);
+  console.log("2", newEndTime);
+
   return (
     <StWrap ref={newRef} key={choice.choiceId} isEnd={choice.isEnd}>
       <StChoiceTextWrap>

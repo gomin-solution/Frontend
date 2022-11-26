@@ -13,18 +13,10 @@ const AdviceList = ({ newRef, advice }) => {
         nav(`/board-advice/${advice.adviceId}`);
       }}
     >
-      <p style={{ marginBottom: "0.5rem" }}>
-        <span
-          style={{
-            fontWeight: "700",
-            marginRight: "0.3rem",
-            color: "#19696A",
-          }}
-        >
-          [{advice.category}]
-        </span>
-        {advice.title}
-      </p>
+      <span style={{ marginBottom: "0.5rem", display: "flex" }}>
+        <StCategory>[{advice.category}]</StCategory>&nbsp;
+        <StTitle>{advice.title}</StTitle>
+      </span>
       <StContent>{advice.content}</StContent>
       <StWrap>
         <div style={{ fontSize: "0.875rem" }}>
@@ -48,15 +40,25 @@ const StAdviceList = styled.div`
   padding: ${(props) => props.theme.paddings.sm};
 `;
 
+const StCategory = styled.span`
+  font-weight: ${(props) => props.theme.fontWeights.xl};
+  color: #19696a;
+`;
+
+const StTitle = styled.span`
+  overflow: hidden;
+  text-overflow: ellipsis; // 말줄임 적용
+  white-space: nowrap; // 문장이 길어지면 다음 줄로 넘기는 것을 없앰
+`;
+
 const StContent = styled.p`
   width: 100%;
-  overflow: hidden;
   font-size: ${(props) => props.theme.fontSizes.sm};
   margin-top: ${(props) => props.theme.margins.sm};
   margin-bottom: ${(props) => props.theme.margins.xsm};
+  overflow: hidden;
   text-overflow: ellipsis; // 말줄임 적용
   white-space: nowrap; // 문장이 길어지면 다음 줄로 넘기는 것을 없앰
-  overflow: hidden;
   color: #1a1c1c;
 `;
 

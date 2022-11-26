@@ -17,9 +17,9 @@ const Search = () => {
       <Header7 title={"고민 접기"} />
       <Stcontainer>
         <StRankTitleWrap>
-          <span style={{ fontWeight: "600" }}>홍길동님의 답변이 필요해요</span>
+          <span style={{ fontWeight: "600" }}>고민남님의 답변이 필요해요</span>
           <span style={{ fontSize: "0.875rem", color: "#627C7C" }}>
-            2022. 11. 21. 기준
+            2022. 11. 27. 기준
           </span>
         </StRankTitleWrap>
         <StRankWrap>

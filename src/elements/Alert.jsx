@@ -1,4 +1,5 @@
 import Modal from "@mui/material/Modal";
+import styled from "styled-components";
 import Swal from "sweetalert2";
 
 /* 버튼 1개 and 확인 후 이동 X */
@@ -69,7 +70,6 @@ export function RewardModal({ modalOpen, closeModal, tip }) {
         hideBackdrop={true}
       >
         <StBigPrev>
-          <ClearIcon className="clear" onClick={closeModal} />
           <StTip>
             {tip.map((item) => (
               <div key={item}>{item}</div>
@@ -102,5 +102,35 @@ const StTip = styled.div`
 
   div {
     font-size: 1.5rem;
+  }
+`;
+
+/*이미지 미리보기 크게 */
+const StBigPrev = styled.div`
+  @media all and (min-width: 26rem) {
+    max-width: 26rem;
+  }
+
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+
+  .clear {
+    position: absolute;
+    z-index: 102;
+
+    color: #ffffff;
+    cursor: pointer;
+    top: 1rem;
+    right: 1rem;
   }
 `;

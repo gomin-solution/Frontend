@@ -56,5 +56,3 @@ export const Alert4 = (text) => {
     width: "20rem",
   });
 };
-
-export default Alert1;

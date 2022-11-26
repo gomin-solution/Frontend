@@ -9,7 +9,7 @@ import { bookmark, postChoice } from "../api/boardChoiceApi";
 import { MenuDial1 } from "../elements/MenuDial";
 import { decodeCookie } from "../api/cookie";
 
-const ChoiceList = ({ ref, choice }) => {
+const ChoiceList = ({ choice, getMutation }) => {
   const queryClient = useQueryClient();
 
   /* 마감시간 */
@@ -34,7 +34,7 @@ const ChoiceList = ({ ref, choice }) => {
   /* 골라주기 mutation */
   const choiceMutation = useMutation(postChoice, {
     onSuccess: () => {
-      queryClient.invalidateQueries("getChoiceScroll");
+      queryClient.invalidateQueries(getMutation);
     },
   });
 
@@ -46,7 +46,7 @@ const ChoiceList = ({ ref, choice }) => {
   /* 북마크 mutation */
   const bookmarkMutation = useMutation(bookmark, {
     onSuccess: () => {
-      queryClient.invalidateQueries("getChoiceScroll");
+      queryClient.invalidateQueries(getMutation);
     },
   });
 
@@ -66,7 +66,7 @@ const ChoiceList = ({ ref, choice }) => {
   }
 
   return (
-    <StWrap ref={ref} key={choice.choiceId} isEnd={choice.isEnd}>
+    <StWrap key={choice.choiceId} isEnd={choice.isEnd}>
       <StChoiceTextWrap>
         <div style={{ display: "flex", alignItems: "center" }}>
           <Stimg src={choice.userImage} alt="profile" />

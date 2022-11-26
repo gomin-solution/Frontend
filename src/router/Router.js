@@ -16,6 +16,7 @@ import Search from "../pages/Search";
 import SearchResult from "../pages/SearchResult";
 import Setting from "../pages/Setting";
 import Bookmark from "../pages/Bookmark";
+import MyPost from "../pages/MyPost";
 
 const Router = () => {
   return (
@@ -26,6 +27,7 @@ const Router = () => {
         <Route path="/signup" element={<Signup />} />
 
         <Route path="/" element={<Main />} />
+        <Route path="/mypost" element={<MyPost />} />
         <Route path="/bookmark" element={<Bookmark />} />
         <Route path="/setting" element={<Setting />} />
 

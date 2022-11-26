@@ -14,12 +14,9 @@ const SearchResult = () => {
   const menu = ["choice", "advice"];
 
   const { state: keyword } = useLocation();
-  const { data } = useQuery(["keyword", keyword], () => getSearch(keyword));
+  const { data } = useQuery(["getSearch", keyword], () => getSearch(keyword));
   const choices = data?.choice;
   const advices = data?.advice;
-
-  // console.log("choices", choices);
-  // console.log("advices", advices);
 
   return (
     <>

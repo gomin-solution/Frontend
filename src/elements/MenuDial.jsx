@@ -85,7 +85,7 @@ export function MenuDial0({ setFilterId }) {
 
 //투표 점
 /*삭제, 골라주기 종료*/
-export function MenuDial1({ choiceId }) {
+export function MenuDial1({ choiceId, getMutation }) {
   const queryClient = useQueryClient();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -100,16 +100,14 @@ export function MenuDial1({ choiceId }) {
   /* 게시글 삭제 */
   const removeChoiceMutation = useMutation(removeChoice, {
     onSuccess: () => {
-      queryClient.invalidateQueries("getChoiceScroll");
-      queryClient.invalidateQueries("getSearch");
+      queryClient.invalidateQueries(getMutation);
     },
   });
 
   /* 게시글 마감 */
   const endChoiceMutation = useMutation(endChoice, {
     onSuccess: () => {
-      queryClient.invalidateQueries("getChoiceScroll");
-      queryClient.invalidateQueries("getSearch");
+      queryClient.invalidateQueries(getMutation);
     },
   });
 

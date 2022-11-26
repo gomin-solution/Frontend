@@ -1,6 +1,6 @@
 import instance from "./api";
 
-export const getMyPost = async (search) => {
-  const res = await instance.get(`/mypost/${search}`);
+export const getMyPost = async () => {
+  const res = await instance.get("/mypost");
   return res.data;
 };

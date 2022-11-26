@@ -36,7 +36,11 @@ const Advice = () => {
           ? getAdvice?.pages.map((page) => (
               <React.Fragment key={page.currentPage}>
                 {page.advices.map((advice) => (
-                  <AdviceList ref={ref} advice={advice} key={advice.adviceId} />
+                  <AdviceList
+                    newRef={ref}
+                    advice={advice}
+                    key={advice.adviceId}
+                  />
                 ))}
               </React.Fragment>
             ))

@@ -1,16 +1,22 @@
+import { useQuery } from "react-query";
 import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container, FlexCenter } from "../shared/css";
+import { getMyPage } from "../api/settingApi";
 
 function Setting() {
+  const { data: res } = useQuery("getMyPage", getMyPage);
+  const nickname = res?.data.nickname;
+  const userImage = res?.data.userImage;
+
   return (
     <>
       <Header1 title={"설정"} />
       <Stcontainer>
         <StUserinfo>
-          <img src="/userpic.png" alt="프로필 사진" />
+          <img src={userImage} alt="프로필 사진" />
           <div>
-            <p>닉네임</p>
+            <p>{nickname}</p>
             <span>
               등급: 주니어 해결사<div className="qbox">?</div>
             </span>

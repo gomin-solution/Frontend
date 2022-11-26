@@ -1,7 +1,5 @@
-import React from "react";
 import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
-
 // MUI Icon
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
@@ -9,7 +7,7 @@ import { bookmark, postChoice } from "../api/boardChoiceApi";
 import { MenuDial1 } from "../elements/MenuDial";
 import { decodeCookie } from "../api/cookie";
 
-const ChoiceList = ({ choice, getMutation }) => {
+const ChoiceList = ({ newRef, choice, getMutation }) => {
   const queryClient = useQueryClient();
 
   /* 마감시간 */
@@ -66,7 +64,7 @@ const ChoiceList = ({ choice, getMutation }) => {
   }
 
   return (
-    <StWrap key={choice.choiceId} isEnd={choice.isEnd}>
+    <StWrap ref={newRef} key={choice.choiceId} isEnd={choice.isEnd}>
       <StChoiceTextWrap>
         <div style={{ display: "flex", alignItems: "center" }}>
           <Stimg src={choice.userImage} alt="profile" />
@@ -85,7 +83,7 @@ const ChoiceList = ({ choice, getMutation }) => {
             />
           )}
           {decodeKey === choice.userKey ? (
-            <MenuDial1 choiceId={choice.choiceId} />
+            <MenuDial1 choiceId={choice.choiceId} getMutation={getMutation} />
           ) : null}
         </StIconWrap>
       </StChoiceTextWrap>

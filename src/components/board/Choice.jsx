@@ -36,7 +36,7 @@ const Choice = () => {
               {page?.choices.map((choice) => {
                 return (
                   <ChoiceList
-                    ref={ref}
+                    newRef={ref}
                     choice={choice}
                     key={choice.choiceId}
                     getMutation="getChoiceScroll"

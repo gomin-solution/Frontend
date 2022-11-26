@@ -19,8 +19,6 @@ const Login = () => {
     console.log("data", data);
     try {
       const res = await instance.post("/login", data);
-      console.log("res", res.data.accessToken);
-      console.log("res", res.data.refreshToken);
 
       // body로 전달받은 토큰을 쿠키에 저장하기
       setCookie("accessToken", res.data.accessToken);

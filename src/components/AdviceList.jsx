@@ -1,13 +1,13 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 
-const AdviceList = ({ advice }) => {
+const AdviceList = ({ newRef, advice }) => {
   const nav = useNavigate();
 
   return (
     <StAdviceList
+      ref={newRef}
       key={advice.adviceId}
       onClick={() => {
         nav(`/board-advice/${advice.adviceId}`);

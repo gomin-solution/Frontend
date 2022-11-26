@@ -7,8 +7,8 @@ const AnswerAndBookmark = ({ isCookie }) => {
   const nav = useNavigate();
 
   const lists = [
-    { title: "답변을 기다리고 있는 내 고민", nav: "#" },
-    { title: "북마크 한 고민", nav: "/bookmark" },
+    { title: "내가 작성한 고민", nav: "/mypost" },
+    { title: "북마크한 고민", nav: "/bookmark" },
   ];
 
   const navHandler = (navi) => {

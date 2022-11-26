@@ -3,22 +3,22 @@ import { useQuery } from "react-query";
 import Footer from "../elements/Footer";
 import { Header1 } from "../elements/Header";
 import styled from "styled-components";
-import { getBookmark } from "../api/mainApi";
-import Choice from "../components/bookmark/Choice";
-import Advice from "../components/bookmark/Advice";
+import Choice from "../components/mypost/Choice";
+import Advice from "../components/mypost/Advice";
+import { getMyPost } from "../api/myPost";
 import { Container, FlexCenter } from "../shared/css";
 
-const Bookmark = () => {
+const MyPost = () => {
   const [boardCategory, setBoardCategory] = useState("choice");
   const menu = ["choice", "advice"];
 
-  const { data } = useQuery("getBookmark", getBookmark);
-  const choices = data?.data.choice;
-  const advices = data?.data.advice;
+  const { data } = useQuery("getMyPost", getMyPost);
+  const choices = data?.mychoice;
+  const advices = data?.myadvice;
 
   return (
     <>
-      <Header1 title={"북마크"} navi="/" />
+      <Header1 title={"내가 작성한 고민글"} navi="/" />
       <Stcontainer>
         {menu[0] === boardCategory ? (
           <>
@@ -54,7 +54,7 @@ const Bookmark = () => {
   );
 };
 
-export default Bookmark;
+export default MyPost;
 
 const Stcontainer = styled.div`
   ${Container};

@@ -32,7 +32,6 @@ function AdvicePost({ resBoard }) {
         }
         formData.append("title", e.title);
         formData.append("content", e.content);
-        formData.append("isAdult", e.isAdult);
         formData.append("categoryId", categoryId);
 
         wrtieAdvice.mutate(formData);
@@ -47,7 +46,6 @@ function AdvicePost({ resBoard }) {
         }
         formData.append("title", e.title);
         formData.append("content", e.content);
-        formData.append("isAdult", e.isAdult);
 
         EditAdvice.mutate({ formData, adviceId: resBoard?.adviceId });
       }
@@ -143,7 +141,7 @@ function AdvicePost({ resBoard }) {
               id="picture"
               type="file"
               multiple
-              accept="image/*"
+              accept=".jpg, .png"
             />
             {imagePreview.length > 0
               ? imagePreview?.map((img) => {
@@ -163,6 +161,7 @@ function AdvicePost({ resBoard }) {
             )}
           </div>
         </Stcontent>
+        <StError>업로드 가능한 파일 확장자 : jpg, jpeg, png</StError>
       </Stcontainer>
     </form>
   );
@@ -179,7 +178,6 @@ const Stcontainer = styled.div`
 /*라벨링 */
 const StLabel = styled.div`
   margin: 0.5rem 0;
-  font-size: ${(props) => props.theme.fontSizes.base};
 `;
 
 /*제목 */
@@ -236,4 +234,10 @@ const Stcontent = styled.div`
     flex-direction: row;
     gap: 0.5rem;
   }
+`;
+
+const StError = styled.div`
+  margin-top: ${(props) => props.theme.margins.sm};
+  font-size: ${(props) => props.theme.fontSizes.sm};
+  color: ${(props) => props.theme.Colors.gray2};
 `;

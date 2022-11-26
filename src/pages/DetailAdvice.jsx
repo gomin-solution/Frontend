@@ -139,9 +139,9 @@ function DetailAdvice() {
                     <img
                       key={img[0]}
                       alt="업로드사진"
-                      src={img[1]}
+                      src={img[0]}
                       style={{ maxWidth: "7rem", maxHeight: "7rem" }}
-                      onClick={handle(img[1])}
+                      onClick={handle(img[0])}
                     />
                   );
                 })}

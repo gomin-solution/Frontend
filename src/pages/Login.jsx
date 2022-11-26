@@ -4,7 +4,7 @@ import instance from "../api/api";
 import { setCookie } from "../api/cookie";
 
 /*스타일 관련 */
-import Alert1, { Alert0 } from "../elements/Alert";
+import { Alert0, Alert1 } from "../elements/Alert";
 import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container } from "../shared/css";

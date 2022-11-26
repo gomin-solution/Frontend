@@ -10,7 +10,7 @@ import TotalCount from "../components/main/TotalCount";
 import { useQuery } from "react-query";
 import { getMain } from "../api/mainApi";
 import { Container } from "../shared/css";
-import { decodeCookie, decodeCookieRefresh, getCookie } from "../api/cookie";
+import { getCookie } from "../api/cookie";
 import Loading from "../components/Loading";
 
 function Main() {
@@ -19,6 +19,7 @@ function Main() {
     refetchOnWindowFocus: false,
   });
 
+  /* props 전달 */
   const recommend = data?.data.mainpage.advice;
   const totalCount = data?.data.mainpage.totalCount;
   const dailyMessage = data?.data.dailyMessage;
@@ -30,8 +31,6 @@ function Main() {
 
   /* accessToken get */
   const isCookie = getCookie("accessToken");
-
-  const refresh = decodeCookieRefresh("refreshToken");
 
   return (
     <>
@@ -50,7 +49,7 @@ function Main() {
             dailyMessage={dailyMessage}
             isOpen={isOpen}
           />
-          <AnswerAndBookmark />
+          <AnswerAndBookmark isCookie={isCookie} />
           <TotalCount totalCount={totalCount} />
         </StPaddingWrap>
       </StContainer>

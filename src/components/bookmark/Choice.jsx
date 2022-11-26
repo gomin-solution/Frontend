@@ -11,7 +11,13 @@ const Choice = ({ choices }) => {
         <StResult>북마크한 골라주기가 없습니다.</StResult>
       )}
       {choices?.map((choice) => {
-        return <ChoiceList choice={choice} key={choice.choiceId} />;
+        return (
+          <ChoiceList
+            choice={choice}
+            key={choice.choiceId}
+            getMutation="getBookmark"
+          />
+        );
       })}
     </StContainer>
   );

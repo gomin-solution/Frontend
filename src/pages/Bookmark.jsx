@@ -3,9 +3,10 @@ import { useQuery } from "react-query";
 import Footer from "../elements/Footer";
 import { Header1 } from "../elements/Header";
 import styled from "styled-components";
-import BookmarkAdvice from "../components/main/BookmarkAdvice";
 import { getBookmark } from "../api/mainApi";
 import Choice from "../components/bookmark/Choice";
+import Advice from "../components/bookmark/Advice";
+import { Container, FlexCenter } from "../shared/css";
 
 const SearchResult = () => {
   const [boardCategory, setBoardCategory] = useState("choice");
@@ -42,10 +43,7 @@ const SearchResult = () => {
                 답해주기
               </StBtn1>
             </StInnerWrap>
-            <BookmarkAdvice
-              setBoardCategory={setBoardCategory}
-              advices={advices}
-            />
+            <Advice advices={advices} />
           </>
         )}
       </Stcontainer>
@@ -60,31 +58,29 @@ const SearchResult = () => {
 export default SearchResult;
 
 const Stcontainer = styled.div`
-  width: 100%;
-  position: absolute;
-  overflow: auto;
+  ${Container};
   height: calc(100vh - 8rem);
 `;
 
 const StInnerWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${FlexCenter};
   margin-top: ${(props) => props.theme.margins.xxl};
-  column-gap: 6rem;
-`;
-
-const StBtn1 = styled.button`
-  width: 4rem;
-  margin-bottom: ${(props) => props.theme.margins.xxl};
-  padding-bottom: 0.4rem;
-  box-shadow: 0rem 0.1rem 0rem 0rem gray;
+  column-gap: 4rem;
   font-weight: ${(props) => props.theme.fontWeights.lg};
 `;
 
-const StBtn2 = styled.button`
-  width: 4rem;
+const StBtn1 = styled.div`
+  ${FlexCenter};
+  color: ${(props) => props.theme.Colors.blueGreen3};
+  width: 5rem;
   margin-bottom: ${(props) => props.theme.margins.xxl};
   padding-bottom: 0.4rem;
-  font-weight: ${(props) => props.theme.fontWeights.lg};
+  border-bottom: 0.1rem solid ${(props) => props.theme.Colors.blueGreen3};
+`;
+
+const StBtn2 = styled.div`
+  ${FlexCenter};
+  width: 5rem;
+  margin-bottom: ${(props) => props.theme.margins.xxl};
+  padding-bottom: 0.4rem;
 `;

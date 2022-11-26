@@ -1,8 +1,9 @@
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { Alert0 } from "../../elements/Alert";
 
-const AnswerAndBookmark = () => {
+const AnswerAndBookmark = ({ isCookie }) => {
   const nav = useNavigate();
 
   const lists = [
@@ -10,10 +11,18 @@ const AnswerAndBookmark = () => {
     { title: "북마크 한 고민", nav: "/bookmark" },
   ];
 
+  const navHandler = (navi) => {
+    if (isCookie) {
+      nav(navi);
+    } else {
+      Alert0("로그인 후 이용해주세요.");
+    }
+  };
+
   return (
     <>
       {lists.map((list, idx) => (
-        <StContainer key={idx} onClick={() => nav(`${list.nav}`)}>
+        <StContainer key={idx} onClick={() => navHandler(`${list.nav}`)}>
           {list.title}
           <KeyboardArrowRightIcon sx={{ color: "#19696A" }} />
         </StContainer>

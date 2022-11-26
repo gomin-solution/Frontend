@@ -11,7 +11,13 @@ const Choice = ({ choices, keyword }) => {
         <StResult>{keyword}에 대한 검색 결과가 없습니다.</StResult>
       )}
       {choices?.map((choice) => {
-        return <ChoiceList choice={choice} key={choice.choiceId} />;
+        return (
+          <ChoiceList
+            choice={choice}
+            key={choice.choiceId}
+            getMutation="getSearch"
+          />
+        );
       })}
     </StContainer>
   );

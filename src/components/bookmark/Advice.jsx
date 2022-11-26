@@ -1,58 +1,36 @@
-import { useNavigate } from "react-router-dom";
-
-import Advice from "../components/board/Advice";
-import Footer from "../elements/Footer";
-import { Header2 } from "../elements/Header";
-import Dial from "../components/board/Dial";
+import React from "react";
 import styled from "styled-components";
-import { Container, FlexCenter } from "../shared/css";
+import AdviceList from "../AdviceList";
 
-function Board() {
-  const nav = useNavigate();
+const Advice = ({ advices }) => {
   return (
-    <>
-      <Header2 title={"고민 접기"} />
-      <Stcontainer>
-        <StInnerWrap>
-          <StBtn2 onClick={() => nav("/board-choice")}>골라주기</StBtn2>
-          <StBtn1 onClick={() => nav("/board-advice")}>답해주기</StBtn1>
-        </StInnerWrap>
-        <Advice />
-      </Stcontainer>
-      <div style={{ position: "absolute", bottom: "2.5rem", right: "0.5rem" }}>
-        <Dial />
-      </div>
-      <Footer title={"고민 접기"} />
-    </>
+    <StContainer>
+      <StListWrap>
+        {advices?.length > 0 ? (
+          <StResult>북마크한 답해주기 목록입니다.</StResult>
+        ) : (
+          <StResult>북마크한 답해주기가 없습니다.</StResult>
+        )}
+        {advices?.map((advice) => (
+          <AdviceList advice={advice} key={advice.adviceId} />
+        ))}
+      </StListWrap>
+    </StContainer>
   );
-}
+};
 
-export default Board;
+export default Advice;
 
-const Stcontainer = styled.div`
-  ${Container};
-  height: calc(100vh - 8rem);
+const StContainer = styled.div`
+  margin-bottom: ${(props) => props.theme.paddings.sm};
+  padding: 0rem ${(props) => props.theme.paddings.xxl};
 `;
 
-const StInnerWrap = styled.div`
-  ${FlexCenter};
-  margin-top: ${(props) => props.theme.margins.xxl};
-  column-gap: 4rem;
-  font-weight: ${(props) => props.theme.fontWeights.lg};
+const StResult = styled.div`
+  width: 100%;
+  margin-bottom: ${(props) => props.theme.margins.base};
 `;
 
-const StBtn1 = styled.div`
-  ${FlexCenter};
-  color: ${(props) => props.theme.Colors.blueGreen3};
-  width: 5rem;
-  margin-bottom: ${(props) => props.theme.margins.xxl};
-  padding-bottom: 0.4rem;
-  border-bottom: 0.1rem solid ${(props) => props.theme.Colors.blueGreen3};
-`;
-
-const StBtn2 = styled.div`
-  ${FlexCenter};
-  width: 5rem;
-  margin-bottom: ${(props) => props.theme.margins.xxl};
-  padding-bottom: 0.4rem;
+const StListWrap = styled.div`
+  height: 100%;
 `;

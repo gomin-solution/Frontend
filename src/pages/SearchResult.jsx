@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
-import getSearch from "../api/searchApi";
+import { getSearch } from "../api/searchApi";
 import Footer from "../elements/Footer";
 import { Header1 } from "../elements/Header";
 import styled from "styled-components";
@@ -15,7 +15,6 @@ const SearchResult = () => {
 
   const { state: keyword } = useLocation();
   const { data } = useQuery(["keyword", keyword], () => getSearch(keyword));
-  // console.log(data?.choice);
   const choices = data?.choice;
   const advices = data?.advice;
 

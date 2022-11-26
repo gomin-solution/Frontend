@@ -35,7 +35,12 @@ const Choice = () => {
             <React.Fragment key={page.currentPage}>
               {page?.choices.map((choice) => {
                 return (
-                  <ChoiceList ref={ref} choice={choice} key={choice.choiceId} />
+                  <ChoiceList
+                    ref={ref}
+                    choice={choice}
+                    key={choice.choiceId}
+                    getMutation="getChoiceScroll"
+                  />
                 );
               })}
             </React.Fragment>

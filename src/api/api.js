@@ -6,37 +6,33 @@ export const instance = axios.create({
   withCredentials: true,
 });
 
-/* REQUEST INTERCEPTORS ----------------------------------------------------- */
+/* interceptor: request */
 instance.interceptors.request.use(
-  // 요청이 전달되기 전에 작업 수행
+  /* 요청이 전달되기 전에 작업 수행 */
   (config) => {
     const accToken = getCookie("accessToken");
     config.headers.authorization = `Bearer ${accToken}`;
-    console.log("여기", accToken);
     return config;
   },
   (error) => {
-    // 요청 오류가 있는 작업 수행
+    /* 요청 오류가 있는 작업 수행 */
     return Promise.reject(error);
   }
 );
 
-/* RESPONSE INTERCEPTORS ---------------------------------------------------- */
+/* interceptor: response */
 instance.interceptors.response.use(
   (response) => {
-    // 응답 데이터가 있는 작업 수행 : STATUS CODE 2XX
     return response;
   },
   async (error) => {
-    // 응답 오류가 있는 작업 수행 : STATUS CODE WITHOUT 2XX
     try {
       const { response, config } = error;
       const originalRequest = config;
-      // ACCESSTOKEN FAILED : 405 / REFRESHTOKEN FAILED : 403
-      /* GET ACCESSTOKEN FAILED --------------------------------------------------- */
+      // accessToken 만료 시 status: 405
       if (response.data.msg === "만료" && response.status === 405) {
         const refToken = getCookie("refreshToken");
-        /* GET : NEW ACCESSTOKEN ---------------------------------------------------- */
+        /* accessToken get */
         try {
           const accToken = getCookie("accessToken");
           const res = await axios({
@@ -58,10 +54,10 @@ instance.interceptors.response.use(
           removeCookie("refreshToken");
           // window.location.href = "/login";
         }
-        /* GET REFRESHTOKEN FAILED -------------------------------------------------- */
+        /* refreshToken 만료 시 status: 403 */
       } else if (
         response.data.msg === "다시 로그인 해주세요." &&
-        response.status === "403"
+        response.status === 403
       ) {
         removeCookie("accessToken");
         removeCookie("refreshToken");

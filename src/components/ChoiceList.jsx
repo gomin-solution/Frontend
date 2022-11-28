@@ -20,6 +20,13 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
   /* 유저키 가져오기 */
   const decodeKey = decodeCookie("accessToken")?.userKey;
 
+  /* 골라주기 mutation */
+  const choiceMutation = useMutation(postChoice, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(getMutation);
+    },
+  });
+
   /* 골라주기 선택 시 put */
   const choiceSubmit = async (e, choice) => {
     e.preventDefault();
@@ -29,9 +36,30 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
     });
   };
 
-  /* 골라주기 mutation */
-  const choiceMutation = useMutation(postChoice, {
-    onSuccess: () => {
+  /* 북마크 mutation */
+  const bookmarkMutation = useMutation(bookmark, {
+    /* onMutate : mutation function이 시작되기 전에 작동 */
+    onMutate: async () => {
+      /* 서버에 전송한 요청이 잘못되었을 경우를 대비해서 이전 데이터를 저장 */
+      const prevBookMark = queryClient.getQueryData(getMutation);
+
+      /* 혹시 발생할지도 모르는 refetch를 취소하여 Optimistic Update의 데이터를 덮어쓰지 않도록 예방 */
+      await queryClient.cancelQueries(getMutation);
+
+      /* 서버의 응답이 오기 전에 UI를 미리 업데이트 */
+      queryClient.setQueryData(
+        getMutation,
+        () => (choice.isBookMark = !choice.isBookMark)
+      );
+
+      /* 에러가 발생했을 경우 복원할 수 있도록 이전 데이터를 반환 */
+      return { prevBookMark };
+    },
+    onError: (err, variables, context) => {
+      queryClient.setQueryData(getMutation, context?.prevBookMark);
+    },
+    onSettled: () => {
+      /* 관련 쿼리 refetch */
       queryClient.invalidateQueries(getMutation);
     },
   });
@@ -40,13 +68,6 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
   const bookmarkChange = (choiceId) => {
     bookmarkMutation.mutate(choiceId);
   };
-
-  /* 북마크 mutation */
-  const bookmarkMutation = useMutation(bookmark, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(getMutation);
-    },
-  });
 
   /* 마감시간 비교를 위한 변수 설정 */
   const nowTime = dayjs().format("YYYY/MM/DD HH:mm:ss");
@@ -74,12 +95,12 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
           {!choice?.isBookMark ? (
             <BookmarkBorderIcon
               style={{ cursor: "pointer" }}
-              onClick={() => bookmarkChange(choice.choiceId)}
+              onClick={() => bookmarkChange(choice.choiceId, choice.isBookMark)}
             />
           ) : (
             <BookmarkIcon
               style={{ cursor: "pointer" }}
-              onClick={() => bookmarkChange(choice.choiceId)}
+              onClick={() => bookmarkChange(choice.choiceId, choice.isBookMark)}
             />
           )}
           {decodeKey === choice.userKey ? (

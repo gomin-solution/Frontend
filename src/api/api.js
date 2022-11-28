@@ -15,7 +15,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use((config) => {
   config.headers.authorization = `Bearer ${myToken}`;
-  config.headers.refreshtoken = `${refToken}`;
+  // config.headers.refreshtoken = `${refToken}`;
 
   return config;
 });

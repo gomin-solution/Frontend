@@ -33,14 +33,13 @@ const StContainer = styled.div`
 
 const StWrap = styled.div`
   background-color: ${(props) => props.theme.Colors.foot};
-  height: 100%;
   ${FlexCenter}
   column-gap: 2.5rem;
-  padding: 0rem ${(props) => props.theme.paddings.xsm};
+  padding: 1rem;
 `;
 
 const StTitle = styled.div`
-  margin: 1rem 0rem;
+  margin-bottom: 1rem;
   font-size: 1.25rem;
   font-weight: ${(props) => props.theme.fontWeights.lg};
 `;

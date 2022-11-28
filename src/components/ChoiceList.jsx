@@ -163,7 +163,7 @@ const StParticipant = styled.span`
 `;
 
 const StTextWrap3 = styled.div`
-  font-size: ${(props) => props.theme.fontSizes.lg};
+  font-size: 100%;
   display: flex;
   justify-content: space-between;
   margin-bottom: ${(props) => props.theme.margins.xxsm};
@@ -224,12 +224,14 @@ const StChoice2 = styled.div`
 `;
 
 const StPerText1 = styled.span`
+  font-size: 90%;
   padding: ${(props) => props.theme.paddings.xsm};
   position: absolute;
   left: 0;
 `;
 
 const StPerText2 = styled.span`
+  font-size: 90%;
   padding: ${(props) => props.theme.paddings.xsm};
   position: absolute;
   right: 0;

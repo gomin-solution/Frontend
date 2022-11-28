@@ -1,13 +1,16 @@
-import { Header1 } from "../elements/Header";
-import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import { useParams } from "react-router-dom";
 import { socket } from "../api/socketio";
 import { useEffect, useRef, useState } from "react";
 import { decodeCookie } from "../api/cookie";
 import { useQuery } from "react-query";
 import { getNotes } from "../api/room";
+
+import { Header1 } from "../elements/Header";
+import styled from "styled-components";
+import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
+import { Container } from "../shared/css";
+
 const RoomDetail = () => {
   const chatContainerEl = useRef(null);
 
@@ -49,7 +52,6 @@ const RoomDetail = () => {
       },
     ]);
   });
-  console.log("messages", messages);
 
   /* 마운트 시, userKey, roomId 전달 */
   useEffect(() => {
@@ -110,9 +112,7 @@ const RoomDetail = () => {
 export default RoomDetail;
 
 const Stcontainer = styled.div`
-  width: 100%;
-  position: absolute;
-  overflow: auto;
+  ${Container};
   height: calc(100vh - 8rem);
   padding: ${(props) => props.theme.paddings.xl};
   overflow: auto;
@@ -126,8 +126,6 @@ const Stcontainer = styled.div`
 
 const StWrap = styled.div`
   width: 100%;
-  height: 5rem;
-  margin-bottom: ${(props) => props.theme.margins.sm};
   padding: ${(props) => props.theme.paddings.xl};
   border-bottom: 0.1rem solid lightgray;
 `;

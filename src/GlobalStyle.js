@@ -34,6 +34,9 @@ const GlobalStyle = createGlobalStyle`
     div {
       font-family: "Noto Sans KR", sans-serif;
     }
+
+    /*텍스트 줄 높이*/
+    line-height: normal;
   }
 
   @media all and (min-width: 360px) and (max-width: 899px) {

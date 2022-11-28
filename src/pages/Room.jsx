@@ -23,13 +23,13 @@ const Room = () => {
           >
             <StInnerWrap>
               <span style={{ fontWeight: "600" }}>{room.title}</span>
+            </StInnerWrap>
+            <StSet style={{ fontSize: "0.875rem", color: "#474747" }}>
+              {room.nickname}
               <span style={{ fontSize: "0.75rem", color: "#737878" }}>
                 {room.recentDate}
               </span>
-            </StInnerWrap>
-            <div style={{ fontSize: "0.875rem", color: "#474747" }}>
-              {room.nickname}
-            </div>
+            </StSet>
           </StWrap>
         ))}
       </Stcontainer>
@@ -62,6 +62,18 @@ const StWrap = styled.div`
 
 const StInnerWrap = styled.div`
   display: flex;
+  margin-bottom: ${(props) => props.theme.margins.xsm};
+  overflow: hidden;
+
+  span {
+    text-overflow: ellipsis; // 말줄임 적용
+    white-space: nowrap; // 문장이 길어지면 다음 줄로 넘기는 것을 없앰
+    overflow: hidden;
+  }
+`;
+
+const StSet = styled.div`
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: ${(props) => props.theme.margins.base};
 `;

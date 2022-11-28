@@ -13,16 +13,16 @@ const AdviceList = ({ newRef, advice }) => {
         nav(`/board-advice/${advice.adviceId}`);
       }}
     >
-      <span style={{ marginBottom: "0.5rem", display: "flex" }}>
+      <StTitleWrap>
         <StCategory>[{advice.category}]</StCategory>&nbsp;
         <StTitle>{advice.title}</StTitle>
-      </span>
+      </StTitleWrap>
       <StContent>{advice.content}</StContent>
       <StWrap>
-        <div style={{ fontSize: "0.875rem" }}>
+        <StTitleWrap style={{ fontSize: "0.875rem" }}>
           <span>조회 {advice.viewCount}&nbsp;&nbsp;</span>
           <span>조언 {advice.commentCount}</span>
-        </div>
+        </StTitleWrap>
         <span style={{ fontSize: "0.875rem" }}>
           {advice.createdAt.slice(0, 10)}
         </span>
@@ -38,6 +38,11 @@ const StAdviceList = styled.div`
   height: 6rem;
   margin-bottom: ${(props) => props.theme.margins.xsm};
   padding: ${(props) => props.theme.paddings.sm};
+`;
+
+const StTitleWrap = styled.div`
+  display: flex;
+  margin-bottom: 0.5rem;
 `;
 
 const StCategory = styled.span`

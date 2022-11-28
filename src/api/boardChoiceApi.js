@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "react-query";
-import instance from "./api";
+import { instance } from "./api";
 
 /* choice infinite scroll get */
 export const useChoiceInfiniteScroll = (filterId) => {

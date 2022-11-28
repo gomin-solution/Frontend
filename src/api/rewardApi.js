@@ -1,4 +1,4 @@
-import instance from "./api";
+import { instance } from "./api";
 
 /*리워드 정보 get*/
 export const rewardGet = async () => {

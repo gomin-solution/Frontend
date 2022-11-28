@@ -1,4 +1,4 @@
-import instance from "./api";
+import { instance } from "./api";
 
 /* 쪽지하기 all rooms get */
 export const getRooms = async () => {

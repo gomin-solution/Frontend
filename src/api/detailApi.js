@@ -1,4 +1,5 @@
-import instance from "./api";
+// import { instance } from "./api";
+import { instance } from "./api";
 
 /* 답해주기 상세페이지 정보 get*/
 export const adviceDetail = async (adviceId, filterId) => {

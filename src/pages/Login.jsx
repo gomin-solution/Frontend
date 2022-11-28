@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import instance from "../api/api";
+import { instance } from "../api/api";
 import { setCookie } from "../api/cookie";
 
 /*스타일 관련 */
@@ -16,13 +16,12 @@ const Login = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-    console.log("data", data);
     try {
       const res = await instance.post("/login", data);
 
       // body로 전달받은 토큰을 쿠키에 저장하기
-      // setCookie("accessToken", res.data.accessToken);
-      // setCookie("refreshToken", res.data.refreshToken);
+      setCookie("accessToken", res.data.accessToken);
+      setCookie("refreshToken", res.data.refreshToken);
       Alert1(`${res.data.nickname}님 반갑습니다.`);
     } catch (error) {
       Alert0("아이디 또는 비밀번호가 일치하지 않습니다.");

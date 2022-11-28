@@ -1,4 +1,4 @@
-import instance from "./api";
+import { instance } from "./api";
 
 /* 프로필 정보 get*/
 export const getMyPage = async () => {

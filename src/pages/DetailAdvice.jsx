@@ -47,7 +47,28 @@ function DetailAdvice() {
 
   //북마크 실행,취소
   const { mutate } = useMutation(adviceBookmark, {
-    onSuccess: () => {
+    /* onMutate : mutation function이 시작되기 전에 작동 */
+    onMutate: async () => {
+      /* 서버에 전송한 요청이 잘못되었을 경우를 대비해서 이전 데이터를 저장 */
+      const prevBookMark = queryClient.getQueryData("getDetail");
+
+      /* 혹시 발생할지도 모르는 refetch를 취소하여 Optimistic Update의 데이터를 덮어쓰지 않도록 예방 */
+      await queryClient.cancelQueries("getDetail");
+
+      /* 서버의 응답이 오기 전에 UI를 미리 업데이트 */
+      queryClient.setQueryData(
+        "getDetail",
+        () => (resBoard.isBookMark = !resBoard.isBookMark)
+      );
+
+      /* 에러가 발생했을 경우 복원할 수 있도록 이전 데이터를 반환 */
+      return { prevBookMark };
+    },
+    onError: (err, variables, context) => {
+      queryClient.setQueryData("getDetail", context.prevBookMark);
+    },
+    onSettled: () => {
+      /* 관련 쿼리 refetch */
       queryClient.invalidateQueries("getDetail");
     },
   });

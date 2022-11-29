@@ -29,7 +29,7 @@ instance.interceptors.response.use(
     try {
       const { response, config } = error;
       const originalRequest = config;
-      // accessToken 만료 시 status: 405
+      /* accessToken 만료 시 status: 405 */
       if (response.data.msg === "만료" && response.status === 405) {
         const refToken = getCookie("refreshToken");
         /* accessToken get */
@@ -43,16 +43,16 @@ instance.interceptors.response.use(
               refreshToken: `${refToken}`,
             },
           });
-          /* CHANGE ACCESSTOKEN ------------------------------------------------------- */
+          /* accessToken 변경 */
           originalRequest.headers.authorization = res.data.accessToken;
           removeCookie("accessToken");
           setCookie("accessToken", res.data.accessToken);
           return axios(originalRequest);
         } catch (error) {
-          /* CHANGE ACCESSTOKEN FAILED ------------------------------------------------ */
+          /* accessToken 변경 실패 시 */
           removeCookie("accessToken");
           removeCookie("refreshToken");
-          // window.location.href = "/login";
+          window.location.href = "/login";
         }
         /* refreshToken 만료 시 status: 403 */
       } else if (
@@ -61,10 +61,10 @@ instance.interceptors.response.use(
       ) {
         removeCookie("accessToken");
         removeCookie("refreshToken");
-        // window.location.href = "/login";
+        window.location.href = "/login";
       }
     } catch (error) {
-      // window.location.href = "/login";
+      window.location.href = "/login";
     }
     return Promise.reject(error);
   }

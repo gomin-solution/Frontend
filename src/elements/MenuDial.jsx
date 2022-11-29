@@ -6,9 +6,15 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import styled from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
-import { adviceDelete, commentDelete, messageNav } from "../api/detailApi";
+import {
+  adviceDelete,
+  commentDelete,
+  messageNav,
+  reportPost,
+} from "../api/detailApi";
 import { useNavigate } from "react-router-dom";
 import { endChoice, removeChoice } from "../api/boardChoiceApi";
+import { Alert5 } from "./Alert";
 
 //투표 정렬 필터
 /*최신순, 참여자순, 마감임박순*/
@@ -45,7 +51,7 @@ export function MenuDial0({ setFilterId }) {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ color: "#737878" }}
+        sx={{ color: "#737878", padding: 0 }}
       >
         {menu}
         <ExpandMoreIcon sx={{ color: "#737878" }} />
@@ -229,7 +235,7 @@ export function MenuDial2({ setFilterId }) {
 //게시판 상세페이지 게시글
 /*남 : 쪽지하기, 신고하기*/
 /*본인 : 수정, 삭제 */
-export function MenuDial3({ user, id, setAdEdit, resBoard }) {
+export function MenuDial3({ user, id, setAdEdit, resBoard, target }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -253,15 +259,26 @@ export function MenuDial3({ user, id, setAdEdit, resBoard }) {
   });
 
   // 쪽지 보내기
-  const payload = {
-    userKey: resBoard?.userKey,
-    category: resBoard?.category,
-    title: resBoard?.title,
+  const userKey = resBoard?.userKey;
+  const category = resBoard?.category;
+  const title = resBoard?.title;
+
+  const messageMutation = useMutation(messageNav);
+  const messageMutate = (note) =>
+    messageMutation.mutate({ userKey, category, title, note });
+  const MessageHandler = () => {
+    Alert5("쪽지 보내기", "쪽지 내용을 입력해주세요.", messageMutate);
   };
 
-  const MessageMutation = useMutation(messageNav);
-  const MessageHandler = () => {
-    MessageMutation.mutate(payload);
+  // 신고하기
+  const params = id;
+  const targetName = target;
+
+  const reportMutation = useMutation(reportPost);
+  const reportMutate = (why) =>
+    reportMutation.mutate({ params, targetName, why });
+  const reportHandler = () => {
+    Alert5("신고하기", "신고 사유를 입력해주세요.", reportMutate);
   };
 
   return (
@@ -328,7 +345,9 @@ export function MenuDial3({ user, id, setAdEdit, resBoard }) {
           <MenuItem sx={{ color: "#FFFFFF" }} onClick={MessageHandler}>
             쪽지하기
           </MenuItem>
-          <MenuItem sx={{ color: "#FFFFFF" }}>신고하기</MenuItem>
+          <MenuItem sx={{ color: "#FFFFFF" }} onClick={reportHandler}>
+            신고하기
+          </MenuItem>
         </Menu>
       )}
     </StDiv>

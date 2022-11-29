@@ -5,7 +5,7 @@ import Lottie from "react-lottie";
 
 /*스타일 관련 */
 import styled from "styled-components";
-import { Alert4 } from "../../elements/Alert";
+import { Alert2 } from "../../elements/Alert";
 import animationData from "../../image/dailyMessage/letter_lottie.json";
 import letterOpen from "../../image/dailyMessage/letterOpen.svg";
 import letterClose from "../../image/dailyMessage/letterClose.svg";
@@ -36,15 +36,15 @@ const DailyMessage = ({ isCookie, dailyMessage, isOpen }) => {
     if (isCookie) {
       if (!isOpen) {
         setOpen(false);
-        setTimeout(() => Alert4(`${dailyMessage}`), [2000]);
+        setTimeout(() => Alert2(`${dailyMessage}`), [2000]);
         setTimeout(() => {
           openMessage.mutate();
         }, [2500]);
       } else {
-        Alert4(`${dailyMessage}`);
+        Alert2(`${dailyMessage}`);
       }
     } else {
-      Alert4("로그인 후 이용해주세요.");
+      Alert2("로그인 후 이용해주세요.");
     }
   };
 

@@ -145,6 +145,7 @@ function DetailAdvice() {
                   user={user}
                   id={resBoard?.adviceId}
                   setAdEdit={setAdEdit}
+                  target="advice"
                 />
               </StMenu>
             </StUser>

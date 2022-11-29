@@ -1,9 +1,6 @@
 import Swal from "sweetalert2";
 import "../elements/Alert.css";
 
-//나중에 삭제
-import graphic_fox from "../image/reward/graphic_fox.svg";
-
 /* 버튼 1개 and 확인 후 이동 X */
 export const Alert0 = (text) => {
   Swal.fire({
@@ -127,7 +124,7 @@ export const Alert8 = () => {
 };
 
 /* 획득 리워드 띄우기*/
-export const Alert9 = () => {
+export const Alert9 = (e) => {
   Swal.fire({
     customClass: {
       htmlContainer: "htmlContainer-reward",
@@ -137,7 +134,7 @@ export const Alert9 = () => {
     },
     title: "리워드 이름",
     text: "행운의말",
-    imageUrl: graphic_fox,
+    imageUrl: e,
     showCloseButton: true,
     showConfirmButton: false,
   });

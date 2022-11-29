@@ -62,7 +62,7 @@ export function RewardModal({ modalOpen, closeModal, tip }) {
       >
         <StBigPrev>
           <StTip>
-            <ClearIcon className="clear" onClick={closeModal} />
+            <ClearIcon onClick={closeModal} />
             {tip.map((item) => (
               <div key={item}>{item}</div>
             ))}
@@ -111,7 +111,7 @@ export function RewardGetModal({ modalOpen, closeModal, reward }) {
         <StBack>
           <ClearIcon className="clear" onClick={closeModal} />
           <StCollect>
-            <p className="title">히든 컬렉션 회득</p>
+            <p className="title">히든 컬렉션 획득</p>
             <img alt="" src={reward.img} />
             <p className="text">하트루비</p>
           </StCollect>

@@ -3,11 +3,15 @@ import { rewardGet, rewardNew } from "../api/rewardApi";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import { Header4 } from "../elements/Header";
+import Loading from "../components/Loading";
 import styled from "styled-components";
 import Footer from "../elements/Footer";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
-import { RewardModal } from "../components/detailBorad/ImageModal";
+import {
+  RewardGetModal,
+  RewardModal,
+} from "../components/detailBorad/ImageModal";
 import { Container, FlexCenter } from "../shared/css";
 import graphic_fox from "../image/reward/graphic_fox.svg";
 import graphic_rabbit from "../image/reward/graphic_rabbit.svg";
@@ -29,9 +33,11 @@ function Reward() {
 
   // 모달창 노출 여부 state
   const [modalOpen, setModalOpen] = useState(false);
+  const [rewardOpen, setRewardOpen] = useState(false);
   const [tip, setTip] = useState(null);
+  const [reward, setReward] = useState(null);
 
-  // 모달창 노출
+  // 미션 모달창
   const handle = (item) => () => {
     showModal();
     setTip(item);
@@ -43,6 +49,21 @@ function Reward() {
 
   const showModal = () => {
     setModalOpen(true);
+  };
+
+  //리워드 달성 모달
+  const handleReward = (item) => () => {
+    showReward();
+    setReward(item);
+    mutate(item.id);
+  };
+
+  const closeReward = () => {
+    setRewardOpen(false);
+  };
+
+  const showReward = () => {
+    setRewardOpen(true);
   };
 
   if (isSuccess) {
@@ -156,11 +177,17 @@ function Reward() {
               return item.complete ? (
                 <StMissionBox key={item.id}>
                   {item.get ? (
-                    <img alt="보상" src={item?.img} />
+                    <div className="collect">
+                      <img alt="보상" src={item?.img} />
+                    </div>
                   ) : (
-                    <StClick className="inner" onClick={() => mutate(item.id)}>
-                      보상 받기
-                    </StClick>
+                    <div className="rewardGet">
+                      <StClick onClick={handleReward(item)}>보상 받기</StClick>
+                      <QuestionMarkIcon
+                        className="inner"
+                        onClick={handle(item.mission)}
+                      />
+                    </div>
                   )}
                 </StMissionBox>
               ) : (
@@ -179,6 +206,13 @@ function Reward() {
                 tip={tip}
               />
             )}
+            {rewardOpen && (
+              <RewardGetModal
+                modalOpen={rewardOpen}
+                closeModal={closeReward}
+                reward={reward}
+              />
+            )}
           </StMissionWrap>
         </Stcontainer>
         <Footer title={"수집함"} />
@@ -186,7 +220,7 @@ function Reward() {
     );
   }
 
-  return;
+  return <Loading />;
 }
 
 export default Reward;
@@ -229,7 +263,7 @@ const StMissionWrap = styled.div`
 
 const StMissionBox = styled.div`
   background-color: #d6e6e5;
-  color: white;
+  color: #ffffff;
   float: left;
   width: 31.5%;
   position: relative;
@@ -246,6 +280,26 @@ const StMissionBox = styled.div`
     display: block;
     padding-bottom: 100%;
   }
+  //리워드 얻기 버튼
+  .rewardGet {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: ${(props) => props.theme.Colors.blueGreen3};
+
+    ${FlexCenter};
+    color: #d6e6e584;
+  }
+  //리워드 획득
+  .collect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #fcfcfb;
+    ${FlexCenter};
+    color: #d6e6e584;
+  }
+
   .inner {
     position: absolute;
     width: 70%;
@@ -258,7 +312,14 @@ const StMissionBox = styled.div`
 `;
 
 const StClick = styled.div`
-  font-size: ${(props) => props.theme.fontSizes.sm};
+  z-index: 99;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  font-size: ${(props) => props.theme.fontSizes.xl};
+  font-weight: ${(props) => props.theme.fontWeights.lg};
   ${FlexCenter};
-  color: ${(props) => props.theme.Colors.gray3};
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.15);
 `;

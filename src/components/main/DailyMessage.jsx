@@ -81,7 +81,7 @@ export default DailyMessage;
 
 const StContainer = styled.div`
   width: 100%;
-  height: 13rem;
+
   margin-bottom: ${(props) => props.theme.margins.sm};
   background-color: ${(props) => props.theme.Colors.bg3};
   padding: ${(props) => props.theme.paddings.xxl};
@@ -89,12 +89,12 @@ const StContainer = styled.div`
 
 const StTitle = styled.div`
   text-align: center;
+  margin-bottom: ${(props) => props.theme.margins.sm};
   font-size: ${(props) => props.theme.fontSizes.xl};
   font-weight: ${(props) => props.theme.fontWeights.lg};
 `;
 
 const StWrap = styled.div`
-  height: 100%;
   ${FlexCenter};
 `;
 

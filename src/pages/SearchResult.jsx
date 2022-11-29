@@ -29,7 +29,7 @@ const SearchResult = () => {
                 골라주기
               </StBtn1>
               <StBtn2 onClick={() => setBoardCategory("advice")}>
-                조언하기
+                답해주기
               </StBtn2>
             </StInnerWrap>
             <Choice choices={choices} keyword={keyword} />
@@ -41,7 +41,7 @@ const SearchResult = () => {
                 골라주기
               </StBtn2>
               <StBtn1 onClick={() => setBoardCategory("advice")}>
-                조언하기
+                답해주기
               </StBtn1>
             </StInnerWrap>
             <Advice advices={advices} keyword={keyword} />

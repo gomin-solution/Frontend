@@ -16,6 +16,7 @@ import { Container, FlexCenter } from "../shared/css";
 import graphic_fox from "../image/reward/graphic_fox.svg";
 import graphic_rabbit from "../image/reward/graphic_rabbit.svg";
 import graphic_heart from "../image/reward/graphic_heart.svg";
+import { Alert9 } from "../elements/Alert";
 
 function Reward() {
   const { data, isSuccess } = useQuery("rewardGet", rewardGet, {
@@ -178,7 +179,11 @@ function Reward() {
                 <StMissionBox key={item.id}>
                   {item.get ? (
                     <div className="collect">
-                      <img alt="보상" src={item?.img} />
+                      <img
+                        alt="보상"
+                        src={item?.img}
+                        onClick={() => Alert9(item?.img)}
+                      />
                     </div>
                   ) : (
                     <div className="rewardGet">
@@ -318,6 +323,9 @@ const StClick = styled.div`
   height: 100%;
 
   font-size: ${(props) => props.theme.fontSizes.xl};
+  @media all and (max-width: 300px) {
+    font-size: 90%;
+  }
   font-weight: ${(props) => props.theme.fontWeights.lg};
   ${FlexCenter};
   color: #ffffff;

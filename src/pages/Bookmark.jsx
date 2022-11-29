@@ -13,8 +13,8 @@ const Bookmark = () => {
   const menu = ["choice", "advice"];
 
   const { data } = useQuery("getBookmark", getBookmark);
-  const choices = data?.data.choice;
-  const advices = data?.data.advice;
+  const choices = data?.data?.choice;
+  const advices = data?.data?.advice;
 
   return (
     <>

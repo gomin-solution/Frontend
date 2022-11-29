@@ -6,6 +6,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { bookmark, postChoice } from "../api/boardChoiceApi";
 import { MenuDial1 } from "../elements/MenuDial";
 import { decodeCookie } from "../api/cookie";
+import { useState } from "react";
 
 const ChoiceList = ({ newRef, choice, getMutation }) => {
   const queryClient = useQueryClient();
@@ -20,18 +21,89 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
   /* 유저키 가져오기 */
   const decodeKey = decodeCookie("accessToken")?.userKey;
 
+  // /* 골라주기 % 변환 */
+  const choice1Per = Math.round((choice.choice1 / choice.choiceCount) * 100);
+  const choice2Per = 100 - choice1Per;
+
+  const [choice3Per, setChoice3Per] = useState(choice1Per);
+  const [choice4Per, setChoice4Per] = useState(choice2Per);
+
+  /* 골라주기 mutation */
+  const choiceMutation = useMutation(postChoice, {
+    /* onMutate : mutation function이 시작되기 전에 작동 */
+    onMutate: async ({ choiceNum }) => {
+      /* 서버에 전송한 요청이 잘못되었을 경우를 대비해서 이전 데이터를 저장 */
+      const prevPick = queryClient.getQueryData(getMutation);
+
+      /* 혹시 발생할지도 모르는 refetch를 취소하여 Optimistic Update의 데이터를 덮어쓰지 않도록 예방 */
+      await queryClient.cancelQueries(getMutation);
+
+      /* 서버의 응답이 오기 전에 UI를 미리 업데이트 */
+      queryClient.setQueryData(getMutation, () => {
+        if (choiceNum === "1") {
+          const choice1 = choice.choice1 + 1;
+          setChoice3Per(Math.round((choice1 / (choice.choiceCount + 1)) * 100));
+          setChoice4Per(
+            100 - Math.round((choice1 / (choice.choiceCount + 1)) * 100)
+          );
+        } else if (choiceNum === "2") {
+          const choice2 = choice.choice2 + 1;
+          setChoice4Per(Math.round((choice2 / (choice.choiceCount + 1)) * 100));
+          setChoice3Per(
+            100 - Math.round((choice2 / (choice.choiceCount + 1)) * 100)
+          );
+        }
+        return (choice.isChoice = !choice.isChoice);
+      });
+
+      /* 에러가 발생했을 경우 복원할 수 있도록 이전 데이터를 반환 */
+      return { prevPick };
+    },
+    onError: (err, variables, context) => {
+      queryClient.setQueryData(getMutation, context.prevPick);
+    },
+    onSettled: () => {
+      /* 관련 쿼리 refetch */
+      queryClient.invalidateQueries(getMutation);
+    },
+  });
+  console.log("aaa", choice3Per, choice4Per);
+
   /* 골라주기 선택 시 put */
   const choiceSubmit = async (e, choice) => {
     e.preventDefault();
     choiceMutation.mutate({
       choiceNum: e.target.value,
       choiceId: choice.choiceId,
+      choice1Per,
+      choice2Per,
     });
   };
 
-  /* 골라주기 mutation */
-  const choiceMutation = useMutation(postChoice, {
-    onSuccess: () => {
+  /* 북마크 mutation */
+  const bookmarkMutation = useMutation(bookmark, {
+    /* onMutate : mutation function이 시작되기 전에 작동 */
+    onMutate: async () => {
+      /* 서버에 전송한 요청이 잘못되었을 경우를 대비해서 이전 데이터를 저장 */
+      const prevBookMark = queryClient.getQueryData(getMutation);
+
+      /* 혹시 발생할지도 모르는 refetch를 취소하여 Optimistic Update의 데이터를 덮어쓰지 않도록 예방 */
+      await queryClient.cancelQueries(getMutation);
+
+      /* 서버의 응답이 오기 전에 UI를 미리 업데이트 */
+      queryClient.setQueryData(
+        getMutation,
+        () => (choice.isBookMark = !choice.isBookMark)
+      );
+
+      /* 에러가 발생했을 경우 복원할 수 있도록 이전 데이터를 반환 */
+      return { prevBookMark };
+    },
+    onError: (err, variables, context) => {
+      queryClient.setQueryData(getMutation, context.prevBookMark);
+    },
+    onSettled: () => {
+      /* 관련 쿼리 refetch */
       queryClient.invalidateQueries(getMutation);
     },
   });
@@ -40,13 +112,6 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
   const bookmarkChange = (choiceId) => {
     bookmarkMutation.mutate(choiceId);
   };
-
-  /* 북마크 mutation */
-  const bookmarkMutation = useMutation(bookmark, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(getMutation);
-    },
-  });
 
   /* 마감시간 비교를 위한 변수 설정 */
   const nowTime = dayjs().format("YYYY/MM/DD HH:mm:ss");
@@ -63,9 +128,6 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
     diffTime = diffMinTime + "분";
   }
 
-  console.log("1", nowTime);
-  console.log("2", newEndTime);
-
   return (
     <StWrap ref={newRef} key={choice.choiceId} isEnd={choice.isEnd}>
       <StChoiceTextWrap>
@@ -77,12 +139,12 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
           {!choice?.isBookMark ? (
             <BookmarkBorderIcon
               style={{ cursor: "pointer" }}
-              onClick={() => bookmarkChange(choice.choiceId)}
+              onClick={() => bookmarkChange(choice.choiceId, choice.isBookMark)}
             />
           ) : (
             <BookmarkIcon
               style={{ cursor: "pointer" }}
-              onClick={() => bookmarkChange(choice.choiceId)}
+              onClick={() => bookmarkChange(choice.choiceId, choice.isBookMark)}
             />
           )}
           {decodeKey === choice.userKey ? (
@@ -132,11 +194,11 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
         </StChoiceWrap>
       ) : (
         <StChoiceWrap isEnd={choice.isEnd}>
-          <StChoice1 width={choice.choice1Per}>
-            <StPerText1>{choice.choice1Per}%</StPerText1>
+          <StChoice1 width={choice3Per}>
+            <StPerText1>{choice3Per}%</StPerText1>
           </StChoice1>
-          <StChoice2 width={choice.choice2Per}>
-            <StPerText2>{choice.choice2Per}%</StPerText2>
+          <StChoice2 width={choice4Per}>
+            <StPerText2>{choice4Per}%</StPerText2>
           </StChoice2>
         </StChoiceWrap>
       )}

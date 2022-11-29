@@ -1,4 +1,5 @@
-import instance from "./api";
+// import { instance } from "./api";
+import { instance } from "./api";
 
 /* 메인페이지 get */
 export const getMain = async () => {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import instance from "../api/api";
+import { instance } from "../api/api";
 
 /*스타일 관련*/
 import styled from "styled-components";

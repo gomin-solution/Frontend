@@ -1,4 +1,4 @@
-import instance from "./api";
+import { instance } from "./api";
 
 export const getMyPost = async () => {
   const res = await instance.get("/mypost");

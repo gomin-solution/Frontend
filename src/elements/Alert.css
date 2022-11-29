@@ -1,0 +1,110 @@
+/*확인버튼*/
+.confirm-Btn {
+  background-color: #19696a;
+  color: #ffffff;
+
+  width: 85%;
+  position: absolute;
+
+  padding: 0.5rem;
+  margin-bottom: 2rem;
+
+  font-size: 1.1rem;
+}
+
+/*오류 표시*/
+.error-text {
+  font-size: 1.2rem;
+}
+
+/*로그인 + 취소 */
+.login-Btn {
+  background-color: #19696a;
+  color: #a7eff0;
+  padding: 0.4rem;
+  font-size: 1.1rem;
+  width: 8rem;
+}
+.cancle-Btn {
+  background-color: #eeeeee;
+  padding: 0.4rem;
+  font-size: 1.1rem;
+  width: 8rem;
+}
+
+.login-act {
+  margin: 0;
+}
+.login-text {
+  font-size: 1.2rem;
+}
+
+/*쪽지 보내기*/
+.htmlContainer-msg {
+  color: #19696a;
+  font-weight: 700;
+  font-size: 1rem;
+
+  margin: 0 !important;
+  padding: 1rem;
+  padding-left: 2rem;
+  justify-content: flex-start;
+}
+.title-msg {
+  background-color: #e9f3f2;
+  height: 3.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #19696a;
+}
+.closeButton-msg {
+  color: #19696a;
+  position: absolute;
+  top: 1.4%;
+}
+.input-msg {
+  border: none;
+}
+.confirm-msg {
+  background-color: #19696a;
+  color: #ffffff;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+/*리워드 팝업*/
+.image-reward {
+  position: absolute;
+  width: 65%;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.htmlContainer-reward {
+  height: 16rem;
+  align-items: flex-end !important;
+  font-size: 1.2rem;
+  color: #002020;
+}
+
+/*알람 글 상자*/
+.swal2-html-container {
+  display: flex !important;
+  align-items: center;
+  margin: 2rem;
+}
+
+/*전체 담는 박스*/
+.swal2-container.swal2-center > .swal2-popup {
+  width: 100%;
+  max-width: 22rem;
+
+  border-radius: 0;
+}
+
+/*백그라운드 어둡게*/
+.swal2-container.swal2-backdrop-show,
+.swal2-container.swal2-noanimation {
+  max-width: 26rem;
+  margin: auto;
+}

@@ -1,6 +1,8 @@
-import Modal from "@mui/material/Modal";
-import styled from "styled-components";
 import Swal from "sweetalert2";
+import "../elements/Alert.css";
+
+//나중에 삭제
+import graphic_fox from "../image/reward/graphic_fox.svg";
 
 /* 버튼 1개 and 확인 후 이동 X */
 export const Alert0 = (text) => {
@@ -59,78 +61,84 @@ export const Alert4 = (text) => {
   });
 };
 
-/*리워드 모달 */
-export function RewardModal({ modalOpen, closeModal, tip }) {
-  return (
-    <div>
-      <Modal
-        open={modalOpen}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        hideBackdrop={true}
-      >
-        <StBigPrev>
-          <StTip>
-            {tip.map((item) => (
-              <div key={item}>{item}</div>
-            ))}
-          </StTip>
-        </StBigPrev>
-      </Modal>
-    </div>
-  );
-}
+/*텍스트 + 확인버튼(닫힘) */
+export const Alert5 = (text) => {
+  Swal.fire({
+    customClass: {
+      confirmButton: "confirm-Btn",
+    },
+    buttonsStyling: false,
+    text: text,
+    confirmButtonText: "확인",
+  });
+};
 
-/*팁 띄우기*/
-const StTip = styled.div`
-  width: 80%;
-  height: 30%;
-  background-color: #ffffff;
+/*오류 텍스트 확인버튼(닫힘) */
+export const Alert6 = (text) => {
+  Swal.fire({
+    customClass: {
+      confirmButton: "confirm-Btn",
+      htmlContainer: "error-text",
+    },
+    buttonsStyling: false,
+    text: text,
+    color: "#BA1A1A",
+    confirmButtonText: "확인",
+  });
+};
 
-  position: absolute;
+/*로그인 + 로그인하러가기 + 취소 */
+export const Alert7 = () => {
+  Swal.fire({
+    customClass: {
+      confirmButton: "login-Btn",
+      cancelButton: "cancle-Btn",
+      actions: "login-act",
+      htmlContainer: "login-text",
+    },
+    buttonsStyling: false,
+    text: "로그인 후 이용 가능합니다.",
 
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    cancelButtonText: "취소",
+    confirmButtonText: "로그인",
+    showCancelButton: true,
+    reverseButtons: true,
+  });
+};
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+/* 쪽지 보내기 */
+export const Alert8 = () => {
+  Swal.fire({
+    customClass: {
+      htmlContainer: "htmlContainer-msg",
+      title: "title-msg",
+      closeButton: "closeButton-msg",
+      input: "input-msg",
+      confirmButton: "confirm-msg",
+    },
+    buttonsStyling: false,
+    text: "받는 사람 닉네임",
+    title: "쪽지보내기",
+    input: "textarea",
+    inputPlaceholder: "쪽지내용을 입력해주세요.",
+    showCloseButton: "true",
+    confirmButtonText: "전송",
+  });
+};
 
-  gap: 1rem;
-
-  div {
-    font-size: 1.5rem;
-  }
-`;
-
-/*이미지 미리보기 크게 */
-const StBigPrev = styled.div`
-  @media all and (min-width: 26rem) {
-    max-width: 26rem;
-  }
-
-  z-index: 100;
-  width: 100%;
-  height: 100%;
-
-  position: absolute;
-
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-
-  .clear {
-    position: absolute;
-    z-index: 102;
-
-    color: #ffffff;
-    cursor: pointer;
-    top: 1rem;
-    right: 1rem;
-  }
-`;
+/* 획득 리워드 띄우기*/
+export const Alert9 = () => {
+  Swal.fire({
+    customClass: {
+      htmlContainer: "htmlContainer-reward",
+      title: "title-msg",
+      closeButton: "closeButton-msg",
+      image: "image-reward",
+    },
+    title: "리워드 이름",
+    text: "행운의말",
+    imageUrl: graphic_fox,
+    showCloseButton: true,
+    showConfirmButton: false,
+  });
+};

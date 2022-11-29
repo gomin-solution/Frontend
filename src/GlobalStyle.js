@@ -70,7 +70,13 @@ const GlobalStyle = createGlobalStyle`
     display: none;
     }
   }
-
+  textarea {
+    border: none;
+    outline: none;
+    &:focus {
+      outline: none;
+    }
+  }
 
   /*버튼 배경제거, 테두리 제거 */
   button {
@@ -95,8 +101,6 @@ const GlobalStyle = createGlobalStyle`
     max-width: 90%; 
     max-height: 90%;
   }
-
-
 
 `;
 

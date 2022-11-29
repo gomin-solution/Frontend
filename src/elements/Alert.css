@@ -62,9 +62,20 @@
   position: absolute;
   top: 1.4%;
 }
+
+.closeButton-msg:focus {
+  box-shadow: none;
+}
+
 .input-msg {
   border: none;
+  margin-top: 0;
+  font-size: 1rem;
 }
+.input-msg:focus {
+  box-shadow: none;
+}
+
 .confirm-msg {
   background-color: #19696a;
   color: #ffffff;

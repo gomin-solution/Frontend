@@ -26,22 +26,18 @@ const fontSizes = {
 };
 
 const fontWeights = {
-  sm: 400,
   base: 500,
   lg: 600,
   xl: 700,
 };
 
 const paddings = {
-  xxsm: calcRem(8),
   xsm: calcRem(10),
   sm: calcRem(12),
   base: calcRem(14),
   lg: calcRem(16),
   xl: calcRem(18),
   xxl: calcRem(20),
-  xxxl: calcRem(22),
-  xxxxl: calcRem(24),
 };
 
 const margins = {
@@ -52,8 +48,6 @@ const margins = {
   lg: calcRem(16),
   xl: calcRem(18),
   xxl: calcRem(20),
-  xxxl: calcRem(22),
-  xxxxl: calcRem(24),
 };
 
 export const theme = {

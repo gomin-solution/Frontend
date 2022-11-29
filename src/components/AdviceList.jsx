@@ -35,9 +35,14 @@ export default AdviceList;
 
 const StAdviceList = styled.div`
   background-color: ${(props) => props.theme.Colors.blueGray1};
-  height: 6rem;
   margin-bottom: ${(props) => props.theme.margins.xsm};
   padding: ${(props) => props.theme.paddings.sm};
+
+  p {
+    text-overflow: ellipsis; // 말줄임 적용
+    white-space: nowrap; // 문장이 길어지면 다음 줄로 넘기는 것을 없앰
+    overflow: hidden;
+  }
 `;
 
 const StTitleWrap = styled.div`
@@ -64,7 +69,6 @@ const StContent = styled.p`
   overflow: hidden;
   text-overflow: ellipsis; // 말줄임 적용
   white-space: nowrap; // 문장이 길어지면 다음 줄로 넘기는 것을 없앰
-  color: #1a1c1c;
 `;
 
 const StWrap = styled.div`

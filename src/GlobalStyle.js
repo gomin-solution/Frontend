@@ -34,6 +34,9 @@ const GlobalStyle = createGlobalStyle`
     div {
       font-family: "Noto Sans KR", sans-serif;
     }
+
+    /*텍스트 줄 높이*/
+    line-height: normal;
   }
 
   @media all and (min-width: 360px) and (max-width: 899px) {
@@ -67,7 +70,13 @@ const GlobalStyle = createGlobalStyle`
     display: none;
     }
   }
-
+  textarea {
+    border: none;
+    outline: none;
+    &:focus {
+      outline: none;
+    }
+  }
 
   /*버튼 배경제거, 테두리 제거 */
   button {
@@ -92,8 +101,6 @@ const GlobalStyle = createGlobalStyle`
     max-width: 90%; 
     max-height: 90%;
   }
-
-
 
 `;
 

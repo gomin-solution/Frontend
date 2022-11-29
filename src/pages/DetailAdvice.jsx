@@ -246,7 +246,7 @@ const StMenu = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  right: 2rem;
+  right: 1rem;
   color: ${(props) => props.theme.Colors.blueGreen3};
 `;
 

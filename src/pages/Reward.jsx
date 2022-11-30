@@ -12,11 +12,11 @@ import {
   RewardGetModal,
   RewardModal,
 } from "../components/detailBorad/ImageModal";
+import { Alert9 } from "../elements/Alert";
 import { Container, FlexCenter } from "../shared/css";
 import graphic_fox from "../image/reward/graphic_fox.svg";
 import graphic_rabbit from "../image/reward/graphic_rabbit.svg";
 import graphic_heart from "../image/reward/graphic_heart.svg";
-import { Alert9 } from "../elements/Alert";
 
 function Reward() {
   const { data, isSuccess } = useQuery("rewardGet", rewardGet, {
@@ -76,7 +76,7 @@ function Reward() {
         id: 1,
         complete: missionResult[0]?.isComplete,
         get: missionResult[0]?.isGet,
-        mission: [`게시글 작성 ${missionCount?.totalPost}/1`],
+        mission: [`게시글 작성-${missionCount?.totalPost}-1`],
         img: graphic_fox,
       },
       {
@@ -84,8 +84,8 @@ function Reward() {
         complete: missionResult[1]?.isComplete,
         get: missionResult[1]?.isGet,
         mission: [
-          `골라주기 ${missionCount?.totalChoicePick}/5`,
-          `답해주기 ${missionCount?.totalAdviceComment}/2`,
+          `골라주기-${missionCount?.totalChoicePick}-5`,
+          `답해주기-${missionCount?.totalAdviceComment}-3`,
         ],
         img: graphic_rabbit,
       },
@@ -94,8 +94,8 @@ function Reward() {
         complete: missionResult[2]?.isComplete,
         get: missionResult[2]?.isGet,
         mission: [
-          `골라주기 ${missionCount?.totalChoicePick}/10`,
-          `답해주기 ${missionCount?.totalAdviceComment}/5`,
+          `골라주기-${missionCount?.totalChoicePick}-10`,
+          `답해주기-${missionCount?.totalAdviceComment}-5`,
         ],
         img: graphic_heart,
       },
@@ -104,8 +104,9 @@ function Reward() {
         complete: missionResult[3]?.isComplete,
         get: missionResult[3]?.isGet,
         mission: [
-          `골라주기 ${missionCount?.totalChoicePick}/15`,
-          `답해주기 ${missionCount?.totalAdviceComment}/10`,
+          `골라주기-${missionCount?.totalChoicePick}-15`,
+          `답해주기-${missionCount?.totalAdviceComment}-10`,
+          `게시글 작성-${missionCount?.totalPost}-5`,
         ],
         img: graphic_heart,
       },
@@ -113,16 +114,19 @@ function Reward() {
         id: 5,
         complete: missionResult[4]?.isComplete,
         get: missionResult[4]?.isGet,
-        mission: [`좋아요 받기 ${missionCount?.likeTotal}/5`],
+        mission: [
+          `좋아요 받기-${missionCount?.likeTotal}-5`,
+          `고민해결 선택받기-${missionCount?.Selected}-2`,
+        ],
       },
       {
         id: 6,
         complete: missionResult[5]?.isComplete,
         get: missionResult[5]?.isGet,
         mission: [
-          `게시글 작성 ${missionCount?.totalPost}/3`,
-          `골라주기 ${missionCount?.totalChoicePick}/15`,
-          `좋아요 받기 ${missionCount?.likeTotal}/3`,
+          `게시글 작성-${missionCount?.totalPost}-10`,
+          `골라주기-${missionCount?.totalChoicePick}-25`,
+          `좋아요 받기-${missionCount?.likeTotal}-10`,
         ],
         img: graphic_heart,
       },
@@ -130,27 +134,44 @@ function Reward() {
         id: 7,
         complete: missionResult[6]?.isComplete,
         get: missionResult[6]?.isGet,
-        mission: [`행운의 편지 열기 ${missionCount?.msgOpen}/10`],
+        mission: [`행운의 편지 열기-${missionCount?.msgOpen}-10`],
         img: graphic_heart,
       },
       {
         id: 8,
         complete: missionResult[7]?.isComplete,
         get: missionResult[7]?.isGet,
-        mission: [`채택받기 ??/3`],
+        mission: [`고민해결 선택받기-${missionCount?.Selected}-5`],
         img: graphic_heart,
       },
       {
         id: 9,
         complete: missionResult[8]?.isComplete,
         get: missionResult[8]?.isGet,
-        mission: [`고민 해결하기 ??/10`],
+        mission: [`고민해결 하기-${missionCount?.totalSolution}-5`],
         img: graphic_heart,
       },
-      //히든 미션 미완
-      // { id: 10, mission: [`채택받기 ??/10 `] },
-      // { id: 11, mission: [`좋아요 받기 ${missionCount?.likeTotal}/50 `] },
-      // { id: 12, mission: [`미션 완료 ??/9 `] },
+      {
+        id: 10,
+        complete: missionResult[9]?.isComplete,
+        get: missionResult[9]?.isGet,
+        mission: [`고민해결 선택받기-${missionCount?.Selected}-10`],
+        img: graphic_heart,
+      },
+      {
+        id: 11,
+        complete: missionResult[10]?.isComplete,
+        get: missionResult[10]?.isGet,
+        mission: [`좋아요 받기-${missionCount?.likeTotal}-50`],
+        img: graphic_heart,
+      },
+      {
+        id: 12,
+        complete: missionResult[11]?.isComplete,
+        get: missionResult[11]?.isGet,
+        mission: [`미션 완료-${missionCount?.missionComplete}-50`],
+        img: graphic_heart,
+      },
     ];
 
     return (
@@ -171,7 +192,7 @@ function Reward() {
           </StWrap1>
           <StWrap2>
             <span style={{ marginRight: "2rem" }}>해결한 고민 수</span>
-            <span>??</span>
+            <span>{missionCount?.missionComplete}</span>
           </StWrap2>
           <StMissionWrap>
             {missions.map((item) => {
@@ -188,19 +209,33 @@ function Reward() {
                   ) : (
                     <div className="rewardGet">
                       <StClick onClick={handleReward(item)}>보상 받기</StClick>
-                      <QuestionMarkIcon
-                        className="inner"
-                        onClick={handle(item.mission)}
-                      />
+                      {item.id > 9 ? (
+                        <LockOutlinedIcon
+                          className="inner"
+                          onClick={handle(item.mission)}
+                        />
+                      ) : (
+                        <QuestionMarkIcon
+                          className="inner"
+                          onClick={handle(item.mission)}
+                        />
+                      )}
                     </div>
                   )}
                 </StMissionBox>
               ) : (
                 <StMissionBox key={item.id}>
-                  <QuestionMarkIcon
-                    className="inner"
-                    onClick={handle(item.mission)}
-                  />
+                  {item.id > 9 ? (
+                    <LockOutlinedIcon
+                      className="inner"
+                      onClick={handle(item.mission)}
+                    />
+                  ) : (
+                    <QuestionMarkIcon
+                      className="inner"
+                      onClick={handle(item.mission)}
+                    />
+                  )}
                 </StMissionBox>
               );
             })}

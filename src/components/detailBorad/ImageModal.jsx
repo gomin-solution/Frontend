@@ -1,6 +1,8 @@
+import { CompressOutlined } from "@mui/icons-material";
 import ClearIcon from "@mui/icons-material/Clear";
 import Modal from "@mui/material/Modal";
 import styled from "styled-components";
+import { FlexCenter } from "../../shared/css";
 
 export function ImageModal({ modalOpen, closeModal, img }) {
   return (
@@ -62,7 +64,10 @@ export function RewardModal({ modalOpen, closeModal, tip }) {
       >
         <StBigPrev>
           <StTip>
-            <ClearIcon onClick={closeModal} />
+            <div className="title">
+              미션
+              <ClearIcon className="close" onClick={closeModal} />
+            </div>
             {tip.map((item) => (
               <div key={item}>{item}</div>
             ))}
@@ -76,7 +81,7 @@ export function RewardModal({ modalOpen, closeModal, tip }) {
 /*팁 띄우기*/
 const StTip = styled.div`
   width: 80%;
-  height: 30%;
+  height: 60%;
   background-color: #f5f5f5;
 
   position: absolute;
@@ -85,15 +90,18 @@ const StTip = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  gap: 1rem;
-
-  div {
-    font-size: 1.5rem;
+  .title {
+    width: 100%;
+    background-color: ${(props) => props.theme.Colors.bg1};
+    font-size: 1.2rem;
+    padding: 1rem;
+    ${FlexCenter}
+    .close {
+      width: 1.5rem;
+      position: absolute;
+      right: 1rem;
+      color: ${(props) => props.theme.Colors.blueGreen3};
+    }
   }
 `;
 

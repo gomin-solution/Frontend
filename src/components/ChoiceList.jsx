@@ -67,7 +67,6 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
       queryClient.invalidateQueries(getMutation);
     },
   });
-  console.log("aaa", choice3Per, choice4Per);
 
   /* 골라주기 선택 시 put */
   const choiceSubmit = async (e, choice) => {

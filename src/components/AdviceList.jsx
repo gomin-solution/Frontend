@@ -53,6 +53,8 @@ const StTitleWrap = styled.div`
 const StCategory = styled.span`
   font-weight: ${(props) => props.theme.fontWeights.xl};
   color: #19696a;
+  flex-grow: 0;
+  flex-shrink: 0;
 `;
 
 const StTitle = styled.span`

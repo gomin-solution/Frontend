@@ -85,7 +85,7 @@ export const Alert5 = (title, placeholder, mutate) => {
 };
 
 /* 획득 리워드 띄우기*/
-export const Alert9 = (e) => {
+export const Alert6 = (e) => {
   Swal.fire({
     customClass: {
       htmlContainer: "htmlContainer-reward",
@@ -98,5 +98,28 @@ export const Alert9 = (e) => {
     imageUrl: e,
     showCloseButton: true,
     showConfirmButton: false,
+  });
+};
+
+/*텍스트 + 확인 + 취소  */
+export const Alert7 = (text, mutate, id) => {
+  Swal.fire({
+    customClass: {
+      confirmButton: "okay-Btn",
+      cancelButton: "cancle-Btn",
+      actions: "login-act",
+      htmlContainer: "login-text",
+    },
+    buttonsStyling: false,
+    text: text,
+
+    cancelButtonText: "취소",
+    confirmButtonText: "확인",
+    showCancelButton: true,
+    reverseButtons: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      mutate(id);
+    }
   });
 };

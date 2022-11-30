@@ -83,6 +83,7 @@
   color: #ffffff;
   font-size: 1rem;
   padding: 0.5rem 1rem;
+  width: 15rem;
 }
 
 /*리워드 팝업*/
@@ -105,6 +106,7 @@
   display: flex !important;
   align-items: center;
   margin: 2rem;
+  white-space: pre-line;
 }
 
 /*전체 담는 박스*/
@@ -120,4 +122,13 @@
 .swal2-container.swal2-noanimation {
   max-width: 26rem;
   margin: auto;
+}
+
+/*확인 + 취소 */
+.okay-Btn {
+  background-color: #8cd3d4;
+  color: #ffffff;
+  padding: 0.4rem;
+  font-size: 1.1rem;
+  width: 8rem;
 }

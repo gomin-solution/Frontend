@@ -18,7 +18,7 @@ const Splash = () => {
   useEffect(() => {
     setTimeout(() => {
       window.location.href = "/main";
-    }, 4000);
+    }, 4300);
   }, []);
 
   return (

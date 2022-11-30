@@ -18,7 +18,7 @@ const Room = () => {
 
   return (
     <>
-      <Header4 title={"쪽지"} />
+      <Header4 title={"쪽지함"} />
       <Stcontainer>
         {rooms?.map((room) => (
           <StWrap

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "react-query";
-import { commenEdit, commentLike } from "../../api/detailApi";
+import { commenEdit, commentLike, commentPick } from "../../api/detailApi";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -7,20 +7,28 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { MenuDial5 } from "../../elements/MenuDial";
 import styled from "styled-components";
+import DetailReComment from "../detailBorad/DetailReComment";
+import DetailReCommentInput from "./DetailRecommentInput";
+import { Alert7 } from "../../elements/Alert";
 
-function DetailComment({ comment, decodeKey, resBoard }) {
+function DetailComment({ comment, decodeKey, resBoard, resPickKey }) {
   const queryClient = useQueryClient();
 
   /* 댓글 수정 */
   const [commentEdit, setCommentEdit] = useState(true);
+  /*답글달기*/
+  const [recomment, setRecomment] = useState(false);
 
   //댓글 수정 하기
   const { register, handleSubmit } = useForm();
   const commentId = comment.commentId;
   const onEdit = (comment) => {
-    editComment.mutate({ commentId: commentId, comment });
-    setCommentEdit(true);
-    // setIsEdit(true);
+    if (comment.comment.trim() === "") {
+      return alert("댓글을 입력해주세요.");
+    } else {
+      editComment.mutate({ commentId: commentId, comment });
+      setCommentEdit(true);
+    }
   };
 
   const editComment = useMutation(commenEdit, {
@@ -28,6 +36,21 @@ function DetailComment({ comment, decodeKey, resBoard }) {
       queryClient.invalidateQueries("getDetail");
     },
   });
+
+  //댓글 선택하기
+  const pickIt = useMutation(commentPick, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getDetail");
+    },
+  });
+
+  const onPick = (e) => {
+    pickIt.mutate(e);
+  };
+
+  const pickAlert = (id) => {
+    Alert7("채택은 한 번만 가능합니다.\n채택하시겠습니까?", onPick, id);
+  };
 
   const [commentCount, setCommentCount] = useState(comment.likeCount);
 
@@ -74,47 +97,67 @@ function DetailComment({ comment, decodeKey, resBoard }) {
   return (
     <>
       {commentEdit ? (
-        <StcommentBox>
-          <StcommentUser>
-            <img src={comment.userImg} alt="프로필사진" />
-            <div className="username">{comment.nickname}</div>
-            <StMenu>
-              <MenuDial5
-                user={user}
-                id={comment.commentId}
-                setCommentEdit={setCommentEdit}
-                resBoard={resBoard}
-              />
-            </StMenu>
-          </StcommentUser>
-          <StCommentText>{comment.comment}</StCommentText>
-          <StCommentDiv>
-            <p>{comment.createdAt}</p>
-            <div className="heart">
-              <span>{commentCount}</span>
-              {comment.isLike ? (
-                <FavoriteIcon
-                  fontSize="small"
-                  onClick={() => mutate(comment.commentId)}
+        <>
+          <StcommentBox>
+            <StcommentUser>
+              <img src={comment.userImg} alt="프로필사진" />
+              <div className="username">{comment.nickname}</div>
+              <StMenu>
+                <MenuDial5
+                  user={user}
+                  id={comment.commentId}
+                  setCommentEdit={setCommentEdit}
+                  resBoard={resBoard}
                 />
-              ) : (
-                <FavoriteBorderIcon
-                  fontSize="small"
-                  onClick={() => mutate(comment.commentId)}
-                />
-              )}
-            </div>
-          </StCommentDiv>
-        </StcommentBox>
+              </StMenu>
+            </StcommentUser>
+            <StCommentText>{comment.comment}</StCommentText>
+            <StCommentDiv>
+              <p>{comment.createdAt}</p>
+              <div className="set">
+                <button onClick={() => setRecomment(true)}>답글 보기(0)</button>
+                <div className="heart">
+                  <span>{commentCount}</span>
+                  {comment.isLike ? (
+                    <FavoriteIcon
+                      fontSize="small"
+                      onClick={() => mutate(comment.commentId)}
+                    />
+                  ) : (
+                    <FavoriteBorderIcon
+                      fontSize="small"
+                      onClick={() => mutate(comment.commentId)}
+                    />
+                  )}
+                </div>
+              </div>
+            </StCommentDiv>
+          </StcommentBox>
+          {decodeKey === resBoard.userKey &&
+            resBoard.selectComment === undefined && (
+              <StPick StPick onClick={() => pickAlert(comment.commentId)}>
+                채택하기
+              </StPick>
+            )}
+
+          {recomment && (
+            <>
+              <DetailReCommentInput />
+              <DetailReComment />
+              <DetailReComment />
+              <DetailReComment />
+            </>
+          )}
+        </>
       ) : (
-        <StcommentBox>
+        <StcommentEditBox className="edit">
           <StcommentUser>
             <img src={comment.userImg} alt="프로필사진" className="userimg" />
             <div className="username">{comment.nickname}</div>
           </StcommentUser>
           <StCommentEdit onSubmit={handleSubmit(onEdit)}>
-            <input
-              type="text"
+            <textarea
+              rows={3}
               defaultValue={comment.comment}
               {...register("comment")}
             />
@@ -130,7 +173,7 @@ function DetailComment({ comment, decodeKey, resBoard }) {
               <button>완료</button>
             </div>
           </StCommentEdit>
-        </StcommentBox>
+        </StcommentEditBox>
       )}
     </>
   );
@@ -142,13 +185,44 @@ export default DetailComment;
 const StcommentBox = styled.div`
   background-color: ${(props) => props.theme.Colors.blueGray1};
   padding: ${(props) => props.theme.paddings.base};
+  margin-top: ${(props) => props.theme.margins.sm};
+
+  /*줄바꿈*/
+  white-space: pre-wrap;
+
+  //답글버튼
+  button {
+    font-weight: ${(props) => props.theme.fontWeights.xl};
+    color: ${(props) => props.theme.Colors.blueGreen3};
+  }
+`;
+
+const StcommentEditBox = styled.div`
+  background-color: ${(props) => props.theme.Colors.blueGray1};
+  padding: ${(props) => props.theme.paddings.base};
+  padding-bottom: 0.2rem;
   margin-bottom: ${(props) => props.theme.margins.xxsm};
+  button {
+    font-weight: ${(props) => props.theme.fontWeights.xl};
+    color: ${(props) => props.theme.Colors.blueGreen3};
+  }
+`;
+
+/*채택 선택 버튼 */
+const StPick = styled.div`
+  color: #ffffff;
+  text-align: center;
+  padding: ${(props) => props.theme.paddings.sm};
+  background-color: ${(props) => props.theme.Colors.blueGreen2};
+
+  font-weight: ${(props) => props.theme.fontWeights.base};
 `;
 
 /*메뉴 위치조정 */
 const StMenu = styled.div`
   position: absolute;
   right: 2rem;
+  display: flex;
 `;
 
 /*댓글 유저 정보 */
@@ -159,6 +233,7 @@ const StcommentUser = styled.div`
   .username {
     margin-left: ${(props) => props.theme.margins.sm};
     font-size: ${(props) => props.theme.fontSizes.sm};
+    font-weight: ${(props) => props.theme.fontWeights.base};
   }
   /*유저 프로필 이미지*/
   img {
@@ -170,6 +245,7 @@ const StcommentUser = styled.div`
 /*댓글 작성란*/
 const StCommentText = styled.div`
   margin: ${(props) => props.theme.margins.xxsm} 0;
+  font-size: ${(props) => props.theme.fontSizes.sm};
 `;
 
 const StCommentDiv = styled.div`
@@ -189,22 +265,31 @@ const StCommentDiv = styled.div`
     span {
       margin-right: 0.3rem;
       margin-bottom: 0.15rem;
+      font-weight: ${(props) => props.theme.fontWeights.base};
     }
+  }
+
+  .set {
+    display: flex;
+    gap: 1.5rem;
   }
 `;
 
 /*수정 댓글란 */
 
 const StCommentEdit = styled.form`
+  color: #002020;
   margin: ${(props) => props.theme.margins.xxsm} 0;
-  input {
+  textarea {
     width: 100%;
-    border: none;
+    font-size: ${(props) => props.theme.fontSizes.sm};
   }
-  div {
-    float: right;
-  }
+
   button {
     margin-left: 0.5rem;
+  }
+  div {
+    display: flex;
+    justify-content: flex-end;
   }
 `;

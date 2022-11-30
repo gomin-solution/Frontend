@@ -12,7 +12,7 @@ import {
   RewardGetModal,
   RewardModal,
 } from "../components/detailBorad/ImageModal";
-import { Alert9 } from "../elements/Alert";
+import { Alert6 } from "../elements/Alert";
 import { Container, FlexCenter } from "../shared/css";
 import graphic_fox from "../image/reward/graphic_fox.svg";
 import graphic_rabbit from "../image/reward/graphic_rabbit.svg";
@@ -141,7 +141,7 @@ function Reward() {
         id: 8,
         complete: missionResult[7]?.isComplete,
         get: missionResult[7]?.isGet,
-        mission: [`고민해결 선택받기-${missionCount?.Selected}-5`],
+        mission: [`고민해결 채택받기-${missionCount?.Selected}-5`],
         img: graphic_heart,
       },
       {
@@ -155,7 +155,7 @@ function Reward() {
         id: 10,
         complete: missionResult[9]?.isComplete,
         get: missionResult[9]?.isGet,
-        mission: [`고민해결 선택받기-${missionCount?.Selected}-10`],
+        mission: [`고민해결 채택받기-${missionCount?.Selected}-10`],
         img: graphic_heart,
       },
       {
@@ -203,7 +203,7 @@ function Reward() {
                       <img
                         alt="보상"
                         src={item?.img}
-                        onClick={() => Alert9(item?.img)}
+                        onClick={() => Alert6(item?.img)}
                       />
                     </div>
                   ) : (

@@ -18,9 +18,12 @@ function DetailComment({ comment, decodeKey, resBoard }) {
   const { register, handleSubmit } = useForm();
   const commentId = comment.commentId;
   const onEdit = (comment) => {
-    editComment.mutate({ commentId: commentId, comment });
-    setCommentEdit(true);
-    // setIsEdit(true);
+    if (comment.comment.trim() === "") {
+      return alert("댓글을 입력해주세요.");
+    } else {
+      editComment.mutate({ commentId: commentId, comment });
+      setCommentEdit(true);
+    }
   };
 
   const editComment = useMutation(commenEdit, {
@@ -107,14 +110,14 @@ function DetailComment({ comment, decodeKey, resBoard }) {
           </StCommentDiv>
         </StcommentBox>
       ) : (
-        <StcommentBox>
+        <StcommentEditBox className="edit">
           <StcommentUser>
             <img src={comment.userImg} alt="프로필사진" className="userimg" />
             <div className="username">{comment.nickname}</div>
           </StcommentUser>
           <StCommentEdit onSubmit={handleSubmit(onEdit)}>
-            <input
-              type="text"
+            <textarea
+              rows={3}
               defaultValue={comment.comment}
               {...register("comment")}
             />
@@ -130,7 +133,7 @@ function DetailComment({ comment, decodeKey, resBoard }) {
               <button>완료</button>
             </div>
           </StCommentEdit>
-        </StcommentBox>
+        </StcommentEditBox>
       )}
     </>
   );
@@ -142,6 +145,15 @@ export default DetailComment;
 const StcommentBox = styled.div`
   background-color: ${(props) => props.theme.Colors.blueGray1};
   padding: ${(props) => props.theme.paddings.base};
+  margin-bottom: ${(props) => props.theme.margins.xxsm};
+  /*줄바꿈*/
+  white-space: pre-wrap;
+`;
+
+const StcommentEditBox = styled.div`
+  background-color: ${(props) => props.theme.Colors.blueGray1};
+  padding: ${(props) => props.theme.paddings.base};
+  padding-bottom: 0.2rem;
   margin-bottom: ${(props) => props.theme.margins.xxsm};
 `;
 
@@ -196,15 +208,18 @@ const StCommentDiv = styled.div`
 /*수정 댓글란 */
 
 const StCommentEdit = styled.form`
+  color: #002020;
   margin: ${(props) => props.theme.margins.xxsm} 0;
-  input {
+  textarea {
     width: 100%;
-    border: none;
+    font-size: ${(props) => props.theme.fontSizes.base};
   }
-  div {
-    float: right;
-  }
+
   button {
     margin-left: 0.5rem;
+  }
+  div {
+    display: flex;
+    justify-content: flex-end;
   }
 `;

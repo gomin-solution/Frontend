@@ -252,6 +252,8 @@ const StMenu = styled.div`
 
 /*글 내용 박스 */
 const StBoardBox = styled.div`
+  /*줄바꿈*/
+  white-space: pre-wrap;
   span {
     font-size: ${(props) => props.theme.fontSizes.base};
   }

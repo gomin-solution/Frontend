@@ -52,7 +52,7 @@ export function Header3() {
   return (
     <StBlock style={{ color: "#19696A" }}>
       <StLogo alt="로고" src={logoFolding} />
-      <StAlram />
+      <StAlram onClick={() => nav("/alarm")} />
       <StSet onClick={() => nav("/setting")} />
     </StBlock>
   );

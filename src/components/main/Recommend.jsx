@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { FlexCenter } from "../../shared/css";
 
 const Recommend = ({ recommend }) => {
   const nav = useNavigate();
@@ -8,7 +7,6 @@ const Recommend = ({ recommend }) => {
   return (
     <StWrap>
       <StLeftText>추천글</StLeftText>
-
       <span className="cate">[{recommend?.category}]</span>
       <span
         className="over"

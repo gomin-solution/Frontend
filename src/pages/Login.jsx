@@ -4,7 +4,7 @@ import { instance } from "../api/api";
 import { setCookie } from "../api/cookie";
 
 /*스타일 관련 */
-import { Alert0, Alert1 } from "../elements/Alert";
+import { Alert1, Alert2 } from "../elements/Alert";
 import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container } from "../shared/css";
@@ -22,9 +22,9 @@ const Login = () => {
       // body로 전달받은 토큰을 쿠키에 저장하기
       setCookie("accessToken", res.data.accessToken);
       setCookie("refreshToken", res.data.refreshToken);
-      Alert1(`${res.data.nickname}님 반갑습니다.`);
+      Alert1(`${res.data.nickname}님 반갑습니다.`, "/");
     } catch (error) {
-      Alert0("아이디 또는 비밀번호가 일치하지 않습니다.");
+      Alert2("아이디 또는 비밀번호가 일치하지 않습니다.");
     }
   };
 

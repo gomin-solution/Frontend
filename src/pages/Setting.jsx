@@ -8,28 +8,39 @@ function Setting() {
   const { data: res } = useQuery("getMyPage", getMyPage);
   const nickname = res?.data.nickname;
   const userImage = res?.data.userImage;
+  const report = res?.data.report;
+  const admin = res?.data.admin;
 
   return (
     <>
       <Header1 title={"설정"} />
-      <Stcontainer>
-        <StUserinfo>
-          <img src={userImage} alt="프로필 사진" />
-          <div>
-            <p>{nickname}</p>
-            <span>
-              등급: 주니어 해결사<div className="qbox">?</div>
-            </span>
-          </div>
-        </StUserinfo>
-        <StTitle>계정</StTitle>
-        <StMenu>개인정보 변경</StMenu>
-        <StMenu style={{ border: "none" }}>푸쉬 알람설정</StMenu>
-        <StTitle>고객지원</StTitle>
-        <StMenu>공지사항</StMenu>
-        <StMenu>이메일 문의하기</StMenu>
-        <StMenu>신고접수</StMenu>
-      </Stcontainer>
+      {!admin ? (
+        <Stcontainer>
+          <StUserinfo>
+            <img src={userImage} alt="프로필 사진" />
+            <div>
+              <p>{nickname}</p>
+              <span>
+                등급: 주니어 해결사<div className="qbox">?</div>
+              </span>
+            </div>
+          </StUserinfo>
+          <StTitle>계정</StTitle>
+          <StMenu>개인정보 변경</StMenu>
+          <StMenu style={{ border: "none" }}>푸쉬 알람설정</StMenu>
+          <StTitle>고객지원</StTitle>
+          <StMenu>공지사항</StMenu>
+          <StMenu>이메일 문의하기</StMenu>
+          <StMenu>신고접수</StMenu>
+        </Stcontainer>
+      ) : (
+        <Stcontainer>
+          <StMenu>신고내역</StMenu>
+          {report?.map(() => (
+            <div>aaaa</div>
+          ))}
+        </Stcontainer>
+      )}
     </>
   );
 }

@@ -60,10 +60,9 @@ instance.interceptors.response.use(
       ) {
         removeCookie("accessToken");
         removeCookie("refreshToken");
-        window.location.href = "/login";
       }
     } catch (error) {
-      window.location.href = "/login";
+      console.log(error);
     }
     return Promise.reject(error);
   }

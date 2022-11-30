@@ -4,7 +4,7 @@ import Footer from "../elements/Footer";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
 import { getRooms, outRoom } from "../api/room";
-import { Container } from "../shared/css";
+import { Container, FlexCenter } from "../shared/css";
 import CloseIcon from "@mui/icons-material/Close";
 
 const Room = () => {
@@ -18,7 +18,7 @@ const Room = () => {
 
   return (
     <>
-      <Header4 title={"쪽지"} />
+      <Header4 title={"쪽지함"} />
       <Stcontainer>
         {rooms?.map((room) => (
           <StWrap
@@ -27,7 +27,12 @@ const Room = () => {
           >
             <StInnerWrap>
               <span style={{ fontWeight: "600" }}>{room.title}</span>
-              <StCloseIcon onClick={() => mutate(room.roomId)}>
+              <StCloseIcon
+                onClick={(e) => {
+                  e.stopPropagation();
+                  mutate(room.roomId);
+                }}
+              >
                 <CloseIcon />
               </StCloseIcon>
             </StInnerWrap>
@@ -64,13 +69,12 @@ const StWrap = styled.div`
   width: 100%;
   height: 5rem;
   margin-bottom: ${(props) => props.theme.margins.sm};
-  padding: ${(props) => props.theme.paddings.xl};
+  padding: ${(props) => props.theme.paddings.base};
 `;
 
 const StInnerWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: ${(props) => props.theme.margins.xsm};
   overflow: hidden;
 
   span {
@@ -82,6 +86,8 @@ const StInnerWrap = styled.div`
 
 const StCloseIcon = styled.span`
   color: ${(props) => props.theme.Colors.blueGreen3};
+  flex-grow: 0;
+  flex-shrink: 0;
 `;
 
 const StSet = styled.div`

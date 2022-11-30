@@ -96,6 +96,7 @@ const StTitle = styled.div`
 
 const StWrap = styled.div`
   ${FlexCenter};
+  cursor: pointer;
 `;
 
 const StOpen = styled.img`

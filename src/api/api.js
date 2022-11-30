@@ -52,7 +52,6 @@ instance.interceptors.response.use(
           /* accessToken 변경 실패 시 */
           removeCookie("accessToken");
           removeCookie("refreshToken");
-          window.location.href = "/login";
         }
         /* refreshToken 만료 시 status: 403 */
       } else if (

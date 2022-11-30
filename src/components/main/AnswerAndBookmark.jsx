@@ -1,7 +1,7 @@
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { Alert0 } from "../../elements/Alert";
+import { Alert2 } from "../../elements/Alert";
 
 const AnswerAndBookmark = ({ isCookie }) => {
   const nav = useNavigate();
@@ -15,7 +15,7 @@ const AnswerAndBookmark = ({ isCookie }) => {
     if (isCookie) {
       nav(navi);
     } else {
-      Alert0("로그인 후 이용해주세요.");
+      Alert2("로그인 후 이용해주세요.");
     }
   };
 

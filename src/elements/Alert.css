@@ -74,6 +74,8 @@
 }
 .input-msg:focus {
   box-shadow: none;
+
+  word-break: keep-all;
 }
 
 .confirm-msg {

@@ -5,7 +5,7 @@ import { instance } from "../api/api";
 /*스타일 관련*/
 import styled from "styled-components";
 import { Header1 } from "../elements/Header";
-import { Alert0, Alert3 } from "../elements/Alert";
+import { Alert1, Alert2 } from "../elements/Alert";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { Container, FlexCenter } from "../shared/css";
 
@@ -33,10 +33,10 @@ const Signup = () => {
     try {
       const res = await instance.post("/signup", data);
       if (res.status === 200) {
-        Alert3(`${data?.userId}님\n환영합니다.`);
+        Alert1(`${data?.userId}님\n환영합니다.`, "/login");
       }
     } catch (error) {
-      Alert0("중복확인을 다시 진행해주세요.");
+      Alert2("중복확인을 다시 진행해주세요.");
     }
   };
 
@@ -46,11 +46,11 @@ const Signup = () => {
     await instance
       .post("/signup/check", { userId: userId })
       .then(() => {
-        Alert0("사용가능한 아이디입니다.");
+        Alert2("사용가능한 아이디입니다.");
         setIdDub(true);
       })
       .catch(() => {
-        Alert0("중복된 아이디입니다.");
+        Alert2("중복된 아이디입니다.");
       });
   };
 
@@ -60,11 +60,11 @@ const Signup = () => {
     await instance
       .post("/signup/check", { nickname: nickname })
       .then(() => {
-        Alert0("사용가능한 닉네임입니다.");
+        Alert2("사용가능한 닉네임입니다.");
         setNickDub(true);
       })
       .catch(() => {
-        Alert0("중복된 닉네임입니다.");
+        Alert2("중복된 닉네임입니다.");
       });
   };
 

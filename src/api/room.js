@@ -12,3 +12,8 @@ export const getNotes = async (roomId, setMessage) => {
   setMessage(res.data.notes);
   return res;
 };
+
+/* 쪽지 방 나가기 */
+export const outRoom = async (roomId) => {
+  await instance.delete(`/rooms/${roomId}`);
+};

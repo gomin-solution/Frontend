@@ -60,10 +60,18 @@ export const commentLike = async (payload) => {
   return res;
 };
 
-/* ----------------------쪽지---------------------- */
+/* 쪽지 */
 export const messageNav = async (payload) => {
-  const res = await instance.post(`/rooms`, payload);
-  return (window.location.href = `/rooms/${res?.data.roomId}`);
+  await instance.post(`/rooms`, payload);
+};
+
+/* 신고 */
+export const reportPost = async (payload) => {
+  console.log(payload);
+  await instance.post(`/report/${payload.params}`, {
+    targetName: payload.targetName,
+    why: payload.why,
+  });
 };
 
 /* ----------------------채택하기---------------------- */

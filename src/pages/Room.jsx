@@ -2,15 +2,19 @@ import { Header4 } from "../elements/Header";
 import styled from "styled-components";
 import Footer from "../elements/Footer";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "react-query";
-import { getRooms } from "../api/room";
+import { useMutation, useQuery } from "react-query";
+import { getRooms, outRoom } from "../api/room";
 import { Container } from "../shared/css";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Room = () => {
   const nav = useNavigate();
 
   const { data: res } = useQuery("getRooms", getRooms);
   const rooms = res?.data;
+
+  /* 쪽지 방 나가기 */
+  const { mutate } = useMutation(outRoom);
 
   return (
     <>
@@ -23,6 +27,9 @@ const Room = () => {
           >
             <StInnerWrap>
               <span style={{ fontWeight: "600" }}>{room.title}</span>
+              <StCloseIcon onClick={() => mutate(room.roomId)}>
+                <CloseIcon />
+              </StCloseIcon>
             </StInnerWrap>
             <StSet style={{ fontSize: "0.875rem", color: "#474747" }}>
               {room.nickname}
@@ -62,6 +69,7 @@ const StWrap = styled.div`
 
 const StInnerWrap = styled.div`
   display: flex;
+  justify-content: space-between;
   margin-bottom: ${(props) => props.theme.margins.xsm};
   overflow: hidden;
 
@@ -70,6 +78,10 @@ const StInnerWrap = styled.div`
     white-space: nowrap; // 문장이 길어지면 다음 줄로 넘기는 것을 없앰
     overflow: hidden;
   }
+`;
+
+const StCloseIcon = styled.span`
+  color: ${(props) => props.theme.Colors.blueGreen3};
 `;
 
 const StSet = styled.div`

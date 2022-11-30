@@ -1,65 +1,22 @@
 import Swal from "sweetalert2";
 import "../elements/Alert.css";
 
-/* 버튼 1개 and 확인 후 이동 X */
-export const Alert0 = (text) => {
+/* 확인 후 이동 */
+export const Alert1 = (text, navi) => {
   Swal.fire({
+    customClass: {
+      confirmButton: "confirm-Btn",
+    },
+    buttonsStyling: false,
     text: text,
     confirmButtonText: "확인",
-    confirmButtonColor: "#6D6D6D",
-    width: "20rem",
-  });
-};
-
-/* 로그인 성공 */
-export const Alert1 = (text) => {
-  Swal.fire({
-    text: text,
-    confirmButtonText: "확인",
-    confirmButtonColor: "#6D6D6D",
-    width: "20rem",
   }).then(() => {
-    window.location.href = "/";
+    window.location.href = navi;
   });
 };
 
-/* 네 or 아니오 */
+/* 텍스트 + 확인버튼(닫힘) */
 export const Alert2 = (text) => {
-  Swal.fire({
-    text: text,
-    showCancelButton: true,
-    confirmButtonText: "네",
-    cancelButtonText: "아니오",
-    confirmButtonColor: "#6D6D6D",
-    cancelButtonColor: "#6D6D6D",
-    width: "20rem",
-  });
-};
-
-/* 회원가입 성공 */
-export const Alert3 = (text) => {
-  Swal.fire({
-    text: text,
-    confirmButtonText: "확인",
-    confirmButtonColor: "#e20606",
-    width: "20rem",
-  }).then(() => {
-    window.location.replace("/login");
-  });
-};
-
-/* 로그인 후 이용해주세요. */
-export const Alert4 = (text) => {
-  Swal.fire({
-    text: text,
-    confirmButtonText: "확인",
-    confirmButtonColor: "#6D6D6D",
-    width: "20rem",
-  });
-};
-
-/*텍스트 + 확인버튼(닫힘) */
-export const Alert5 = (text) => {
   Swal.fire({
     customClass: {
       confirmButton: "confirm-Btn",
@@ -71,7 +28,7 @@ export const Alert5 = (text) => {
 };
 
 /*오류 텍스트 확인버튼(닫힘) */
-export const Alert6 = (text) => {
+export const Alert3 = (text) => {
   Swal.fire({
     customClass: {
       confirmButton: "confirm-Btn",
@@ -85,7 +42,7 @@ export const Alert6 = (text) => {
 };
 
 /*로그인 + 로그인하러가기 + 취소 */
-export const Alert7 = () => {
+export const Alert4 = () => {
   Swal.fire({
     customClass: {
       confirmButton: "login-Btn",
@@ -103,8 +60,8 @@ export const Alert7 = () => {
   });
 };
 
-/* 쪽지 보내기 */
-export const Alert8 = () => {
+/* 쪽지 보내기, 신고하기 */
+export const Alert5 = (title, placeholder, mutate) => {
   Swal.fire({
     customClass: {
       htmlContainer: "htmlContainer-msg",
@@ -115,11 +72,15 @@ export const Alert8 = () => {
     },
     buttonsStyling: false,
     text: "받는 사람 닉네임",
-    title: "쪽지보내기",
+    title: title,
     input: "textarea",
-    inputPlaceholder: "쪽지내용을 입력해주세요.",
+    inputPlaceholder: placeholder,
     showCloseButton: "true",
     confirmButtonText: "전송",
+  }).then(function (result) {
+    if (result.value) {
+      mutate(result.value);
+    }
   });
 };
 

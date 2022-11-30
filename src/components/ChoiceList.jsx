@@ -25,8 +25,8 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
   const choice1Per = Math.round((choice.choice1 / choice.choiceCount) * 100);
   const choice2Per = 100 - choice1Per;
 
-  const [choice3Per, setChoice3Per] = useState(choice1Per);
-  const [choice4Per, setChoice4Per] = useState(choice2Per);
+  const [choiceAPer, setChoiceAPer] = useState(choice1Per);
+  const [choiceBPer, setChoiceBPer] = useState(choice2Per);
 
   /* 골라주기 mutation */
   const choiceMutation = useMutation(postChoice, {
@@ -42,14 +42,14 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
       queryClient.setQueryData(getMutation, () => {
         if (choiceNum === "1") {
           const choice1 = choice.choice1 + 1;
-          setChoice3Per(Math.round((choice1 / (choice.choiceCount + 1)) * 100));
-          setChoice4Per(
+          setChoiceAPer(Math.round((choice1 / (choice.choiceCount + 1)) * 100));
+          setChoiceBPer(
             100 - Math.round((choice1 / (choice.choiceCount + 1)) * 100)
           );
         } else if (choiceNum === "2") {
           const choice2 = choice.choice2 + 1;
-          setChoice4Per(Math.round((choice2 / (choice.choiceCount + 1)) * 100));
-          setChoice3Per(
+          setChoiceBPer(Math.round((choice2 / (choice.choiceCount + 1)) * 100));
+          setChoiceAPer(
             100 - Math.round((choice2 / (choice.choiceCount + 1)) * 100)
           );
         }
@@ -74,8 +74,6 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
     choiceMutation.mutate({
       choiceNum: e.target.value,
       choiceId: choice.choiceId,
-      choice1Per,
-      choice2Per,
     });
   };
 
@@ -193,11 +191,11 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
         </StChoiceWrap>
       ) : (
         <StChoiceWrap isEnd={choice.isEnd}>
-          <StChoice1 width={choice3Per}>
-            <StPerText1>{choice3Per}%</StPerText1>
+          <StChoice1 width={choiceAPer}>
+            <StPerText1>{choiceAPer}%</StPerText1>
           </StChoice1>
-          <StChoice2 width={choice4Per}>
-            <StPerText2>{choice4Per}%</StPerText2>
+          <StChoice2 width={choiceBPer}>
+            <StPerText2>{choiceBPer}%</StPerText2>
           </StChoice2>
         </StChoiceWrap>
       )}

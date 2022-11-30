@@ -18,7 +18,7 @@ const RoomDetail = () => {
   const { roomId } = useParams();
 
   /* 유저키 가져오기 */
-  const userKey = decodeCookie("accessToken")?.userKey;
+  const { userKey } = decodeCookie("accessToken");
 
   /* 기존 쪽지 내용 담기 */
   const [messages, setMessages] = useState([]);
@@ -42,7 +42,6 @@ const RoomDetail = () => {
 
   /* 보낸 쪽지내용 바로 get */
   socket.on("message", (data) => {
-    console.log("통신 테스트");
     setMessages([
       ...messages,
       {

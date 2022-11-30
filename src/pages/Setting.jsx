@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container, FlexCenter } from "../shared/css";
@@ -8,12 +8,13 @@ function Setting() {
   const { data: res } = useQuery("getMyPage", getMyPage);
   const nickname = res?.data.nickname;
   const userImage = res?.data.userImage;
+  const report = res?.data.report;
   const admin = res?.data.admin;
 
   return (
     <>
       <Header1 title={"설정"} />
-      {admin ? (
+      {!admin ? (
         <Stcontainer>
           <StUserinfo>
             <img src={userImage} alt="프로필 사진" />
@@ -35,6 +36,9 @@ function Setting() {
       ) : (
         <Stcontainer>
           <StMenu>신고내역</StMenu>
+          {report?.map(() => (
+            <div>aaaa</div>
+          ))}
         </Stcontainer>
       )}
     </>

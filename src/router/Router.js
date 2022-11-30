@@ -14,6 +14,7 @@ import NoteDetail from "../pages/RoomDetail";
 import DetailAdvice from "../pages/DetailAdvice";
 import Search from "../pages/Search";
 import SearchResult from "../pages/SearchResult";
+import Alarm from "../pages/Alarm";
 import Setting from "../pages/Setting";
 import Bookmark from "../pages/Bookmark";
 import MyPost from "../pages/MyPost";
@@ -29,6 +30,7 @@ const Router = () => {
         <Route path="/" element={<Main />} />
         <Route path="/mypost" element={<MyPost />} />
         <Route path="/bookmark" element={<Bookmark />} />
+        <Route path="/alarm" element={<Alarm />} />
         <Route path="/setting" element={<Setting />} />
 
         <Route path="/board-choice" element={<BoardChoice />} />

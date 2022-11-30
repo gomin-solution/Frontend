@@ -1,19 +1,19 @@
 const calcRem = (size) => `${size / 16}rem`;
 
 const Colors = {
-  gray3: "#737878",
-  gray2: "#939393",
   gray1: "#CDCDCD",
+  gray2: "#939393",
+  gray3: "#737878",
   bg1: "#FCFCFB",
   bg2: "#E9F3F2",
   bg3: "#DCE7E7",
-  blueGreen3: "#19696A",
-  blueGreen2: "#00A1A3",
-  blueGreen1: "#A7EFF0",
   foot: "#EAF0EF",
-  blueGray3: "#4A6363",
-  blueGray2: "#D6E6E5",
+  blueGreen1: "#A7EFF0",
+  blueGreen2: "#00A1A3",
+  blueGreen3: "#19696A",
   blueGray1: "#F1F5F4",
+  blueGray2: "#D6E6E5",
+  blueGray3: "#4A6363",
 };
 
 const fontSizes = {

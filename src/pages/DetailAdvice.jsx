@@ -38,6 +38,7 @@ function DetailAdvice() {
 
   const resBoard = data?.data.findAdvice;
   const resComment = data?.data.findAdvice.comment;
+  const resPick = data?.data.findAdvice.selectComment;
 
   //유저 판단
   const [user, setUser] = useState(false);
@@ -184,6 +185,16 @@ function DetailAdvice() {
                 </p>
               </StBoxInfo>
             </StBoardBox>
+            {resPick && (
+              <StPickBox>
+                <p>고민을 해결해준 답변</p>
+                <DetailComment
+                  comment={resPick}
+                  decodeKey={decodeKey}
+                  resBoard={resBoard}
+                />
+              </StPickBox>
+            )}
             <StCommentSet>
               <p>답변 {resBoard?.commentCount}</p>
               <MenuDial4 setFilterId={setFilterId} />
@@ -320,5 +331,14 @@ const StCommentform = styled.form`
   button {
     display: flex;
     color: ${(props) => props.theme.Colors.blueGreen1};
+  }
+`;
+
+/*도움이 된 답변 */
+const StPickBox = styled.div`
+  margin-top: ${(props) => props.theme.margins.sm};
+  p {
+    font-weight: ${(props) => props.theme.fontWeights.base};
+    margin-bottom: ${(props) => props.theme.margins.sm};
   }
 `;

@@ -9,8 +9,9 @@ import { MenuDial5 } from "../../elements/MenuDial";
 import styled from "styled-components";
 import DetailReComment from "../detailBorad/DetailReComment";
 import DetailReCommentInput from "./DetailRecommentInput";
+import { Alert7 } from "../../elements/Alert";
 
-function DetailComment({ comment, decodeKey, resBoard }) {
+function DetailComment({ comment, decodeKey, resBoard, resPickKey }) {
   const queryClient = useQueryClient();
 
   /* 댓글 수정 */
@@ -37,13 +38,19 @@ function DetailComment({ comment, decodeKey, resBoard }) {
   });
 
   //댓글 선택하기
-  const onPick = (id) => {};
-
   const pickIt = useMutation(commentPick, {
     onSuccess: () => {
       queryClient.invalidateQueries("getDetail");
     },
   });
+
+  const onPick = (e) => {
+    pickIt.mutate(e);
+  };
+
+  const pickAlert = (id) => {
+    Alert7("채택은 한 번만 가능합니다.\n채택하시겠습니까?", onPick, id);
+  };
 
   const [commentCount, setCommentCount] = useState(comment.likeCount);
 
@@ -126,7 +133,13 @@ function DetailComment({ comment, decodeKey, resBoard }) {
               </div>
             </StCommentDiv>
           </StcommentBox>
-          <StPick>채택하기</StPick>
+          {decodeKey === resBoard.userKey &&
+            resBoard.selectComment === undefined && (
+              <StPick StPick onClick={() => pickAlert(comment.commentId)}>
+                채택하기
+              </StPick>
+            )}
+
           {recomment && (
             <>
               <DetailReCommentInput />
@@ -172,6 +185,7 @@ export default DetailComment;
 const StcommentBox = styled.div`
   background-color: ${(props) => props.theme.Colors.blueGray1};
   padding: ${(props) => props.theme.paddings.base};
+  margin-top: ${(props) => props.theme.margins.sm};
 
   /*줄바꿈*/
   white-space: pre-wrap;
@@ -200,7 +214,7 @@ const StPick = styled.div`
   text-align: center;
   padding: ${(props) => props.theme.paddings.sm};
   background-color: ${(props) => props.theme.Colors.blueGreen2};
-  margin-bottom: ${(props) => props.theme.margins.xxsm};
+
   font-weight: ${(props) => props.theme.fontWeights.base};
 `;
 

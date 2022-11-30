@@ -4,8 +4,9 @@ import { Container, FlexCenter } from "../shared/css";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { socket } from "../api/socketio";
 import { useState } from "react";
-import { useQuery } from "react-query";
-import { getAlarms } from "../api/alarm";
+import { useMutation, useQuery } from "react-query";
+import { getAlarms, removeAlarm } from "../api/alarm";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Alarm = () => {
   /* 기존 알림 내용 담기 */
@@ -29,20 +30,30 @@ const Alarm = () => {
     ]);
   });
 
+  /* 알림 삭제 */
+  const { mutate } = useMutation(removeAlarm);
+
   return (
     <>
       <Header1 title={"알림"} />
       <Stcontainer>
         <StInnerWrap>
-          <StColumn>
+          <StTopWrap style={{ display: "felx" }}>
             <StText1>보상</StText1>
-            <span>미션완료!</span>
-            <span>지금 바로 리워드 보상을 받으세요!</span>
-            <StText2>16:51</StText2>
-          </StColumn>
-          <StIcon>
-            <ArrowForwardIosIcon />
-          </StIcon>
+            <StCloseIcon onClick={() => mutate()}>
+              <CloseIcon />
+            </StCloseIcon>
+          </StTopWrap>
+          <StBottomWrap>
+            <StColumn>
+              <span>미션완료!</span>
+              <span>지금 바로 리워드 보상을 받으세요!</span>
+              <StText2>16:51</StText2>
+            </StColumn>
+            <StIcon>
+              <ArrowForwardIosIcon />
+            </StIcon>
+          </StBottomWrap>
         </StInnerWrap>
       </Stcontainer>
     </>
@@ -61,17 +72,34 @@ const Stcontainer = styled.div`
 const StInnerWrap = styled.div`
   background-color: ${(props) => props.theme.Colors.blueGray1};
   width: 100%;
-  height: 6rem;
+  height: 6.5rem;
+  margin-bottom: ${(props) => props.theme.margins.lg};
+  padding: ${(props) => props.theme.paddings.xsm};
+  ${FlexCenter};
+  flex-flow: column;
+`;
+
+const StTopWrap = styled.div`
+  width: 100%;
+  ${FlexCenter}
+  justify-content: space-between;
+`;
+
+const StBottomWrap = styled.div`
+  width: 100%;
   ${FlexCenter};
   justify-content: space-between;
-  margin-bottom: ${(props) => props.theme.margins.lg};
-  padding: ${(props) => props.theme.paddings.lg};
 `;
 
 const StColumn = styled.div`
   ${FlexCenter};
   align-items: flex-start;
   flex-flow: column;
+`;
+
+const StCloseIcon = styled.span`
+  color: ${(props) => props.theme.Colors.blueGreen3};
+  ${FlexCenter}
 `;
 
 const StText1 = styled.span`

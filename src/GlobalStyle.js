@@ -31,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
     user-select: none;
     /* 사파리에서 input 클릭시 확대되는 오류 */
     -webkit-overflow-scrolling: touch;
+   
     div {
       font-family: "Noto Sans KR", sans-serif;
     }

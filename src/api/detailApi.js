@@ -9,55 +9,39 @@ export const adviceDetail = async (adviceId, filterId) => {
 
 // /* 답해주기 게시글 삭제 시 delete */
 export const adviceDelete = async (payload) => {
-  const res = await instance.delete(`/advice/${payload}`);
-  return res;
+  await instance.delete(`/advice/${payload}`);
 };
 
 /* 답해주기 게시글 수정 시 put */
 export const adviceEdit = async (payload) => {
-  const res = await instance.put(
-    `/advice/${payload.adviceId}`,
-    payload.formData
-  );
-  return res;
+  await instance.put(`/advice/${payload.adviceId}`, payload.formData);
 };
 
 /* 답해주기 bookmark 선택 시 put */
 export const adviceBookmark = async (payload) => {
-  const res = await instance.put(`bookmark/advice/${payload}`);
-  return res;
+  await instance.put(`bookmark/advice/${payload}`);
 };
 
 /* ----------------------댓글---------------------- */
 
 /* 답해주기 댓글 생성 시 post */
 export const commentAdvice = async (payload) => {
-  const res = await instance.post(
-    `/advice/comment/${payload.adviceId}`,
-    payload.comment
-  );
-  return res;
+  await instance.post(`/advice/comment/${payload.adviceId}`, payload.comment);
 };
 
 /* 답해주기 댓글 수정 시 put */
 export const commenEdit = async (payload) => {
-  const res = await instance.put(
-    `/advice/comment/${payload.commentId}`,
-    payload.comment
-  );
-  return res;
+  await instance.put(`/advice/comment/${payload.commentId}`, payload.comment);
 };
 
 /* 답해주기 댓글 삭제 시 delete */
 export const commentDelete = async (payload) => {
-  const res = await instance.delete(`/advice/comment/${payload}`);
-  return res;
+  await instance.delete(`/advice/comment/${payload}`);
 };
 
 /* 답해주기 댓글 좋아요 시 put */
 export const commentLike = async (payload) => {
-  const res = await instance.put(`/advice/comment/like/${payload}`);
-  return res;
+  await instance.put(`/advice/comment/like/${payload}`);
 };
 
 /* 쪽지 */
@@ -72,4 +56,10 @@ export const reportPost = async (payload) => {
     targetName: payload.targetName,
     why: payload.why,
   });
+};
+
+/* ----------------------채택하기---------------------- */
+
+export const commentPick = async (payload) => {
+  await instance.put(`advice/comment/select/${payload}`);
 };

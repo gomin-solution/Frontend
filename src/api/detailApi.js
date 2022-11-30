@@ -65,3 +65,11 @@ export const messageNav = async (payload) => {
   const res = await instance.post(`/rooms`, payload);
   return (window.location.href = `/rooms/${res?.data.roomId}`);
 };
+
+/* ----------------------채택하기---------------------- */
+
+export const commentPick = async (payload) => {
+  console.log(payload);
+  // const res = await instance.put(`avice/comment/select/${payload}`);
+  // return res;
+};

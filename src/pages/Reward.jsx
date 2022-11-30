@@ -141,7 +141,7 @@ function Reward() {
         id: 8,
         complete: missionResult[7]?.isComplete,
         get: missionResult[7]?.isGet,
-        mission: [`고민해결 선택받기-${missionCount?.Selected}-5`],
+        mission: [`고민해결 채택받기-${missionCount?.Selected}-5`],
         img: graphic_heart,
       },
       {
@@ -155,7 +155,7 @@ function Reward() {
         id: 10,
         complete: missionResult[9]?.isComplete,
         get: missionResult[9]?.isGet,
-        mission: [`고민해결 선택받기-${missionCount?.Selected}-10`],
+        mission: [`고민해결 채택받기-${missionCount?.Selected}-10`],
         img: graphic_heart,
       },
       {

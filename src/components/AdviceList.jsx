@@ -48,6 +48,7 @@ const StAdviceList = styled.div`
 const StTitleWrap = styled.div`
   display: flex;
   margin-bottom: 0.5rem;
+  font-weight: ${(props) => props.theme.fontWeights.base};
 `;
 
 const StCategory = styled.span`

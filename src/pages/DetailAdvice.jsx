@@ -149,10 +149,12 @@ function DetailAdvice() {
               </StMenu>
             </StUser>
             <StBoardBox>
-              <span style={{ fontWeight: "700", color: "#19696A" }}>
+              <span style={{ fontWeight: "600", color: "#19696A" }}>
                 [{resBoard?.category}]
               </span>
-              <span style={{ marginLeft: "0.5rem" }}>{resBoard?.title}</span>
+              <span style={{ marginLeft: "0.5rem", fontWeight: "500" }}>
+                {resBoard?.title}
+              </span>
               <p>{resBoard?.content}</p>
               <StImgBox>
                 {resBoard?.adviceImage.map((img) => {
@@ -177,7 +179,7 @@ function DetailAdvice() {
               <StBoxInfo>
                 <p>조회 {resBoard?.viewCount}</p>
                 <p style={{ position: "absolute", right: "1.5rem" }}>
-                  {resBoard?.createdAt}
+                  {resBoard?.updatedAt}
                 </p>
               </StBoxInfo>
             </StBoardBox>
@@ -232,6 +234,7 @@ const StUser = styled.div`
   p {
     margin-left: ${(props) => props.theme.margins.sm};
     font-size: ${(props) => props.theme.fontSizes.base};
+    font-weight: ${(props) => props.theme.fontWeights.base};
   }
 
   /*유저 프로필 이미지*/
@@ -252,7 +255,7 @@ const StMenu = styled.div`
 
 /*글 내용 박스 */
 const StBoardBox = styled.div`
-  /*줄바꿈*/
+  /* 줄바꿈 */
   white-space: pre-wrap;
   span {
     font-size: ${(props) => props.theme.fontSizes.base};

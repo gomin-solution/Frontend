@@ -18,7 +18,7 @@ const MyPost = () => {
 
   return (
     <>
-      <Header1 title={"내가 작성한 고민글"} navi="/" />
+      <Header1 title={"내가 작성한 고민글"} navi="/main" />
       <Stcontainer>
         {menu[0] === boardCategory ? (
           <>

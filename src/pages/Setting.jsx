@@ -3,13 +3,23 @@ import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container, FlexCenter } from "../shared/css";
 import { getMyPage } from "../api/settingApi";
+import { removeCookie } from "../api/cookie";
+import { useNavigate } from "react-router-dom";
 
 function Setting() {
+  const nav = useNavigate();
+
   const { data: res } = useQuery("getMyPage", getMyPage);
-  const nickname = res?.data.nickname;
-  const userImage = res?.data.userImage;
-  const report = res?.data.report;
+  const nickname = res?.data.mypage.nickname;
+  const userImage = res?.data.mypage.userImage;
+  const report = res?.data.mypage.report;
   const admin = res?.data.admin;
+
+  const logoutHandler = () => {
+    removeCookie("accessToken");
+    removeCookie("refreshToken");
+    nav("/main");
+  };
 
   return (
     <>
@@ -26,6 +36,7 @@ function Setting() {
             </div>
           </StUserinfo>
           <StTitle>계정</StTitle>
+          <StMenu onClick={logoutHandler}>로그아웃</StMenu>
           <StMenu>개인정보 변경</StMenu>
           <StMenu style={{ border: "none" }}>푸쉬 알람설정</StMenu>
           <StTitle>고객지원</StTitle>

@@ -18,6 +18,7 @@ import Alarm from "../pages/Alarm";
 import Setting from "../pages/Setting";
 import Bookmark from "../pages/Bookmark";
 import MyPost from "../pages/MyPost";
+import Splash from "../pages/Splash";
 
 const Router = () => {
   return (
@@ -27,7 +28,8 @@ const Router = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Splash />} />
+        <Route path="/main" element={<Main />} />
         <Route path="/mypost" element={<MyPost />} />
         <Route path="/bookmark" element={<Bookmark />} />
         <Route path="/alarm" element={<Alarm />} />

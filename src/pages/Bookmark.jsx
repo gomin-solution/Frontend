@@ -18,7 +18,7 @@ const Bookmark = () => {
 
   return (
     <>
-      <Header1 title={"북마크"} navi="/" />
+      <Header1 title={"북마크"} navi="/main" />
       <Stcontainer>
         {menu[0] === boardCategory ? (
           <>

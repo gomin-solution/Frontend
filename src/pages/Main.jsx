@@ -11,11 +11,10 @@ import { useQuery } from "react-query";
 import { getMain } from "../api/mainApi";
 import { Container } from "../shared/css";
 import { getCookie } from "../api/cookie";
-import Loading from "../components/Loading";
 
 function Main() {
   /* 메인페이지 get */
-  const { data, isLoading } = useQuery("getMain", getMain, {
+  const { data } = useQuery("getMain", getMain, {
     refetchOnWindowFocus: false,
   });
 
@@ -24,10 +23,6 @@ function Main() {
   const totalCount = data?.data.mainpage.totalCount;
   const dailyMessage = data?.data.dailyMessage;
   const isOpen = data?.data.mainpage.isOpen;
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   /* accessToken get */
   const isCookie = getCookie("accessToken");

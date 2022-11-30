@@ -10,10 +10,8 @@ function Setting() {
   const nav = useNavigate();
 
   const { data: res } = useQuery("getMyPage", getMyPage);
-  const nickname = res?.data.mypage.nickname;
-  const userImage = res?.data.mypage.userImage;
-  const report = res?.data.mypage.report;
   const admin = res?.data.admin;
+  console.log(res);
 
   const logoutHandler = () => {
     removeCookie("accessToken");
@@ -27,9 +25,9 @@ function Setting() {
       {!admin ? (
         <Stcontainer>
           <StUserinfo>
-            <img src={userImage} alt="프로필 사진" />
+            <img src={res?.data.mypage.userImage} alt="프로필 사진" />
             <div>
-              <p>{nickname}</p>
+              <p>{res?.data.mypage.nickname}</p>
               <span>
                 등급: 주니어 해결사<div className="qbox">?</div>
               </span>
@@ -46,10 +44,11 @@ function Setting() {
         </Stcontainer>
       ) : (
         <Stcontainer>
+          <StMenu onClick={logoutHandler}>로그아웃</StMenu>
           <StMenu>신고내역</StMenu>
-          {report?.map(() => (
+          {/* {res?.data.allReport.map((report) => (
             <div>aaaa</div>
-          ))}
+          ))} */}
         </Stcontainer>
       )}
     </>

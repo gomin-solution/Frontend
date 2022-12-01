@@ -18,7 +18,7 @@ import graphic_fox from "../image/reward/graphic_fox.svg";
 import graphic_rabbit from "../image/reward/graphic_rabbit.svg";
 import graphic_heart from "../image/reward/graphic_heart.svg";
 
-function Reward() {
+const Reward = () => {
   const { data, isSuccess } = useQuery("rewardGet", rewardGet, {
     refetchOnWindowFocus: false,
   });
@@ -261,7 +261,7 @@ function Reward() {
   }
 
   return <Loading />;
-}
+};
 
 export default Reward;
 

@@ -1,14 +1,25 @@
 import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
 
-/*수정하기 누를시 컴포넌트 변경 */
-export const userEdit = atom({
-  key: "userEdit",
-  default: true,
+const { persistAtom } = recoilPersist();
+
+/* 알림 메시지 저장 */
+export const alarmsAtom = atom({
+  key: "alarms",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
 });
 
-export const searchAdvices = atom({
-  key: "searchAdvices",
-  default: "",
+export const accessTokenAtom = atom({
+  key: "accessTokenAtom",
+  default: false,
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const userKeyAtom = atom({
+  key: "userKeyAtom",
+  default: 0,
+  effects_UNSTABLE: [persistAtom],
 });
 
 /* 예시 */

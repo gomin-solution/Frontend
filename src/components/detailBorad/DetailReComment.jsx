@@ -11,7 +11,6 @@ function DetailReComment() {
           <img src="" alt="" />
           <div className="username">닉네임</div>
           <StMenu>
-            <button>답글</button>
             <MenuDial5 />
           </StMenu>
         </StcommentUser>

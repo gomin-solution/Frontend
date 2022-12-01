@@ -44,12 +44,12 @@ export const commentLike = async (payload) => {
   await instance.put(`/advice/comment/like/${payload}`);
 };
 
-/* 쪽지 */
+/* 쪽지하기 */
 export const messageNav = async (payload) => {
   await instance.post(`/rooms`, payload);
 };
 
-/* 신고 */
+/* 신고하기 */
 export const reportPost = async (payload) => {
   console.log(payload);
   await instance.post(`/report/${payload.params}`, {
@@ -62,4 +62,30 @@ export const reportPost = async (payload) => {
 
 export const commentPick = async (payload) => {
   await instance.put(`advice/comment/select/${payload}`);
+};
+
+/* ----------------------채택하기---------------------- */
+
+/* 답해주기 대댓글 정보 get*/
+export const recommenGet = async (commentId) => {
+  const res = await instance.get(`/advice/comment/re/${commentId}`);
+  return res;
+};
+
+/* 답해주기 대댓글 생성 시 post */
+export const recommentPost = async (payload) => {
+  await instance.post(
+    `/advice/comment/re/${payload.commentId}`,
+    payload.comment
+  );
+};
+
+/* 답해주기 대댓글 수정 시 put */
+export const recommenEdit = async (payload) => {
+  await instance.put(`/advice/comment/re/:commentId`, payload.comment);
+};
+
+/* 답해주기 대댓글 삭제 시 delete */
+export const recommentDelete = async (payload) => {
+  await instance.delete(`/advice/comment/re/:commentId`);
 };

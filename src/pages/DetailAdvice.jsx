@@ -78,8 +78,12 @@ function DetailAdvice() {
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmitComment = (comment) => {
-    adviceComment.mutate({ adviceId: adviceId, comment });
-    reset();
+    if (comment.comment.trim() === "") {
+      return alert("댓글을 입력해주세요.");
+    } else {
+      adviceComment.mutate({ adviceId: adviceId, comment });
+      reset();
+    }
   };
 
   const adviceComment = useMutation(commentAdvice, {
@@ -213,7 +217,6 @@ function DetailAdvice() {
           <StCommentform onSubmit={handleSubmit(onSubmitComment)}>
             <input
               type="text"
-              required
               {...register("comment")}
               placeholder="답변해주기"
             />

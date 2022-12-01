@@ -1,5 +1,10 @@
-import { useMutation, useQueryClient } from "react-query";
-import { commenEdit, commentLike, commentPick } from "../../api/detailApi";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import {
+  commenEdit,
+  commentLike,
+  commentPick,
+  recommenGet,
+} from "../../api/detailApi";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -11,8 +16,26 @@ import DetailReComment from "../detailBorad/DetailReComment";
 import DetailReCommentInput from "./DetailRecommentInput";
 import { Alert7 } from "../../elements/Alert";
 
-function DetailComment({ comment, decodeKey, resBoard, resPickKey }) {
+function DetailComment({ comment, decodeKey, resBoard }) {
   const queryClient = useQueryClient();
+  const commentId = comment.commentId;
+
+  //대댓글 가져오기
+  const { data, refetch } = useQuery(
+    ["getRecomment", commentId],
+    () => recommenGet(commentId),
+    {
+      enabled: false,
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  const reqRecomment = () => {
+    refetch();
+    setRecomment(true);
+  };
+
+  console.log(data);
 
   /* 댓글 수정 */
   const [commentEdit, setCommentEdit] = useState(true);
@@ -21,7 +44,6 @@ function DetailComment({ comment, decodeKey, resBoard, resPickKey }) {
 
   //댓글 수정 하기
   const { register, handleSubmit } = useForm();
-  const commentId = comment.commentId;
   const onEdit = (comment) => {
     if (comment.comment.trim() === "") {
       return alert("댓글을 입력해주세요.");
@@ -37,7 +59,7 @@ function DetailComment({ comment, decodeKey, resBoard, resPickKey }) {
     },
   });
 
-  //댓글 선택하기
+  //댓글 채택하기
   const pickIt = useMutation(commentPick, {
     onSuccess: () => {
       queryClient.invalidateQueries("getDetail");
@@ -113,9 +135,9 @@ function DetailComment({ comment, decodeKey, resBoard, resPickKey }) {
             </StcommentUser>
             <StCommentText>{comment.comment}</StCommentText>
             <StCommentDiv>
-              <p>{comment.createdAt}</p>
+              <p>{comment.updatedAt}</p>
               <div className="set">
-                <button onClick={() => setRecomment(true)}>답글 보기(0)</button>
+                <button onClick={() => reqRecomment()}>답글 보기(0)</button>
                 <div className="heart">
                   <span>{commentCount}</span>
                   {comment.isLike ? (
@@ -142,9 +164,10 @@ function DetailComment({ comment, decodeKey, resBoard, resPickKey }) {
 
           {recomment && (
             <>
-              <DetailReCommentInput />
-              <DetailReComment />
-              <DetailReComment />
+              <DetailReCommentInput
+                setRecomment={setRecomment}
+                commentId={comment.commentId}
+              />
               <DetailReComment />
             </>
           )}

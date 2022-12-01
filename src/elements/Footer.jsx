@@ -1,19 +1,18 @@
 import { useNavigate } from "react-router-dom";
-
 import styled from "styled-components";
 import ChangeHistoryIcon from "@mui/icons-material/ChangeHistory";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { FlexCenter } from "../shared/css";
 import { useRecoilValue } from "recoil";
-import { accessTokenAtom } from "../state/atom";
+import { userKeyAtom } from "../state/atom";
 import { Alert2 } from "./Alert";
 
 function Footer({ title }) {
-  const isCookie = useRecoilValue(accessTokenAtom);
+  const userKey = useRecoilValue(userKeyAtom);
   const nav = useNavigate();
 
   const onMenu = (e) => {
-    if (!isCookie && (e.nav === "/rooms" || e.nav === "/reward")) {
+    if (!userKey && (e.nav === "/rooms" || e.nav === "/reward")) {
       Alert2("로그인 후 이용해주세요.");
     } else {
       nav(e.nav);

@@ -1,27 +1,26 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../api/api";
-import { setCookie } from "../api/cookie";
-
-/*스타일 관련 */
 import { Alert1, Alert2 } from "../elements/Alert";
 import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container } from "../shared/css";
 import logoBirdSquare from "../image/logo/logoBirdSquare.svg";
+import { useSetRecoilState } from "recoil";
+import { userKeyAtom } from "../state/atom";
 
 const Login = () => {
   const nav = useNavigate();
 
   const { register, handleSubmit } = useForm();
+  const setuserKey = useSetRecoilState(userKeyAtom);
 
   const onSubmit = async (data) => {
     try {
       const res = await instance.post("/login", data);
 
-      // body로 전달받은 토큰을 쿠키에 저장하기
-      setCookie("accessToken", res.data.accessToken);
-      setCookie("refreshToken", res.data.refreshToken);
+      /* userKey 전역으로 저장 후 메인페이지 이동 */
+      setuserKey(res.data.userKey);
       Alert1(`${res.data.nickname}님 반갑습니다.`, "/main");
     } catch (error) {
       Alert2("아이디 또는 비밀번호가 일치하지 않습니다.");

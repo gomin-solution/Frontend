@@ -10,12 +10,6 @@ export const alarmsAtom = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const accessTokenAtom = atom({
-  key: "accessTokenAtom",
-  default: false,
-  effects_UNSTABLE: [persistAtom],
-});
-
 export const userKeyAtom = atom({
   key: "userKeyAtom",
   default: 0,

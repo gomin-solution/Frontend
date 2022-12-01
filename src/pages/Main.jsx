@@ -10,7 +10,9 @@ import TotalCount from "../components/main/TotalCount";
 import { useQuery } from "react-query";
 import { getMain } from "../api/mainApi";
 import { Container } from "../shared/css";
-import { getCookie } from "../api/cookie";
+import { decodeCookie, getCookie } from "../api/cookie";
+import { useEffect } from "react";
+import { socket } from "../api/socketio";
 
 function Main() {
   /* 메인페이지 get */
@@ -26,6 +28,14 @@ function Main() {
 
   /* accessToken get */
   const isCookie = getCookie("accessToken");
+
+  /* userKey get */
+  const { userKey } = decodeCookie("accessToken");
+
+  /* 최초 렌더링 시 서버로 userKey 전달 */
+  useEffect(() => {
+    socket.emit("main_connect", userKey);
+  }, []);
 
   return (
     <>

@@ -7,7 +7,19 @@ import { getRooms, outRoom } from "../api/room";
 import { Container, FlexCenter } from "../shared/css";
 import CloseIcon from "@mui/icons-material/Close";
 
+import { socket } from "../api/socketio";
+
 const Room = () => {
+  /* 알림 받기 */
+  socket.on("message_alarm", (data) => {
+    console.log("알림 테스트", data);
+    // setAlarms([
+    //   ...alarms,
+    //   {
+    //     alarms: data,
+    //   },
+    // ]);
+  });
   const nav = useNavigate();
 
   const { data: res } = useQuery("getRooms", getRooms);
@@ -45,7 +57,7 @@ const Room = () => {
           </StWrap>
         ))}
       </Stcontainer>
-      <Footer title={"쪽지"} />
+      <Footer title={"쪽지함"} />
     </>
   );
 };

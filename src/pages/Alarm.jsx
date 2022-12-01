@@ -13,25 +13,23 @@ const Alarm = () => {
   const [alarms, setAlarms] = useState([]);
 
   /* 알림 내용 전부 가져오기 */
-  useQuery("getAlarms", getAlarms, {
-    refetchOnWindowFocus: false,
-  });
-
-  /* 알림 실시간 get */
-  socket.on("alarm", (data) => {
-    console.log("통신 테스트");
-    setAlarms([
-      ...alarms,
-      {
-        title: data.title,
-        content: data.content,
-        date: data.date,
-      },
-    ]);
-  });
+  // useQuery("getAlarms", getAlarms, {
+  //   refetchOnWindowFocus: false,
+  // });
 
   /* 알림 삭제 */
   const { mutate } = useMutation(removeAlarm);
+
+  /* 알림 받기 */
+  socket.on("mission_alarm", (data) => {
+    console.log("알림 테스트", data);
+    // setAlarms([
+    //   ...alarms,
+    //   {
+    //     alarms: data,
+    //   },
+    // ]);
+  });
 
   return (
     <>

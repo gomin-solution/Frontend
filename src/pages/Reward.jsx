@@ -17,8 +17,12 @@ import { Container, FlexCenter } from "../shared/css";
 import graphic_fox from "../image/reward/graphic_fox.svg";
 import graphic_rabbit from "../image/reward/graphic_rabbit.svg";
 import graphic_heart from "../image/reward/graphic_heart.svg";
+import { useRecoilValue } from "recoil";
+import { accessTokenAtom } from "../state/atom";
 
-function Reward() {
+const Reward = () => {
+  const isCookie = useRecoilValue(accessTokenAtom);
+
   const { data, isSuccess } = useQuery("rewardGet", rewardGet, {
     refetchOnWindowFocus: false,
   });
@@ -177,91 +181,99 @@ function Reward() {
     return (
       <>
         <Header4 title={"수집함"} />
-        <Stcontainer>
-          <StWrap1>
-            <span style={{ fontSize: "1.1rem" }}>등급</span>
-            <span
-              style={{
-                fontSize: "1.4rem",
-                fontWeight: "600",
-                color: "#19696A",
-              }}
-            >
-              주니어 해결사
-            </span>
-          </StWrap1>
-          <StWrap2>
-            <span style={{ marginRight: "2rem" }}>해결한 고민 수</span>
-            <span>{missionCount?.missionComplete}</span>
-          </StWrap2>
-          <StMissionWrap>
-            {missions.map((item) => {
-              return item.complete ? (
-                <StMissionBox key={item.id}>
-                  {item.get ? (
-                    <div className="collect">
-                      <img
-                        alt="보상"
-                        src={item?.img}
-                        onClick={() => Alert6(item?.img)}
+        {isCookie ? (
+          <Stcontainer>
+            <StWrap1>
+              <span style={{ fontSize: "1.1rem" }}>등급</span>
+              <span
+                style={{
+                  fontSize: "1.4rem",
+                  fontWeight: "600",
+                  color: "#19696A",
+                }}
+              >
+                주니어 해결사
+              </span>
+            </StWrap1>
+            <StWrap2>
+              <span style={{ marginRight: "2rem" }}>해결한 고민 수</span>
+              <span>{missionCount?.missionComplete}</span>
+            </StWrap2>
+            <StMissionWrap>
+              {missions.map((item) => {
+                return item.complete ? (
+                  <StMissionBox key={item.id}>
+                    {item.get ? (
+                      <div className="collect">
+                        <img
+                          alt="보상"
+                          src={item?.img}
+                          onClick={() => Alert6(item?.img)}
+                        />
+                      </div>
+                    ) : (
+                      <div className="rewardGet">
+                        <StClick onClick={handleReward(item)}>
+                          보상 받기
+                        </StClick>
+                        {item.id > 9 ? (
+                          <LockOutlinedIcon
+                            className="inner"
+                            onClick={handle(item.mission)}
+                          />
+                        ) : (
+                          <QuestionMarkIcon
+                            className="inner"
+                            onClick={handle(item.mission)}
+                          />
+                        )}
+                      </div>
+                    )}
+                  </StMissionBox>
+                ) : (
+                  <StMissionBox key={item.id}>
+                    {item.id > 9 ? (
+                      <LockOutlinedIcon
+                        className="inner"
+                        onClick={handle(item.mission)}
                       />
-                    </div>
-                  ) : (
-                    <div className="rewardGet">
-                      <StClick onClick={handleReward(item)}>보상 받기</StClick>
-                      {item.id > 9 ? (
-                        <LockOutlinedIcon
-                          className="inner"
-                          onClick={handle(item.mission)}
-                        />
-                      ) : (
-                        <QuestionMarkIcon
-                          className="inner"
-                          onClick={handle(item.mission)}
-                        />
-                      )}
-                    </div>
-                  )}
-                </StMissionBox>
-              ) : (
-                <StMissionBox key={item.id}>
-                  {item.id > 9 ? (
-                    <LockOutlinedIcon
-                      className="inner"
-                      onClick={handle(item.mission)}
-                    />
-                  ) : (
-                    <QuestionMarkIcon
-                      className="inner"
-                      onClick={handle(item.mission)}
-                    />
-                  )}
-                </StMissionBox>
-              );
-            })}
-            {modalOpen && (
-              <RewardModal
-                modalOpen={modalOpen}
-                closeModal={closeModal}
-                tip={tip}
-              />
-            )}
-            {rewardOpen && (
-              <RewardGetModal
-                modalOpen={rewardOpen}
-                closeModal={closeReward}
-                reward={reward}
-              />
-            )}
-          </StMissionWrap>
-        </Stcontainer>
+                    ) : (
+                      <QuestionMarkIcon
+                        className="inner"
+                        onClick={handle(item.mission)}
+                      />
+                    )}
+                  </StMissionBox>
+                );
+              })}
+              {modalOpen && (
+                <RewardModal
+                  modalOpen={modalOpen}
+                  closeModal={closeModal}
+                  tip={tip}
+                />
+              )}
+              {rewardOpen && (
+                <RewardGetModal
+                  modalOpen={rewardOpen}
+                  closeModal={closeReward}
+                  reward={reward}
+                />
+              )}
+            </StMissionWrap>
+          </Stcontainer>
+        ) : (
+          <Stcontainer>
+            <div>로그인 후 이용해주세요.</div>
+          </Stcontainer>
+        )}
         <Footer title={"수집함"} />
       </>
     );
   }
 
   return <Loading />;
-}
+};
 
 export default Reward;
 

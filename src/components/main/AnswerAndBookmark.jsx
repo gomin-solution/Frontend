@@ -2,9 +2,13 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Alert2 } from "../../elements/Alert";
+import { useRecoilValue } from "recoil";
+import { accessTokenAtom } from "../../state/atom";
 
-const AnswerAndBookmark = ({ isCookie }) => {
+const AnswerAndBookmark = () => {
   const nav = useNavigate();
+
+  const isCookie = useRecoilValue(accessTokenAtom);
 
   const lists = [
     { title: "내가 작성한 고민", nav: "/mypost" },

@@ -2,64 +2,60 @@ import { Header4 } from "../elements/Header";
 import styled from "styled-components";
 import Footer from "../elements/Footer";
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getRooms, outRoom } from "../api/room";
-import { Container, FlexCenter } from "../shared/css";
+import { Container } from "../shared/css";
 import CloseIcon from "@mui/icons-material/Close";
-import { useState } from "react";
-
-import { socket } from "../api/socketio";
 
 const Room = () => {
-  /* 기존 알림 내용 담기 */
-  const [alarms, setAlarms] = useState([]);
-
-  /* 알림 받기 */
-  socket.on("message_alarm", () => {
-    setAlarms([...alarms, "쪽지가 도착했습니다.\n 알림을 확인해주세요."]);
-    setTimeout(() => setAlarms(""), 2000);
-  });
-
+  const queryClient = useQueryClient();
   const nav = useNavigate();
 
   const { data: res } = useQuery("getRooms", getRooms);
   const rooms = res?.data;
 
   /* 쪽지 방 나가기 */
-  const { mutate } = useMutation(outRoom);
+  const { mutate } = useMutation(outRoom, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getRooms");
+    },
+  });
 
   return (
     <>
       <Header4 title={"쪽지함"} />
-      <Stcontainer>
-        {alarms?.map((alarm) => (
-          <div key={alarm}>{alarm}</div>
-        ))}
-        {rooms?.map((room) => (
-          <StWrap
-            key={room.roomId}
-            onClick={() => nav(`/rooms/${room.roomId}`)}
-          >
-            <StInnerWrap>
-              <span style={{ fontWeight: "600" }}>{room.title}</span>
-              <StCloseIcon
-                onClick={(e) => {
-                  e.stopPropagation();
-                  mutate(room.roomId);
-                }}
-              >
-                <CloseIcon />
-              </StCloseIcon>
-            </StInnerWrap>
-            <StSet style={{ fontSize: "0.875rem", color: "#474747" }}>
-              {room.nickname}
-              <span style={{ fontSize: "0.75rem", color: "#737878" }}>
-                {room.recentDate}
-              </span>
-            </StSet>
-          </StWrap>
-        ))}
-      </Stcontainer>
+      {rooms && rooms[0] ? (
+        <Stcontainer>
+          {rooms?.map((room) => (
+            <StWrap
+              key={room.roomId}
+              onClick={() => nav(`/rooms/${room.roomId}`)}
+            >
+              <StInnerWrap>
+                <span style={{ fontWeight: "600" }}>{room.title}</span>
+                <StCloseIcon
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    mutate(room.roomId);
+                  }}
+                >
+                  <CloseIcon />
+                </StCloseIcon>
+              </StInnerWrap>
+              <StSet style={{ fontSize: "0.875rem", color: "#474747" }}>
+                {room.nickname}
+                <span style={{ fontSize: "0.75rem", color: "#737878" }}>
+                  {room.recentDate}
+                </span>
+              </StSet>
+            </StWrap>
+          ))}
+        </Stcontainer>
+      ) : (
+        <Stcontainer>
+          <div>쪽지함이 비어있습니다.</div>
+        </Stcontainer>
+      )}
       <Footer title={"쪽지함"} />
     </>
   );

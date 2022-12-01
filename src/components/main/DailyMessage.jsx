@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { putIsOpen } from "../../api/mainApi";
-import Lottie from "react-lottie";
+import { Lottie } from "@crello/react-lottie";
 
 /*스타일 관련 */
 import styled from "styled-components";

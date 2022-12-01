@@ -1,14 +1,19 @@
 import { atom } from "recoil";
 
-/*수정하기 누를시 컴포넌트 변경 */
-export const userEdit = atom({
-  key: "userEdit",
-  default: true,
+/* 알림 메시지 저장 */
+export const alarmsAtom = atom({
+  key: "alarms",
+  default: "",
 });
 
-export const searchAdvices = atom({
-  key: "searchAdvices",
-  default: "",
+export const accessTokenAtom = atom({
+  key: "accessTokenAtom",
+  default: false,
+});
+
+export const userKeyAtom = atom({
+  key: "userKeyAtom",
+  default: 0,
 });
 
 /* 예시 */

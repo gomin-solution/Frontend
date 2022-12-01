@@ -1,22 +1,16 @@
 import axios from "axios";
 // import { getCookie, removeCookie, setCookie } from "./cookie";
 
-axios.defaults.headers.post["Content-Type"] =
-  "application/x-www-form-urlencoded";
-
 export const instance = axios.create({
   baseURL: process.env.REACT_APP_API,
   withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 // /* interceptor: request */
 // instance.interceptors.request.use(
 //   /* 요청이 전달되기 전에 작업 수행 */
 //   (config) => {
-//     console.log("config", config);
+//     // console.log("config", config);
 //     return config;
 //   },
 //   (error) => {
@@ -31,9 +25,11 @@ export const instance = axios.create({
 //     return response;
 //   },
 //   async (error) => {
+//     const originalRequest = error.config;
 //     try {
 //       if (error.response.data.errorMessage === "jwt expired") {
-//         return axios(error.config);
+//         console.log(originalRequest);
+//         return axios(originalRequest);
 //       }
 //     } catch (error) {
 //       console.log(error);

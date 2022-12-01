@@ -18,10 +18,11 @@ const GlobalStyle = createGlobalStyle`
     width: 100vw;
     height: 100vh;
     color: #002020;
+    margin: 0;
     
     margin: auto;
     /*웹 배경 이미지색 맞추기*/
-    background-color: #536480;
+    background-color: #DDE7E8;
     /*단어 넘치면 쪼개기*/
     word-break: break-all;
     /* 드래그 방지 */
@@ -31,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
     user-select: none;
     /* 사파리에서 input 클릭시 확대되는 오류 */
     -webkit-overflow-scrolling: touch;
-   
+
     div {
       font-family: "Noto Sans KR", sans-serif;
     }
@@ -43,17 +44,16 @@ const GlobalStyle = createGlobalStyle`
   @media all and (min-width: 360px) and (max-width: 899px) {
     body {
       /*웹 배경 이미지색 맞추기*/
-      background-color: #536480;
+      background-color: #DDE7E8;
     }
   }
 
   /*배경이미지보고 다시 조정하기*/
   @media all and (min-width: 900px) and (min-height: 500px) {
     body {
-      /* background-image: url("../src/image/background.png"); */
-      /* background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat; */
+      background: url("/background.jpg") no-repeat center;
+      background-color: #DDE7E8;
+      background-size: cover;
     }
   }
 

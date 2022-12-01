@@ -9,9 +9,6 @@ import { getAlarms, removeAlarm } from "../api/alarm";
 import CloseIcon from "@mui/icons-material/Close";
 
 const Alarm = () => {
-  /* 기존 알림 내용 담기 */
-  const [alarms, setAlarms] = useState([]);
-
   /* 알림 내용 전부 가져오기 */
   // useQuery("getAlarms", getAlarms, {
   //   refetchOnWindowFocus: false,

@@ -6,20 +6,20 @@ import { useMutation, useQuery } from "react-query";
 import { getRooms, outRoom } from "../api/room";
 import { Container, FlexCenter } from "../shared/css";
 import CloseIcon from "@mui/icons-material/Close";
+import { useState } from "react";
 
 import { socket } from "../api/socketio";
 
 const Room = () => {
+  /* 기존 알림 내용 담기 */
+  const [alarms, setAlarms] = useState([]);
+
   /* 알림 받기 */
-  socket.on("message_alarm", (data) => {
-    console.log("알림 테스트", data);
-    // setAlarms([
-    //   ...alarms,
-    //   {
-    //     alarms: data,
-    //   },
-    // ]);
+  socket.on("message_alarm", () => {
+    setAlarms([...alarms, "쪽지가 도착했습니다.\n 알림을 확인해주세요."]);
+    setTimeout(() => setAlarms(""), 2000);
   });
+
   const nav = useNavigate();
 
   const { data: res } = useQuery("getRooms", getRooms);
@@ -32,6 +32,9 @@ const Room = () => {
     <>
       <Header4 title={"쪽지함"} />
       <Stcontainer>
+        {alarms?.map((alarm) => (
+          <div key={alarm}>{alarm}</div>
+        ))}
         {rooms?.map((room) => (
           <StWrap
             key={room.roomId}

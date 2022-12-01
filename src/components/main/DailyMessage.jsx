@@ -10,8 +10,11 @@ import animationData from "../../image/dailyMessage/letter_lottie.json";
 import letterOpen from "../../image/dailyMessage/letterOpen.svg";
 import letterClose from "../../image/dailyMessage/letterClose.svg";
 import { FlexCenter } from "../../shared/css";
+import { useRecoilValue } from "recoil";
+import { accessTokenAtom } from "../../state/atom";
 
-const DailyMessage = ({ isCookie, dailyMessage, isOpen }) => {
+const DailyMessage = ({ dailyMessage, isOpen }) => {
+  const isCookie = useRecoilValue(accessTokenAtom);
   const queryClient = useQueryClient();
 
   /* lottie 속성값 설정 */

@@ -15,8 +15,10 @@ import styled from "styled-components";
 import DetailReComment from "../detailBorad/DetailReComment";
 import DetailReCommentInput from "./DetailRecommentInput";
 import { Alert7 } from "../../elements/Alert";
+import { useRecoilValue } from "recoil";
+import { userKeyAtom } from "../../state/atom";
 
-function DetailComment({ comment, decodeKey, resBoard }) {
+function DetailComment({ comment, resBoard }) {
   const queryClient = useQueryClient();
   const commentId = comment.commentId;
 
@@ -106,12 +108,12 @@ function DetailComment({ comment, decodeKey, resBoard }) {
     },
   });
 
-  //유저키 비교
+  // 유저키 비교
   const [user, setUser] = useState(false);
+  const key = useRecoilValue(userKeyAtom);
 
-  //유저키 비교
   useEffect(() => {
-    if (decodeKey === comment.userKey) {
+    if (key === comment.userKey) {
       setUser(true);
     }
   }, []);
@@ -155,12 +157,11 @@ function DetailComment({ comment, decodeKey, resBoard }) {
               </div>
             </StCommentDiv>
           </StcommentBox>
-          {decodeKey === resBoard.userKey &&
-            resBoard.selectComment === undefined && (
-              <StPick StPick onClick={() => pickAlert(comment.commentId)}>
-                채택하기
-              </StPick>
-            )}
+          {key === resBoard.userKey && resBoard.selectComment === undefined && (
+            <StPick StPick onClick={() => pickAlert(comment.commentId)}>
+              채택하기
+            </StPick>
+          )}
 
           {recomment && (
             <>

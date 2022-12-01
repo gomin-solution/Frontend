@@ -10,9 +10,11 @@ import TotalCount from "../components/main/TotalCount";
 import { useQuery } from "react-query";
 import { getMain } from "../api/mainApi";
 import { Container } from "../shared/css";
-import { decodeCookie, getCookie } from "../api/cookie";
 import { useEffect } from "react";
 import { socket } from "../api/socketio";
+import jwt_decode from "jwt-decode";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { accessTokenAtom, userKeyAtom } from "../state/atom";
 
 function Main() {
   /* 메인페이지 get */
@@ -26,16 +28,21 @@ function Main() {
   const dailyMessage = data?.data.dailyMessage;
   const isOpen = data?.data.mainpage.isOpen;
 
-  /* accessToken get */
-  const isCookie = getCookie("accessToken");
-
-  /* userKey get */
-  const { userKey } = decodeCookie("accessToken");
+  /* 쿠키 get & decode userKey */
+  const [isCookie, setIsCookie] = useRecoilState(accessTokenAtom);
+  const accToken = document.cookie.split("accessToken=")[1].split(";")[0];
+  const { userKey } = jwt_decode(accToken);
+  const setKey = useSetRecoilState(userKeyAtom);
 
   /* 최초 렌더링 시 서버로 userKey 전달 */
   useEffect(() => {
     socket.emit("main_connect", userKey);
-  }, []);
+    setKey(userKey);
+  }, [userKey]);
+
+  useEffect(() => {
+    setIsCookie(true);
+  }, [accToken]);
 
   return (
     <>
@@ -49,12 +56,8 @@ function Main() {
         <StPaddingWrap>
           <Recommend recommend={recommend} />
           <StHr />
-          <DailyMessage
-            isCookie={isCookie}
-            dailyMessage={dailyMessage}
-            isOpen={isOpen}
-          />
-          <AnswerAndBookmark isCookie={isCookie} />
+          <DailyMessage dailyMessage={dailyMessage} isOpen={isOpen} />
+          <AnswerAndBookmark />
           <TotalCount totalCount={totalCount} />
         </StPaddingWrap>
       </StContainer>

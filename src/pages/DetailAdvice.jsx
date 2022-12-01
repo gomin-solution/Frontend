@@ -15,6 +15,8 @@ import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import PostAdvice from "../pages/PostAdvice";
 import { ImageModal } from "../components/detailBorad/ImageModal";
 import { Container } from "../shared/css";
+import { useRecoilValue } from "recoil";
+import { userKeyAtom } from "../state/atom";
 
 function DetailAdvice() {
   const queryClient = useQueryClient();
@@ -110,15 +112,13 @@ function DetailAdvice() {
     setModalOpen(true);
   };
 
-  //토큰 디코딩해서 비교
-  const decodeKey = decodeCookie("accessToken")?.userKey;
+  //userKey 유무 판단
+  const key = useRecoilValue(userKeyAtom);
   useEffect(() => {
-    if (getCookie("accessToken") !== undefined) {
-      if (decodeKey === resBoard?.userKey) {
-        setUser(true);
-      }
+    if (key) {
+      setUser(true);
     }
-  }, [resBoard, decodeKey]);
+  }, [key]);
 
   return (
     <>
@@ -192,11 +192,7 @@ function DetailAdvice() {
             {resPick && (
               <StPickBox>
                 <p>고민을 해결해준 답변</p>
-                <DetailComment
-                  comment={resPick}
-                  decodeKey={decodeKey}
-                  resBoard={resBoard}
-                />
+                <DetailComment comment={resPick} resBoard={resBoard} />
               </StPickBox>
             )}
             <StCommentSet>
@@ -208,7 +204,6 @@ function DetailAdvice() {
                 <DetailComment
                   key={comment.commentId}
                   comment={comment}
-                  decodeKey={decodeKey}
                   resBoard={resBoard}
                 />
               );

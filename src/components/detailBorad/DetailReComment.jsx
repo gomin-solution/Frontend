@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import { MenuDial5 } from "../../elements/MenuDial";
 import SubdirectoryArrowRightIcon from "@mui/icons-material/SubdirectoryArrowRight";
+import { useState } from "react";
 
-function DetailReComment() {
+function DetailReComment({ re, user, resBoard }) {
+  console.log(re);
+  const [recommentEdit, setReCommentEdit] = useState(true);
+
   return (
     <StcommentBox>
       <SubdirectoryArrowRightIcon sx={{ color: "#19696A" }} />
@@ -11,12 +15,18 @@ function DetailReComment() {
           <img src="" alt="" />
           <div className="username">닉네임</div>
           <StMenu>
-            <MenuDial5 />
+            <MenuDial5
+              user={user}
+              id={re.replyId}
+              setCommentEdit={setReCommentEdit}
+              resBoard={resBoard}
+              reGet="recommenGet"
+            />
           </StMenu>
         </StcommentUser>
-        <StCommentText>대댓내용</StCommentText>
+        <StCommentText>{re.comment}</StCommentText>
         <StCommentDiv>
-          <p>날짜</p>
+          <p>{re.updatedAt}</p>
         </StCommentDiv>
       </div>
     </StcommentBox>

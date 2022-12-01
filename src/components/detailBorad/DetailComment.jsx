@@ -17,6 +17,7 @@ import DetailReCommentInput from "./DetailRecommentInput";
 import { Alert7 } from "../../elements/Alert";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../../state/atom";
+import { FlexCenter } from "../../shared/css";
 
 function DetailComment({ comment, resBoard }) {
   const queryClient = useQueryClient();
@@ -37,7 +38,7 @@ function DetailComment({ comment, resBoard }) {
     setRecomment(true);
   };
 
-  console.log(data);
+  const reDate = data?.data.data;
 
   /* 댓글 수정 */
   const [commentEdit, setCommentEdit] = useState(true);
@@ -132,12 +133,13 @@ function DetailComment({ comment, resBoard }) {
                   id={comment.commentId}
                   setCommentEdit={setCommentEdit}
                   resBoard={resBoard}
+                  reGet="getDetail"
                 />
               </StMenu>
             </StcommentUser>
             <StCommentText>{comment.comment}</StCommentText>
             <StCommentDiv>
-              <p>{comment.updatedAt}</p>
+              <div className="date">{comment.updatedAt}</div>
               <div className="set">
                 <button onClick={() => reqRecomment()}>답글 보기(0)</button>
                 <div className="heart">
@@ -169,7 +171,16 @@ function DetailComment({ comment, resBoard }) {
                 setRecomment={setRecomment}
                 commentId={comment.commentId}
               />
-              <DetailReComment />
+              {reDate?.map((re) => {
+                return (
+                  <DetailReComment
+                    key={re.replyId}
+                    user={key}
+                    re={re}
+                    resBoard={resBoard}
+                  />
+                );
+              })}
             </>
           )}
         </>
@@ -277,9 +288,10 @@ const StCommentDiv = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  p {
+  .date {
     font-size: ${(props) => props.theme.fontSizes.xsm};
     color: ${(props) => props.theme.Colors.gray3};
+    ${FlexCenter};
   }
 
   .heart {

@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
 import { recommentPost } from "../../api/detailApi";
 
 function DetailReCommentInput({ setRecomment, commentId }) {
+  const queryClient = useQueryClient();
   //댓글 달기
   const { register, handleSubmit, reset } = useForm();
   const onRecomment = (comment) => {
@@ -15,7 +16,11 @@ function DetailReCommentInput({ setRecomment, commentId }) {
     }
   };
 
-  const writeComment = useMutation(recommentPost, {});
+  const writeComment = useMutation(recommentPost, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getRecomment");
+    },
+  });
 
   return (
     <StcommentBox as="form" onSubmit={handleSubmit(onRecomment)}>

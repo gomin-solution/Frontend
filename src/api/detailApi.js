@@ -87,5 +87,5 @@ export const recommenEdit = async (payload) => {
 
 /* 답해주기 대댓글 삭제 시 delete */
 export const recommentDelete = async (payload) => {
-  await instance.delete(`/advice/comment/re/:commentId`);
+  await instance.delete(`/advice/comment/re/${payload}`);
 };

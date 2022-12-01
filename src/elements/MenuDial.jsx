@@ -10,6 +10,7 @@ import {
   adviceDelete,
   commentDelete,
   messageNav,
+  recommentDelete,
   reportPost,
 } from "../api/detailApi";
 import { useNavigate } from "react-router-dom";
@@ -425,7 +426,7 @@ export function MenuDial4({ setFilterId }) {
 //게시판 상세페이지 댓글
 /*남 : 쪽지하기, 신고하기*/
 /*본인 : 수정, 삭제 */
-export function MenuDial5({ user, id, setCommentEdit, resBoard }) {
+export function MenuDial5({ user, id, setCommentEdit, resBoard, reGet }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -439,10 +440,17 @@ export function MenuDial5({ user, id, setCommentEdit, resBoard }) {
   //쿼리 초기화
   const queryClient = useQueryClient();
 
+  let useMutationName;
+  if (reGet === "getDetail") {
+    useMutationName = commentDelete;
+  } else if (reGet === "getRecomment") {
+    useMutationName = recommentDelete;
+  }
+
   //댓글 삭제
-  const { mutate } = useMutation(commentDelete, {
+  const { mutate } = useMutation(useMutationName, {
     onSuccess: () => {
-      queryClient.invalidateQueries("getDetail");
+      queryClient.invalidateQueries(reGet);
     },
   });
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Lottie from "react-lottie";
+import { Lottie } from "@crello/react-lottie";
 import animationData from "../image/splash/simbol.json";
 import { Container, FlexCenter } from "../shared/css";
 import styled from "styled-components";
@@ -8,8 +8,7 @@ const Splash = () => {
   /* lottie 속성값 설정 */
   const defaultOptions = {
     loop: false,
-    autoplay: true,
-    animationData,
+    animationData: animationData,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
@@ -23,7 +22,7 @@ const Splash = () => {
 
   return (
     <StContainer>
-      <Lottie options={defaultOptions} width="14rem" height="14rem" />
+      <Lottie config={defaultOptions} width="14rem" height="14rem" />
     </StContainer>
   );
 };

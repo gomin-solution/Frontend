@@ -5,8 +5,9 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { bookmark, postChoice } from "../api/boardChoiceApi";
 import { MenuDial1 } from "../elements/MenuDial";
-import { decodeCookie } from "../api/cookie";
+import { userKeyAtom } from "../state/atom";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
 
 const ChoiceList = ({ newRef, choice, getMutation }) => {
   const queryClient = useQueryClient();
@@ -19,7 +20,7 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
   dayjs.extend(timezone);
 
   /* 유저키 가져오기 */
-  const decodeKey = decodeCookie("accessToken")?.userKey;
+  const userKey = useRecoilValue(userKeyAtom);
 
   // /* 골라주기 % 변환 */
   const choice1Per = Math.round((choice.choice1 / choice.choiceCount) * 100);
@@ -144,7 +145,7 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
               onClick={() => bookmarkChange(choice.choiceId, choice.isBookMark)}
             />
           )}
-          {decodeKey === choice.userKey ? (
+          {userKey === choice.userKey ? (
             <MenuDial1 choiceId={choice.choiceId} getMutation={getMutation} />
           ) : null}
         </StIconWrap>

@@ -3,12 +3,11 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Alert2 } from "../../elements/Alert";
 import { useRecoilValue } from "recoil";
-import { accessTokenAtom } from "../../state/atom";
+import { userKeyAtom } from "../../state/atom";
 
 const AnswerAndBookmark = () => {
   const nav = useNavigate();
-
-  const isCookie = useRecoilValue(accessTokenAtom);
+  const userKey = useRecoilValue(userKeyAtom);
 
   const lists = [
     { title: "내가 작성한 고민", nav: "/mypost" },
@@ -16,7 +15,7 @@ const AnswerAndBookmark = () => {
   ];
 
   const navHandler = (navi) => {
-    if (isCookie) {
+    if (userKey) {
       nav(navi);
     } else {
       Alert2("로그인 후 이용해주세요.");

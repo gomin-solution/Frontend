@@ -10,18 +10,15 @@ import animationData from "../../image/dailyMessage/letter_lottie.json";
 import letterOpen from "../../image/dailyMessage/letterOpen.svg";
 import letterClose from "../../image/dailyMessage/letterClose.svg";
 import { FlexCenter } from "../../shared/css";
-import { useRecoilValue } from "recoil";
-import { accessTokenAtom } from "../../state/atom";
 
-const DailyMessage = ({ dailyMessage, isOpen }) => {
-  const isCookie = useRecoilValue(accessTokenAtom);
+const DailyMessage = ({ dailyMessage, isOpen, userKey }) => {
   const queryClient = useQueryClient();
 
   /* lottie 속성값 설정 */
   const defaultOptions = {
     loop: false,
     autoplay: false,
-    animationData,
+    animationData: animationData,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
@@ -36,7 +33,7 @@ const DailyMessage = ({ dailyMessage, isOpen }) => {
   });
 
   const messageHandler = () => {
-    if (isCookie) {
+    if (userKey) {
       if (!isOpen) {
         setOpen(false);
         setTimeout(() => Alert2(`${dailyMessage}`), [2000]);
@@ -51,6 +48,8 @@ const DailyMessage = ({ dailyMessage, isOpen }) => {
     }
   };
 
+  console.log(userKey);
+
   return (
     <StContainer>
       <StTitle>오늘의 행운 편지</StTitle>
@@ -60,15 +59,15 @@ const DailyMessage = ({ dailyMessage, isOpen }) => {
         </StWrap>
       ) : (
         <>
-          {isCookie ? (
-            <div onClick={messageHandler}>
+          {userKey ? (
+            <StLottie onClick={messageHandler}>
               <Lottie
-                options={defaultOptions}
+                config={defaultOptions}
                 height="10rem"
                 width="10rem"
                 isStopped={open}
               />
-            </div>
+            </StLottie>
           ) : (
             <StWrap onClick={messageHandler}>
               <StClose src={letterClose} alt="letterClose" />
@@ -100,6 +99,10 @@ const StTitle = styled.div`
 const StWrap = styled.div`
   ${FlexCenter};
   cursor: pointer;
+`;
+
+const StLottie = styled.div`
+  ${FlexCenter};
 `;
 
 const StOpen = styled.img`

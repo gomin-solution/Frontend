@@ -1,21 +1,26 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container, FlexCenter } from "../shared/css";
-import { getMyPage } from "../api/settingApi";
-import { removeCookie } from "../api/cookie";
+import { getMyPage, logout } from "../api/settingApi";
 import { useNavigate } from "react-router-dom";
+import { Alert2 } from "../elements/Alert";
+import { useSetRecoilState } from "recoil";
+import { userKeyAtom } from "../state/atom";
 
 function Setting() {
   const nav = useNavigate();
 
   const { data: res } = useQuery("getMyPage", getMyPage);
   const admin = res?.data.admin;
-  console.log(res);
+
+  const setUserKey = useSetRecoilState(userKeyAtom);
+  const logoutMutation = useMutation(logout);
 
   const logoutHandler = () => {
-    removeCookie("accessToken");
-    removeCookie("refreshToken");
+    logoutMutation.mutate();
+    setUserKey(false);
+    Alert2("로그아웃 되었습니다.");
     nav("/main");
   };
 

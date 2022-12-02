@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MenuDial5 } from "../../elements/MenuDial";
+import { MenuDial3 } from "../../elements/MenuDial";
 import SubdirectoryArrowRightIcon from "@mui/icons-material/SubdirectoryArrowRight";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -35,12 +35,14 @@ function DetailReComment({ re, user, resBoard }) {
           <div className="username">{re.nickname}</div>
           {reEdit ? (
             <StMenu>
-              <MenuDial5
+              <MenuDial3
                 user={user}
                 id={re.replyId}
-                setCommentEdit={setReEdit}
+                setAdEdit={setReEdit}
                 resBoard={resBoard}
                 reGet="getRecomment"
+                target="reply"
+                nickname={re.nickname}
               />
             </StMenu>
           ) : null}

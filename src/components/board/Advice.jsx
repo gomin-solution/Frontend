@@ -28,7 +28,7 @@ const Advice = () => {
   return (
     <StContainer>
       <StNavWrap>
-        <MenuDial6 setCategoryId={setCategoryId} />
+        <MenuDial6 setCategoryId={setCategoryId} total="total" />
         <MenuDial2 setFilterId={setFilterId} />
       </StNavWrap>
       <StListWrap>

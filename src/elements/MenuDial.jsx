@@ -38,6 +38,7 @@ export function MenuDial0({ setFilterId }) {
     { filter: "참여자순", filterId: 1 },
     { filter: "마감순", filterId: 2 },
   ];
+
   const changeMenu = (item) => {
     setMenu(item.filter);
     setFilterId(item.filterId);
@@ -233,10 +234,18 @@ export function MenuDial2({ setFilterId }) {
   );
 }
 
-//게시판 상세페이지 게시글
+//게시판 상세페이지 게시글, 댓글, 대댓글
 /*남 : 쪽지하기, 신고하기*/
 /*본인 : 수정, 삭제 */
-export function MenuDial3({ user, id, setAdEdit, resBoard, target }) {
+export function MenuDial3({
+  user,
+  id,
+  setAdEdit,
+  resBoard,
+  target,
+  reGet,
+  nickname,
+}) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -251,11 +260,20 @@ export function MenuDial3({ user, id, setAdEdit, resBoard, target }) {
   const queryClient = useQueryClient();
   const nav = useNavigate();
 
+  let useMutationName;
+  if (reGet === "getDetail") {
+    useMutationName = commentDelete;
+  } else if (reGet === "getRecomment") {
+    useMutationName = recommentDelete;
+  } else if (reGet === "getAdviceScroll") {
+    useMutationName = adviceDelete;
+  }
+
   //게시글 삭제
-  const { mutate } = useMutation(adviceDelete, {
+  const { mutate } = useMutation(useMutationName, {
     onSuccess: () => {
-      queryClient.invalidateQueries("getAdviceScroll");
-      nav("/board-advice");
+      queryClient.invalidateQueries(reGet);
+      reGet === "getAdviceScroll" && nav("/board-advice");
     },
   });
 
@@ -268,7 +286,8 @@ export function MenuDial3({ user, id, setAdEdit, resBoard, target }) {
   const messageMutate = (note) =>
     messageMutation.mutate({ userKey, category, title, note });
   const MessageHandler = () => {
-    Alert5("쪽지 보내기", "쪽지 내용을 입력해주세요.", messageMutate);
+    setAnchorEl(null);
+    Alert5("쪽지 보내기", "쪽지 내용을 입력해주세요.", messageMutate, nickname);
   };
 
   // 신고하기
@@ -279,7 +298,8 @@ export function MenuDial3({ user, id, setAdEdit, resBoard, target }) {
   const reportMutate = (why) =>
     reportMutation.mutate({ params, targetName, why });
   const reportHandler = () => {
-    Alert5("신고하기", "신고 사유를 입력해주세요.", reportMutate);
+    setAnchorEl(null);
+    Alert5("신고하기", "신고 사유를 입력해주세요.", reportMutate, nickname);
   };
 
   return (
@@ -294,63 +314,52 @@ export function MenuDial3({ user, id, setAdEdit, resBoard, target }) {
       >
         <MoreVertIcon />
       </Button>
-      {user ? (
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-          sx={{
-            "& .MuiMenu-list": {
-              backgroundColor: "#19696A",
-              padding: "0",
-            },
-          }}
-        >
-          <MenuItem
-            sx={{ color: "#FFFFFF" }}
-            onClick={() => {
-              setAdEdit(false);
-            }}
-          >
-            수정
-          </MenuItem>
-          <MenuItem
-            sx={{ color: "#FFFFFF" }}
-            onClick={() => {
-              mutate(id);
-            }}
-          >
-            삭제
-          </MenuItem>
-        </Menu>
-      ) : (
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-          sx={{
-            "& .MuiMenu-list": {
-              backgroundColor: "#19696A",
-              padding: "0",
-            },
-          }}
-        >
-          <MenuItem sx={{ color: "#FFFFFF" }} onClick={MessageHandler}>
-            쪽지하기
-          </MenuItem>
-          <MenuItem sx={{ color: "#FFFFFF" }} onClick={reportHandler}>
-            신고하기
-          </MenuItem>
-        </Menu>
-      )}
+
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+        sx={{
+          "& .MuiMenu-list": {
+            backgroundColor: "#19696A",
+            padding: "0",
+          },
+        }}
+      >
+        {user ? (
+          <div>
+            <MenuItem
+              sx={{ color: "#FFFFFF" }}
+              onClick={() => {
+                setAdEdit(false);
+              }}
+            >
+              수정
+            </MenuItem>
+            <MenuItem
+              sx={{ color: "#FFFFFF" }}
+              onClick={() => {
+                mutate(id);
+              }}
+            >
+              삭제
+            </MenuItem>
+          </div>
+        ) : (
+          <div>
+            <MenuItem sx={{ color: "#FFFFFF" }} onClick={MessageHandler}>
+              쪽지하기
+            </MenuItem>
+            <MenuItem sx={{ color: "#FFFFFF" }} onClick={reportHandler}>
+              신고하기
+            </MenuItem>
+          </div>
+        )}
+      </Menu>
     </StDiv>
   );
 }
@@ -423,122 +432,9 @@ export function MenuDial4({ setFilterId }) {
   );
 }
 
-//게시판 상세페이지 댓글
-/*남 : 쪽지하기, 신고하기*/
-/*본인 : 수정, 삭제 */
-export function MenuDial5({ user, id, setCommentEdit, resBoard, reGet }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  //쿼리 초기화
-  const queryClient = useQueryClient();
-
-  let useMutationName;
-  if (reGet === "getDetail") {
-    useMutationName = commentDelete;
-  } else if (reGet === "getRecomment") {
-    useMutationName = recommentDelete;
-  }
-
-  //댓글 삭제
-  const { mutate } = useMutation(useMutationName, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(reGet);
-    },
-  });
-
-  // 쪽지 보내기
-  const payload = {
-    userKey: resBoard?.userKey,
-    category: resBoard?.category,
-    title: resBoard?.title,
-  };
-
-  const MessageMutation = useMutation(messageNav);
-  const MessageHandler = () => {
-    MessageMutation.mutate(payload);
-  };
-
-  return (
-    <StDiv>
-      <Button
-        id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
-        sx={{ color: "#19696A", padding: "0", minWidth: "0" }}
-      >
-        <MoreVertIcon />
-      </Button>
-      {user ? (
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-          sx={{
-            "& .MuiMenu-list": {
-              backgroundColor: "#19696A",
-              padding: "0",
-            },
-          }}
-        >
-          <MenuItem
-            sx={{ color: "#FFFFFF" }}
-            onClick={() => {
-              setCommentEdit(false);
-            }}
-          >
-            수정
-          </MenuItem>
-          <MenuItem
-            sx={{ color: "#FFFFFF" }}
-            onClick={() => {
-              mutate(id);
-            }}
-          >
-            삭제
-          </MenuItem>
-        </Menu>
-      ) : (
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-          sx={{
-            "& .MuiMenu-list": {
-              backgroundColor: "#19696A",
-              padding: "0",
-            },
-          }}
-        >
-          <MenuItem sx={{ color: "#FFFFFF" }} onClick={MessageHandler}>
-            쪽지하기
-          </MenuItem>
-          <MenuItem sx={{ color: "#FFFFFF" }}>신고하기</MenuItem>
-        </Menu>
-      )}
-    </StDiv>
-  );
-}
-
 /* 답해주기 카테고리 필터 (전체) */
-export function MenuDial6({ setCategoryId }) {
+/* 답해주기 글작성 카테고리 필터 (전체) */
+export function MenuDial6({ setCategoryId, total }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menu, setMenu] = useState("카테고리");
   const open = Boolean(anchorEl);
@@ -553,7 +449,6 @@ export function MenuDial6({ setCategoryId }) {
 
   //선택시 이름 바꾸기
   const categories = [
-    { topic: "전체", categoryId: 0 },
     { topic: "여행", categoryId: 1 },
     { topic: "진로", categoryId: 2 },
     { topic: "쇼핑", categoryId: 3 },
@@ -567,6 +462,10 @@ export function MenuDial6({ setCategoryId }) {
     { topic: "생활", categoryId: 11 },
     { topic: "기타", categoryId: 12 },
   ];
+
+  if (total) {
+    categories.unshift({ topic: "전체", categoryId: 0 });
+  }
 
   const changeMenu = (category) => {
     setMenu(category.topic);
@@ -615,87 +514,6 @@ export function MenuDial6({ setCategoryId }) {
                   color: "#FFFFFF",
                 }}
               >
-                {category.topic}
-              </MenuItem>
-            </div>
-          );
-        })}
-      </Menu>
-    </StCategory>
-  );
-}
-
-/* 답해주기 카테고리 */
-export function MenuDial7({ setCategoryId }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [menu, setMenu] = useState("선택");
-  const open = Boolean(anchorEl);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  //선택시 이름 바꾸기
-  const categories = [
-    { topic: "여행", categoryId: 1 },
-    { topic: "진로", categoryId: 2 },
-    { topic: "쇼핑", categoryId: 3 },
-    { topic: "연애", categoryId: 4 },
-    { topic: "친구", categoryId: 5 },
-    { topic: "반려동물", categoryId: 6 },
-    { topic: "선물", categoryId: 7 },
-    { topic: "건강", categoryId: 8 },
-    { topic: "코디", categoryId: 9 },
-    { topic: "육아", categoryId: 10 },
-    { topic: "생활", categoryId: 11 },
-    { topic: "기타", categoryId: 12 },
-  ];
-
-  const changeMenu = (category) => {
-    setMenu(category.topic);
-    setCategoryId(category.categoryId);
-    setAnchorEl(null);
-  };
-
-  return (
-    <StCategory>
-      <Button
-        id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
-        sx={{ color: "#19696A", backgroundColor: "#F1F5F4" }}
-      >
-        {menu}
-        <ExpandMoreIcon sx={{ color: "#737878" }} />
-      </Button>
-      <Menu
-        sx={{
-          height: "22rem",
-          "& .MuiMenu-list": {
-            padding: "0",
-          },
-        }}
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-        onClose={handleClose}
-      >
-        {categories?.map((category) => {
-          return (
-            <div
-              key={category.categoryId}
-              style={{ borderBottom: "1px solid #D6E6E5" }}
-            >
-              <MenuItem onClick={() => changeMenu(category)}>
                 {category.topic}
               </MenuItem>
             </div>

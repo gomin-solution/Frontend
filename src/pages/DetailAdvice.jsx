@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useLocation, useParams } from "react-router-dom";
 import { adviceBookmark, commentAdvice, adviceDetail } from "../api/detailApi";
-import { decodeCookie, getCookie } from "../api/cookie";
 import { useForm } from "react-hook-form";
 
 import styled from "styled-components";
@@ -151,6 +150,8 @@ function DetailAdvice() {
                   id={resBoard?.adviceId}
                   setAdEdit={setAdEdit}
                   target="advice"
+                  reGet="getAdviceScroll"
+                  nickname={resBoard?.nickname}
                 />
               </StMenu>
             </StUser>

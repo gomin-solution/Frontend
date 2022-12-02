@@ -4,7 +4,7 @@ import { useAdviceInfiniteScroll } from "../../api/boardAdviceApi";
 import AdviceList from "../AdviceList";
 
 import styled from "styled-components";
-import { MenuDial2, MenuDial6 } from "../../elements/MenuDial";
+import { FilterDial, CategoryDial } from "../../elements/MenuDial";
 
 const Advice = () => {
   /* filter 적용 */
@@ -25,11 +25,18 @@ const Advice = () => {
     }
   }, [inView]);
 
+  //선택시 이름 바꾸기
+  const filters = [
+    { filter: "최신순", filterId: 0 },
+    { filter: "조회순", filterId: 1 },
+    { filter: "댓글순", filterId: 2 },
+  ];
+
   return (
     <StContainer>
       <StNavWrap>
-        <MenuDial6 setCategoryId={setCategoryId} />
-        <MenuDial2 setFilterId={setFilterId} />
+        <CategoryDial setCategoryId={setCategoryId} total="total" />
+        <FilterDial setFilterId={setFilterId} filters={filters} />
       </StNavWrap>
       <StListWrap>
         {isSuccess && getAdvice?.pages

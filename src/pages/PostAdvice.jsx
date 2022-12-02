@@ -7,7 +7,7 @@ import { useMutation } from "react-query";
 import styled from "styled-components";
 import { Header5 } from "../elements/Header";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
-import { MenuDial7 } from "../elements/MenuDial";
+import { CategoryDial } from "../elements/MenuDial";
 import { ImageModal } from "../components/detailBorad/ImageModal";
 import { Container, FlexCenter } from "../shared/css";
 
@@ -106,7 +106,7 @@ function AdvicePost({ resBoard }) {
         {resBoard === undefined ? (
           <>
             <StLabel>카테고리 선택</StLabel>
-            <MenuDial7 setCategoryId={setCategoryId} />
+            <CategoryDial setCategoryId={setCategoryId} />
           </>
         ) : (
           <div style={{ fontWeight: "700" }}>{resBoard.category}</div>

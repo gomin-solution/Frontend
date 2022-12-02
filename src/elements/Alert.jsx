@@ -64,7 +64,7 @@ export const Alert4 = () => {
 };
 
 /* 쪽지 보내기, 신고하기 */
-export const Alert5 = (title, placeholder, mutate) => {
+export const Alert5 = (title, placeholder, mutate, nickname) => {
   Swal.fire({
     customClass: {
       htmlContainer: "htmlContainer-msg",
@@ -74,7 +74,10 @@ export const Alert5 = (title, placeholder, mutate) => {
       confirmButton: "confirm-msg",
     },
     buttonsStyling: false,
-    text: "받는 사람 닉네임",
+    text:
+      title === "쪽지 보내기"
+        ? `To.${nickname}`
+        : `신고 대상 닉네임 : ${nickname} `,
     title: title,
     input: "textarea",
     inputPlaceholder: placeholder,

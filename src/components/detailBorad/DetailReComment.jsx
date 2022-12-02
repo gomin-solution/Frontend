@@ -2,32 +2,71 @@ import styled from "styled-components";
 import { MenuDial5 } from "../../elements/MenuDial";
 import SubdirectoryArrowRightIcon from "@mui/icons-material/SubdirectoryArrowRight";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "react-query";
+import { recommentEdit } from "../../api/detailApi";
 
 function DetailReComment({ re, user, resBoard }) {
-  console.log(re);
-  const [recommentEdit, setReCommentEdit] = useState(true);
+  const queryClient = useQueryClient();
+  const [reEdit, setReEdit] = useState(true);
+
+  const { register, handleSubmit } = useForm();
+  const onRecomment = (comment) => {
+    if (comment.re.trim() === "") {
+      return alert("댓글을 입력해주세요.");
+    } else {
+      editComment.mutate({ comment, id: re.replyId });
+      setReEdit(true);
+    }
+  };
+
+  const editComment = useMutation(recommentEdit, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getRecomment");
+    },
+  });
 
   return (
     <StcommentBox>
       <SubdirectoryArrowRightIcon sx={{ color: "#19696A" }} />
-      <div>
+      <div className="textbox">
         <StcommentUser>
           <img src="" alt="" />
-          <div className="username">닉네임</div>
-          <StMenu>
-            <MenuDial5
-              user={user}
-              id={re.replyId}
-              setCommentEdit={setReCommentEdit}
-              resBoard={resBoard}
-              reGet="recommenGet"
-            />
-          </StMenu>
+          <div className="username">{re.nickname}</div>
+          {reEdit ? (
+            <StMenu>
+              <MenuDial5
+                user={user}
+                id={re.replyId}
+                setCommentEdit={setReEdit}
+                resBoard={resBoard}
+                reGet="getRecomment"
+              />
+            </StMenu>
+          ) : null}
         </StcommentUser>
-        <StCommentText>{re.comment}</StCommentText>
-        <StCommentDiv>
-          <p>{re.updatedAt}</p>
-        </StCommentDiv>
+        {reEdit ? (
+          <>
+            <StCommentText>{re.comment}</StCommentText>
+            <StCommentDiv>
+              <p>{re.updatedAt}</p>
+            </StCommentDiv>
+          </>
+        ) : (
+          <StCommentText as="form" onSubmit={handleSubmit(onRecomment)}>
+            <input
+              defaultValue={re.comment}
+              maxLength={50}
+              {...register("re")}
+            />
+            <StEditCommentDiv>
+              <button type="button" onClick={() => setReEdit(true)}>
+                취소
+              </button>
+              <button>작성</button>
+            </StEditCommentDiv>
+          </StCommentText>
+        )}
       </div>
     </StcommentBox>
   );
@@ -45,18 +84,15 @@ const StcommentBox = styled.div`
   white-space: pre-wrap;
   display: flex;
 
+  .textbox {
+    width: 100%;
+  }
+
   //답글버튼
   button {
     font-weight: ${(props) => props.theme.fontWeights.xl};
     color: ${(props) => props.theme.Colors.blueGreen3};
   }
-`;
-
-const StcommentEditBox = styled.div`
-  background-color: ${(props) => props.theme.Colors.blueGray1};
-  padding: ${(props) => props.theme.paddings.base};
-  padding-bottom: 0.2rem;
-  margin-bottom: ${(props) => props.theme.margins.xxsm};
 `;
 
 /*메뉴 위치조정 */
@@ -85,6 +121,13 @@ const StcommentUser = styled.div`
 /*댓글 작성란*/
 const StCommentText = styled.div`
   margin: ${(props) => props.theme.margins.xxsm} 0;
+  font-size: ${(props) => props.theme.fontSizes.sm};
+
+  input {
+    width: 100%;
+    padding: ${(props) => props.theme.paddings.xsm};
+    border: none;
+  }
 `;
 
 const StCommentDiv = styled.div`
@@ -96,38 +139,12 @@ const StCommentDiv = styled.div`
     font-size: ${(props) => props.theme.fontSizes.xsm};
     color: ${(props) => props.theme.Colors.gray3};
   }
-
-  .heart {
-    display: flex;
-    align-items: center;
-    color: #de3730;
-    span {
-      margin-right: 0.3rem;
-      margin-bottom: 0.15rem;
-    }
-  }
-
-  .set {
-    display: flex;
-    gap: 1.5rem;
-  }
 `;
 
-/*수정 댓글란 */
-
-const StCommentEdit = styled.form`
-  color: #002020;
-  margin: ${(props) => props.theme.margins.xxsm} 0;
-  textarea {
-    width: 100%;
-    font-size: ${(props) => props.theme.fontSizes.base};
-  }
-
-  button {
-    margin-left: 0.5rem;
-  }
-  div {
-    display: flex;
-    justify-content: flex-end;
-  }
+const StEditCommentDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
 `;

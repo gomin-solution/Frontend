@@ -67,7 +67,7 @@ export const commentPick = async (payload) => {
 /* ----------------------채택하기---------------------- */
 
 /* 답해주기 대댓글 정보 get*/
-export const recommenGet = async (commentId) => {
+export const recommentGet = async (commentId) => {
   const res = await instance.get(`/advice/comment/re/${commentId}`);
   return res;
 };
@@ -81,8 +81,8 @@ export const recommentPost = async (payload) => {
 };
 
 /* 답해주기 대댓글 수정 시 put */
-export const recommenEdit = async (payload) => {
-  await instance.put(`/advice/comment/re/:commentId`, payload.comment);
+export const recommentEdit = async (payload) => {
+  await instance.put(`/advice/comment/re/${payload.id}`, payload.comment);
 };
 
 /* 답해주기 대댓글 삭제 시 delete */

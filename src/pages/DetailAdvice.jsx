@@ -115,10 +115,10 @@ function DetailAdvice() {
   //userKey 유무 판단
   const key = useRecoilValue(userKeyAtom);
   useEffect(() => {
-    if (key) {
+    if (key === resBoard?.userKey) {
       setUser(true);
     }
-  }, [key]);
+  }, [resBoard]);
 
   return (
     <>

@@ -3,7 +3,7 @@ import {
   commenEdit,
   commentLike,
   commentPick,
-  recommenGet,
+  recommentGet,
 } from "../../api/detailApi";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -24,21 +24,19 @@ function DetailComment({ comment, resBoard }) {
   const commentId = comment.commentId;
 
   //대댓글 가져오기
-  const { data, refetch } = useQuery(
+  const { data } = useQuery(
     ["getRecomment", commentId],
-    () => recommenGet(commentId),
+    () => recommentGet(commentId),
     {
-      enabled: false,
       refetchOnWindowFocus: false,
     }
   );
 
   const reqRecomment = () => {
-    refetch();
     setRecomment(true);
   };
 
-  const reDate = data?.data.data;
+  const reData = data?.data.data;
 
   /* 댓글 수정 */
   const [commentEdit, setCommentEdit] = useState(true);
@@ -141,7 +139,11 @@ function DetailComment({ comment, resBoard }) {
             <StCommentDiv>
               <div className="date">{comment.updatedAt}</div>
               <div className="set">
-                <button onClick={() => reqRecomment()}>답글 보기(0)</button>
+                <button onClick={() => reqRecomment()}>
+                  {reData?.length === 0
+                    ? "답글 달기"
+                    : `답글 보기(${reData?.length})`}
+                </button>
                 <div className="heart">
                   <span>{commentCount}</span>
                   {comment.isLike ? (
@@ -171,7 +173,7 @@ function DetailComment({ comment, resBoard }) {
                 setRecomment={setRecomment}
                 commentId={comment.commentId}
               />
-              {reDate?.map((re) => {
+              {reData?.map((re) => {
                 return (
                   <DetailReComment
                     key={re.replyId}

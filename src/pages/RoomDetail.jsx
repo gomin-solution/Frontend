@@ -5,11 +5,12 @@ import { useEffect, useRef, useState } from "react";
 import { decodeCookie } from "../api/cookie";
 import { useQuery } from "react-query";
 import { getNotes } from "../api/room";
-
 import { Header1 } from "../elements/Header";
 import styled from "styled-components";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import { Container } from "../shared/css";
+import { useRecoilValue } from "recoil";
+import { userKeyAtom } from "../state/atom";
 
 const RoomDetail = () => {
   const chatContainerEl = useRef(null);
@@ -18,7 +19,7 @@ const RoomDetail = () => {
   const { roomId } = useParams();
 
   /* 유저키 가져오기 */
-  const { userKey } = decodeCookie("accessToken");
+  const userKey = useRecoilValue(userKeyAtom);
 
   /* 기존 쪽지 내용 담기 */
   const [messages, setMessages] = useState([]);

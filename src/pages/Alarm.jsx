@@ -2,10 +2,9 @@ import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container, FlexCenter } from "../shared/css";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { socket } from "../api/socketio";
-import { useState } from "react";
-import { useMutation, useQuery } from "react-query";
-import { getAlarms, removeAlarm } from "../api/alarm";
+// import { socket } from "../api/socketio";
+import { useMutation } from "react-query";
+import { removeAlarm } from "../api/alarm";
 import CloseIcon from "@mui/icons-material/Close";
 
 const Alarm = () => {
@@ -18,15 +17,15 @@ const Alarm = () => {
   const { mutate } = useMutation(removeAlarm);
 
   /* 알림 받기 */
-  socket.on("mission_alarm", (data) => {
-    console.log("알림 테스트", data);
-    // setAlarms([
-    //   ...alarms,
-    //   {
-    //     alarms: data,
-    //   },
-    // ]);
-  });
+  // socket.on("mission_alarm", (data) => {
+  //   console.log("알림 테스트", data);
+  //   // setAlarms([
+  //   //   ...alarms,
+  //   //   {
+  //   //     alarms: data,
+  //   //   },
+  //   // ]);
+  // });
 
   return (
     <>

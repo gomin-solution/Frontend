@@ -1,5 +1,10 @@
-import { useMutation, useQueryClient } from "react-query";
-import { commenEdit, commentLike, commentPick } from "../../api/detailApi";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import {
+  commenEdit,
+  commentLike,
+  commentPick,
+  recommentGet,
+} from "../../api/detailApi";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -12,9 +17,26 @@ import DetailReCommentInput from "./DetailRecommentInput";
 import { Alert7 } from "../../elements/Alert";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../../state/atom";
+import { FlexCenter } from "../../shared/css";
 
 function DetailComment({ comment, resBoard }) {
   const queryClient = useQueryClient();
+  const commentId = comment.commentId;
+
+  //대댓글 가져오기
+  const { data } = useQuery(
+    ["getRecomment", commentId],
+    () => recommentGet(commentId),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  const reqRecomment = () => {
+    setRecomment(true);
+  };
+
+  const reData = data?.data.data;
 
   /* 댓글 수정 */
   const [commentEdit, setCommentEdit] = useState(true);
@@ -23,7 +45,6 @@ function DetailComment({ comment, resBoard }) {
 
   //댓글 수정 하기
   const { register, handleSubmit } = useForm();
-  const commentId = comment.commentId;
   const onEdit = (comment) => {
     if (comment.comment.trim() === "") {
       return alert("댓글을 입력해주세요.");
@@ -39,7 +60,7 @@ function DetailComment({ comment, resBoard }) {
     },
   });
 
-  //댓글 선택하기
+  //댓글 채택하기
   const pickIt = useMutation(commentPick, {
     onSuccess: () => {
       queryClient.invalidateQueries("getDetail");
@@ -110,14 +131,19 @@ function DetailComment({ comment, resBoard }) {
                   id={comment.commentId}
                   setCommentEdit={setCommentEdit}
                   resBoard={resBoard}
+                  reGet="getDetail"
                 />
               </StMenu>
             </StcommentUser>
             <StCommentText>{comment.comment}</StCommentText>
             <StCommentDiv>
-              <p>{comment.createdAt}</p>
+              <div className="date">{comment.updatedAt}</div>
               <div className="set">
-                <button onClick={() => setRecomment(true)}>답글 보기(0)</button>
+                <button onClick={() => reqRecomment()}>
+                  {reData?.length === 0
+                    ? "답글 달기"
+                    : `답글 보기(${reData?.length})`}
+                </button>
                 <div className="heart">
                   <span>{commentCount}</span>
                   {comment.isLike ? (
@@ -143,10 +169,20 @@ function DetailComment({ comment, resBoard }) {
 
           {recomment && (
             <>
-              <DetailReCommentInput />
-              <DetailReComment />
-              <DetailReComment />
-              <DetailReComment />
+              <DetailReCommentInput
+                setRecomment={setRecomment}
+                commentId={comment.commentId}
+              />
+              {reData?.map((re) => {
+                return (
+                  <DetailReComment
+                    key={re.replyId}
+                    user={key}
+                    re={re}
+                    resBoard={resBoard}
+                  />
+                );
+              })}
             </>
           )}
         </>
@@ -254,9 +290,10 @@ const StCommentDiv = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  p {
+  .date {
     font-size: ${(props) => props.theme.fontSizes.xsm};
     color: ${(props) => props.theme.Colors.gray3};
+    ${FlexCenter};
   }
 
   .heart {

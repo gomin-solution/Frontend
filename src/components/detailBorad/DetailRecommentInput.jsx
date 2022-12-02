@@ -1,14 +1,39 @@
+import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
-import SubdirectoryArrowRightIcon from "@mui/icons-material/SubdirectoryArrowRight";
+import { recommentPost } from "../../api/detailApi";
 
-function DetailReCommentInput() {
+function DetailReCommentInput({ setRecomment, commentId }) {
+  const queryClient = useQueryClient();
+  //댓글 달기
+  const { register, handleSubmit, reset } = useForm();
+  const onRecomment = (comment) => {
+    if (comment.re.trim() === "") {
+      return alert("댓글을 입력해주세요.");
+    } else {
+      writeComment.mutate({ commentId: commentId, comment });
+      reset();
+    }
+  };
+
+  const writeComment = useMutation(recommentPost, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("getRecomment");
+    },
+  });
+
   return (
-    <StcommentBox>
-      <SubdirectoryArrowRightIcon sx={{ color: "#19696A" }} />
+    <StcommentBox as="form" onSubmit={handleSubmit(onRecomment)}>
       <div className="inputBox">
-        <input placeholder="답글을 입력해주세요. (50자 이내)" maxLength={50} />
+        <input
+          placeholder="답글을 입력해주세요. (50자 이내)"
+          maxLength={50}
+          {...register("re")}
+        />
         <StCommentDiv>
-          <button>취소</button>
+          <button type="button" onClick={() => setRecomment(false)}>
+            취소
+          </button>
           <button>작성</button>
         </StCommentDiv>
       </div>
@@ -31,7 +56,7 @@ const StcommentBox = styled.div`
     color: ${(props) => props.theme.Colors.blueGreen3};
   }
   input {
-    margin-left: 0.2rem;
+    margin-left: 1rem;
     background-color: ${(props) => props.theme.Colors.bg3};
     padding: ${(props) => props.theme.paddings.xsm};
     border: none;

@@ -4,13 +4,11 @@ import { Header1 } from "../elements/Header";
 import { Container, FlexCenter } from "../shared/css";
 import { getMyPage, logout } from "../api/settingApi";
 import { useNavigate } from "react-router-dom";
-import { Alert2 } from "../elements/Alert";
+import { Alert1 } from "../elements/Alert";
 import { useSetRecoilState } from "recoil";
 import { userKeyAtom } from "../state/atom";
 
 function Setting() {
-  const nav = useNavigate();
-
   const { data: res } = useQuery("getMyPage", getMyPage);
   const admin = res?.data.admin;
 
@@ -20,8 +18,7 @@ function Setting() {
   const logoutHandler = () => {
     logoutMutation.mutate();
     setUserKey(false);
-    Alert2("로그아웃 되었습니다.");
-    nav("/main");
+    Alert1("로그아웃 되었습니다.", "/main", "recoil-persist");
   };
 
   return (

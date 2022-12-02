@@ -22,10 +22,21 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
   /* 유저키 가져오기 */
   const userKey = useRecoilValue(userKeyAtom);
 
-  // /* 골라주기 % 변환 */
-  const choice1Per = Math.round((choice.choice1 / choice.choiceCount) * 100);
-  const choice2Per = 100 - choice1Per;
+  let choice1Per;
+  let choice2Per;
 
+  if (choice.choice1 === 0 && choice.choice2 === 0) {
+    choice1Per = 0;
+    choice1Per = 0;
+  } else if (choice.choice1 !== 0) {
+    choice1Per = Math.round((choice.choice1 / choice.choiceCount) * 100);
+    choice2Per = 100 - choice1Per;
+  } else {
+    choice2Per = Math.round((choice.choice2 / choice.choiceCount) * 100);
+    choice1Per = 100 - choice2Per;
+  }
+
+  // /* 골라주기 % 변환 */
   const [choiceAPer, setChoiceAPer] = useState(choice1Per);
   const [choiceBPer, setChoiceBPer] = useState(choice2Per);
 
@@ -158,7 +169,7 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
           <StParticipant>{choice.choiceCount}명 참여</StParticipant>
         )}
         <StParticipant>
-          {newEndTime > nowTime ? (
+          {!choice.isEnd ? (
             <span>{diffTime} 후 마감</span>
           ) : (
             <span style={{ color: "#BA1A1A", fontWeight: "700" }}>
@@ -171,7 +182,16 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
         <span>{choice.choice1Name}</span>
         <span>{choice.choice2Name}</span>
       </StTextWrap3>
-      {!choice.isChoice ? (
+      {choice.isChoice || choice.isEnd ? (
+        <StChoiceWrap choiceCount={choice.choiceCount}>
+          <StChoice1 width={choiceAPer} isChoice={choice.isChoice}>
+            <StPerText1>{choiceAPer}%</StPerText1>
+          </StChoice1>
+          <StChoice2 width={choiceBPer}>
+            <StPerText2>{choiceBPer}%</StPerText2>
+          </StChoice2>
+        </StChoiceWrap>
+      ) : (
         <StChoiceWrap>
           <StChoiceBtn
             onClick={(e) => choiceSubmit(e, choice)}
@@ -189,15 +209,6 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
           >
             선택
           </StChoiceBtn>
-        </StChoiceWrap>
-      ) : (
-        <StChoiceWrap isEnd={choice.isEnd}>
-          <StChoice1 width={choiceAPer}>
-            <StPerText1>{choiceAPer}%</StPerText1>
-          </StChoice1>
-          <StChoice2 width={choiceBPer}>
-            <StPerText2>{choiceBPer}%</StPerText2>
-          </StChoice2>
         </StChoiceWrap>
       )}
     </StWrap>
@@ -256,14 +267,13 @@ const StIconWrap = styled.div`
 
 const StChoiceWrap = styled.div`
   width: 100%;
-  display: ${(props) => (props.isEnd ? "none" : "flex")};
+  display: ${(props) => (props.choiceCount === 0 ? "none" : "flex")};
 `;
 
 const StChoiceBtn = styled.button`
   width: 100%;
   height: 2rem;
   background-color: ${(props) => props.backColor};
-  display: ${(props) => (props.isEnd ? "none" : null)};
 `;
 
 const StChoice1 = styled.div`
@@ -291,6 +301,7 @@ const StPerText1 = styled.span`
   padding: ${(props) => props.theme.paddings.xsm};
   position: absolute;
   left: 0;
+  z-index: 99;
 `;
 
 const StPerText2 = styled.span`

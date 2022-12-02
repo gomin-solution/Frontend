@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 import "../elements/Alert.css";
 
 /* 확인 후 이동 */
-export const Alert1 = (text, navi) => {
+export const Alert1 = (text, navi, removeKey) => {
   Swal.fire({
     customClass: {
       confirmButton: "confirm-Btn",
@@ -12,6 +12,9 @@ export const Alert1 = (text, navi) => {
     confirmButtonText: "확인",
   }).then(() => {
     window.location.href = navi;
+    if (removeKey) {
+      localStorage.removeItem(removeKey);
+    }
   });
 };
 

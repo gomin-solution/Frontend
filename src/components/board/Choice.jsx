@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 // MUI Icon
 import { useChoiceInfiniteScroll } from "../../api/boardChoiceApi";
-import { MenuDial0 } from "../../elements/MenuDial";
+import { FilterDial } from "../../elements/MenuDial";
 import ChoiceList from "../ChoiceList";
 
 const Choice = () => {
@@ -25,10 +25,17 @@ const Choice = () => {
     }
   }, [inView]);
 
+  //선택시 이름 바꾸기
+  const filters = [
+    { filter: "최신순", filterId: 0 },
+    { filter: "참여자순", filterId: 1 },
+    { filter: "마감순", filterId: 2 },
+  ];
+
   return (
     <StContainer>
       <StNavWrap>
-        <MenuDial0 setFilterId={setFilterId} />
+        <FilterDial setFilterId={setFilterId} filters={filters} />
       </StNavWrap>
       {isSuccess && getChoice?.pages
         ? getChoice?.pages.map((page) => (

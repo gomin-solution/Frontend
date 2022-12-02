@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -17,9 +17,14 @@ import { useNavigate } from "react-router-dom";
 import { endChoice, removeChoice } from "../api/boardChoiceApi";
 import { Alert5 } from "./Alert";
 
-//투표 정렬 필터
-/*최신순, 참여자순, 마감임박순*/
-export function MenuDial0({ setFilterId }) {
+//Dial 종류 : FilterDial, VoteDial, UserDial, CategoryDial
+
+//정렬 필터
+/* 투표 ----- 최신순, 참여자순, 마감임박순*/
+/* 답해주기-----최신순, 조회순, 댓글순 */
+/* 답해주기 댓글-----등록순, 좋아요순*/
+
+export function FilterDial({ setFilterId, filters }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menu, setMenu] = useState("최신순");
   const open = Boolean(anchorEl);
@@ -31,13 +36,6 @@ export function MenuDial0({ setFilterId }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  //선택시 이름 바꾸기
-  const filters = [
-    { filter: "최신순", filterId: 0 },
-    { filter: "참여자순", filterId: 1 },
-    { filter: "마감순", filterId: 2 },
-  ];
 
   const changeMenu = (item) => {
     setMenu(item.filter);
@@ -93,7 +91,7 @@ export function MenuDial0({ setFilterId }) {
 
 //투표 점
 /*삭제, 골라주기 종료*/
-export function MenuDial1({ choiceId, getMutation }) {
+export function VoteDial({ choiceId, getMutation }) {
   const queryClient = useQueryClient();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -163,81 +161,10 @@ export function MenuDial1({ choiceId, getMutation }) {
   );
 }
 
-//게시판 정렬 필터
-/*최신순, 조회순, 댓글순 */
-export function MenuDial2({ setFilterId }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [menu, setMenu] = useState("최신순");
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  //선택시 이름 바꾸기
-  const filters = [
-    { filter: "최신순", filterId: 0 },
-    { filter: "조회순", filterId: 1 },
-    { filter: "댓글순", filterId: 2 },
-  ];
-  const changeMenu = (item) => {
-    setMenu(item.filter);
-    setFilterId(item.filterId);
-    setAnchorEl(null);
-  };
-
-  return (
-    <StDiv>
-      <Button
-        id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
-        sx={{ color: "#737878", padding: "0", minWidth: "0" }}
-      >
-        {menu}
-        <ExpandMoreIcon />
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-        sx={{
-          "& .MuiMenu-list": {
-            backgroundColor: "#19696A",
-            padding: "0",
-          },
-        }}
-      >
-        {filters.map((item) => {
-          return (
-            <MenuItem
-              onClick={() => changeMenu(item)}
-              key={item.filterId}
-              sx={{
-                color: "#FFFFFF",
-              }}
-            >
-              {item.filter}
-            </MenuItem>
-          );
-        })}
-      </Menu>
-    </StDiv>
-  );
-}
-
 //게시판 상세페이지 게시글, 댓글, 대댓글
 /*남 : 쪽지하기, 신고하기*/
 /*본인 : 수정, 삭제 */
-export function MenuDial3({
+export function UserDial({
   user,
   id,
   setAdEdit,
@@ -364,77 +291,9 @@ export function MenuDial3({
   );
 }
 
-//게시판 상세페이지 댓글 정렬 필터
-/*등록순, 좋아요순*/
-export function MenuDial4({ setFilterId }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [menu, setMenu] = useState("등록순");
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  //선택시 이름 바꾸기
-  const filters = [
-    { filter: "등록순", filterId: 0 },
-    { filter: "좋아요순", filterId: 1 },
-  ];
-  const changeMenu = (item) => {
-    setMenu(item.filter);
-    setFilterId(item.filterId);
-    setAnchorEl(null);
-  };
-
-  return (
-    <StDiv>
-      <Button
-        id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
-        sx={{ color: "#737878", padding: "0", minWidth: "0" }}
-      >
-        {menu}
-        <ExpandMoreIcon />
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-        sx={{
-          "& .MuiMenu-list": {
-            backgroundColor: "#19696A",
-            padding: "0",
-          },
-        }}
-      >
-        {filters.map((item) => {
-          return (
-            <MenuItem
-              sx={{ color: "#FFFFFF" }}
-              onClick={() => changeMenu(item)}
-              key={item.filterId}
-            >
-              {item.filter}
-            </MenuItem>
-          );
-        })}
-      </Menu>
-    </StDiv>
-  );
-}
-
 /* 답해주기 카테고리 필터 (전체) */
 /* 답해주기 글작성 카테고리 필터 (전체) */
-export function MenuDial6({ setCategoryId, total }) {
+export function CategoryDial({ setCategoryId, total }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menu, setMenu] = useState("카테고리");
   const open = Boolean(anchorEl);

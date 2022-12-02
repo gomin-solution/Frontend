@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { MenuDial3 } from "../../elements/MenuDial";
+import { UserDial } from "../../elements/MenuDial";
 import styled from "styled-components";
 import DetailReComment from "../detailBorad/DetailReComment";
 import DetailReCommentInput from "./DetailRecommentInput";
@@ -126,7 +126,7 @@ function DetailComment({ comment, resBoard }) {
               <img src={comment.userImg} alt="프로필사진" />
               <div className="username">{comment.nickname}</div>
               <StMenu>
-                <MenuDial3
+                <UserDial
                   user={user}
                   id={comment.commentId}
                   setAdEdit={setCommentEdit}

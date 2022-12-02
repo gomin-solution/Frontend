@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import DetailComment from "../components/detailBorad/DetailComment";
 import { Header1 } from "../elements/Header";
-import { MenuDial3, MenuDial4 } from "../elements/MenuDial";
+import { UserDial, FilterDial } from "../elements/MenuDial";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
@@ -119,6 +119,11 @@ function DetailAdvice() {
     }
   }, [resBoard]);
 
+  const filters = [
+    { filter: "등록순", filterId: 0 },
+    { filter: "좋아요순", filterId: 1 },
+  ];
+
   return (
     <>
       {adEdit ? (
@@ -144,7 +149,7 @@ function DetailAdvice() {
                     onClick={() => mutate(resBoard?.adviceId)}
                   />
                 )}
-                <MenuDial3
+                <UserDial
                   resBoard={resBoard}
                   user={user}
                   id={resBoard?.adviceId}
@@ -198,7 +203,7 @@ function DetailAdvice() {
             )}
             <StCommentSet>
               <p>답변 {resBoard?.commentCount}</p>
-              <MenuDial4 setFilterId={setFilterId} />
+              <FilterDial setFilterId={setFilterId} filters={filters} />
             </StCommentSet>
             {resComment?.map((comment) => {
               return (

@@ -48,8 +48,6 @@ const DailyMessage = ({ dailyMessage, isOpen, userKey }) => {
     }
   };
 
-  console.log(userKey);
-
   return (
     <StContainer>
       <StTitle>오늘의 행운 편지</StTitle>

@@ -1,87 +1,29 @@
 import axios from "axios";
-// import { getCookie, removeCookie, setCookie } from "./cookie";
+import { Alert1 } from "../elements/Alert";
 
 export const instance = axios.create({
   baseURL: process.env.REACT_APP_API,
   withCredentials: true,
 });
 
-// /* interceptor: request */
-// instance.interceptors.request.use(
-//   /* 요청이 전달되기 전에 작업 수행 */
-//   (config) => {
-//     // console.log("config", config);
-//     return config;
-//   },
-//   (error) => {
-//     /* 요청 오류가 있는 작업 수행 */
-//     return Promise.reject(error);
-//   }
-// );
-
-// /* interceptor: response */
-// instance.interceptors.response.use(
-//   (response) => {
-//     return response;
-//   },
-//   async (error) => {
-//     const originalRequest = error.config;
-//     try {
-//       if (error.response.data.errorMessage === "jwt expired") {
-//         console.log(originalRequest);
-//         return axios(originalRequest);
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//     return Promise.reject(error);
-//   }
-// );
-
 /* interceptor: response */
-// instance.interceptors.response.use(
-//   (response) => {
-//     return response;
-//   },
-//   async (error) => {
-//     try {
-//       const { response, config } = error;
-//       const originalRequest = config;
-//       /* accessToken 만료 시 status: 405 */
-//       if (response.data.msg === "만료" && response.status === 405) {
-//         const refToken = getCookie("refreshToken");
-//         /* accessToken get */
-//         try {
-//           const accToken = getCookie("accessToken");
-//           const res = await axios({
-//             method: "get",
-//             url: process.env.REACT_APP_API,
-//             headers: {
-//               authorization: `Bearer ${accToken}`,
-//               refreshToken: `${refToken}`,
-//             },
-//           });
-//           /* accessToken 변경 */
-//           originalRequest.headers.authorization = res.data.accessToken;
-//           removeCookie("accessToken");
-//           setCookie("accessToken", res.data.accessToken);
-//           return axios(originalRequest);
-//         } catch (error) {
-//           /* accessToken 변경 실패 시 */
-//           removeCookie("accessToken");
-//           removeCookie("refreshToken");
-//         }
-//         /* refreshToken 만료 시 status: 403 */
-//       } else if (
-//         response.data.msg === "다시 로그인 해주세요." &&
-//         response.status === 403
-//       ) {
-//         removeCookie("accessToken");
-//         removeCookie("refreshToken");
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//     return Promise.reject(error);
-//   }
-// );
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    console.log(error);
+    try {
+      if (
+        error.response.data.errMsg === "다시 로그인 해주세요." ||
+        error.response.data.errMsg === "다시 로그인 해주세요"
+      ) {
+        localStorage.removeItem("recoil-persist");
+        return Alert1("재로그인이 필요합니다.", "/login");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    return Promise.reject(error);
+  }
+);

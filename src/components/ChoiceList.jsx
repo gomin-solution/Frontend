@@ -4,7 +4,7 @@ import styled from "styled-components";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { bookmark, postChoice } from "../api/boardChoiceApi";
-import { MenuDial1 } from "../elements/MenuDial";
+import { VoteDial } from "../elements/MenuDial";
 import { userKeyAtom } from "../state/atom";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -157,7 +157,7 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
             />
           )}
           {userKey === choice.userKey ? (
-            <MenuDial1 choiceId={choice.choiceId} getMutation={getMutation} />
+            <VoteDial choiceId={choice.choiceId} getMutation={getMutation} />
           ) : null}
         </StIconWrap>
       </StChoiceTextWrap>

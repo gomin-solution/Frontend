@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Alert1 } from "../elements/Alert";
+import { OkayNaviAlert } from "../elements/Alert";
 
 export const instance = axios.create({
   baseURL: process.env.REACT_APP_API,
@@ -19,7 +19,7 @@ instance.interceptors.response.use(
         error.response.data.errMsg === "다시 로그인 해주세요"
       ) {
         localStorage.removeItem("recoil-persist");
-        return Alert1("재로그인이 필요합니다.", "/login");
+        return OkayNaviAlert("재로그인이 필요합니다.", "/login");
       }
     } catch (error) {
       console.log(error);

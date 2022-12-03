@@ -5,7 +5,7 @@ import { instance } from "../api/api";
 /*스타일 관련*/
 import styled from "styled-components";
 import { Header1 } from "../elements/Header";
-import { OkayNaviAlert, OkayAlert } from "../elements/Alert";
+import { OkayNaviAlert, ErrorAlert, OkayAlert } from "../elements/Alert";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { Container, FlexCenter } from "../shared/css";
 
@@ -28,7 +28,7 @@ const Signup = () => {
   /* 회원가입 제출 */
   const onSubmit = async (data) => {
     if (idDub === false || nickDub === false) {
-      return OkayAlert("아이디와 닉네임 모두 중복확인 해주세요.");
+      return ErrorAlert("아이디와 닉네임\n모두 중복확인 해주세요.");
     }
     try {
       const res = await instance.post("/signup", data);
@@ -36,7 +36,7 @@ const Signup = () => {
         OkayNaviAlert(`${data?.userId}님\n환영합니다.`, "/login");
       }
     } catch (error) {
-      OkayAlert("중복확인을 다시 진행해주세요.");
+      ErrorAlert("중복확인을 다시 진행해주세요.");
     }
   };
 
@@ -53,7 +53,7 @@ const Signup = () => {
           setIdDub(true);
         })
         .catch(() => {
-          OkayAlert("중복된 아이디입니다.");
+          ErrorAlert("중복된 아이디입니다.");
         });
     }
   };
@@ -71,7 +71,7 @@ const Signup = () => {
           setNickDub(true);
         })
         .catch(() => {
-          OkayAlert("사용 불가능한 닉네임입니다.");
+          ErrorAlert("사용 불가능한 닉네임입니다.");
         });
     }
   };

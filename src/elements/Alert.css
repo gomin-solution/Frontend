@@ -4,14 +4,16 @@
   color: #ffffff;
 
   padding: 0.5rem;
-  width: 15rem;
+  width: 85%;
+  position: absolute;
 
+  margin-bottom: 2rem;
   font-size: 1.1rem;
 }
 
 /*오류 표시*/
 .error-text {
-  font-size: 1.2rem;
+  font-size: 1.2rem !important;
 }
 
 /*로그인 + 취소 */
@@ -30,77 +32,77 @@
 }
 
 .login-act {
-  margin: 0;
+  margin: 0 !important;
 }
 .login-text {
-  font-size: 1.2rem;
+  font-size: 1.2rem !important;
 }
 
 /*쪽지 보내기*/
 .htmlContainer-msg {
-  color: #19696a;
-  font-weight: 700;
-  font-size: 1rem;
+  color: #19696a !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
 
   margin: 0 !important;
-  padding: 1rem;
-  padding-left: 2rem;
-  justify-content: flex-start;
+  padding: 1rem !important;
+  padding-left: 2rem !important;
+  justify-content: flex-start !important;
 }
 .title-msg {
-  background-color: #e9f3f2;
-  height: 3.5rem;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #19696a;
+  background-color: #e9f3f2 !important;
+  height: 3.5rem !important;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  color: #19696a !important;
 }
 .closeButton-msg {
-  color: #19696a;
-  position: absolute;
-  top: 1.4%;
+  color: #19696a !important;
+  position: absolute !important;
+  top: 1.4% !important;
 }
 
 .closeButton-msg:focus {
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 .input-msg {
-  border: none;
-  margin-top: 0;
-  font-size: 1rem;
+  border: none !important;
+  margin-top: 0 !important;
+  font-size: 1rem !important;
 }
 .input-msg:focus {
-  box-shadow: none;
+  box-shadow: none !important;
 
-  word-break: keep-all;
+  word-break: keep-all !important;
 }
 
 .confirm-msg {
-  background-color: #19696a;
-  color: #ffffff;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  width: 15rem;
+  background-color: #19696a !important;
+  color: #ffffff !important;
+  font-size: 1rem !important;
+  padding: 0.5rem 1rem !important;
+  width: 15rem !important;
 }
 
 /*리워드 팝업*/
 .image-reward {
-  position: absolute;
-  width: 65%;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: absolute !important;
+  width: 60% !important;
+  top: 35% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
 }
 .htmlContainer-reward {
-  height: 16rem;
+  height: 16rem !important;
   align-items: flex-end !important;
-  font-size: 1.2rem;
-  color: #002020;
+  font-size: 1.2rem !important;
+  color: #002020 !important;
 }
 
 /*확인 + 취소 */
 .okay-Btn {
-  background-color: #8cd3d4;
+  background-color: #19696a;
   color: #ffffff;
   padding: 0.4rem;
   font-size: 1.1rem;
@@ -113,7 +115,7 @@
 .swal2-html-container {
   display: flex !important;
   align-items: center;
-  margin: 2rem;
+  margin: 2rem !important;
   white-space: pre-line;
 }
 

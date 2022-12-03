@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import { UserDial } from "../../elements/MenuDial";
 import SubdirectoryArrowRightIcon from "@mui/icons-material/SubdirectoryArrowRight";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 import { recommentEdit } from "../../api/detailApi";
+import { useRecoilValue } from "recoil";
+import { userKeyAtom } from "../../state/atom";
 
-function DetailReComment({ re, user, resBoard }) {
+function DetailReComment({ re, resBoard }) {
   const queryClient = useQueryClient();
   const [reEdit, setReEdit] = useState(true);
 
@@ -25,6 +27,16 @@ function DetailReComment({ re, user, resBoard }) {
       queryClient.invalidateQueries("getRecomment");
     },
   });
+
+  // 유저키 비교
+  const [user, setUser] = useState(false);
+  const key = useRecoilValue(userKeyAtom);
+
+  useEffect(() => {
+    if (key === re.userKey) {
+      setUser(true);
+    }
+  }, []);
 
   return (
     <StcommentBox>

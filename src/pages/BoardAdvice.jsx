@@ -9,6 +9,7 @@ import { Container, FlexCenter } from "../shared/css";
 
 function Board() {
   const nav = useNavigate();
+
   return (
     <>
       <Header2 title={"고민 접기"} />

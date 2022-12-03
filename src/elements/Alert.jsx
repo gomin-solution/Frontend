@@ -31,7 +31,7 @@ export const OkayAlert = (text) => {
 };
 
 /*오류 텍스트 확인버튼(닫힘) */
-export const Alert3 = (text) => {
+export const ErrorAlert = (text) => {
   Swal.fire({
     customClass: {
       confirmButton: "confirm-Btn",

@@ -68,7 +68,7 @@ const GlobalStyle = createGlobalStyle`
     }
     /*스크롤바 숨기기*/
     &::-webkit-scrollbar {
-    display: none;
+    /* display: none; */
     }
   }
   textarea {

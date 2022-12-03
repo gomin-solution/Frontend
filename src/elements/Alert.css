@@ -57,13 +57,13 @@
   color: #19696a !important;
 }
 .closeButton-msg {
-  color: #19696a;
-  position: absolute;
-  top: 1.4%;
+  color: #19696a !important;
+  position: absolute !important;
+  top: 1.4% !important;
 }
 
 .closeButton-msg:focus {
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 .input-msg {

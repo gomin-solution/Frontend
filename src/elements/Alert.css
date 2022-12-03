@@ -113,7 +113,7 @@
 .swal2-html-container {
   display: flex !important;
   align-items: center;
-  margin: 2rem;
+  margin: 2rem !important;
   white-space: pre-line;
 }
 

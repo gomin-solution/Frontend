@@ -4,8 +4,10 @@
   color: #ffffff;
 
   padding: 0.5rem;
-  width: 15rem;
+  width: 85%;
+  position: absolute;
 
+  margin-bottom: 2rem;
   font-size: 1.1rem;
 }
 
@@ -86,7 +88,7 @@
 /*리워드 팝업*/
 .image-reward {
   position: absolute;
-  width: 65%;
+  width: 60%;
   top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);

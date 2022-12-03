@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { socket } from "../api/socketio";
 import { useEffect, useRef, useState } from "react";
-import { decodeCookie } from "../api/cookie";
 import { useQuery } from "react-query";
 import { getNotes } from "../api/room";
 import { Header1 } from "../elements/Header";

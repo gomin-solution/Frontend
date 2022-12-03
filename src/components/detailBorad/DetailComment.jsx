@@ -33,7 +33,7 @@ function DetailComment({ comment, resBoard }) {
   );
 
   const reqRecomment = () => {
-    setRecomment(true);
+    setRecomment((x) => !x);
   };
 
   const reData = data?.data.data;
@@ -179,7 +179,6 @@ function DetailComment({ comment, resBoard }) {
                 return (
                   <DetailReComment
                     key={re.replyId}
-                    user={key}
                     re={re}
                     resBoard={resBoard}
                   />

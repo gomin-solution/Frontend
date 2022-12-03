@@ -88,7 +88,7 @@
 /*리워드 팝업*/
 .image-reward {
   position: absolute;
-  width: 65%;
+  width: 60%;
   top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);

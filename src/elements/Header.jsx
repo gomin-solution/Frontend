@@ -9,7 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import logoFolding from "../image/logo/logoFolding.svg";
-import { Alert2 } from "./Alert";
+import { OkayAlert } from "./Alert";
 
 /*이전 버튼 + 제목바 */
 export function Header1({ title, roomId, navi = -1, leave = false }) {
@@ -53,7 +53,7 @@ export function Header3() {
   return (
     <StBlock style={{ color: "#19696A" }}>
       <StLogo alt="로고" src={logoFolding} />
-      <StAlram onClick={() => Alert2("준비중입니다.")} />
+      <StAlram onClick={() => OkayAlert("준비중입니다.")} />
       <StSet onClick={() => nav("/setting")} />
     </StBlock>
   );

@@ -5,7 +5,7 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { FlexCenter } from "../shared/css";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../state/atom";
-import { Alert2 } from "./Alert";
+import { OkayAlert } from "./Alert";
 
 function Footer({ title }) {
   const userKey = useRecoilValue(userKeyAtom);
@@ -13,7 +13,7 @@ function Footer({ title }) {
 
   const onMenu = (e) => {
     if (!userKey && (e.nav === "/rooms" || e.nav === "/reward")) {
-      Alert2("로그인 후 이용해주세요.");
+      OkayAlert("로그인 후 이용해주세요.");
     } else {
       nav(e.nav);
     }

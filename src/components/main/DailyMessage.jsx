@@ -5,7 +5,7 @@ import { Lottie } from "@crello/react-lottie";
 
 /*스타일 관련 */
 import styled from "styled-components";
-import { Alert2 } from "../../elements/Alert";
+import { OkayAlert } from "../../elements/Alert";
 import animationData from "../../image/dailyMessage/letter_lottie.json";
 import letterOpen from "../../image/dailyMessage/letterOpen.svg";
 import letterClose from "../../image/dailyMessage/letterClose.svg";
@@ -36,15 +36,15 @@ const DailyMessage = ({ dailyMessage, isOpen, userKey }) => {
     if (userKey) {
       if (!isOpen) {
         setOpen(false);
-        setTimeout(() => Alert2(`${dailyMessage}`), [2000]);
+        setTimeout(() => OkayAlert(`${dailyMessage}`), [2000]);
         setTimeout(() => {
           openMessage.mutate();
         }, [2500]);
       } else {
-        Alert2(`${dailyMessage}`);
+        OkayAlert(`${dailyMessage}`);
       }
     } else {
-      Alert2("로그인 후 이용해주세요.");
+      OkayAlert("로그인 후 이용해주세요.");
     }
   };
 

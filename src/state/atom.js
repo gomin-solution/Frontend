@@ -10,6 +10,7 @@ export const alarmsAtom = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+/* 유저 키 저장 */
 export const userKeyAtom = atom({
   key: "userKeyAtom",
   default: 0,

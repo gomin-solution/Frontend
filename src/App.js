@@ -2,7 +2,9 @@
 import Router from "./router/Router";
 import GlobalStyle from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";
+import { ErrorBoundary } from "react-error-boundary";
 import Theme from "./shared/theme";
+import ErrorFallback from "./components/ErrorFallback";
 import { useRecoilState } from "recoil";
 import { alarm } from "../src/api/socketio";
 import { alarmsAtom } from "./state/atom";
@@ -17,7 +19,9 @@ function App() {
   return (
     <ThemeProvider theme={Theme}>
       <GlobalStyle />
-      <Router />
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Router />
+      </ErrorBoundary>
     </ThemeProvider>
   );
 }

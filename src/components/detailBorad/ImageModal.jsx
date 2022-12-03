@@ -1,4 +1,3 @@
-import { CompressOutlined } from "@mui/icons-material";
 import ClearIcon from "@mui/icons-material/Clear";
 import Modal from "@mui/material/Modal";
 import styled from "styled-components";
@@ -69,7 +68,24 @@ export function RewardModal({ modalOpen, closeModal, tip }) {
               <ClearIcon className="close" onClick={closeModal} />
             </div>
             {tip.map((item) => (
-              <div key={item}>{item}</div>
+              <MissionDiv
+                key={item}
+                finshi={item.split("-")[1] / item.split("-")[2]}
+              >
+                <div className="set">
+                  <div className="missionTitle">{item.split("-")[0]}</div>
+                  <div className="missionPer">
+                    {item.split("-")[1]}/{item.split("-")[2]}
+                  </div>
+                </div>
+                <MissionGauge>
+                  <MissionBar
+                    width={Math.round(
+                      (item.split("-")[1] / item.split("-")[2]) * 100
+                    )}
+                  />
+                </MissionGauge>
+              </MissionDiv>
             ))}
           </StTip>
         </StBigPrev>
@@ -81,8 +97,8 @@ export function RewardModal({ modalOpen, closeModal, tip }) {
 /*팁 띄우기*/
 const StTip = styled.div`
   width: 80%;
-  height: 60%;
-  background-color: #f5f5f5;
+  height: 50%;
+  background-color: ${(props) => props.theme.Colors.bg1};
 
   position: absolute;
 
@@ -92,9 +108,13 @@ const StTip = styled.div`
 
   .title {
     width: 100%;
-    background-color: ${(props) => props.theme.Colors.bg1};
-    font-size: 1.2rem;
-    padding: 1rem;
+    border-bottom: 1px solid ${(props) => props.theme.Colors.blueGreen3};
+
+    font-size: ${(props) => props.theme.fontSizes.xl};
+    font-weight: ${(props) => props.theme.fontWeights.lg};
+    color: ${(props) => props.theme.Colors.blueGreen3};
+
+    padding: ${(props) => props.theme.paddings.lg};
     ${FlexCenter}
     .close {
       width: 1.5rem;
@@ -105,9 +125,43 @@ const StTip = styled.div`
   }
 `;
 
+const MissionDiv = styled.div`
+  border-bottom: 1px solid ${(props) => props.theme.Colors.blueGreen3};
+  padding: ${(props) => props.theme.paddings.lg};
+  background-color: ${(props) => props.finshi === 1 && "#E9F3F2"};
+
+  .set {
+    display: flex;
+    justify-content: space-between;
+  }
+  .missionTitle {
+    font-size: ${(props) => props.theme.fontSizes.xl};
+    font-weight: ${(props) => props.theme.fontWeights.lg};
+    color: ${(props) => props.theme.Colors.blueGreen3};
+  }
+  .missionPer {
+    font-weight: ${(props) => props.theme.fontWeights.lg};
+    color: ${(props) => props.theme.Colors.blueGreen3};
+  }
+`;
+
+/*미션 게이지바*/
+const MissionGauge = styled.div`
+  position: relative;
+  height: 0.7rem;
+  margin-top: ${(props) => props.theme.margins.xxsm};
+  background-color: ${(props) => props.theme.Colors.gray1};
+`;
+/*미션 바*/
+const MissionBar = styled.div`
+  position: absolute;
+  height: 0.7rem;
+  width: ${(props) => props.width}%;
+  background-color: ${(props) => props.theme.Colors.blueGreen3};
+`;
+
 /*리워드 달성 모달 */
 export function RewardGetModal({ modalOpen, closeModal, reward }) {
-  console.log(reward);
   return (
     <div>
       <Modal

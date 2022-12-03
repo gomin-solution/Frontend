@@ -193,7 +193,7 @@ const Reward = () => {
           </StWrap1>
           <StWrap2>
             <span style={{ marginRight: "2rem" }}>해결한 고민 수</span>
-            <span>{missionCount?.missionComplete}</span>
+            <span>{missionCount?.totalSolution}</span>
           </StWrap2>
           <StMissionWrap>
             {missions.map((item) => {

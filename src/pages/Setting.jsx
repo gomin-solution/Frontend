@@ -2,10 +2,11 @@ import { useMutation, useQuery } from "react-query";
 import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container, FlexCenter } from "../shared/css";
-import { getMyPage, logout } from "../api/settingApi";
-import { OkayNaviAlert } from "../elements/Alert";
+import { getMyPage, goodBye, logout } from "../api/settingApi";
+import { OkayNaviAlert, ChooseNaviAlert } from "../elements/Alert";
 import { useSetRecoilState } from "recoil";
 import { userKeyAtom } from "../state/atom";
+import { useNavigate } from "react-router-dom";
 
 function Setting() {
   const { data: res } = useQuery("getMyPage", getMyPage);
@@ -13,6 +14,9 @@ function Setting() {
 
   const setUserKey = useSetRecoilState(userKeyAtom);
   const logoutMutation = useMutation(logout);
+  const byeMutation = useMutation(goodBye);
+
+  const nav = useNavigate();
 
   const logoutHandler = () => {
     logoutMutation.mutate();
@@ -20,9 +24,21 @@ function Setting() {
     OkayNaviAlert("로그아웃 되었습니다.", "/main", "recoil-persist");
   };
 
+  const ByeHandler = () => {
+    byeMutation.mutate();
+    logoutMutation.mutate();
+    setUserKey(false);
+    ChooseNaviAlert(
+      "정말 탈퇴하시겠습니까?",
+      "탈퇴",
+      "/main",
+      "recoil-persist"
+    );
+  };
+
   return (
     <>
-      <Header1 title={"설정"} />
+      <Header1 title={"설정"} navi="/main" />
       {!admin ? (
         <Stcontainer>
           <StUserinfo>
@@ -36,12 +52,20 @@ function Setting() {
           </StUserinfo>
           <StTitle>계정</StTitle>
           <StMenu onClick={logoutHandler}>로그아웃</StMenu>
-          <StMenu>개인정보 변경</StMenu>
+          <StMenu
+            onClick={() =>
+              nav("/myinfo-change", { state: res?.data.mypage.nickname })
+            }
+          >
+            개인정보 변경
+          </StMenu>
           <StMenu style={{ border: "none" }}>푸쉬 알람설정</StMenu>
           <StTitle>고객지원</StTitle>
           <StMenu>공지사항</StMenu>
-          <StMenu>이메일 문의하기</StMenu>
-          <StMenu>신고접수</StMenu>
+          <StMenu>문의하기</StMenu>
+          <StMenu style={{ border: "none" }} onClick={ByeHandler}>
+            회원탈퇴
+          </StMenu>
         </Stcontainer>
       ) : (
         <Stcontainer>

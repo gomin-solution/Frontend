@@ -170,7 +170,7 @@ const Reward = () => {
         id: 12,
         complete: missionResult[11]?.isComplete,
         get: missionResult[11]?.isGet,
-        mission: [`미션 완료-${missionCount?.missionComplete}-50`],
+        mission: [`미션 완료-${missionCount?.missionComplete}-9`],
         img: graphic_heart,
       },
     ];

@@ -35,6 +35,7 @@ const GlobalStyle = createGlobalStyle`
 
     div {
       font-family: "Noto Sans KR", sans-serif;
+      white-space: pre-line;
     }
 
     /*텍스트 줄 높이*/

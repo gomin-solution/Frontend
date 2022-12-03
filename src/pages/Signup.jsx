@@ -5,7 +5,7 @@ import { instance } from "../api/api";
 /*스타일 관련*/
 import styled from "styled-components";
 import { Header1 } from "../elements/Header";
-import { Alert1, Alert2 } from "../elements/Alert";
+import { OkayNaviAlert, Alert2 } from "../elements/Alert";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { Container, FlexCenter } from "../shared/css";
 
@@ -33,7 +33,7 @@ const Signup = () => {
     try {
       const res = await instance.post("/signup", data);
       if (res.status === 200) {
-        Alert1(`${data?.userId}님\n환영합니다.`, "/login");
+        OkayNaviAlert(`${data?.userId}님\n환영합니다.`, "/login");
       }
     } catch (error) {
       Alert2("중복확인을 다시 진행해주세요.");

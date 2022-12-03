@@ -118,6 +118,7 @@ const Reward = () => {
           `좋아요 받기-${missionCount?.likeTotal}-5`,
           `고민해결 선택받기-${missionCount?.Selected}-2`,
         ],
+        img: graphic_heart,
       },
       {
         id: 6,

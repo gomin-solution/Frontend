@@ -5,7 +5,7 @@ import { instance } from "../api/api";
 /*스타일 관련*/
 import styled from "styled-components";
 import { Header1 } from "../elements/Header";
-import { OkayNaviAlert, Alert2 } from "../elements/Alert";
+import { OkayNaviAlert, OkayAlert } from "../elements/Alert";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { Container, FlexCenter } from "../shared/css";
 
@@ -28,7 +28,7 @@ const Signup = () => {
   /* 회원가입 제출 */
   const onSubmit = async (data) => {
     if (idDub === false || nickDub === false) {
-      return window.alert("아이디와 닉네임 모두 중복확인 해주세요.");
+      return OkayAlert("아이디와 닉네임 모두 중복확인 해주세요.");
     }
     try {
       const res = await instance.post("/signup", data);
@@ -36,36 +36,44 @@ const Signup = () => {
         OkayNaviAlert(`${data?.userId}님\n환영합니다.`, "/login");
       }
     } catch (error) {
-      Alert2("중복확인을 다시 진행해주세요.");
+      OkayAlert("중복확인을 다시 진행해주세요.");
     }
   };
 
   /* 아이디 중복검사 */
   const idCheck = async () => {
     const userId = watch("userId");
-    await instance
-      .post("/signup/check", { userId: userId })
-      .then(() => {
-        Alert2("사용가능한 아이디입니다.");
-        setIdDub(true);
-      })
-      .catch(() => {
-        Alert2("중복된 아이디입니다.");
-      });
+    if (!userId) {
+      OkayAlert("아이디를 입력해주세요.");
+    } else {
+      await instance
+        .post("/signup/check", { userId: userId })
+        .then(() => {
+          OkayAlert("사용가능한 아이디입니다.");
+          setIdDub(true);
+        })
+        .catch(() => {
+          OkayAlert("중복된 아이디입니다.");
+        });
+    }
   };
 
   /* 닉네임 중복검사 */
   const nickCheck = async () => {
     const nickname = watch("nickname");
-    await instance
-      .post("/signup/check", { nickname: nickname })
-      .then(() => {
-        Alert2("사용가능한 닉네임입니다.");
-        setNickDub(true);
-      })
-      .catch(() => {
-        Alert2("중복된 닉네임입니다.");
-      });
+    if (!nickname) {
+      OkayAlert("닉네임을 입력해주세요.");
+    } else {
+      await instance
+        .post("/signup/check", { nickname: nickname })
+        .then(() => {
+          OkayAlert("사용가능한 닉네임입니다.");
+          setNickDub(true);
+        })
+        .catch(() => {
+          OkayAlert("사용 불가능한 닉네임입니다.");
+        });
+    }
   };
 
   return (

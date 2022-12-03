@@ -19,7 +19,7 @@ export const OkayNaviAlert = (text, navi, removeKey) => {
 };
 
 /* 텍스트 + 확인버튼(닫힘) */
-export const Alert2 = (text) => {
+export const OkayAlert = (text) => {
   Swal.fire({
     customClass: {
       confirmButton: "confirm-Btn",

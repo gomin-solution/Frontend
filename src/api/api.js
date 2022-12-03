@@ -6,6 +6,14 @@ export const instance = axios.create({
   withCredentials: true,
 });
 
+// export const oauthInstance = axios.create({
+//   baseURL: "http://localhost:3000",
+//   withCredentials: true,
+//   headers: {
+//     "Content-type": "application/x-www-form-urlencoded charset=utf-8",
+//   },
+// });
+
 /* interceptor: response */
 instance.interceptors.response.use(
   (response) => {

@@ -1,15 +1,18 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../api/api";
-import { OkayNaviAlert, Alert2 } from "../elements/Alert";
+import { OkayNaviAlert, OkayAlert } from "../elements/Alert";
 import styled from "styled-components";
 import { Header1 } from "../elements/Header";
-import { Container } from "../shared/css";
+import { Container, FlexCenter } from "../shared/css";
 import logoBirdSquare from "../image/logo/logoBirdSquare.svg";
 import { useSetRecoilState } from "recoil";
 import { userKeyAtom } from "../state/atom";
+import kakao from "../image/socialLogin/kakao.svg";
 
 const Login = () => {
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code`;
+
   const nav = useNavigate();
 
   const { register, handleSubmit } = useForm();
@@ -23,8 +26,13 @@ const Login = () => {
       setuserKey(res.data.userKey);
       OkayNaviAlert(`${res.data.nickname}님 반갑습니다.`, "/main");
     } catch (error) {
-      Alert2("아이디 또는 비밀번호가 일치하지 않습니다.");
+      OkayAlert("아이디 또는 비밀번호가 일치하지 않습니다.");
     }
+  };
+
+  /* kakaoLogin 요청 */
+  const kakaoLogin = () => {
+    window.location.href = KAKAO_AUTH_URL;
   };
 
   return (
@@ -53,6 +61,9 @@ const Login = () => {
             회원가입
           </StBottomNav2>
         </StBtnWrap>
+        <StSocialWrap>
+          <Stimg src={kakao} alt="kakao" onClick={kakaoLogin} />
+        </StSocialWrap>
       </StContainer>
     </>
   );
@@ -76,7 +87,7 @@ const StLogo = styled.img`
   width: 40%;
   height: 40%;
   text-align: center;
-  margin: 4rem auto;
+  margin: 3rem auto;
 `;
 
 const StInputWrap = styled.div`
@@ -85,7 +96,7 @@ const StInputWrap = styled.div`
   flex-flow: column;
   align-items: center;
   row-gap: ${(props) => props.theme.margins.lg};
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 `;
 
 const StInput = styled.input`
@@ -100,7 +111,14 @@ const StBtnWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 2rem 4rem;
+  margin: 0rem 4rem;
+`;
+
+const StSocialWrap = styled.div`
+  ${FlexCenter};
+  flex-flow: column;
+  margin-top: ${(props) => props.theme.margins.xxl};
+  width: 100%;
 `;
 
 /*아이디 찾기, 비밀번호 찾기*/
@@ -132,4 +150,9 @@ const Stbtn = styled.button`
   color: #ffffff;
   width: 100%;
   height: 3rem;
+`;
+
+const Stimg = styled.img`
+  margin-bottom: 0.5rem;
+  cursor: pointer;
 `;

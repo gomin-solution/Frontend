@@ -3,11 +3,8 @@
   background-color: #19696a;
   color: #ffffff;
 
-  width: 85%;
-  position: absolute;
-
   padding: 0.5rem;
-  margin-bottom: 2rem;
+  width: 15rem;
 
   font-size: 1.1rem;
 }
@@ -101,6 +98,17 @@
   color: #002020;
 }
 
+/*확인 + 취소 */
+.okay-Btn {
+  background-color: #8cd3d4;
+  color: #ffffff;
+  padding: 0.4rem;
+  font-size: 1.1rem;
+  width: 8rem;
+}
+
+/*------------------------전체 설정------------------------*/
+
 /*알람 글 상자*/
 .swal2-html-container {
   display: flex !important;
@@ -113,7 +121,6 @@
 .swal2-container.swal2-center > .swal2-popup {
   width: 100%;
   max-width: 22rem;
-
   border-radius: 0;
 }
 
@@ -122,13 +129,4 @@
 .swal2-container.swal2-noanimation {
   max-width: 26rem;
   margin: auto;
-}
-
-/*확인 + 취소 */
-.okay-Btn {
-  background-color: #8cd3d4;
-  color: #ffffff;
-  padding: 0.4rem;
-  font-size: 1.1rem;
-  width: 8rem;
 }

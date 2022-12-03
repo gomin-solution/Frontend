@@ -3,8 +3,7 @@ import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container, FlexCenter } from "../shared/css";
 import { getMyPage, logout } from "../api/settingApi";
-import { useNavigate } from "react-router-dom";
-import { Alert1 } from "../elements/Alert";
+import { OkayNaviAlert } from "../elements/Alert";
 import { useSetRecoilState } from "recoil";
 import { userKeyAtom } from "../state/atom";
 
@@ -18,7 +17,7 @@ function Setting() {
   const logoutHandler = () => {
     logoutMutation.mutate();
     setUserKey(false);
-    Alert1("로그아웃 되었습니다.", "/main", "recoil-persist");
+    OkayNaviAlert("로그아웃 되었습니다.", "/main", "recoil-persist");
   };
 
   return (

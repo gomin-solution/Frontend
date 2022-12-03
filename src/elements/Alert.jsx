@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 import "../elements/Alert.css";
 
 /* 확인 후 이동 */
-export const Alert1 = (text, navi, removeKey) => {
+export const OkayNaviAlert = (text, navi, removeKey) => {
   Swal.fire({
     customClass: {
       confirmButton: "confirm-Btn",

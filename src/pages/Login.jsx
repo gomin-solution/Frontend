@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../api/api";
-import { Alert1, Alert2 } from "../elements/Alert";
+import { OkayNaviAlert, Alert2 } from "../elements/Alert";
 import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container } from "../shared/css";
@@ -21,7 +21,7 @@ const Login = () => {
 
       /* userKey 전역으로 저장 후 메인페이지 이동 */
       setuserKey(res.data.userKey);
-      Alert1(`${res.data.nickname}님 반갑습니다.`, "/main");
+      OkayNaviAlert(`${res.data.nickname}님 반갑습니다.`, "/main");
     } catch (error) {
       Alert2("아이디 또는 비밀번호가 일치하지 않습니다.");
     }

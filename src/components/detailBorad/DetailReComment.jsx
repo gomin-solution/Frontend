@@ -31,7 +31,7 @@ function DetailReComment({ re, user, resBoard }) {
       <SubdirectoryArrowRightIcon sx={{ color: "#19696A" }} />
       <div className="textbox">
         <StcommentUser>
-          <img src="" alt="" />
+          <img src={re.userImage} alt="" />
           <div className="username">{re.nickname}</div>
           {reEdit ? (
             <StMenu>

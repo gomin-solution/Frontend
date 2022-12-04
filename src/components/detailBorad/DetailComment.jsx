@@ -14,7 +14,7 @@ import { UserDial } from "../../elements/MenuDial";
 import styled from "styled-components";
 import DetailReComment from "../detailBorad/DetailReComment";
 import DetailReCommentInput from "./DetailRecommentInput";
-import { Alert7 } from "../../elements/Alert";
+import { ChooseNaviAlert } from "../../elements/Alert";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../../state/atom";
 import { FlexCenter } from "../../shared/css";
@@ -72,7 +72,14 @@ function DetailComment({ comment, resBoard }) {
   };
 
   const pickAlert = (id) => {
-    Alert7("채택은 한 번만 가능합니다.\n채택하시겠습니까?", onPick, id);
+    ChooseNaviAlert(
+      "채택은 한 번만 가능합니다.\n채택하시겠습니까?",
+      "채택",
+      null,
+      onPick,
+      false,
+      id
+    );
   };
 
   const [commentCount, setCommentCount] = useState(comment.likeCount);

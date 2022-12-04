@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 import "../elements/Alert.css";
 
 /* 확인 후 이동 */
-export const OkayNaviAlert = (text, navi, removeKey) => {
+export const OkayNaviAlert = (text, navi, userKey) => {
   Swal.fire({
     customClass: {
       confirmButton: "confirm-Btn",
@@ -12,8 +12,8 @@ export const OkayNaviAlert = (text, navi, removeKey) => {
     confirmButtonText: "확인",
   }).then(() => {
     window.location.href = navi;
-    if (removeKey) {
-      localStorage.removeItem(removeKey);
+    if (userKey) {
+      localStorage.removeItem(userKey);
     }
   });
 };
@@ -45,7 +45,7 @@ export const ErrorAlert = (text) => {
 };
 
 /*텍스트 + 확인 후 이동 + 취소 */
-export const ChooseNaviAlert = (text, textBtn, navi, removeKey) => {
+export const ChooseNaviAlert = (text, textBtn, navi, mutate, userKey, para) => {
   Swal.fire({
     customClass: {
       confirmButton: "login-Btn",
@@ -62,16 +62,19 @@ export const ChooseNaviAlert = (text, textBtn, navi, removeKey) => {
     reverseButtons: true,
   }).then((result) => {
     if (result.isConfirmed) {
-      if (removeKey) {
-        localStorage.removeItem(removeKey);
+      if (userKey) {
+        mutate();
+        localStorage.removeItem(userKey);
         window.location.href = navi;
+      } else {
+        mutate(para);
       }
     }
   });
 };
 
 /* 쪽지 보내기, 신고하기 */
-export const Alert5 = (title, placeholder, mutate, nickname) => {
+export const MsgAlert = (title, placeholder, mutate, nickname) => {
   Swal.fire({
     customClass: {
       htmlContainer: "htmlContainer-msg",
@@ -98,7 +101,7 @@ export const Alert5 = (title, placeholder, mutate, nickname) => {
 };
 
 /* 획득 리워드 띄우기*/
-export const Alert6 = (e) => {
+export const RewardedAlert = (e) => {
   Swal.fire({
     customClass: {
       htmlContainer: "htmlContainer-reward",
@@ -111,28 +114,5 @@ export const Alert6 = (e) => {
     imageUrl: e,
     showCloseButton: true,
     showConfirmButton: false,
-  });
-};
-
-/*텍스트 + 확인 + 취소  */
-export const Alert7 = (text, mutate, id) => {
-  Swal.fire({
-    customClass: {
-      confirmButton: "okay-Btn",
-      cancelButton: "cancle-Btn",
-      actions: "login-act",
-      htmlContainer: "login-text",
-    },
-    buttonsStyling: false,
-    text: text,
-
-    cancelButtonText: "취소",
-    confirmButtonText: "확인",
-    showCancelButton: true,
-    reverseButtons: true,
-  }).then((result) => {
-    if (result.isConfirmed) {
-      mutate(id);
-    }
   });
 };

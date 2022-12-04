@@ -43,29 +43,37 @@ const Signup = () => {
   /* 아이디 중복검사 */
   const idCheck = async () => {
     const userId = watch("userId");
-    await instance
-      .post("/signup/check", { userId: userId })
-      .then(() => {
-        OkayAlert("사용가능한 아이디입니다.");
-        setIdDub(true);
-      })
-      .catch(() => {
-        ErrorAlert("중복된 아이디입니다.");
-      });
+    if (!userId) {
+      OkayAlert("아이디를 입력해주세요.");
+    } else {
+      await instance
+        .post("/signup/check", { userId: userId })
+        .then(() => {
+          OkayAlert("사용가능한 아이디입니다.");
+          setIdDub(true);
+        })
+        .catch(() => {
+          ErrorAlert("중복된 아이디입니다.");
+        });
+    }
   };
 
   /* 닉네임 중복검사 */
   const nickCheck = async () => {
     const nickname = watch("nickname");
-    await instance
-      .post("/signup/check", { nickname: nickname })
-      .then(() => {
-        OkayAlert("사용가능한 닉네임입니다.");
-        setNickDub(true);
-      })
-      .catch(() => {
-        ErrorAlert("중복된 닉네임입니다.");
-      });
+    if (!nickname) {
+      OkayAlert("닉네임을 입력해주세요.");
+    } else {
+      await instance
+        .post("/signup/check", { nickname: nickname })
+        .then(() => {
+          OkayAlert("사용가능한 닉네임입니다.");
+          setNickDub(true);
+        })
+        .catch(() => {
+          ErrorAlert("사용 불가능한 닉네임입니다.");
+        });
+    }
   };
 
   return (

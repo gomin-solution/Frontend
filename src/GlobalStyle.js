@@ -53,7 +53,7 @@ const GlobalStyle = createGlobalStyle`
     body {
       background: url("/background.jpg") no-repeat center;
       background-color: #DDE7E8;
-      background-size: contain;
+      background-size: auto;
     }
   }
 

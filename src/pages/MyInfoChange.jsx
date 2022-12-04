@@ -28,7 +28,6 @@ function MyInfoChange() {
   };
 
   const passHandler = (e) => {
-    console.log(e);
     if (e.newPassword !== e.confirm) {
       ErrorAlert("새 비밀번호를 다시 확인해주세요.");
     } else {
@@ -90,7 +89,7 @@ const Stcontainer = styled.div`
     display: flex;
 
     .nickBtn {
-      margin: 0 1rem;
+      margin-left: 1rem;
       width: 4rem;
     }
   }

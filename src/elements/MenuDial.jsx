@@ -15,7 +15,7 @@ import {
 } from "../api/detailApi";
 import { useNavigate } from "react-router-dom";
 import { endChoice, removeChoice } from "../api/boardChoiceApi";
-import { Alert5 } from "./Alert";
+import { MsgAlert } from "./Alert";
 
 //Dial 종류 : FilterDial, VoteDial, UserDial, CategoryDial
 
@@ -214,7 +214,12 @@ export function UserDial({
     messageMutation.mutate({ userKey, category, title, note });
   const MessageHandler = () => {
     setAnchorEl(null);
-    Alert5("쪽지 보내기", "쪽지 내용을 입력해주세요.", messageMutate, nickname);
+    MsgAlert(
+      "쪽지 보내기",
+      "쪽지 내용을 입력해주세요.",
+      messageMutate,
+      nickname
+    );
   };
 
   // 신고하기
@@ -226,7 +231,7 @@ export function UserDial({
     reportMutation.mutate({ params, targetName, why });
   const reportHandler = () => {
     setAnchorEl(null);
-    Alert5("신고하기", "신고 사유를 입력해주세요.", reportMutate, nickname);
+    MsgAlert("신고하기", "신고 사유를 입력해주세요.", reportMutate, nickname);
   };
 
   return (

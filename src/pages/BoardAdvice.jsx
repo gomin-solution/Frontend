@@ -6,6 +6,7 @@ import { Header2 } from "../elements/Header";
 import Dial from "../components/board/Dial";
 import styled from "styled-components";
 import { Container, FlexCenter } from "../shared/css";
+import ScrollBtn from "../elements/ScrollBtn";
 
 function Board() {
   const nav = useNavigate();
@@ -23,6 +24,7 @@ function Board() {
       <div style={{ position: "absolute", bottom: "2.5rem", right: "0.5rem" }}>
         <Dial />
       </div>
+      <ScrollBtn />
       <Footer title={"고민 접기"} />
     </>
   );

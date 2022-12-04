@@ -2,12 +2,7 @@ import styled from "styled-components";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { FlexCenter } from "../shared/css";
 
-function ScrollBtn() {
-  const goTop = () => {
-    console.log("업");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
+function ScrollBtn({ goTop }) {
   return (
     <StScrollBox>
       <StTopScroll onClick={goTop}>

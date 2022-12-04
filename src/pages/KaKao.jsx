@@ -40,7 +40,7 @@ const KaKao = () => {
   const isMember = data?.data?.isMember;
   useEffect(() => {
     if (isMember === true) {
-      setUserKey(`${data?.data?.userKey}`);
+      setUserKey(data?.data?.userKey);
       OkayNaviAlert(`${data?.data?.nickname}님 반갑습니다.`, "/main");
     } else if (isMember === false) {
       nav("/nickname");

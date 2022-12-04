@@ -44,8 +44,8 @@ export const ErrorAlert = (text) => {
   });
 };
 
-/*로그인 + 로그인하러가기 + 취소 */
-export const Alert4 = () => {
+/*텍스트 + 확인 후 이동 + 취소 */
+export const ChooseNaviAlert = (text, textBtn, navi, removeKey) => {
   Swal.fire({
     customClass: {
       confirmButton: "login-Btn",
@@ -54,12 +54,19 @@ export const Alert4 = () => {
       htmlContainer: "login-text",
     },
     buttonsStyling: false,
-    text: "로그인 후 이용 가능합니다.",
+    text: text,
 
     cancelButtonText: "취소",
-    confirmButtonText: "로그인",
+    confirmButtonText: textBtn,
     showCancelButton: true,
     reverseButtons: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      if (removeKey) {
+        localStorage.removeItem(removeKey);
+        window.location.href = navi;
+      }
+    }
   });
 };
 

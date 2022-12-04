@@ -19,6 +19,7 @@ import Setting from "../pages/Setting";
 import Bookmark from "../pages/Bookmark";
 import MyPost from "../pages/MyPost";
 import Splash from "../pages/Splash";
+import MyInfoChange from "../pages/MyInfoChange";
 import KaKao from "../pages/KaKao";
 import Nickname from "../pages/Nickname";
 
@@ -36,8 +37,10 @@ const Router = () => {
         <Route path="/main" element={<Main />} />
         <Route path="/mypost" element={<MyPost />} />
         <Route path="/bookmark" element={<Bookmark />} />
+
         <Route path="/alarm" element={<Alarm />} />
         <Route path="/setting" element={<Setting />} />
+        <Route path="/myinfo-change" element={<MyInfoChange />} />
 
         <Route path="/board-choice" element={<BoardChoice />} />
         <Route path="/board-advice" element={<BoardAdvice />} />

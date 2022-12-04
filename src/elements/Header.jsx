@@ -19,7 +19,6 @@ export function Header1({ title, roomId, navi = -1, leave = false }) {
     // 이전 버튼 클릭 시 room 나가기 요청
     if (leave) {
       socket.emit("leave_room", roomId);
-      console.log("방 나가기");
     }
     nav(navi);
   };

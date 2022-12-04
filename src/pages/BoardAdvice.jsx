@@ -6,14 +6,21 @@ import { Header2 } from "../elements/Header";
 import Dial from "../components/board/Dial";
 import styled from "styled-components";
 import { Container, FlexCenter } from "../shared/css";
+import ScrollBtn from "../elements/ScrollBtn";
+import { useRef } from "react";
 
 function Board() {
   const nav = useNavigate();
+  const topBtn = useRef();
+
+  const goTop = () => {
+    topBtn.current.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <>
       <Header2 title={"고민 접기"} />
-      <Stcontainer>
+      <Stcontainer ref={topBtn}>
         <StInnerWrap>
           <StBtn2 onClick={() => nav("/board-choice")}>골라주기</StBtn2>
           <StBtn1 onClick={() => nav("/board-advice")}>답해주기</StBtn1>
@@ -23,6 +30,7 @@ function Board() {
       <div style={{ position: "absolute", bottom: "2.5rem", right: "0.5rem" }}>
         <Dial />
       </div>
+      <ScrollBtn goTop={goTop} />
       <Footer title={"고민 접기"} />
     </>
   );

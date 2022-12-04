@@ -12,7 +12,7 @@ import {
   RewardGetModal,
   RewardModal,
 } from "../components/detailBorad/ImageModal";
-import { Alert6 } from "../elements/Alert";
+import { RewardedAlert } from "../elements/Alert";
 import { Container, FlexCenter } from "../shared/css";
 import graphic_fox from "../image/reward/graphic_fox.svg";
 import graphic_rabbit from "../image/reward/graphic_rabbit.svg";
@@ -204,7 +204,7 @@ const Reward = () => {
                       <img
                         alt="보상"
                         src={item?.img}
-                        onClick={() => Alert6(item?.img)}
+                        onClick={() => RewardedAlert(item?.img)}
                       />
                     </div>
                   ) : (

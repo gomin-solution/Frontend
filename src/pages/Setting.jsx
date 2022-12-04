@@ -16,6 +16,10 @@ function Setting() {
   const logoutMutation = useMutation(logout);
   const byeMutation = useMutation(goodBye);
 
+  const ByeMutate = () => {
+    byeMutation.mutate();
+  };
+
   const nav = useNavigate();
 
   const logoutHandler = () => {
@@ -25,13 +29,12 @@ function Setting() {
   };
 
   const ByeHandler = () => {
-    byeMutation.mutate();
-    logoutMutation.mutate();
     setUserKey(false);
     ChooseNaviAlert(
       "정말 탈퇴하시겠습니까?",
       "탈퇴",
       "/main",
+      ByeMutate,
       "recoil-persist"
     );
   };

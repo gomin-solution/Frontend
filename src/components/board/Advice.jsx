@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useAdviceInfiniteScroll } from "../../api/boardAdviceApi";
 import AdviceList from "../AdviceList";
-
 import styled from "styled-components";
 import { FilterDial, CategoryDial } from "../../elements/MenuDial";
 

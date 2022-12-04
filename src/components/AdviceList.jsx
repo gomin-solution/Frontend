@@ -2,15 +2,17 @@ import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 
-const AdviceList = ({ newRef, advice }) => {
+const AdviceList = ({ newRef, advice, navi }) => {
   const nav = useNavigate();
+
+  console.log(navi);
 
   return (
     <StAdviceList
       ref={newRef}
       key={advice.adviceId}
       onClick={() => {
-        nav(`/board-advice/${advice.adviceId}`);
+        nav(`/board-advice/${advice.adviceId}`, { state: navi });
       }}
     >
       <StTitleWrap>

@@ -20,7 +20,8 @@ import { userKeyAtom } from "../state/atom";
 function DetailAdvice() {
   const queryClient = useQueryClient();
 
-  const { state: bookmarkNav } = useLocation();
+  const { state: naveName } = useLocation();
+  console.log("naveName", naveName);
 
   const param = useParams();
   const adviceId = param.adviceId;
@@ -128,8 +129,8 @@ function DetailAdvice() {
     <>
       {adEdit ? (
         <>
-          {bookmarkNav ? (
-            <Header1 title={"고민 적기"} navi="/bookmark" />
+          {naveName ? (
+            <Header1 title={"고민 적기"} navi={naveName} />
           ) : (
             <Header1 title={"고민 적기"} navi="/board-advice" />
           )}

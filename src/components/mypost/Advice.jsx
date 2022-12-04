@@ -12,7 +12,7 @@ const Advice = ({ advices }) => {
           <StResult>내가 작성한 답해주기가 없습니다.</StResult>
         )}
         {advices?.map((advice) => (
-          <AdviceList advice={advice} key={advice.adviceId} />
+          <AdviceList advice={advice} key={advice.adviceId} navi="/mypost" />
         ))}
       </StListWrap>
     </StContainer>

@@ -12,7 +12,7 @@ const Advice = ({ advices }) => {
           <StResult>북마크한 답해주기가 없습니다.</StResult>
         )}
         {advices?.map((advice) => (
-          <AdviceList advice={advice} key={advice.adviceId} />
+          <AdviceList advice={advice} key={advice.adviceId} navi="/bookmark" />
         ))}
       </StListWrap>
     </StContainer>

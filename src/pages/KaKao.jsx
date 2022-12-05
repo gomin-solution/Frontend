@@ -34,12 +34,14 @@ const KaKao = () => {
       mutate(payload);
     }
   }, [payload]);
-  console.log("data", data);
 
   /* 가입 여부에 따른 예외처리 */
   const isMember = data?.data?.isMember;
+  const isError = data?.data?.errrorMessage;
   useEffect(() => {
-    if (isMember === true) {
+    if (isError === "이미 로그인이 되어있습니다.") {
+      OkayNaviAlert(`이미 로그인이 되어 있습니다.`, "/main");
+    } else if (isMember === true) {
       setUserKey(data?.data?.userKey);
       OkayNaviAlert(`${data?.data?.nickname}님 반갑습니다.`, "/main");
     } else if (isMember === false) {

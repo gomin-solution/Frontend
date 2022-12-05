@@ -6,7 +6,7 @@ import { Container, FlexCenter } from "../shared/css";
 const Help = () => {
   return (
     <>
-      <Header1 title={"이용방법"} navi="/main" />
+      <Header1 title={"이용방법"} navi="/setting" />
       <Stcontainer>
         <StTitle>메인</StTitle>
         <ul>

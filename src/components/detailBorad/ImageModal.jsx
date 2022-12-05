@@ -128,7 +128,7 @@ const StTip = styled.div`
 const MissionDiv = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.Colors.blueGreen3};
   padding: ${(props) => props.theme.paddings.lg};
-  background-color: ${(props) => props.finshi === 1 && "#E9F3F2"};
+  background-color: ${(props) => props.finshi >= 1 && "#E9F3F2"};
 
   .set {
     display: flex;
@@ -156,6 +156,7 @@ const MissionGauge = styled.div`
 const MissionBar = styled.div`
   position: absolute;
   height: 0.7rem;
+  max-width: 100%;
   width: ${(props) => props.width}%;
   background-color: ${(props) => props.theme.Colors.blueGreen3};
 `;
@@ -175,7 +176,6 @@ export function RewardGetModal({ modalOpen, closeModal, reward }) {
           <StCollect>
             <p className="title">컬렉션 획득</p>
             <img alt="" src={reward.img} />
-            <p className="text">하트루비</p>
           </StCollect>
         </StBack>
       </Modal>

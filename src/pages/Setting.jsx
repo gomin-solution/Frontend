@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container, FlexCenter } from "../shared/css";
 import { getMyPage, goodBye, logout } from "../api/settingApi";
-import { OkayNaviAlert, ChooseNaviAlert } from "../elements/Alert";
+import { OkayNaviAlert, ChooseNaviAlert, OkayAlert } from "../elements/Alert";
 import { useNavigate } from "react-router-dom";
 
 function Setting() {
@@ -34,6 +34,12 @@ function Setting() {
     );
   };
 
+  const gradeHelp = () => {
+    OkayAlert(
+      "주니어 해결사: 미션 0~2개 완료\n프로 해결사: 미션 3~5개 완료\n엘리트 해결사: 미션 4~9개 완료\n마스터 해결사: 미션10개 이상 완료"
+    );
+  };
+
   return (
     <>
       <Header1 title={"설정"} navi="/main" />
@@ -44,7 +50,10 @@ function Setting() {
             <div>
               <p>{res?.data.mypage.nickname}</p>
               <span>
-                등급: 주니어 해결사<div className="qbox">?</div>
+                등급: 주니어 해결사
+                <div className="qbox" onClick={gradeHelp}>
+                  ?
+                </div>
               </span>
             </div>
           </StUserinfo>
@@ -117,6 +126,7 @@ const StUserinfo = styled.div`
     font-size: ${(props) => props.theme.fontSizes.sm};
     width: 1rem;
     height: 1rem;
+    cursor: pointer;
   }
 `;
 

@@ -21,7 +21,13 @@ import graphic_bear from "../image/reward/graphic_bear.svg";
 import graphic_turtle from "../image/reward/graphic_turtle.svg";
 import graphic_elephant from "../image/reward/graphic_elephant.svg";
 import graphic_dolphin from "../image/reward/graphic_dolphin.svg";
-import graphic_heart from "../image/reward/graphic_heart.svg";
+import graphic_cat from "../image/reward/graphic_cat.svg";
+import graphic_owl from "../image/reward/graphic_owl.svg";
+import graphic_crane from "../image/reward/graphic_crane.svg";
+
+import graphic_star from "../image/reward/graphic_star.png";
+import graphic_heart from "../image/reward/graphic_heart.png";
+import graphic_clover from "../image/reward/graphic_clover.png";
 
 const Reward = () => {
   const { data, isSuccess } = useQuery("rewardGet", rewardGet, {
@@ -155,7 +161,7 @@ const Reward = () => {
         pharse: missionResult[6].pharse,
         rewardName: missionResult[6].rewardName,
         mission: [`행운의 편지 열기-${missionCount?.msgOpen}-10`],
-        img: graphic_heart,
+        img: graphic_cat,
       },
       {
         id: 8,
@@ -164,7 +170,7 @@ const Reward = () => {
         pharse: missionResult[7].pharse,
         rewardName: missionResult[7].rewardName,
         mission: [`고민해결 채택받기-${missionCount?.Selected}-5`],
-        img: graphic_heart,
+        img: graphic_owl,
       },
       {
         id: 9,
@@ -173,7 +179,7 @@ const Reward = () => {
         pharse: missionResult[8].pharse,
         rewardName: missionResult[8].rewardName,
         mission: [`고민해결 하기-${missionCount?.totalSolution}-5`],
-        img: graphic_heart,
+        img: graphic_crane,
       },
       {
         id: 10,
@@ -182,7 +188,7 @@ const Reward = () => {
         pharse: missionResult[9].pharse,
         rewardName: missionResult[9].rewardName,
         mission: [`고민해결 채택받기-${missionCount?.Selected}-10`],
-        img: graphic_heart,
+        img: graphic_star,
       },
       {
         id: 11,
@@ -200,7 +206,7 @@ const Reward = () => {
         pharse: missionResult[11].pharse,
         rewardName: missionResult[11].rewardName,
         mission: [`미션 완료-${missionCount?.missionComplete}-9`],
-        img: graphic_heart,
+        img: graphic_clover,
       },
     ];
 

@@ -26,14 +26,12 @@ export const useAdviceInfiniteScroll = (categoryId, filterId) => {
     ["getAdviceScroll", categoryId, filterId],
     getAdviceScroll,
     {
-      getNextPageParam: (lastPage, pages) => {
-        return lastPage.advices[0] ? lastPage.currentPage + 1 : undefined;
-      },
-    },
-    {
+      getNextPageParam: (lastPage, pages) =>
+        lastPage.advices[0] ? lastPage.currentPage + 1 : undefined,
       refetchOnWindowFocus: false,
       retry: false,
-    }
+    },
+    {}
   );
 
   return { getAdvice, fetchNextPage, isSuccess, hasNextPage, refetch };

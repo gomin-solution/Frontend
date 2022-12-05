@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import { removeCookie } from "../api/cookie";
 import "../elements/Alert.css";
 
 /* 확인 후 이동 */
@@ -13,6 +14,8 @@ export const OkayNaviAlert = (text, navi, userKey) => {
   }).then(() => {
     window.location.href = navi;
     if (userKey) {
+      removeCookie("accessToken");
+      removeCookie("refreshToken");
       localStorage.removeItem(userKey);
     }
   });

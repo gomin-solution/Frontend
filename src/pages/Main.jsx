@@ -26,7 +26,10 @@ function Main() {
   const isOpen = data?.data.mainpage.isOpen;
 
   /* userKey 불러오기 */
-  const userKey = useRecoilValue(userKeyAtom);
+  const userKey = useRecoilValue(userKeyAtom, {
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
 
   return (
     <>

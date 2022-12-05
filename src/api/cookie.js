@@ -21,7 +21,3 @@ export const removeCookie = (name) => {
 export const decodeCookie = (name) => {
   return decodeToken(getCookie(name));
 };
-
-export const decodeCookieRefresh = (name) => {
-  return decodeToken(getCookie(name));
-};

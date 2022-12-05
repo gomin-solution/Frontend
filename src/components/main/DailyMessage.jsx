@@ -25,7 +25,7 @@ const DailyMessage = ({ dailyMessage, isOpen, userKey }) => {
   };
 
   /* 행운 편지 열람 */
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState("stopped");
   const openMessage = useMutation(putIsOpen, {
     onSuccess: () => {
       queryClient.invalidateQueries("getMain");
@@ -35,7 +35,7 @@ const DailyMessage = ({ dailyMessage, isOpen, userKey }) => {
   const messageHandler = () => {
     if (userKey) {
       if (!isOpen) {
-        setOpen(false);
+        setOpen("playing");
         setTimeout(() => OkayAlert(`${dailyMessage}`), [2000]);
         setTimeout(() => {
           openMessage.mutate();
@@ -44,7 +44,7 @@ const DailyMessage = ({ dailyMessage, isOpen, userKey }) => {
         OkayAlert(`${dailyMessage}`);
       }
     } else {
-      OkayAlert("로그인 후 이용해주세요.");
+      OkayAlert("로그인 후 이용 가능합니다.");
     }
   };
 
@@ -63,7 +63,7 @@ const DailyMessage = ({ dailyMessage, isOpen, userKey }) => {
                 config={defaultOptions}
                 height="10rem"
                 width="10rem"
-                isStopped={open}
+                playingState={open}
               />
             </StLottie>
           ) : (

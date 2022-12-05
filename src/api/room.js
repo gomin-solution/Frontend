@@ -1,4 +1,3 @@
-import { ChooseNaviAlert } from "../elements/Alert";
 import { instance } from "./api";
 
 /* 쪽지하기 all rooms get */

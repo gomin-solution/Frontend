@@ -18,7 +18,7 @@ const AnswerAndBookmark = () => {
     if (userKey) {
       nav(navi);
     } else {
-      OkayAlert("로그인 후 이용해주세요.");
+      OkayAlert("로그인 후 이용 가능합니다.");
     }
   };
 

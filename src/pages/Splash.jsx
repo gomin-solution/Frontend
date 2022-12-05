@@ -26,7 +26,7 @@ const Splash = () => {
         window.location.href = "/intro";
       }
     }, 4300);
-  }, []);
+  }, [userKey]);
 
   return (
     <StContainer>

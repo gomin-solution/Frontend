@@ -109,9 +109,9 @@ export const RewardedAlert = (e) => {
       closeButton: "closeButton-msg",
       image: "image-reward",
     },
-    title: "리워드 이름",
-    text: "행운의말",
-    imageUrl: e,
+    title: e.rewardName,
+    html: e.pharse,
+    imageUrl: e.img,
     showCloseButton: true,
     showConfirmButton: false,
   });

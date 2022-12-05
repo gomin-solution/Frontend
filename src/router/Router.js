@@ -22,6 +22,7 @@ import Splash from "../pages/Splash";
 import MyInfoChange from "../pages/MyInfoChange";
 import KaKao from "../pages/KaKao";
 import Nickname from "../pages/Nickname";
+import Help from "../pages/Help";
 
 const Router = () => {
   return (
@@ -41,6 +42,7 @@ const Router = () => {
         <Route path="/alarm" element={<Alarm />} />
         <Route path="/setting" element={<Setting />} />
         <Route path="/myinfo-change" element={<MyInfoChange />} />
+        <Route path="/help" element={<Help />} />
 
         <Route path="/board-choice" element={<BoardChoice />} />
         <Route path="/board-advice" element={<BoardAdvice />} />

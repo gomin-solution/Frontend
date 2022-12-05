@@ -3,6 +3,8 @@ import { Lottie } from "@crello/react-lottie";
 import animationData from "../image/splash/simbol.json";
 import { Container, FlexCenter } from "../shared/css";
 import styled from "styled-components";
+import { useRecoilValue } from "recoil";
+import { userKeyAtom } from "../state/atom";
 
 const Splash = () => {
   /* lottie 속성값 설정 */
@@ -14,9 +16,15 @@ const Splash = () => {
     },
   };
 
+  const userKey = useRecoilValue(userKeyAtom);
+  console.log("userKey", userKey);
   useEffect(() => {
     setTimeout(() => {
-      window.location.href = "/main";
+      if (userKey) {
+        window.location.href = "/main";
+      } else {
+        window.location.href = "/intro";
+      }
     }, 4300);
   }, []);
 

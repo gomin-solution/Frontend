@@ -4,6 +4,7 @@ import introA from "../image/intro/introA.json";
 import introB from "../image/intro/introB.json";
 import introC from "../image/intro/introC.json";
 import introD from "../image/intro/introD.json";
+import logoSquare from "../image/logo/logoSquare.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 import "swiper/css";
@@ -75,15 +76,21 @@ const Intro = () => {
             <Lottie config={defaultOptionsC} height="100%" width="100%" />
           </StSwiperSlide>
           <StSwiperSlide>
-            <StNav top="0" onClick={() => nav("/login")}>
-              로그인하러 가기
+            <StPagenation>
               <NavigateNextIcon style={{ fontSize: "2rem" }} />
-            </StNav>
-            <StNav top="6" onClick={() => nav("/main")}>
-              고민접기 둘러보기
-              <NavigateNextIcon style={{ fontSize: "2rem" }} />
-            </StNav>
+            </StPagenation>
             <Lottie config={defaultOptionsD} height="100%" width="100%" />
+          </StSwiperSlide>
+          <StSwiperSlide>
+            <StInnerWrap>
+              <StImg src={logoSquare} alt="logo" />
+              <StNav bottom="28" onClick={() => nav("/login")}>
+                로그인하러 가기
+              </StNav>
+              <StNav bottom="22" onClick={() => nav("/main")}>
+                고민접기 둘러보기
+              </StNav>
+            </StInnerWrap>
           </StSwiperSlide>
         </StSwFeat>
       </StWrap>
@@ -119,7 +126,11 @@ const StSwiperSlide = styled(SwiperSlide)`
 `;
 
 const StPagenation = styled.div`
-  color: ${(props) => props.theme.Colors.blueGray1};
+  color: ${(props) => props.theme.Colors.blueGray3};
+  background-color: ${(props) => props.theme.Colors.blueGray1};
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2rem;
   position: absolute;
   top: 0;
   right: 0;
@@ -127,16 +138,25 @@ const StPagenation = styled.div`
   z-index: 99;
 `;
 
-const StNav = styled.div`
-  color: ${(props) => props.theme.Colors.blueGray2};
+const StInnerWrap = styled.div`
   ${FlexCenter};
-  justify-content: flex-end;
-  width: 10rem;
-  position: absolute;
-  top: ${(props) => props.top}%;
-  right: 0;
-  margin: 1rem;
-  border-bottom: 0.1rem solid ${(props) => props.theme.Colors.blueGray2};
-  z-index: 99;
+  flex-flow: column;
+  width: 100%;
+  row-gap: 1.5rem;
+  padding: ${(props) => props.theme.paddings.xxl};
+`;
+
+const StImg = styled.img`
+  margin: 3rem;
+`;
+
+const StNav = styled.div`
+  background-color: ${(props) => props.theme.Colors.blueGray1};
+  color: ${(props) => props.theme.Colors.blueGreen3};
+  ${FlexCenter};
+  width: 80%;
+  height: 3rem;
+  font-size: ${(props) => props.theme.fontSizes.lg};
+  font-weight: ${(props) => props.theme.fontWeights.lg};
   cursor: pointer;
 `;

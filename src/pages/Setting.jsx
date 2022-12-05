@@ -40,7 +40,7 @@ function Setting() {
       {!admin ? (
         <Stcontainer>
           <StUserinfo>
-            <img src={res?.data.mypage.userImage} alt="프로필 사진" />
+            <img src={res?.data.mypage.userImage} alt="유저 등급 이미지" />
             <div>
               <p>{res?.data.mypage.nickname}</p>
               <span>
@@ -59,7 +59,7 @@ function Setting() {
           </StMenu>
           <StMenu style={{ border: "none" }}>푸쉬 알람설정</StMenu>
           <StTitle>고객지원</StTitle>
-          <StMenu>공지사항</StMenu>
+          <StMenu onClick={() => nav("/help")}>이용방법</StMenu>
           <StMenu>문의하기</StMenu>
           <StMenu style={{ border: "none" }} onClick={ByeHandler}>
             회원탈퇴

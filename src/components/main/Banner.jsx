@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import bannerA from "../../image/banner/bannerA.png";
 import bannerB from "../../image/banner/bannerB.png";
-import bannerC from "../../image/banner/bannerC.png";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -20,8 +19,6 @@ export default function App() {
   return (
     <>
       <StSwFeat
-        spaceBetween={0}
-        centeredSlides={true}
         loop={true}
         autoplay={{
           delay: 3000,
@@ -30,12 +27,10 @@ export default function App() {
         pagination={{
           clickable: true,
         }}
-        navigation={false}
         modules={[Autoplay, Pagination, Navigation]}
       >
-        <StSwSlide url={bannerA} onClick={() => nav("/intro")} />
-        <StSwSlide url={bannerB} />
-        <StSwSlide url={bannerC} />
+        <StSwSlide url={bannerA} />
+        <StSwSlide url={bannerB} onClick={() => nav("/help")} />
       </StSwFeat>
     </>
   );

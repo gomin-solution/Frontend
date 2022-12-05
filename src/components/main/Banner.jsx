@@ -29,7 +29,10 @@ export default function App() {
         }}
         modules={[Autoplay, Pagination, Navigation]}
       >
-        <StSwSlide url={bannerA} />
+        <StSwSlide
+          url={bannerA}
+          onClick={() => window.open("https://forms.gle/18aAS5XKV6hsXqoH9")}
+        />
         <StSwSlide url={bannerB} onClick={() => nav("/help")} />
       </StSwFeat>
     </>

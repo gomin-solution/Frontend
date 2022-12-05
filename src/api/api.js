@@ -57,7 +57,7 @@ instance.interceptors.response.use(
           /* accessToken 변경 실패 시 */
           removeCookie("accessToken");
           removeCookie("refreshToken");
-          return OkayNaviAlert("재로그인이 필요합니다.", "/main");
+          return OkayNaviAlert("재로그인이 필요합니다.", "/login");
         }
         /* refreshToken 만료 시 status: 403 */
       } else if (
@@ -66,7 +66,7 @@ instance.interceptors.response.use(
       ) {
         removeCookie("accessToken");
         removeCookie("refreshToken");
-        return OkayNaviAlert("재로그인이 필요합니다.", "/main");
+        return OkayNaviAlert("재로그인이 필요합니다.", "/login");
       }
     } catch (error) {
       console.log(error);

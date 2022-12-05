@@ -25,7 +25,7 @@ export const OkayAlert = (text) => {
       confirmButton: "confirm-Btn",
     },
     buttonsStyling: false,
-    text: text,
+    html: text,
     confirmButtonText: "확인",
   });
 };

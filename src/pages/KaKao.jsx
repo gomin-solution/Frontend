@@ -28,7 +28,7 @@ const KaKao = () => {
   }
 
   /* user info post */
-  const { mutate, data, isError, error } = useMutation(kakaoTokenPost);
+  const { mutate, data, isError } = useMutation(kakaoTokenPost);
   useEffect(() => {
     if (payload !== undefined) {
       mutate(payload);
@@ -37,8 +37,6 @@ const KaKao = () => {
 
   /* 가입 여부에 따른 예외처리 */
   const isMember = data?.data?.isMember;
-  // const isError = data?.data?.errorMessage;
-  console.log(error);
   useEffect(() => {
     if (isError) {
       OkayNaviAlert(`이미 로그인이 되어 있습니다.`, "/main");

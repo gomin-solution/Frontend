@@ -8,19 +8,28 @@ import HowToVoteOutlinedIcon from "@mui/icons-material/HowToVoteOutlined";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userKeyAtom } from "../../state/atom";
+import { OkayAlert } from "../../elements/Alert";
 
-const actions = [
-  { icon: <EventNoteIcon />, name: "답해주기", nav: "/post-advice" },
-  { icon: <HowToVoteOutlinedIcon />, name: "골라주기", nav: "/post-choice" },
-];
+const SpeedDialTooltipOpen = () => {
+  const actions = [
+    { icon: <EventNoteIcon />, name: "답해주기", nav: "/post-advice" },
+    { icon: <HowToVoteOutlinedIcon />, name: "골라주기", nav: "/post-choice" },
+  ];
 
-export default function SpeedDialTooltipOpen() {
   const nav = useNavigate();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const userKey = useRecoilValue(userKeyAtom);
   const navHandler = (e) => {
-    nav(`${e}`);
+    if (userKey) {
+      nav(`${e}`);
+    } else {
+      OkayAlert("로그인 후 이용 가능합니다.");
+    }
   };
 
   return (
@@ -62,7 +71,9 @@ export default function SpeedDialTooltipOpen() {
       </StDial>
     </Box>
   );
-}
+};
+
+export default SpeedDialTooltipOpen;
 
 const StDial = styled(SpeedDial)`
   scale: 1;

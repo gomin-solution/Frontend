@@ -19,7 +19,7 @@ function Footer({ title }) {
 
   const onMenu = (e) => {
     if (!userKey && (e.nav === "/rooms" || e.nav === "/reward")) {
-      OkayAlert("로그인 후 이용해주세요.");
+      OkayAlert("로그인 후 이용 가능합니다.");
     } else {
       nav(e.nav);
     }

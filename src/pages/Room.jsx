@@ -6,6 +6,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getRooms, outRoom } from "../api/room";
 import { Container } from "../shared/css";
 import CloseIcon from "@mui/icons-material/Close";
+import { ChooseNaviAlert } from "../elements/Alert";
 
 const Room = () => {
   const queryClient = useQueryClient();
@@ -20,6 +21,17 @@ const Room = () => {
       queryClient.invalidateQueries("getRooms");
     },
   });
+  const roomHandler = (e, roomId) => {
+    e.stopPropagation();
+    ChooseNaviAlert(
+      "쪽지방을 나가시겠습니까?",
+      "확인",
+      null,
+      mutate,
+      null,
+      roomId
+    );
+  };
 
   return (
     <>
@@ -35,8 +47,7 @@ const Room = () => {
                 <span style={{ fontWeight: "600" }}>{room.title}</span>
                 <StCloseIcon
                   onClick={(e) => {
-                    e.stopPropagation();
-                    mutate(room.roomId);
+                    roomHandler(e, room.roomId);
                   }}
                 >
                   <CloseIcon />

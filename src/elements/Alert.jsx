@@ -45,7 +45,7 @@ export const ErrorAlert = (text) => {
 };
 
 /*텍스트 + 확인 후 이동 + 취소 */
-export const ChooseNaviAlert = (text, textBtn, navi, mutate, userKey, para) => {
+export const ChooseNaviAlert = (text, textBtn, navi, mutate, userKey, data) => {
   Swal.fire({
     customClass: {
       confirmButton: "login-Btn",
@@ -67,7 +67,7 @@ export const ChooseNaviAlert = (text, textBtn, navi, mutate, userKey, para) => {
         localStorage.removeItem(userKey);
         window.location.href = navi;
       } else {
-        mutate(para);
+        mutate(data);
       }
     }
   });

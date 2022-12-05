@@ -9,6 +9,7 @@ import logoBirdSquare from "../image/logo/logoBirdSquare.svg";
 import { useSetRecoilState } from "recoil";
 import { userKeyAtom } from "../state/atom";
 import kakao from "../image/socialLogin/kakao.svg";
+import { setCookie } from "../api/cookie";
 
 const Login = () => {
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code`;
@@ -22,9 +23,17 @@ const Login = () => {
     try {
       const res = await instance.post("/login", data);
 
+      // body로 전달받은 토큰을 쿠키에 저장하기
+      setCookie("accessToken", res?.data.accessToken, {
+        maxAge: 60 * 60 * 24 * 15,
+      });
+      setCookie("refreshToken", res?.data.refreshToken, {
+        maxAge: 60 * 60 * 24 * 15,
+      });
+
       /* userKey 전역으로 저장 후 메인페이지 이동 */
-      setuserKey(res.data.userKey);
-      OkayNaviAlert(`${res.data.nickname}님 반갑습니다.`, "/main");
+      setuserKey(res?.data.userKey);
+      OkayNaviAlert(`${res?.data.nickname}님 반갑습니다.`, "/main");
     } catch (error) {
       OkayAlert("아이디 또는 비밀번호가 일치하지 않습니다.");
     }

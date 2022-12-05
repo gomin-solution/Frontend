@@ -19,18 +19,12 @@ export const useChoiceInfiniteScroll = (filterId) => {
     fetchNextPage,
     isSuccess,
     hasNextPage,
-  } = useInfiniteQuery(
-    ["getChoiceScroll", filterId],
-    getChoiceScroll,
-    {
-      getNextPageParam: (lastPage, pages) =>
-        lastPage.choices[0] ? lastPage.currentPage + 1 : undefined,
-    },
-    {
-      refetchOnWindowFocus: false,
-      retry: false,
-    }
-  );
+  } = useInfiniteQuery(["getChoiceScroll", filterId], getChoiceScroll, {
+    getNextPageParam: (lastPage, pages) =>
+      lastPage.choices[0] ? lastPage.currentPage + 1 : undefined,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
   return { getChoice, fetchNextPage, isSuccess, hasNextPage };
 };
 

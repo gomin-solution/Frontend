@@ -15,6 +15,7 @@ instance.interceptors.request.use(
     config.headers = {
       authorization: `Bearer ${accToken}`,
       Accept: "application/json",
+      "Content-Type": "application/json; charset=utf-8",
     };
     return config;
   },
@@ -27,19 +28,16 @@ instance.interceptors.request.use(
 /* interceptor: response */
 instance.interceptors.response.use(
   (response) => {
-    // 응답 데이터가 있는 작업 수행 : STATUS CODE 2XX
     return response;
   },
   async (error) => {
-    // 응답 오류가 있는 작업 수행 : STATUS CODE WITHOUT 2XX
     try {
       const { response, config } = error;
       const originalRequest = config;
-      // ACCESSTOKEN FAILED : 405 / REFRESHTOKEN FAILED : 403
-      /* GET ACCESSTOKEN FAILED --------------------------------------------------- */
+      /* accessToken 만료: 405에러 */
       if (response.data.message === "만료" && response.status === 405) {
         const refToken = getCookie("refreshToken");
-        /* GET : NEW ACCESSTOKEN ---------------------------------------------------- */
+        /* 새로운 accessToken 요청 */
         try {
           const accToken = getCookie("accessToken");
           const res = await axios({
@@ -50,11 +48,11 @@ instance.interceptors.response.use(
               refreshToken: `Bearer ${refToken}`,
             },
           });
-          /* CHANGE ACCESSTOKEN ------------------------------------------------------- */
+          /* accessToken 변경 후 재요청 */
           originalRequest.headers.authorization = res.data.accessToken;
           removeCookie("accessToken");
           setCookie("accessToken", res.data.accessToken);
-          return axios(originalRequest);
+          return instance.request(originalRequest);
         } catch (error) {
           /* accessToken 변경 실패 시 */
           removeCookie("accessToken");

@@ -30,7 +30,7 @@ const StContainer = styled.div`
 
 const StWrap = styled.div`
   background-color: ${(props) => props.theme.Colors.foot};
-  ${FlexCenter}
+  ${FlexCenter};
   column-gap: 5%;
 `;
 

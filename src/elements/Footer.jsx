@@ -1,11 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import ChangeHistoryIcon from "@mui/icons-material/ChangeHistory";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { FlexCenter } from "../shared/css";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../state/atom";
 import { OkayAlert } from "./Alert";
+import home from "../image/footerIcon/home.svg";
+import board from "../image/footerIcon/board.svg";
+import message from "../image/footerIcon/message.svg";
+import reward from "../image/footerIcon/reward.svg";
+import homeClicked from "../image/footerIcon/homeClicked.svg";
+import boardClicked from "../image/footerIcon/boardClicked.svg";
+import messageClicked from "../image/footerIcon/messageClicked.svg";
+import rewardClicked from "../image/footerIcon/rewardClicked.svg";
 
 function Footer({ title }) {
   const userKey = useRecoilValue(userKeyAtom);
@@ -20,10 +26,20 @@ function Footer({ title }) {
   };
 
   const menu = [
-    { title: "메인", nav: "/main" },
-    { title: "고민 접기", nav: "/board-choice" },
-    { title: "쪽지함", nav: "/rooms" },
-    { title: "수집함", nav: "/reward" },
+    { title: "메인", nav: "/main", img: home, imgClicked: homeClicked },
+    {
+      title: "고민 접기",
+      nav: "/board-choice",
+      img: board,
+      imgClicked: boardClicked,
+    },
+    {
+      title: "쪽지함",
+      nav: "/rooms",
+      img: message,
+      imgClicked: messageClicked,
+    },
+    { title: "수집함", nav: "/reward", img: reward, imgClicked: rewardClicked },
   ];
 
   return (
@@ -32,7 +48,11 @@ function Footer({ title }) {
         return item.title === title ? (
           <StAct key={item.title}>
             <StClick>
-              <FiberManualRecordIcon fontSize="small" />
+              <img
+                src={item.imgClicked}
+                alt="icon"
+                style={{ color: "#D9D9D9" }}
+              />
             </StClick>
             <div style={{ width: "100%" }}>{item.title}</div>
           </StAct>
@@ -43,7 +63,7 @@ function Footer({ title }) {
               onMenu(item);
             }}
           >
-            <ChangeHistoryIcon fontSize="small" />
+            <img src={item.img} alt="icon" />
             <div style={{ width: "100%" }}>{item.title}</div>
           </StCon>
         );

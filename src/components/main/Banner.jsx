@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import a from "../../image/banner/a.png";
-import b from "../../image/banner/b.png";
-import c from "../../image/banner/c.png";
+import bannerA from "../../image/banner/bannerA.png";
+import bannerB from "../../image/banner/bannerB.png";
+import bannerC from "../../image/banner/bannerC.png";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -12,11 +12,14 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
+import { useNavigate } from "react-router-dom";
 
 export default function App() {
+  const nav = useNavigate();
+
   return (
     <>
-      <SwFeat
+      <StSwFeat
         spaceBetween={0}
         centeredSlides={true}
         loop={true}
@@ -30,25 +33,26 @@ export default function App() {
         navigation={false}
         modules={[Autoplay, Pagination, Navigation]}
       >
-        <SwSlide url={a} />
-        <SwSlide url={b} />
-        <SwSlide url={c} />
-      </SwFeat>
+        <StSwSlide url={bannerA} onClick={() => nav("/intro")} />
+        <StSwSlide url={bannerB} />
+        <StSwSlide url={bannerC} />
+      </StSwFeat>
     </>
   );
 }
 
-const SwFeat = styled(Swiper)`
+const StSwFeat = styled(Swiper)`
   height: 11rem;
   &.swiper .swiper-pagination-bullet {
-    background-color: white;
+    background-color: ${(props) => props.theme.Colors.blueGray3};
     width: 0.4rem;
     height: 0.4rem;
   }
 `;
 
-const SwSlide = styled(SwiperSlide)`
+const StSwSlide = styled(SwiperSlide)`
   background-image: url(${(props) => props.url});
   background-size: cover;
   background-position: center;
+  cursor: pointer;
 `;

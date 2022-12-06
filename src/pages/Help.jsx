@@ -48,6 +48,7 @@ export default Help;
 /*반응형 맞춤 */
 const Stcontainer = styled.div`
   ${Container};
+  margin-top: 4rem;
   height: calc(100vh - 4rem);
   padding: ${(props) => props.theme.paddings.xxl};
   font-size: ${(props) => props.theme.fontSizes.sm};

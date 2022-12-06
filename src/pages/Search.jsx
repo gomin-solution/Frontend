@@ -20,7 +20,7 @@ const Search = () => {
 
   return (
     <>
-      <Header7 title={"고민 접기"} />
+      <Header7 title={"고민접기"} />
       <Stcontainer>
         <StRankTitleWrap>
           <span style={{ fontWeight: "600" }}>
@@ -53,6 +53,7 @@ export default Search;
 
 const Stcontainer = styled.div`
   ${Container}
+  margin-top: 4rem;
   height: calc(100vh - 8rem);
   padding: ${(props) => props.theme.paddings.xl};
 `;

@@ -255,6 +255,7 @@ export default DetailAdvice;
 const Stcontainer = styled.div`
   ${Container};
   height: calc(100vh - 7rem);
+  margin-top: 4rem;
   padding: ${(props) => props.theme.paddings.xxl};
 `;
 

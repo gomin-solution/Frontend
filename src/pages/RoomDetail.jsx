@@ -113,6 +113,7 @@ export default RoomDetail;
 const Stcontainer = styled.div`
   ${Container};
   height: calc(100vh - 8rem);
+  margin-top: 4rem;
   padding: ${(props) => props.theme.paddings.xl};
   overflow: auto;
   &::-webkit-scrollbar {

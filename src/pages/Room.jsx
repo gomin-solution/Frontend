@@ -78,6 +78,7 @@ const Stcontainer = styled.div`
   ${Container};
   height: calc(100vh - 9rem);
   padding: ${(props) => props.theme.paddings.xl};
+  margin-top: 4rem;
   &::-webkit-scrollbar {
     background: none;
   }

@@ -206,6 +206,7 @@ export default Signup;
 /*반응형 맞춤 */
 const Stcontainer = styled.form`
   ${Container}
+  margin-top: 4rem;
   height: calc(100vh - 4rem);
 `;
 

@@ -34,7 +34,7 @@ function Board() {
 
   return (
     <>
-      <Header2 title={"고민 접기"} />
+      <Header2 title={"고민접기"} />
       <Stcontainer ref={topBtn} onScroll={logScroll}>
         <StInnerWrap>
           <StBtn1 onClick={() => nav("/board-choice")}>골라주기</StBtn1>
@@ -55,6 +55,7 @@ export default Board;
 
 const Stcontainer = styled.div`
   ${Container};
+  margin-top: 4rem;
   height: calc(100vh - 8rem);
 `;
 

@@ -105,17 +105,22 @@ export function Header7() {
 
   /* 검색어 입력 후 페이지이동 */
   const [search, setSearch] = useState("");
-  const searchSubmit = () => {
-    if (search) {
-      nav("/search-result", { state: search });
+  const searchSubmit = (e) => {
+    if (search === "") {
+      OkayAlert("검색어를 입력해주세요.");
+      e.preventDefault();
     } else {
-      return;
+      if (search) {
+        nav("/search-result", { state: search });
+      } else {
+        return;
+      }
     }
   };
 
   return (
     <>
-      <StBlock as="form" onSubmit={searchSubmit}>
+      <StBlock as="form" onSubmit={(e) => searchSubmit(e)}>
         <StBackcon
           onClick={() => {
             nav(-1);
@@ -128,7 +133,11 @@ export function Header7() {
           onChange={(e) => setSearch(e.target.value)}
         />
         <button
-          style={{ display: "flex", alignItems: "center", margin: "0rem 1rem" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            margin: "0rem 0.8rem",
+          }}
         >
           <StSearchcon />
         </button>
@@ -143,11 +152,9 @@ const StBlock = styled.div`
   width: 100%;
   max-width: 26rem;
   height: 4rem;
-
   position: fixed;
   top: 0;
   z-index: 10;
-
   display: flex;
   align-items: center;
   background-color: ${(props) => props.theme.Colors.bg2};

@@ -64,6 +64,7 @@ const StContainer = styled.div`
   ${Container}
   margin-top: 4rem;
   height: calc(100vh - 8rem);
+  margin-top: 4rem;
 `;
 
 const StPaddingWrap = styled.div`

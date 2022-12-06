@@ -82,7 +82,6 @@ const StBlock = styled.div`
   background-color: ${(props) => props.theme.Colors.foot};
   position: fixed;
   bottom: 0px;
-
   display: flex;
   justify-content: space-evenly;
 `;

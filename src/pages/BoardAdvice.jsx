@@ -42,7 +42,7 @@ function Board() {
         </StInnerWrap>
         <Advice />
       </Stcontainer>
-      <div style={{ position: "absolute", bottom: "2.5rem", right: "0.5rem" }}>
+      <div style={{ position: "fixed", bottom: "3rem", right: "0.5rem" }}>
         <Dial />
       </div>
       {scrollbar && <ScrollBtn goTop={goTop} />}
@@ -57,6 +57,7 @@ const Stcontainer = styled.div`
   ${Container};
   margin-top: 4rem;
   height: calc(100vh - 8rem);
+  margin-top: 4rem;
 `;
 
 const StInnerWrap = styled.div`

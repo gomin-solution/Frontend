@@ -46,7 +46,7 @@ function Board() {
         <Dial />
       </div>
       {scrollbar && <ScrollBtn goTop={goTop} />}
-      <Footer title={"고민 접기"} />
+      <Footer title={"고민접기"} />
     </>
   );
 }

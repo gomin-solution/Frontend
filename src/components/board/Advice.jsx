@@ -51,6 +51,7 @@ const Advice = () => {
               </React.Fragment>
             ))
           : null}
+        <div style={{ marginTop: "4rem" }} />
       </StListWrap>
     </StContainer>
   );

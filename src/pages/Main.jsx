@@ -63,6 +63,7 @@ export default Main;
 const StContainer = styled.div`
   ${Container}
   height: calc(100vh - 8rem);
+  margin-top: 4rem;
 `;
 
 const StPaddingWrap = styled.div`

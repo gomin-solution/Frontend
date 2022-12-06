@@ -59,6 +59,7 @@ export default Bookmark;
 const Stcontainer = styled.div`
   ${Container};
   height: calc(100vh - 8rem);
+  margin-top: 4rem;
 `;
 
 const StInnerWrap = styled.div`

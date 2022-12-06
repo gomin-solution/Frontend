@@ -141,9 +141,10 @@ export function Header7() {
 /*전체 블록*/
 const StBlock = styled.div`
   width: 100%;
+  max-width: 26rem;
   height: 4rem;
 
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 10;
 

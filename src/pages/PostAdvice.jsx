@@ -175,6 +175,7 @@ export default AdvicePost;
 
 const Stcontainer = styled.div`
   ${Container}
+  margin-top: 4rem;
   height: calc(100vh - 4rem);
   padding: ${(props) => props.theme.paddings.xxl};
 `;

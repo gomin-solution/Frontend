@@ -55,6 +55,7 @@ export default Board;
 
 const Stcontainer = styled.div`
   ${Container};
+  margin-top: 4rem;
   height: calc(100vh - 8rem);
   margin-top: 4rem;
 `;

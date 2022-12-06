@@ -105,10 +105,10 @@ export function Header7() {
 
   /* 검색어 입력 후 페이지이동 */
   const [search, setSearch] = useState("");
-  const searchSubmit = () => {
+  const searchSubmit = (e) => {
     if (search === "") {
       OkayAlert("검색어를 입력해주세요.");
-      return false;
+      e.preventDefault();
     } else {
       if (search) {
         nav("/search-result", { state: search });
@@ -120,7 +120,7 @@ export function Header7() {
 
   return (
     <>
-      <StBlock as="form" onSubmit={searchSubmit}>
+      <StBlock as="form" onSubmit={(e) => searchSubmit(e)}>
         <StBackcon
           onClick={() => {
             nav(-1);

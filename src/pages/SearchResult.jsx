@@ -66,20 +66,22 @@ const Stcontainer = styled.div`
 const StInnerWrap = styled.div`
   ${FlexCenter};
   margin-top: ${(props) => props.theme.margins.xxl};
-  column-gap: 6rem;
-`;
-
-const StBtn1 = styled.button`
-  width: 4rem;
-  margin-bottom: ${(props) => props.theme.margins.xxl};
-  padding-bottom: 0.4rem;
-  box-shadow: 0rem 0.1rem 0rem 0rem gray;
+  column-gap: 4rem;
   font-weight: ${(props) => props.theme.fontWeights.lg};
 `;
 
-const StBtn2 = styled.button`
-  width: 4rem;
+const StBtn1 = styled.div`
+  ${FlexCenter};
+  color: ${(props) => props.theme.Colors.blueGreen3};
+  width: 5rem;
   margin-bottom: ${(props) => props.theme.margins.xxl};
   padding-bottom: 0.4rem;
-  font-weight: ${(props) => props.theme.fontWeights.lg};
+  border-bottom: 0.1rem solid ${(props) => props.theme.Colors.blueGreen3};
+`;
+
+const StBtn2 = styled.div`
+  ${FlexCenter};
+  width: 5rem;
+  margin-bottom: ${(props) => props.theme.margins.xxl};
+  padding-bottom: 0.4rem;
 `;

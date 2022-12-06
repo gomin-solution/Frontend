@@ -76,7 +76,6 @@ function DetailComment({ comment, resBoard }) {
     ChooseNaviAlert(
       "채택은 한 번만 가능합니다.\n채택하시겠습니까?",
       "채택",
-      null,
       onPick,
       false,
       id

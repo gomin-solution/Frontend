@@ -1,4 +1,5 @@
 import { instance } from "./api";
+import { removeCookie } from "./cookie";
 
 /* 프로필 정보 get*/
 export const getMyPage = async () => {
@@ -13,7 +14,11 @@ export const logout = async () => {
 
 /* 회원탈퇴 put*/
 export const goodBye = async () => {
-  await instance.put("/bye");
+  await instance.put("/bye").then(() => {
+    removeCookie("accessToken");
+    removeCookie("refreshToken");
+  });
+  return (window.location.href = "/main");
 };
 
 /*-----------------개인정보 변경------------------- */

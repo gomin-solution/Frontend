@@ -5,10 +5,12 @@ import { Container, FlexCenter } from "../shared/css";
 import { getMyPage, goodBye, logout } from "../api/settingApi";
 import { OkayNaviAlert, ChooseNaviAlert, OkayAlert } from "../elements/Alert";
 import { useNavigate } from "react-router-dom";
+import { removeCookie } from "../api/cookie";
 
 function Setting() {
   const { data: res } = useQuery("getMyPage", getMyPage);
   const admin = res?.data.admin;
+  const nav = useNavigate();
 
   const logoutMutation = useMutation(logout);
   const byeMutation = useMutation(goodBye);
@@ -16,8 +18,6 @@ function Setting() {
   const ByeMutate = () => {
     byeMutation.mutate();
   };
-
-  const nav = useNavigate();
 
   const logoutHandler = () => {
     logoutMutation.mutate();
@@ -28,7 +28,6 @@ function Setting() {
     ChooseNaviAlert(
       "정말 탈퇴하시겠습니까?",
       "탈퇴",
-      "/main",
       ByeMutate,
       "recoil-persist"
     );

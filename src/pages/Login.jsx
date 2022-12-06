@@ -49,7 +49,7 @@ const Login = () => {
   /* token 없을 시 userKey 삭제: 로그아웃하지 않고 브라우저 종료한 경우 대비 */
   useEffect(() => {
     if (!userKey) {
-      removeCookie("aceessToken");
+      removeCookie("accessToken");
       removeCookie("refreshToken");
     }
   }, []);

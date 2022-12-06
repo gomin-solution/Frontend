@@ -22,6 +22,7 @@ import { FlexCenter } from "../../shared/css";
 function DetailComment({ comment, resBoard }) {
   const queryClient = useQueryClient();
   const commentId = comment.commentId;
+  const userKey = useRecoilValue(userKeyAtom);
 
   //대댓글 가져오기
   const { data } = useQuery(
@@ -107,6 +108,7 @@ function DetailComment({ comment, resBoard }) {
     },
     onError: (err, variables, context) => {
       queryClient.setQueryData("getDetail", context.prevLike);
+      OkayAlert("본인 댓글엔 좋아요를 할 수 없습니다.");
     },
     onSettled: () => {
       /* 관련 쿼리 refetch */
@@ -116,10 +118,8 @@ function DetailComment({ comment, resBoard }) {
 
   // 유저키 비교
   const [user, setUser] = useState(false);
-  const key = useRecoilValue(userKeyAtom);
-
   useEffect(() => {
-    if (key === comment.userKey) {
+    if (userKey === comment.userKey) {
       setUser(true);
     }
   }, []);
@@ -158,23 +158,24 @@ function DetailComment({ comment, resBoard }) {
                   {comment.isLike ? (
                     <FavoriteIcon
                       fontSize="small"
-                      onClick={() => mutate(comment.commentId)}
+                      onClick={() => mutate(comment.commentId, comment.userKey)}
                     />
                   ) : (
                     <FavoriteBorderIcon
                       fontSize="small"
-                      onClick={() => mutate(comment.commentId)}
+                      onClick={() => mutate(comment.commentId, comment.userKey)}
                     />
                   )}
                 </div>
               </div>
             </StCommentDiv>
           </StcommentBox>
-          {key === resBoard.userKey && resBoard.selectComment === undefined && (
-            <StPick StPick onClick={() => pickAlert(comment.commentId)}>
-              채택하기
-            </StPick>
-          )}
+          {userKey === resBoard.userKey &&
+            resBoard.selectComment === undefined && (
+              <StPick StPick onClick={() => pickAlert(comment.commentId)}>
+                채택하기
+              </StPick>
+            )}
 
           {recomment && (
             <>

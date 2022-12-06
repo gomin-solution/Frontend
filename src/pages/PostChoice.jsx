@@ -3,16 +3,17 @@ import { addChoice } from "../api/postApi";
 import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
-
 import { Header5 } from "../elements/Header";
 import { Container } from "../shared/css";
 import styled from "styled-components";
 import { OkayAlert } from "../elements/Alert";
+import { useState } from "react";
 
 function ChoicePost() {
   const queryClient = useQueryClient();
   const nav = useNavigate();
   const { register, handleSubmit } = useForm();
+  const [clicked, setClicked] = useState(false);
 
   //데이터 전송하기
   const onChoice = (data) => {
@@ -24,6 +25,7 @@ function ChoicePost() {
       return OkayAlert("게시글 작성을 완료해주세요.");
     } else {
       wrtieChoice.mutate(data);
+      setClicked(true);
     }
   };
 
@@ -41,7 +43,7 @@ function ChoicePost() {
 
   return (
     <form as="form" onSubmit={handleSubmit(onChoice)}>
-      <Header5 title={"고민 적기"} />
+      <Header5 title={"고민 적기"} clicked={clicked} />
       <Stcontainer>
         <StLabel>제목</StLabel>
         <Stinput

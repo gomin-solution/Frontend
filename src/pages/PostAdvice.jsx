@@ -16,6 +16,7 @@ function AdvicePost({ resBoard }) {
   const { register, handleSubmit, watch } = useForm();
   const [imagePreview, setImagePreview] = useState("");
   const [categoryId, setCategoryId] = useState("");
+  const [clicked, setClicked] = useState(false);
 
   /*데이터 전송 */
   const onSubmit = (e) => {
@@ -35,7 +36,8 @@ function AdvicePost({ resBoard }) {
         formData.append("content", e.content);
         formData.append("categoryId", categoryId);
 
-        wrtieAdvice.mutate(formData);
+        writeAdvice.mutate(formData);
+        setClicked(true);
       }
     } else {
       if (e.title.trim() === "" || e.content.trim() === "") {
@@ -49,11 +51,12 @@ function AdvicePost({ resBoard }) {
         formData.append("content", e.content);
 
         EditAdvice.mutate({ formData, adviceId: resBoard?.adviceId });
+        setClicked(true);
       }
     }
   };
 
-  const wrtieAdvice = useMutation(addAdvice);
+  const writeAdvice = useMutation(addAdvice);
 
   //게시글 수정하고 업데이트
   const EditAdvice = useMutation(adviceEdit, {
@@ -102,7 +105,7 @@ function AdvicePost({ resBoard }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-      <Header5 title={"고민 적기"} />
+      <Header5 title={"고민 적기"} clicked={clicked} />
       <Stcontainer>
         {resBoard === undefined ? (
           <>

@@ -23,8 +23,8 @@ const StTopScroll = styled.button`
   width: 5rem;
   box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%),
     0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
-  position: absolute;
-  bottom: 5rem;
+  position: fixed;
+  bottom: 4.5rem;
   color: ${(props) => props.theme.Colors.bg1};
   background-color: ${(props) => props.theme.Colors.blueGreen2};
 `;

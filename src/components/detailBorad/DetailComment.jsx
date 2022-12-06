@@ -14,7 +14,7 @@ import { UserDial } from "../../elements/MenuDial";
 import styled from "styled-components";
 import DetailReComment from "../detailBorad/DetailReComment";
 import DetailReCommentInput from "./DetailRecommentInput";
-import { ChooseNaviAlert } from "../../elements/Alert";
+import { ChooseNaviAlert, OkayAlert } from "../../elements/Alert";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../../state/atom";
 import { FlexCenter } from "../../shared/css";
@@ -47,7 +47,7 @@ function DetailComment({ comment, resBoard }) {
   const { register, handleSubmit } = useForm();
   const onEdit = (comment) => {
     if (comment.comment.trim() === "") {
-      return alert("댓글을 입력해주세요.");
+      return OkayAlert("댓글을 입력해주세요.");
     } else {
       editComment.mutate({ commentId: commentId, comment });
       setCommentEdit(true);

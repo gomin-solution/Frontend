@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import { Header5 } from "../elements/Header";
 import { Container } from "../shared/css";
 import styled from "styled-components";
+import { OkayAlert } from "../elements/Alert";
 
 function ChoicePost() {
   const queryClient = useQueryClient();
@@ -20,7 +21,7 @@ function ChoicePost() {
       data.choice1Name.trim() === "" ||
       data.choice2Name.trim() === ""
     ) {
-      return alert("게시글 작성을 완료해주세요.");
+      return OkayAlert("게시글 작성을 완료해주세요.");
     } else {
       wrtieChoice.mutate(data);
     }

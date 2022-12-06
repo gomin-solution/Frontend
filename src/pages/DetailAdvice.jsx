@@ -16,12 +16,12 @@ import { ImageModal } from "../components/detailBorad/ImageModal";
 import { Container } from "../shared/css";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../state/atom";
+import { OkayAlert } from "../elements/Alert";
 
 function DetailAdvice() {
   const queryClient = useQueryClient();
 
   const { state: naveName } = useLocation();
-  console.log("naveName", naveName);
 
   const param = useParams();
   const adviceId = param.adviceId;
@@ -81,7 +81,7 @@ function DetailAdvice() {
 
   const onSubmitComment = (comment) => {
     if (comment.comment.trim() === "") {
-      return alert("댓글을 입력해주세요.");
+      return OkayAlert("댓글을 입력해주세요.");
     } else {
       adviceComment.mutate({ adviceId: adviceId, comment });
       reset();

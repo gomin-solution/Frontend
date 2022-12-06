@@ -6,15 +6,17 @@ import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container, FlexCenter } from "../shared/css";
 import logoBirdSquare from "../image/logo/logoBirdSquare.svg";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { userKeyAtom } from "../state/atom";
 import kakao from "../image/socialLogin/kakao.svg";
-import { setCookie } from "../api/cookie";
+import { removeCookie, setCookie } from "../api/cookie";
+import { useEffect } from "react";
 
 const Login = () => {
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code`;
 
   const nav = useNavigate();
+  const userKey = useRecoilValue(userKeyAtom);
 
   const { register, handleSubmit } = useForm();
   const setuserKey = useSetRecoilState(userKeyAtom);
@@ -43,6 +45,14 @@ const Login = () => {
   const kakaoLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
+
+  /* token 없을 시 userKey 삭제: 로그아웃하지 않고 브라우저 종료한 경우 대비 */
+  useEffect(() => {
+    if (!userKey) {
+      removeCookie("aceessToken");
+      removeCookie("refreshToken");
+    }
+  }, []);
 
   return (
     <>

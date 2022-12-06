@@ -8,7 +8,6 @@ const AdviceList = ({ newRef, advice, navi }) => {
   return (
     <StAdviceList
       ref={newRef}
-      key={advice.adviceId}
       onClick={() => {
         nav(`/board-advice/${advice.adviceId}`, { state: navi });
       }}

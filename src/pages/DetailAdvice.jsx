@@ -52,20 +52,24 @@ function DetailAdvice() {
   const { mutate } = useMutation(adviceBookmark, {
     /* onMutate : mutation function이 시작되기 전에 작동 */
     onMutate: async () => {
-      /* 서버에 전송한 요청이 잘못되었을 경우를 대비해서 이전 데이터를 저장 */
-      const prevBookMark = queryClient.getQueryData("getDetail");
+      if (!userKey) {
+        OkayAlert("로그인 후 이용해주세요.");
+      } else {
+        /* 서버에 전송한 요청이 잘못되었을 경우를 대비해서 이전 데이터를 저장 */
+        const prevBookMark = queryClient.getQueryData("getDetail");
 
-      /* 혹시 발생할지도 모르는 refetch를 취소하여 Optimistic Update의 데이터를 덮어쓰지 않도록 예방 */
-      await queryClient.cancelQueries("getDetail");
+        /* 혹시 발생할지도 모르는 refetch를 취소하여 Optimistic Update의 데이터를 덮어쓰지 않도록 예방 */
+        await queryClient.cancelQueries("getDetail");
 
-      /* 서버의 응답이 오기 전에 UI를 미리 업데이트 */
-      queryClient.setQueryData(
-        "getDetail",
-        () => (resBoard.isBookMark = !resBoard.isBookMark)
-      );
+        /* 서버의 응답이 오기 전에 UI를 미리 업데이트 */
+        queryClient.setQueryData(
+          "getDetail",
+          () => (resBoard.isBookMark = !resBoard.isBookMark)
+        );
 
-      /* 에러가 발생했을 경우 복원할 수 있도록 이전 데이터를 반환 */
-      return { prevBookMark };
+        /* 에러가 발생했을 경우 복원할 수 있도록 이전 데이터를 반환 */
+        return { prevBookMark };
+      }
     },
     onError: (err, variables, context) => {
       queryClient.setQueryData("getDetail", context.prevBookMark);
@@ -80,17 +84,27 @@ function DetailAdvice() {
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmitComment = (comment) => {
-    if (comment.comment.trim() === "") {
-      return OkayAlert("댓글을 입력해주세요.");
-    } else {
-      adviceComment.mutate({ adviceId: adviceId, comment });
+    if (!userKey) {
+      OkayAlert("로그인 후 이용해주세요.");
       reset();
+    } else {
+      if (comment.comment.trim() === "") {
+        return OkayAlert("댓글을 입력해주세요.");
+      } else {
+        adviceComment.mutate({ adviceId: adviceId, comment });
+        reset();
+      }
     }
   };
 
   const adviceComment = useMutation(commentAdvice, {
     onSuccess: () => {
       queryClient.invalidateQueries("getDetail");
+    },
+    onError: () => {
+      OkayAlert(
+        "본인 게시물에는 \n댓글을 작성할 수 없습니다.\n답글 작성만 가능합니다."
+      );
     },
   });
 
@@ -113,9 +127,9 @@ function DetailAdvice() {
   };
 
   //userKey 유무 판단
-  const key = useRecoilValue(userKeyAtom);
+  const userKey = useRecoilValue(userKeyAtom);
   useEffect(() => {
-    if (key === resBoard?.userKey) {
+    if (userKey === resBoard?.userKey) {
       setUser(true);
     }
   }, [resBoard]);
@@ -150,15 +164,17 @@ function DetailAdvice() {
                     onClick={() => mutate(resBoard?.adviceId)}
                   />
                 )}
-                <UserDial
-                  resBoard={resBoard}
-                  user={user}
-                  id={resBoard?.adviceId}
-                  setAdEdit={setAdEdit}
-                  target="advice"
-                  reGet="getAdviceScroll"
-                  nickname={resBoard?.nickname}
-                />
+                {userKey !== 0 && (
+                  <UserDial
+                    resBoard={resBoard}
+                    user={user}
+                    id={resBoard?.adviceId}
+                    setAdEdit={setAdEdit}
+                    target="advice"
+                    reGet="getAdviceScroll"
+                    nickname={resBoard?.nickname}
+                  />
+                )}
               </StMenu>
             </StUser>
             <StBoardBox>

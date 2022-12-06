@@ -197,12 +197,12 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
       </StTextWrap3>
       {choice.isChoice || choice.isEnd ? (
         <StChoiceWrap choiceCount={choice.choiceCount}>
-          <StChoice1 width={choiceAPer} isChoice={choice.isChoice}>
-            <StPerText1>{choiceAPer}%</StPerText1>
-          </StChoice1>
-          <StChoice2 width={choiceBPer}>
-            <StPerText2>{choiceBPer}%</StPerText2>
-          </StChoice2>
+          <StChoice1 width={choiceAPer} isChoice={choice.isChoice}></StChoice1>
+          <StChoice2 width={choiceBPer}></StChoice2>
+          <StPerText>
+            <span>{choiceAPer}%</span>
+            <span>{choiceBPer}%</span>
+          </StPerText>
         </StChoiceWrap>
       ) : (
         <StChoiceWrap>
@@ -281,10 +281,11 @@ const StIconWrap = styled.div`
 const StChoiceWrap = styled.div`
   width: 100%;
   display: ${(props) => (props.choiceCount === 0 ? "none" : "flex")};
+  position: relative;
 `;
 
 const StChoiceBtn = styled.button`
-  width: 100%;
+  /* width: 100%; */
   height: 2rem;
   background-color: ${(props) => props.backColor};
 `;
@@ -293,33 +294,20 @@ const StChoice1 = styled.div`
   background-color: #9cd67e;
   width: ${(props) => props.width}%;
   height: 2rem;
-  text-align: left;
-  display: flex;
-  align-items: center;
-  position: relative;
 `;
 
 const StChoice2 = styled.div`
   background-color: #a7eff0;
   width: ${(props) => props.width}%;
   height: 2rem;
-  text-align: right;
+`;
+
+const StPerText = styled.div`
+  font-size: 90%;
+  position: absolute;
   display: flex;
-  align-items: center;
-  position: relative;
-`;
-
-const StPerText1 = styled.span`
-  font-size: 90%;
-  padding: ${(props) => props.theme.paddings.xsm};
-  position: absolute;
-  left: 0;
-  z-index: 99;
-`;
-
-const StPerText2 = styled.span`
-  font-size: 90%;
-  padding: ${(props) => props.theme.paddings.xsm};
-  position: absolute;
-  right: 0;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0 0.3rem;
 `;

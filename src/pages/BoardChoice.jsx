@@ -41,6 +41,7 @@ function Board() {
           <StBtn2 onClick={() => nav("/board-advice")}>답해주기</StBtn2>
         </StInnerWrap>
         <Choice />
+        <div style={{ marginTop: "4rem" }} />
       </Stcontainer>
       <StDialWrap>
         <Dial />
@@ -88,13 +89,13 @@ const StDialWrap = styled.div`
   bottom: 2.5rem;
   right: 0.5em;
 
-  @media all and (min-width: 900px) and (min-height: 500px) {
+  @media all and (min-width: 450px) and (max-width: 899px) {
     position: fixed;
     bottom: 2.5rem;
-    right: 0;
+    right: 11rem;
   }
 
-  @media all and (min-width: 768px) {
+  @media all and (min-width: 900px) and (min-height: 500px) {
     position: absolute;
     bottom: 2.5rem;
     right: 0;

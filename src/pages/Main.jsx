@@ -16,6 +16,7 @@ import { userKeyAtom } from "../state/atom";
 function Main() {
   /* 메인페이지 get */
   const { data } = useQuery("getMain", getMain, {
+    retry: 3,
     refetchOnWindowFocus: false,
   });
 

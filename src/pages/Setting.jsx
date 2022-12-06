@@ -50,7 +50,7 @@ function Setting() {
             <div>
               <p>{res?.data.mypage.nickname}</p>
               <span>
-                등급: 주니어 해결사
+                등급: {res?.data.mypage.grade}
                 <div className="qbox" onClick={gradeHelp}>
                   ?
                 </div>

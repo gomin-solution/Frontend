@@ -68,7 +68,8 @@ export function Header4({ title }) {
 }
 
 /*이전 + 제목 + 완료 */
-export function Header5({ title }) {
+export function Header5({ title, clicked }) {
+  console.log("clicked", clicked);
   const nav = useNavigate();
   return (
     <StBlock>
@@ -78,7 +79,7 @@ export function Header5({ title }) {
         }}
       />
       <StTitle>{title}</StTitle>
-      <StBtn>완료</StBtn>
+      <StBtn disabled={clicked}>완료</StBtn>
     </StBlock>
   );
 }

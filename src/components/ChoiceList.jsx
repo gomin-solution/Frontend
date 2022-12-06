@@ -9,6 +9,7 @@ import { userKeyAtom } from "../state/atom";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { OkayAlert } from "../elements/Alert";
+import { FlexCenter } from "../shared/css";
 
 const ChoiceList = ({ newRef, choice, getMutation }) => {
   const queryClient = useQueryClient();
@@ -196,14 +197,16 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
         <span>{choice.choice2Name}</span>
       </StTextWrap3>
       {choice.isChoice || choice.isEnd ? (
-        <StChoiceWrap choiceCount={choice.choiceCount}>
-          <StChoice1 width={choiceAPer} isChoice={choice.isChoice}></StChoice1>
-          <StChoice2 width={choiceBPer}></StChoice2>
-          <StPerText>
-            <span>{choiceAPer}%</span>
-            <span>{choiceBPer}%</span>
-          </StPerText>
-        </StChoiceWrap>
+        <>
+          <StChoiceWrap choiceCount={choice.choiceCount}>
+            <StChoice1 width={choiceAPer} isChoice={choice.isChoice} />
+            <StChoice2 width={choiceBPer} />
+            <StPerText>
+              <span>{choiceAPer}%</span>
+              <span>{choiceBPer}%</span>
+            </StPerText>
+          </StChoiceWrap>
+        </>
       ) : (
         <StChoiceWrap>
           <StChoiceBtn
@@ -285,7 +288,7 @@ const StChoiceWrap = styled.div`
 `;
 
 const StChoiceBtn = styled.button`
-  /* width: 100%; */
+  width: 100%;
   height: 2rem;
   background-color: ${(props) => props.backColor};
 `;
@@ -294,12 +297,20 @@ const StChoice1 = styled.div`
   background-color: #9cd67e;
   width: ${(props) => props.width}%;
   height: 2rem;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  position: relative;
 `;
 
 const StChoice2 = styled.div`
   background-color: #a7eff0;
   width: ${(props) => props.width}%;
   height: 2rem;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  position: relative;
 `;
 
 const StPerText = styled.div`

@@ -46,6 +46,11 @@ const GlobalStyle = createGlobalStyle`
       /*웹 배경 이미지색 맞추기*/
       background-color: #F4F5F4;
     }
+    
+    /* iOS only */ 
+    @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+    }
   }
 
   /*배경이미지보고 다시 조정하기*/

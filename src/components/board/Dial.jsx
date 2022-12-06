@@ -46,7 +46,6 @@ const SpeedDialTooltipOpen = () => {
         },
       }}
     >
-      <Backdrop open={open} />
       <StDial
         ariaLabel="SpeedDial tooltip example"
         icon={<EditIcon />}

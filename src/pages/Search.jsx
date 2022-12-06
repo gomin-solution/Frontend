@@ -44,7 +44,7 @@ const Search = () => {
           </StRankWrap>
         ))}
       </Stcontainer>
-      <Footer title={"고민 접기"} />
+      <Footer title={"고민접기"} />
     </>
   );
 };

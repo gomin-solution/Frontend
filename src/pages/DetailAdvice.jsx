@@ -167,6 +167,7 @@ function DetailAdvice() {
                 {userKey !== 0 && (
                   <UserDial
                     resBoard={resBoard}
+                    userId={resBoard?.userKey}
                     user={user}
                     id={resBoard?.adviceId}
                     setAdEdit={setAdEdit}
@@ -328,10 +329,11 @@ const StCommentSet = styled.div`
 /*댓글 입력 폼 */
 const StCommentform = styled.form`
   width: 100%;
+  max-width: 26rem;
   height: 3rem;
   padding: 1rem 0.6rem;
 
-  position: absolute;
+  position: fixed;
   bottom: 0px;
 
   display: flex;

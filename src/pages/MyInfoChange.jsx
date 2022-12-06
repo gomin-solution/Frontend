@@ -91,7 +91,7 @@ const Stcontainer = styled.div`
 
     .nickBtn {
       margin-left: 1rem;
-      width: 4rem;
+      width: 5rem;
     }
   }
 

@@ -143,6 +143,7 @@ function DetailComment({ comment, resBoard }) {
                   <UserDial
                     user={user}
                     id={comment.commentId}
+                    userId={comment?.userKey}
                     setAdEdit={setCommentEdit}
                     resBoard={resBoard}
                     reGet="getDetail"

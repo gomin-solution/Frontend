@@ -49,11 +49,6 @@ const SpeedDialTooltipOpen = () => {
       <Backdrop open={open} />
       <StDial
         ariaLabel="SpeedDial tooltip example"
-        sx={{
-          position: "absolute",
-          bottom: "2.5rem",
-          right: "1rem",
-        }}
         icon={<EditIcon />}
         onClose={handleClose}
         onOpen={handleOpen}

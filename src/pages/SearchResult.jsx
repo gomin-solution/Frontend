@@ -51,7 +51,7 @@ const SearchResult = () => {
       <div
         style={{ position: "absolute", bottom: "2.5rem", right: "0.5rem" }}
       ></div>
-      <Footer title={"고민 접기"} />
+      <Footer title={"고민접기"} />
     </>
   );
 };

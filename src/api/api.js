@@ -1,5 +1,7 @@
 import axios from "axios";
+import { useRecoilValue } from "recoil";
 import { OkayNaviAlert } from "../elements/Alert";
+import { userKeyAtom } from "../state/atom";
 import { getCookie, removeCookie, setCookie } from "./cookie";
 
 /* ----------------instance---------------- */
@@ -59,7 +61,11 @@ instance.interceptors.response.use(
           /* accessToken 변경 실패 시 */
           removeCookie("accessToken");
           removeCookie("refreshToken");
-          return OkayNaviAlert("재로그인이 필요합니다.", "/login");
+          return OkayNaviAlert(
+            "재로그인이 필요합니다.",
+            "/login",
+            "recoil-persist"
+          );
         }
         /* refreshToken 만료 시 status: 403 */
       } else if (
@@ -68,7 +74,12 @@ instance.interceptors.response.use(
       ) {
         removeCookie("accessToken");
         removeCookie("refreshToken");
-        return OkayNaviAlert("재로그인이 필요합니다.", "/login");
+        localStorage.removeItem("recoil-persist");
+        return OkayNaviAlert(
+          "재로그인이 필요합니다.",
+          "/login",
+          "recoil-persist"
+        );
       }
     } catch (error) {
       console.log(error);
@@ -126,7 +137,9 @@ postInstance.interceptors.response.use(
           /* accessToken 변경 후 재요청 */
           originalRequest.headers.authorization = res.data.accessToken;
           removeCookie("accessToken");
-          setCookie("accessToken", res.data.accessToken);
+          setCookie("accessToken", res.data.accessToken, {
+            maxAge: 60 * 60 * 24 * 15,
+          });
           return postInstance.request(originalRequest);
         } catch (error) {
           /* accessToken 변경 실패 시 */

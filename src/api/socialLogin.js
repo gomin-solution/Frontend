@@ -12,7 +12,11 @@ export const kakaoTokenGet = async (code) => {
 /* 카카오 token post */
 export const kakaoTokenPost = async (payload) => {
   const res = await instance.post("/kakao", { id: payload });
-  setCookie("accessToken", res?.data.accessToken);
-  setCookie("refreshToken", res?.data.refreshToken);
+  setCookie("accessToken", res?.data.accessToken, {
+    maxAge: 60 * 60 * 24 * 15,
+  });
+  setCookie("refreshToken", res?.data.refreshToken, {
+    maxAge: 60 * 60 * 24 * 15,
+  });
   return res;
 };

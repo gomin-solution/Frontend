@@ -28,7 +28,7 @@ function Footer({ title }) {
   const menu = [
     { title: "메인", nav: "/main", img: home, imgClicked: homeClicked },
     {
-      title: "고민 접기",
+      title: "고민접기",
       nav: "/board-choice",
       img: board,
       imgClicked: boardClicked,

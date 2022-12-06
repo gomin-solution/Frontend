@@ -67,6 +67,8 @@ export const ChooseNaviAlert = (text, textBtn, navi, mutate, userKey, data) => {
     if (result.isConfirmed) {
       if (userKey) {
         mutate();
+        removeCookie("accessToken");
+        removeCookie("refreshToken");
         localStorage.removeItem(userKey);
         window.location.href = navi;
       } else {

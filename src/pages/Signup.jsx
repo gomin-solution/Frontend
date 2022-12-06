@@ -23,6 +23,8 @@ const Signup = () => {
   } = useForm();
 
   /* password 변수에 키 값 할당 */
+  const userId = watch("userId");
+  const nickname = watch("nickname");
   const password = watch("password");
 
   /* 회원가입 제출 */
@@ -83,33 +85,42 @@ const Signup = () => {
         <StInputWrap>
           {/* ----- 아이디 ----- */}
           <StInputInnerWrap>
-            <StInput
-              placeholder="아이디"
-              {...register("userId", {
-                required: "아이디를 작성해주세요.",
-                maxLength: {
-                  value: 10,
-                  message: "10글자 이하로 작성해주세요",
-                },
-                minLength: {
-                  value: 4,
-                  message: "4글자 이상으로 작성해주세요",
-                },
-                pattern: {
-                  value: /^(?=.*[a-zA-Z])[a-zA-Z0-9]{4,10}$/,
-                  message: "영문을 반드시 포함한 4~10글자로 작성해주세요.",
-                },
-              })}
-            />
-            {idDub ? (
-              <StCheckDub type="button">
-                <TaskAltIcon />
-                <span>&nbsp;중복확인</span>
-              </StCheckDub>
+            {!idDub ? (
+              <>
+                <StInput
+                  placeholder="아이디"
+                  {...register("userId", {
+                    required: "아이디를 작성해주세요.",
+                    maxLength: {
+                      value: 10,
+                      message: "10글자 이하로 작성해주세요",
+                    },
+                    minLength: {
+                      value: 4,
+                      message: "4글자 이상으로 작성해주세요",
+                    },
+                    pattern: {
+                      value: /^(?=.*[a-zA-Z])[a-zA-Z0-9]{4,10}$/,
+                      message: "영문을 반드시 포함한 4~10글자로 작성해주세요.",
+                    },
+                  })}
+                />
+                <StCheckBtn type="button" onClick={idCheck}>
+                  중복확인
+                </StCheckBtn>
+              </>
             ) : (
-              <StCheckBtn type="button" onClick={idCheck}>
-                중복확인
-              </StCheckBtn>
+              <>
+                <StInput
+                  placeholder={userId}
+                  disabled={true}
+                  backColor="#eaeeec"
+                />
+                <StCheckDub type="button">
+                  <TaskAltIcon />
+                  <span>&nbsp;중복확인</span>
+                </StCheckDub>
+              </>
             )}
           </StInputInnerWrap>
           {errors?.userId?.message === undefined ? (
@@ -119,29 +130,38 @@ const Signup = () => {
           )}
           {/* ----- 닉네임 ----- */}
           <StInputInnerWrap>
-            <StInput
-              placeholder="닉네임"
-              {...register("nickname", {
-                required: "닉네임을 작성해주세요.",
-                maxLength: {
-                  value: 8,
-                  message: "8글자 이하로 작성해주세요",
-                },
-                pattern: {
-                  value: /^[가-힣a-zA-z0-9]{1,8}$/,
-                  message: "특수문자를 제외하여 8글자 이하로 작성해주세요.",
-                },
-              })}
-            />
-            {nickDub ? (
-              <StCheckDub type="button">
-                <TaskAltIcon />
-                <span>&nbsp;중복확인</span>
-              </StCheckDub>
+            {!nickDub ? (
+              <>
+                <StInput
+                  placeholder="닉네임"
+                  {...register("nickname", {
+                    required: "닉네임을 작성해주세요.",
+                    maxLength: {
+                      value: 8,
+                      message: "8글자 이하로 작성해주세요",
+                    },
+                    pattern: {
+                      value: /^[가-힣a-zA-z0-9]{1,8}$/,
+                      message: "특수문자를 제외하여 8글자 이하로 작성해주세요.",
+                    },
+                  })}
+                />
+                <StCheckBtn type="button" onClick={nickCheck} backColor="gray">
+                  중복확인
+                </StCheckBtn>
+              </>
             ) : (
-              <StCheckBtn type="button" onClick={nickCheck}>
-                중복확인
-              </StCheckBtn>
+              <>
+                <StInput
+                  placeholder={nickname}
+                  disabled={true}
+                  backColor="#eaeeec"
+                />
+                <StCheckDub type="button">
+                  <TaskAltIcon />
+                  <span>&nbsp;중복확인</span>
+                </StCheckDub>
+              </>
             )}
           </StInputInnerWrap>
           {errors?.nickname?.message === undefined ? (
@@ -233,7 +253,7 @@ const StInputInnerWrap = styled.div`
 `;
 
 const StInput = styled.input`
-  background-color: ${(props) => props.theme.Colors.blueGray1};
+  background-color: ${(props) => props.backColor};
   width: 100%;
   height: 3rem;
   border: none;

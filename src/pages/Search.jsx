@@ -24,7 +24,7 @@ const Search = () => {
       <Stcontainer>
         <StRankTitleWrap>
           <span style={{ fontWeight: "600" }}>
-            {data?.nickname}의 답변이 필요해요.
+            {data?.nickname}님의 답변이 필요해요.
           </span>
           <span style={{ fontSize: "0.875rem", color: "#627C7C" }}>
             {nowTime}

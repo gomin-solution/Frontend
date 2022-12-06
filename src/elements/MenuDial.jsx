@@ -172,6 +172,7 @@ export function UserDial({
   target,
   reGet,
   nickname,
+  userId,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -205,9 +206,11 @@ export function UserDial({
   });
 
   // 쪽지 보내기
-  const userKey = resBoard?.userKey;
+  const userKey = userId;
   const category = resBoard?.category;
   const title = resBoard?.title;
+
+  console.log(userKey);
 
   const messageMutation = useMutation(messageNav);
   const messageMutate = (note) =>

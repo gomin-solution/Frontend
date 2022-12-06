@@ -167,6 +167,7 @@ function DetailAdvice() {
                 {userKey !== 0 && (
                   <UserDial
                     resBoard={resBoard}
+                    userId={resBoard?.userKey}
                     user={user}
                     id={resBoard?.adviceId}
                     setAdEdit={setAdEdit}

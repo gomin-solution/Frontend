@@ -9,6 +9,7 @@ import { userKeyAtom } from "../state/atom";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { OkayAlert } from "../elements/Alert";
+import { FlexCenter } from "../shared/css";
 
 const ChoiceList = ({ newRef, choice, getMutation }) => {
   const queryClient = useQueryClient();
@@ -196,14 +197,16 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
         <span>{choice.choice2Name}</span>
       </StTextWrap3>
       {choice.isChoice || choice.isEnd ? (
-        <StChoiceWrap choiceCount={choice.choiceCount}>
-          <StChoice1 width={choiceAPer} isChoice={choice.isChoice}>
-            <StPerText1>{choiceAPer}%</StPerText1>
-          </StChoice1>
-          <StChoice2 width={choiceBPer}>
-            <StPerText2>{choiceBPer}%</StPerText2>
-          </StChoice2>
-        </StChoiceWrap>
+        <>
+          <StChoiceWrap choiceCount={choice.choiceCount}>
+            <StChoice1 width={choiceAPer} isChoice={choice.isChoice} />
+            <StChoice2 width={choiceBPer} />
+            <StPerText>
+              <span>{choiceAPer}%</span>
+              <span>{choiceBPer}%</span>
+            </StPerText>
+          </StChoiceWrap>
+        </>
       ) : (
         <StChoiceWrap>
           <StChoiceBtn
@@ -281,6 +284,7 @@ const StIconWrap = styled.div`
 const StChoiceWrap = styled.div`
   width: 100%;
   display: ${(props) => (props.choiceCount === 0 ? "none" : "flex")};
+  position: relative;
 `;
 
 const StChoiceBtn = styled.button`
@@ -309,17 +313,12 @@ const StChoice2 = styled.div`
   position: relative;
 `;
 
-const StPerText1 = styled.span`
+const StPerText = styled.div`
   font-size: 90%;
-  padding: ${(props) => props.theme.paddings.xsm};
   position: absolute;
-  left: 0;
-  z-index: 99;
-`;
-
-const StPerText2 = styled.span`
-  font-size: 90%;
-  padding: ${(props) => props.theme.paddings.xsm};
-  position: absolute;
-  right: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0 0.3rem;
 `;

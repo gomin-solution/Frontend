@@ -42,7 +42,7 @@ function Board() {
         </StInnerWrap>
         <Choice />
       </Stcontainer>
-      <div style={{ position: "fixed", bottom: "2.5rem", right: "0.5rem" }}>
+      <div style={{ position: "absolute", bottom: "2.5rem", right: "0.5rem" }}>
         <Dial />
       </div>
       {scrollbar && <ScrollBtn goTop={goTop} />}

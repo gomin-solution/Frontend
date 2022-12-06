@@ -1,19 +1,27 @@
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { recommentPost } from "../../api/detailApi";
 import { OkayAlert } from "../../elements/Alert";
+import { userKeyAtom } from "../../state/atom";
 
 function DetailReCommentInput({ setRecomment, commentId }) {
   const queryClient = useQueryClient();
+  const userKey = useRecoilValue(userKeyAtom);
   //댓글 달기
   const { register, handleSubmit, reset } = useForm();
   const onRecomment = (comment) => {
-    if (comment.re.trim() === "") {
-      return OkayAlert("댓글을 입력해주세요.");
-    } else {
-      writeComment.mutate({ commentId: commentId, comment });
+    if (!userKey) {
+      OkayAlert("로그인 후 이용해주세요.");
       reset();
+    } else {
+      if (comment.re.trim() === "") {
+        return OkayAlert("댓글을 입력해주세요.");
+      } else {
+        writeComment.mutate({ commentId: commentId, comment });
+        reset();
+      }
     }
   };
 

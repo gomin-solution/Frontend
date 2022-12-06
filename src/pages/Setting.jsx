@@ -66,10 +66,19 @@ function Setting() {
           >
             개인정보 변경
           </StMenu>
-          <StMenu style={{ border: "none" }}>푸쉬 알람설정</StMenu>
+          <StMenu
+            style={{ border: "none" }}
+            onClick={() => OkayAlert("서비스 준비중입니다.")}
+          >
+            푸쉬 알람설정
+          </StMenu>
           <StTitle>고객지원</StTitle>
           <StMenu onClick={() => nav("/help")}>이용방법</StMenu>
-          <StMenu>문의하기</StMenu>
+          <StMenu
+            onClick={() => window.open("https://forms.gle/18aAS5XKV6hsXqoH9")}
+          >
+            문의하기
+          </StMenu>
           <StMenu style={{ border: "none" }} onClick={ByeHandler}>
             회원탈퇴
           </StMenu>

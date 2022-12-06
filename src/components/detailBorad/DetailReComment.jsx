@@ -13,10 +13,10 @@ function DetailReComment({ re, resBoard }) {
   const queryClient = useQueryClient();
   const [reEdit, setReEdit] = useState(true);
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const onRecomment = (comment) => {
     if (comment.re.trim() === "") {
-      return OkayAlert("댓글을 입력해주세요.");
+      return OkayAlert("답글을 입력해주세요.");
     } else {
       editComment.mutate({ comment, id: re.replyId });
       setReEdit(true);
@@ -31,10 +31,10 @@ function DetailReComment({ re, resBoard }) {
 
   // 유저키 비교
   const [user, setUser] = useState(false);
-  const key = useRecoilValue(userKeyAtom);
+  const userKey = useRecoilValue(userKeyAtom);
 
   useEffect(() => {
-    if (key === re.userKey) {
+    if (userKey === re.userKey) {
       setUser(true);
     }
   }, []);
@@ -48,15 +48,17 @@ function DetailReComment({ re, resBoard }) {
           <div className="username">{re.nickname}</div>
           {reEdit ? (
             <StMenu>
-              <UserDial
-                user={user}
-                id={re.replyId}
-                setAdEdit={setReEdit}
-                resBoard={resBoard}
-                reGet="getRecomment"
-                target="reply"
-                nickname={re.nickname}
-              />
+              {userKey !== 0 && (
+                <UserDial
+                  user={user}
+                  id={re.replyId}
+                  setAdEdit={setReEdit}
+                  resBoard={resBoard}
+                  reGet="getRecomment"
+                  target="reply"
+                  nickname={re.nickname}
+                />
+              )}
             </StMenu>
           ) : null}
         </StcommentUser>

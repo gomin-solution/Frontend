@@ -42,9 +42,9 @@ function Board() {
         </StInnerWrap>
         <Choice />
       </Stcontainer>
-      <div style={{ position: "fixed", bottom: "2.5rem", right: "0.5em" }}>
+      <StDialWrap>
         <Dial />
-      </div>
+      </StDialWrap>
       {scrollbar && <ScrollBtn goTop={goTop} />}
       <Footer title={"고민접기"} />
     </>
@@ -81,4 +81,22 @@ const StBtn2 = styled.div`
   width: 5rem;
   margin-bottom: ${(props) => props.theme.margins.xxl};
   padding-bottom: 0.4rem;
+`;
+
+const StDialWrap = styled.div`
+  position: fixed;
+  bottom: 2.5rem;
+  right: 0.5em;
+
+  @media all and (min-width: 900px) and (min-height: 500px) {
+    position: fixed;
+    bottom: 2.5rem;
+    right: 0;
+  }
+
+  @media all and (min-width: 768px) {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 0;
+  }
 `;

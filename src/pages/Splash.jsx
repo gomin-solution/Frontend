@@ -5,6 +5,7 @@ import { Container, FlexCenter } from "../shared/css";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../state/atom";
+import { getCookie } from "../api/cookie";
 
 const Splash = () => {
   /* lottie 속성값 설정 */
@@ -17,7 +18,6 @@ const Splash = () => {
   };
 
   const userKey = useRecoilValue(userKeyAtom);
-  console.log("userKey", userKey);
   useEffect(() => {
     setTimeout(() => {
       if (userKey) {
@@ -27,6 +27,14 @@ const Splash = () => {
       }
     }, 4300);
   }, [userKey]);
+
+  /* token 없을 시 userKey 삭제: 로그아웃하지 않고 브라우저 종료한 경우 대비 */
+  useEffect(() => {
+    const accToken = getCookie("accessToken");
+    if (!accToken) {
+      localStorage.removeItem("recoil-persist");
+    }
+  }, []);
 
   return (
     <StContainer>

@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { Container, FlexCenter } from "../shared/css";
 import { Lottie } from "@crello/react-lottie";
 import introA from "../image/intro/introA.json";
 import introB from "../image/intro/introB.json";
@@ -10,9 +12,6 @@ import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Container, FlexCenter } from "../shared/css";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { useNavigate } from "react-router-dom";
 
 const Intro = () => {
   const nav = useNavigate();
@@ -54,34 +53,22 @@ const Intro = () => {
           spaceBetween={0}
           centeredSlides={true}
           pagination={{ clickable: true }}
-          navigation={false}
+          navigation={true}
           modules={[Pagination, Navigation]}
         >
           <StSwiperSlide>
-            <StPagenation>
-              <NavigateNextIcon style={{ fontSize: "2rem" }} />
-            </StPagenation>
             <Lottie config={defaultOptionsA} height="100%" width="100%" />
           </StSwiperSlide>
           <StSwiperSlide>
-            <StPagenation>
-              <NavigateNextIcon style={{ fontSize: "2rem" }} />
-            </StPagenation>
             <Lottie config={defaultOptionsB} height="100%" width="100%" />
           </StSwiperSlide>
           <StSwiperSlide>
-            <StPagenation>
-              <NavigateNextIcon style={{ fontSize: "2rem" }} />
-            </StPagenation>
             <Lottie config={defaultOptionsC} height="100%" width="100%" />
           </StSwiperSlide>
           <StSwiperSlide>
-            <StPagenation>
-              <NavigateNextIcon style={{ fontSize: "2rem" }} />
-            </StPagenation>
             <Lottie config={defaultOptionsD} height="100%" width="100%" />
           </StSwiperSlide>
-          <StSwiperSlide>
+          <StSwiperSlide style={{ ".swiper-button-next": { display: "none" } }}>
             <StInnerWrap>
               <StImg src={logoSquare} alt="logo" />
               <StNav bottom="28" onClick={() => nav("/login")}>
@@ -117,25 +104,28 @@ const StSwFeat = styled(Swiper)`
   &.swiper .swiper-pagination-bullet {
     display: none;
   }
+  .swiper-button-prev {
+    display: none;
+  }
+  .swiper-button-next {
+    position: absolute;
+    top: 5%;
+    color: ${(props) => props.theme.Colors.blueGray3};
+    background-color: ${(props) => props.theme.Colors.blueGray1};
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1rem;
+    &::after {
+      font-size: ${(props) => props.theme.fontSizes.lg};
+      font-weight: ${(props) => props.theme.fontWeights.lg};
+    }
+  }
 `;
 
 const StSwiperSlide = styled(SwiperSlide)`
   width: 80%;
   height: 100%;
   ${FlexCenter};
-`;
-
-const StPagenation = styled.div`
-  color: ${(props) => props.theme.Colors.blueGray3};
-  background-color: ${(props) => props.theme.Colors.blueGray1};
-  width: 2rem;
-  height: 2rem;
-  border-radius: 2rem;
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 1rem;
-  z-index: 99;
 `;
 
 const StInnerWrap = styled.div`

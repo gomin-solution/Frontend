@@ -54,8 +54,15 @@ const Signup = () => {
           OkayAlert("사용가능한 아이디입니다.");
           setIdDub(true);
         })
-        .catch(() => {
-          ErrorAlert("중복된 아이디입니다.");
+        .catch((error) => {
+          if (
+            error?.response.data.errorMessage ===
+            "아이디 형식은 영문 숫자 4자 이상 입니다"
+          ) {
+            ErrorAlert("잘못된 형식의 아이디입니다.");
+          } else {
+            ErrorAlert("중복된 아이디입니다.");
+          }
         });
     }
   };
@@ -72,8 +79,15 @@ const Signup = () => {
           OkayAlert("사용가능한 닉네임입니다.");
           setNickDub(true);
         })
-        .catch(() => {
-          ErrorAlert("사용 불가능한 닉네임입니다.");
+        .catch((error) => {
+          if (
+            error?.response.data.errorMessage ===
+            "닉네임은 영문 숫자 한글 8자 이내여야 합니다."
+          ) {
+            ErrorAlert("잘못된 형식의 닉네임입니다.");
+          } else {
+            ErrorAlert("중복된 닉네임입니다.");
+          }
         });
     }
   };

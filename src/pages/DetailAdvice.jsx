@@ -21,7 +21,6 @@ function DetailAdvice() {
   const queryClient = useQueryClient();
 
   const { state: naveName } = useLocation();
-  console.log("naveName", naveName);
 
   const param = useParams();
   const adviceId = param.adviceId;

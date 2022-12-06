@@ -8,6 +8,7 @@ import { VoteDial } from "../elements/MenuDial";
 import { userKeyAtom } from "../state/atom";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
+import { OkayAlert } from "../elements/Alert";
 
 const ChoiceList = ({ newRef, choice, getMutation }) => {
   const queryClient = useQueryClient();
@@ -44,32 +45,40 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
   const choiceMutation = useMutation(postChoice, {
     /* onMutate : mutation function이 시작되기 전에 작동 */
     onMutate: async ({ choiceNum }) => {
-      /* 서버에 전송한 요청이 잘못되었을 경우를 대비해서 이전 데이터를 저장 */
-      const prevPick = queryClient.getQueryData(getMutation);
+      if (!userKey) {
+        OkayAlert("로그인 후 이용해주세요.");
+      } else {
+        /* 서버에 전송한 요청이 잘못되었을 경우를 대비해서 이전 데이터를 저장 */
+        const prevPick = queryClient.getQueryData(getMutation);
 
-      /* 혹시 발생할지도 모르는 refetch를 취소하여 Optimistic Update의 데이터를 덮어쓰지 않도록 예방 */
-      await queryClient.cancelQueries(getMutation);
+        /* 혹시 발생할지도 모르는 refetch를 취소하여 Optimistic Update의 데이터를 덮어쓰지 않도록 예방 */
+        await queryClient.cancelQueries(getMutation);
 
-      /* 서버의 응답이 오기 전에 UI를 미리 업데이트 */
-      queryClient.setQueryData(getMutation, () => {
-        if (choiceNum === "1") {
-          const choice1 = choice.choice1 + 1;
-          setChoiceAPer(Math.round((choice1 / (choice.choiceCount + 1)) * 100));
-          setChoiceBPer(
-            100 - Math.round((choice1 / (choice.choiceCount + 1)) * 100)
-          );
-        } else if (choiceNum === "2") {
-          const choice2 = choice.choice2 + 1;
-          setChoiceBPer(Math.round((choice2 / (choice.choiceCount + 1)) * 100));
-          setChoiceAPer(
-            100 - Math.round((choice2 / (choice.choiceCount + 1)) * 100)
-          );
-        }
-        return (choice.isChoice = !choice.isChoice);
-      });
+        /* 서버의 응답이 오기 전에 UI를 미리 업데이트 */
+        queryClient.setQueryData(getMutation, () => {
+          if (choiceNum === "1") {
+            const choice1 = choice.choice1 + 1;
+            setChoiceAPer(
+              Math.round((choice1 / (choice.choiceCount + 1)) * 100)
+            );
+            setChoiceBPer(
+              100 - Math.round((choice1 / (choice.choiceCount + 1)) * 100)
+            );
+          } else if (choiceNum === "2") {
+            const choice2 = choice.choice2 + 1;
+            setChoiceBPer(
+              Math.round((choice2 / (choice.choiceCount + 1)) * 100)
+            );
+            setChoiceAPer(
+              100 - Math.round((choice2 / (choice.choiceCount + 1)) * 100)
+            );
+          }
+          return (choice.isChoice = !choice.isChoice);
+        });
 
-      /* 에러가 발생했을 경우 복원할 수 있도록 이전 데이터를 반환 */
-      return { prevPick };
+        /* 에러가 발생했을 경우 복원할 수 있도록 이전 데이터를 반환 */
+        return { prevPick };
+      }
     },
     onError: (err, variables, context) => {
       queryClient.setQueryData(getMutation, context.prevPick);
@@ -93,20 +102,24 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
   const bookmarkMutation = useMutation(bookmark, {
     /* onMutate : mutation function이 시작되기 전에 작동 */
     onMutate: async () => {
-      /* 서버에 전송한 요청이 잘못되었을 경우를 대비해서 이전 데이터를 저장 */
-      const prevBookMark = queryClient.getQueryData(getMutation);
+      if (!userKey) {
+        OkayAlert("로그인 후 이용해주세요.");
+      } else {
+        /* 서버에 전송한 요청이 잘못되었을 경우를 대비해서 이전 데이터를 저장 */
+        const prevBookMark = queryClient.getQueryData(getMutation);
 
-      /* 혹시 발생할지도 모르는 refetch를 취소하여 Optimistic Update의 데이터를 덮어쓰지 않도록 예방 */
-      await queryClient.cancelQueries(getMutation);
+        /* 혹시 발생할지도 모르는 refetch를 취소하여 Optimistic Update의 데이터를 덮어쓰지 않도록 예방 */
+        await queryClient.cancelQueries(getMutation);
 
-      /* 서버의 응답이 오기 전에 UI를 미리 업데이트 */
-      queryClient.setQueryData(
-        getMutation,
-        () => (choice.isBookMark = !choice.isBookMark)
-      );
+        /* 서버의 응답이 오기 전에 UI를 미리 업데이트 */
+        queryClient.setQueryData(
+          getMutation,
+          () => (choice.isBookMark = !choice.isBookMark)
+        );
 
-      /* 에러가 발생했을 경우 복원할 수 있도록 이전 데이터를 반환 */
-      return { prevBookMark };
+        /* 에러가 발생했을 경우 복원할 수 있도록 이전 데이터를 반환 */
+        return { prevBookMark };
+      }
     },
     onError: (err, variables, context) => {
       queryClient.setQueryData(getMutation, context.prevBookMark);

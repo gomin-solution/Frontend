@@ -23,14 +23,7 @@ const Room = () => {
   });
   const roomHandler = (e, roomId) => {
     e.stopPropagation();
-    ChooseNaviAlert(
-      "쪽지방을 나가시겠습니까?",
-      "확인",
-      null,
-      mutate,
-      null,
-      roomId
-    );
+    ChooseNaviAlert("쪽지방을 나가시겠습니까?", "확인", mutate, null, roomId);
   };
 
   return (

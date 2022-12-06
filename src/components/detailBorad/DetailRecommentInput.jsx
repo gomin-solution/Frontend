@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
 import { recommentPost } from "../../api/detailApi";
+import { OkayAlert } from "../../elements/Alert";
 
 function DetailReCommentInput({ setRecomment, commentId }) {
   const queryClient = useQueryClient();
@@ -9,7 +10,7 @@ function DetailReCommentInput({ setRecomment, commentId }) {
   const { register, handleSubmit, reset } = useForm();
   const onRecomment = (comment) => {
     if (comment.re.trim() === "") {
-      return alert("댓글을 입력해주세요.");
+      return OkayAlert("댓글을 입력해주세요.");
     } else {
       writeComment.mutate({ commentId: commentId, comment });
       reset();

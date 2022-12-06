@@ -223,7 +223,7 @@ const Reward = () => {
                 color: "#19696A",
               }}
             >
-              주니어 해결사
+              {data?.data.grade}
             </span>
           </StWrap1>
           <StWrap2>

@@ -5,8 +5,6 @@ import styled from "styled-components";
 const AdviceList = ({ newRef, advice, navi }) => {
   const nav = useNavigate();
 
-  console.log(navi);
-
   return (
     <StAdviceList
       ref={newRef}

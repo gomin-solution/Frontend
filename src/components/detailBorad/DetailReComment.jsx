@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { recommentEdit } from "../../api/detailApi";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../../state/atom";
+import { OkayAlert } from "../../elements/Alert";
 
 function DetailReComment({ re, resBoard }) {
   const queryClient = useQueryClient();
@@ -15,7 +16,7 @@ function DetailReComment({ re, resBoard }) {
   const { register, handleSubmit } = useForm();
   const onRecomment = (comment) => {
     if (comment.re.trim() === "") {
-      return alert("댓글을 입력해주세요.");
+      return OkayAlert("댓글을 입력해주세요.");
     } else {
       editComment.mutate({ comment, id: re.replyId });
       setReEdit(true);

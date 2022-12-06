@@ -53,7 +53,6 @@ const Choice = () => {
             </React.Fragment>
           ))
         : null}
-      <div style={{ marginTop: "4rem" }} />
     </StContainer>
   );
 };

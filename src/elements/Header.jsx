@@ -133,7 +133,6 @@ export function Header7() {
           <StSearchcon />
         </button>
       </StBlock>
-      <hr />
     </>
   );
 }

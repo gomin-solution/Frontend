@@ -30,8 +30,6 @@ const GlobalStyle = createGlobalStyle`
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    /* 사파리에서 input 클릭시 확대되는 오류 */
-    -webkit-overflow-scrolling: touch;
 
     div {
       font-family: "Noto Sans KR", sans-serif;
@@ -90,6 +88,14 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     color: #002020;
     cursor: pointer;
+  }
+      /* 사파리에서 input 클릭시 확대되는 오류 */
+  input {
+    @supports (-webkit-overflow-scrolling: touch) {
+/* CSS specific to iOS devices */
+    .input-group {
+    .form-control { font-size: 16px; } }
+  }
   }
 
   /*사진 미리보기 작게*/

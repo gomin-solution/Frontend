@@ -77,9 +77,10 @@ export default Footer;
 /*전체 블록 */
 const StBlock = styled.div`
   width: 100%;
+  max-width: 26rem;
   height: 4rem;
   background-color: ${(props) => props.theme.Colors.foot};
-  position: absolute;
+  position: fixed;
   bottom: 0px;
 
   display: flex;

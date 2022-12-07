@@ -16,7 +16,7 @@ import { ImageModal } from "../components/detailBorad/ImageModal";
 import { Container } from "../shared/css";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../state/atom";
-import { OkayAlert } from "../elements/Alert";
+import { ErrorAlert, OkayAlert } from "../elements/Alert";
 
 function DetailAdvice() {
   const queryClient = useQueryClient();
@@ -89,7 +89,7 @@ function DetailAdvice() {
       reset();
     } else {
       if (comment.comment.trim() === "") {
-        return OkayAlert("댓글을 입력해주세요.");
+        return ErrorAlert("댓글을 입력해주세요.");
       } else {
         adviceComment.mutate({ adviceId: adviceId, comment });
         reset();
@@ -102,7 +102,7 @@ function DetailAdvice() {
       queryClient.invalidateQueries("getDetail");
     },
     onError: () => {
-      OkayAlert(
+      ErrorAlert(
         "본인 게시물에는 \n댓글을 작성할 수 없습니다.\n답글 작성만 가능합니다."
       );
     },

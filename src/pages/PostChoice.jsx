@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import { Header5 } from "../elements/Header";
 import { Container } from "../shared/css";
 import styled from "styled-components";
-import { OkayAlert } from "../elements/Alert";
+import { ErrorAlert } from "../elements/Alert";
 import { useState } from "react";
 
 function ChoicePost() {
@@ -22,7 +22,7 @@ function ChoicePost() {
       data.choice1Name.trim() === "" ||
       data.choice2Name.trim() === ""
     ) {
-      return OkayAlert("게시글 작성을 완료해주세요.");
+      return ErrorAlert("게시글 작성을 완료해주세요.");
     } else {
       wrtieChoice.mutate(data);
       setClicked(true);
@@ -33,6 +33,9 @@ function ChoicePost() {
     onSuccess: () => {
       queryClient.invalidateQueries("getChoiceScroll");
       nav("/board-choice");
+    },
+    onError: () => {
+      ErrorAlert("잘못된 형식입니다.");
     },
   });
 

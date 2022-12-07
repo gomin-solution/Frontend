@@ -11,7 +11,7 @@ const Search = () => {
   const { data } = useQuery("userSearch", userSearch, {
     refetchOnWindowFocus: false,
   });
-  const nowTime = dayjs().format("YYYY-MM-DD HH:mm");
+  const nowTime = dayjs().format("YYYY-MM-DD");
   const nav = useNavigate();
 
   return (

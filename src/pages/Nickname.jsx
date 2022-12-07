@@ -49,7 +49,7 @@ const Nickname = () => {
     }
     try {
       const res = await instance.put("/nickname", data);
-      console.log("res", res?.data.userKey);
+
       if (res.status === 200) {
         setUserKey(res?.data.userKey);
         OkayNaviAlert(`${nickname}님 반갑습니다`, "/main");

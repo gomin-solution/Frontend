@@ -7,8 +7,13 @@ import { instance } from "../api/api";
 import { useSetRecoilState } from "recoil";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { useForm } from "react-hook-form";
+import { useLocation } from "react-router-dom";
 
 const Nickname = () => {
+  /* state값 꺼내기 */
+  const { state: userId } = useLocation();
+  console.log("userId", userId);
+
   /* userKey 값 넣기 */
   const setUserKey = useSetRecoilState(userKeyAtom);
 
@@ -45,12 +50,13 @@ const Nickname = () => {
 
   /* 닉네임 제출 */
   const onSubmit = async (data) => {
-    const nickname = watch("nickname");
+    const payload = { userId: userId, nickname: data };
+    console.log("payload", payload);
     if (nickDub === false) {
       return OkayAlert("닉네임 중복확인을 해주세요.");
     }
     try {
-      const res = await instance.put("/nickname", data);
+      const res = await instance.put("/nickname", payload);
       if (res.status === 200) {
         setUserKey(res?.data.userKey);
         OkayNaviAlert(`${nickname}님 반갑습니다`, "/main");
@@ -87,7 +93,11 @@ const Nickname = () => {
           </>
         ) : (
           <>
-            <StInput placeholder={nickname} backColor="#eaeeec" />
+            <StInput
+              placeholder={nickname}
+              disabled={true}
+              backColor="#eaeeec"
+            />
             <StCheckDub type="button">
               <TaskAltIcon />
               <span>&nbsp;중복확인</span>

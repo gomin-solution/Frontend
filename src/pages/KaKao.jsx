@@ -22,18 +22,18 @@ const KaKao = () => {
     retry: false,
   });
   const idToken = res?.data.id_token.split(".")[1];
-  let payload;
+  let userId;
   if (idToken) {
-    payload = JSON.parse(window.atob(idToken)).sub;
+    userId = JSON.parse(window.atob(idToken)).sub;
   }
 
   /* user info post */
-  const { mutate, data, isError } = useMutation(kakaoTokenPost);
-  useEffect(() => {
-    if (payload !== undefined) {
-      mutate(payload);
-    }
-  }, [payload]);
+  // const { mutate, data, isError } = useMutation(kakaoTokenPost);
+  // useEffect(() => {
+  //   if (payload !== undefined) {
+  //     mutate(payload);
+  //   }
+  // }, [payload]);
 
   /* 가입 여부에 따른 예외처리 */
   const isMember = data?.data?.isMember;
@@ -44,7 +44,7 @@ const KaKao = () => {
       setUserKey(data?.data?.userKey);
       OkayNaviAlert(`${data?.data?.nickname}님 반갑습니다.`, "/main");
     } else if (isMember === false) {
-      nav("/nickname");
+      nav("/nickname", { state: userId });
     }
   }, [isMember, isError]);
 

@@ -9,7 +9,6 @@ import { userKeyAtom } from "../state/atom";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { OkayAlert } from "../elements/Alert";
-import { FlexCenter } from "../shared/css";
 
 const ChoiceList = ({ newRef, choice, getMutation }) => {
   const queryClient = useQueryClient();

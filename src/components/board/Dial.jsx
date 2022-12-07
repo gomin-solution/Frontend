@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import Backdrop from "@mui/material/Backdrop";
 import SpeedDial from "@mui/material/SpeedDial";
 import EditIcon from "@mui/icons-material/Edit";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
@@ -10,7 +9,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../../state/atom";
-import { OkayAlert } from "../../elements/Alert";
+import { LoginAlert } from "../../elements/Alert";
 
 const SpeedDialTooltipOpen = () => {
   const actions = [
@@ -28,7 +27,7 @@ const SpeedDialTooltipOpen = () => {
     if (userKey) {
       nav(`${e}`);
     } else {
-      OkayAlert("로그인 후 이용 가능합니다.");
+      LoginAlert();
     }
   };
 

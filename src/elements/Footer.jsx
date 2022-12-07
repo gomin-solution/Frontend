@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FlexCenter } from "../shared/css";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../state/atom";
-import { OkayAlert } from "./Alert";
+import { LoginAlert } from "./Alert";
 import home from "../image/footerIcon/home.svg";
 import board from "../image/footerIcon/board.svg";
 import message from "../image/footerIcon/message.svg";
@@ -19,7 +19,7 @@ function Footer({ title }) {
 
   const onMenu = (e) => {
     if (!userKey && (e.nav === "/rooms" || e.nav === "/reward")) {
-      OkayAlert("로그인 후 이용 가능합니다.");
+      LoginAlert();
     } else {
       nav(e.nav);
     }

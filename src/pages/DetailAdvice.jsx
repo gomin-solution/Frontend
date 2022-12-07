@@ -16,7 +16,7 @@ import { ImageModal } from "../components/detailBorad/ImageModal";
 import { Container } from "../shared/css";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../state/atom";
-import { ErrorAlert, OkayAlert } from "../elements/Alert";
+import { ErrorAlert, LoginAlert } from "../elements/Alert";
 
 function DetailAdvice() {
   const queryClient = useQueryClient();
@@ -53,7 +53,7 @@ function DetailAdvice() {
     /* onMutate : mutation function이 시작되기 전에 작동 */
     onMutate: async () => {
       if (!userKey) {
-        OkayAlert("로그인 후 이용해주세요.");
+        LoginAlert();
       } else {
         /* 서버에 전송한 요청이 잘못되었을 경우를 대비해서 이전 데이터를 저장 */
         const prevBookMark = queryClient.getQueryData("getDetail");
@@ -85,7 +85,7 @@ function DetailAdvice() {
 
   const onSubmitComment = (comment) => {
     if (!userKey) {
-      OkayAlert("로그인 후 이용해주세요.");
+      LoginAlert();
       reset();
     } else {
       if (comment.comment.trim() === "") {
@@ -135,9 +135,8 @@ function DetailAdvice() {
   }, [resBoard]);
 
   const filters = [
-    { filter: "최신순", filterId: 0 },
-    { filter: "등록순", filterId: 1 },
-    { filter: "좋아요순", filterId: 2 },
+    { filter: "등록순", filterId: 0 },
+    { filter: "좋아요순", filterId: 1 },
   ];
 
   return (

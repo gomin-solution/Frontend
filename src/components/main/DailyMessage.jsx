@@ -5,7 +5,7 @@ import { Lottie } from "@crello/react-lottie";
 
 /*스타일 관련 */
 import styled from "styled-components";
-import { OkayAlert } from "../../elements/Alert";
+import { LoginAlert, OkayAlert } from "../../elements/Alert";
 import animationData from "../../image/dailyMessage/letter_lottie.json";
 import letterOpen from "../../image/dailyMessage/letterOpen.svg";
 import letterClose from "../../image/dailyMessage/letterClose.svg";
@@ -44,7 +44,7 @@ const DailyMessage = ({ dailyMessage, isOpen, userKey }) => {
         OkayAlert(`${dailyMessage}`);
       }
     } else {
-      OkayAlert("로그인 후 이용 가능합니다.");
+      LoginAlert();
     }
   };
 

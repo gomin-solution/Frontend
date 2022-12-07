@@ -51,7 +51,6 @@ export const messageNav = async (payload) => {
 
 /* 신고하기 */
 export const reportPost = async (payload) => {
-  console.log(payload);
   await instance.post(`/report/${payload.params}`, {
     targetName: payload.targetName,
     why: payload.why,

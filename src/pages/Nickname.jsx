@@ -56,7 +56,8 @@ const Nickname = () => {
       return OkayAlert("닉네임 중복확인을 해주세요.");
     }
     try {
-      const res = await instance.put("/nickname", payload);
+      const res = await instance.put("/nickname", data);
+
       if (res.status === 200) {
         setUserKey(res?.data.userKey);
         OkayNaviAlert(`${nickname}님 반갑습니다`, "/main");

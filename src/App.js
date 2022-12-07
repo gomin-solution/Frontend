@@ -5,9 +5,13 @@ import { ThemeProvider } from "styled-components";
 import { ErrorBoundary } from "react-error-boundary";
 import Theme from "./shared/theme";
 import ErrorFallback from "./components/ErrorFallback";
-import { useRecoilState } from "recoil";
-import { alarm } from "../src/api/socketio";
-import { alarmsAtom } from "./state/atom";
+import { useRecoilValue } from "recoil";
+import { userKeyAtom } from "./state/atom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+// import { useRecoilState } from "recoil";
+// import { alarm } from "../src/api/socketio";
+// import { alarmsAtom } from "./state/atom";
 
 function App() {
   /* 기존 알림 내용 담기 */
@@ -15,6 +19,16 @@ function App() {
 
   /* 알림 받기 */
   // alarm("message_alarm", "쪽지가 도착했습니다.", setAlarmList);
+
+  const nav = useNavigate();
+
+  const userKey = useRecoilValue(userKeyAtom);
+  const accToken = getCookie("accessToken");
+  useEffect(() => {
+    if (!userKey && accToken) {
+      nav("/nickname");
+    }
+  }, [userKey, accToken]);
 
   return (
     <ThemeProvider theme={Theme}>

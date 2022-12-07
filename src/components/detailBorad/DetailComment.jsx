@@ -14,7 +14,7 @@ import { UserDial } from "../../elements/MenuDial";
 import styled from "styled-components";
 import DetailReComment from "../detailBorad/DetailReComment";
 import DetailReCommentInput from "./DetailRecommentInput";
-import { ChooseNaviAlert, OkayAlert } from "../../elements/Alert";
+import { ChooseNaviAlert, LoginAlert, OkayAlert } from "../../elements/Alert";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../../state/atom";
 import { FlexCenter } from "../../shared/css";
@@ -89,7 +89,7 @@ function DetailComment({ comment, resBoard }) {
     /* onMutate : mutation function이 시작되기 전에 작동 */
     onMutate: async () => {
       if (!userKey) {
-        OkayAlert("로그인 후 이용해주세요.");
+        LoginAlert();
       } else {
         if (userKey === comment.userKey) {
           OkayAlert("본인 댓글엔 좋아요를 할 수 없습니다.");

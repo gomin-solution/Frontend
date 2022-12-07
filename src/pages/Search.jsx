@@ -11,7 +11,7 @@ const Search = () => {
   const { data } = useQuery("userSearch", userSearch, {
     refetchOnWindowFocus: false,
   });
-  const nowTime = dayjs().format("YYYY-MM-DD HH:mm");
+  const nowTime = dayjs().format("YYYY-MM-DD");
   const nav = useNavigate();
 
   return (
@@ -78,41 +78,3 @@ const StRankWrap = styled.div`
     color: ${(props) => props.theme.Colors.blueGreen3};
   }
 `;
-
-// const StTitle = styled.div`
-//   margin: 2.2rem 0rem 1.2rem;
-//   font-weight: ${(props) => props.theme.fontWeights.lg}; ;
-// `;
-
-{
-  /* <hr style={{ marginTop: "2rem" }} />
-<StTitle>최근 검색어</StTitle>
-<Stack direction="row" spacing={1}>
-  <Chip
-    label="여행"
-    variant="outlined"
-    sx={{
-      backgroundColor: "#E0E3E2",
-      border: "none",
-      borderRadius: "0",
-    }}
-  />
-</Stack>
-<StTitle>추천 검색어</StTitle>
-<Stack direction="row" spacing={1}>
-  <Chip
-    label="여행"
-    variant="outlined"
-    sx={{
-      backgroundColor: "#8CD3D4",
-      border: "none",
-      borderRadius: "0",
-    }}
-  />
-</Stack> */
-}
-
-// import NorthIcon from "@mui/icons-material/North";
-// import SouthIcon from "@mui/icons-material/South";
-// import Chip from "@mui/material/Chip";
-// import Stack from "@mui/material/Stack";

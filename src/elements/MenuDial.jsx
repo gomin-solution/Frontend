@@ -26,7 +26,8 @@ import { MsgAlert, OkayAlert } from "./Alert";
 
 export function FilterDial({ setFilterId, filters }) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [menu, setMenu] = useState("최신순");
+  const [menu, setMenu] = useState(filters[0].filter);
+
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {

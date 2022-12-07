@@ -61,10 +61,16 @@ const Login = () => {
         <StFormContainer as="form" onSubmit={handleSubmit(onSubmit)}>
           <StLogo src={logoBirdSquare} alt="logoBirdSquare" />
           <StInputWrap>
-            <StInput placeholder="아이디" required {...register("userId")} />
+            <StInput
+              placeholder="아이디"
+              maxLength="10"
+              required
+              {...register("userId")}
+            />
             <StInput
               type="password"
               placeholder="비밀번호"
+              maxLength="20"
               required
               {...register("password")}
             />

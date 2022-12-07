@@ -35,7 +35,7 @@ const Router = () => {
     if (!userKey && accToken) {
       window.location.href = "/nickname";
     }
-  }, [userKey, accToken]);
+  }, []);
 
   return (
     <BrowserRouter>

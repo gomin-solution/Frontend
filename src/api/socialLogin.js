@@ -15,10 +15,14 @@ export const kakaoTokenPost = async (payload) => {
   setCookie("accessToken", res?.data.accessToken, {
     maxAge: 60 * 60 * 24 * 15,
     httpOnly: true,
+    secure: true,
+    path: "/",
   });
   setCookie("refreshToken", res?.data.refreshToken, {
     maxAge: 60 * 60 * 24 * 15,
     httpOnly: true,
+    secure: true,
+    path: "/",
   });
   return res;
 };

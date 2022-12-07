@@ -53,6 +53,7 @@ instance.interceptors.response.use(
           removeCookie("accessToken");
           setCookie("accessToken", res.data.accessToken, {
             maxAge: 60 * 60 * 24 * 15,
+            httpOnly: true,
           });
           return instance.request(originalRequest);
         } catch (error) {
@@ -137,6 +138,7 @@ postInstance.interceptors.response.use(
           removeCookie("accessToken");
           setCookie("accessToken", res.data.accessToken, {
             maxAge: 60 * 60 * 24 * 15,
+            httpOnly: true,
           });
           return postInstance.request(originalRequest);
         } catch (error) {

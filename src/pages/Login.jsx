@@ -28,9 +28,11 @@ const Login = () => {
       // body로 전달받은 토큰을 쿠키에 저장하기
       setCookie("accessToken", res?.data.accessToken, {
         maxAge: 60 * 60 * 24 * 15,
+        httpOnly: true,
       });
       setCookie("refreshToken", res?.data.refreshToken, {
         maxAge: 60 * 60 * 24 * 15,
+        httpOnly: true,
       });
 
       /* userKey 전역으로 저장 후 메인페이지 이동 */

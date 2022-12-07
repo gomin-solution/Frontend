@@ -24,8 +24,12 @@ function MyInfoChange() {
     onSuccess: () => {
       OkayNaviAlert("비밀번호가 변경되었습니다.", "/setting");
     },
-    onError: () => {
-      ErrorAlert("잘못된 형식입니다.");
+    onError: (err) => {
+      if (err?.response.data.errorMessage === "비밀번호 오류") {
+        ErrorAlert("현재 비밀번호와 다릅니다.");
+      } else {
+        ErrorAlert("잘못된 형식입니다.");
+      }
     },
   });
 

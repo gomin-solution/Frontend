@@ -23,19 +23,19 @@ import MyInfoChange from "../pages/MyInfoChange";
 import KaKao from "../pages/KaKao";
 import Nickname from "../pages/Nickname";
 import Help from "../pages/Help";
-import { useRecoilValue } from "recoil";
-import { useEffect } from "react";
-import { userKeyAtom } from "../state/atom";
-import { getCookie } from "../api/cookie";
+// import { useRecoilValue } from "recoil";
+// import { useEffect } from "react";
+// import { userKeyAtom } from "../state/atom";
+// import { getCookie } from "../api/cookie";
 
 const Router = () => {
-  const userKey = useRecoilValue(userKeyAtom);
-  const accToken = getCookie("accessToken");
-  useEffect(() => {
-    if (!userKey && accToken) {
-      window.location.href = "/nickname";
-    }
-  }, []);
+  // const userKey = useRecoilValue(userKeyAtom);
+  // const accToken = getCookie("accessToken");
+  // useEffect(() => {
+  //   if (!userKey && accToken) {
+  //     window.location.href = "/nickname";
+  //   }
+  // }, []);
 
   return (
     <BrowserRouter>

@@ -5,7 +5,6 @@ import { Container, FlexCenter } from "../shared/css";
 import { getMyPage, goodBye, logout } from "../api/settingApi";
 import { OkayNaviAlert, ChooseNaviAlert, OkayAlert } from "../elements/Alert";
 import { useNavigate } from "react-router-dom";
-import { removeCookie } from "../api/cookie";
 
 function Setting() {
   const { data: res } = useQuery("getMyPage", getMyPage);

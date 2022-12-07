@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { kakaoTokenGet, kakaoTokenPost } from "../api/socialLogin";
 import Loading from "../components/Loading";
-import { OkayNaviAlert } from "../elements/Alert";
+import { ErrorAlert, OkayNaviAlert } from "../elements/Alert";
 import { userKeyAtom } from "../state/atom";
 
 const KaKao = () => {
@@ -39,7 +39,7 @@ const KaKao = () => {
   const isMember = data?.data?.isMember;
   useEffect(() => {
     if (isError) {
-      OkayNaviAlert(`이미 로그인이 되어 있습니다.`, "/main");
+      ErrorAlert(`이미 로그인이 되어 있습니다.`, "/main");
     } else if (isMember === true) {
       setUserKey(data?.data?.userKey);
       OkayNaviAlert(`${data?.data?.nickname}님 반갑습니다.`, "/main");

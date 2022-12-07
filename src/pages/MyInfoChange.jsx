@@ -16,10 +16,16 @@ function MyInfoChange() {
     onSuccess: () => {
       OkayAlert("닉네임이 변경되었습니다.");
     },
+    onError: () => {
+      ErrorAlert("잘못된 형식입니다.");
+    },
   });
   const passMutation = useMutation(passwordChange, {
     onSuccess: () => {
       OkayNaviAlert("비밀번호가 변경되었습니다.", "/setting");
+    },
+    onError: () => {
+      ErrorAlert("잘못된 형식입니다.");
     },
   });
 

@@ -1,7 +1,5 @@
 import axios from "axios";
-import { useRecoilValue } from "recoil";
 import { OkayNaviAlert } from "../elements/Alert";
-import { userKeyAtom } from "../state/atom";
 import { getCookie, removeCookie, setCookie } from "./cookie";
 
 /* ----------------instance---------------- */

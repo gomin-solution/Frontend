@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, FlexCenter } from "../shared/css";
 import styled from "styled-components";
-import { OkayAlert, OkayNaviAlert } from "../elements/Alert";
+import { ErrorAlert, OkayAlert, OkayNaviAlert } from "../elements/Alert";
 import { userKeyAtom } from "../state/atom";
 import { instance } from "../api/api";
 import { useSetRecoilState } from "recoil";
@@ -36,7 +36,7 @@ const Nickname = () => {
           setNickDub(true);
         })
         .catch(() => {
-          OkayAlert("사용 불가능한 닉네임입니다.");
+          ErrorAlert("사용 불가능한 닉네임입니다.");
         });
     }
   };
@@ -54,8 +54,8 @@ const Nickname = () => {
         setUserKey(res?.data.userKey);
         OkayNaviAlert(`${nickname}님 반갑습니다`, "/main");
       }
-    } catch (error) {
-      OkayAlert("중복확인을 다시 진행해주세요.");
+    } catch {
+      ErrorAlert("중복확인을 다시 진행해주세요.");
     }
   };
 

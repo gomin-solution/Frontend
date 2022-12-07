@@ -210,8 +210,6 @@ export function UserDial({
   const category = resBoard?.category;
   const title = resBoard?.title;
 
-  console.log(userKey);
-
   const messageMutation = useMutation(messageNav);
   const messageMutate = (note) =>
     messageMutation.mutate({ userKey, category, title, note });

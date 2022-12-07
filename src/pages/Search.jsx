@@ -8,10 +8,6 @@ import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 
 const Search = () => {
-  // const handleDelete = () => {
-  //   console.info("You clicked the delete icon.");
-  // };
-
   const { data } = useQuery("userSearch", userSearch, {
     refetchOnWindowFocus: false,
   });
@@ -25,7 +21,7 @@ const Search = () => {
         <StRankTitleWrap>
           {data?.nickname ? (
             <span style={{ fontWeight: "600" }}>
-              {data?.nickname}의 답변이 필요해요.
+              {data?.nickname}님의 답변이 필요해요.
             </span>
           ) : (
             <span style={{ fontWeight: "600" }}>실시간 인기글</span>

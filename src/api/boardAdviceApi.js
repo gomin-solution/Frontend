@@ -14,7 +14,6 @@ export const useAdviceInfiniteScroll = (categoryId, filterId) => {
       currentPage: pageParam,
     };
   };
-  // console.log("advices", advices);
 
   const {
     data: getAdvice,

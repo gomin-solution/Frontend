@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../api/api";
-import { OkayNaviAlert, OkayAlert } from "../elements/Alert";
+import { OkayNaviAlert, ErrorAlert } from "../elements/Alert";
 import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container, FlexCenter } from "../shared/css";
@@ -37,7 +37,7 @@ const Login = () => {
       setuserKey(res?.data.userKey);
       OkayNaviAlert(`${res?.data.nickname}님 반갑습니다.`, "/main");
     } catch (error) {
-      OkayAlert("아이디 또는 비밀번호가 일치하지 않습니다.");
+      ErrorAlert("아이디 또는 비밀번호가 일치하지 않습니다.");
     }
   };
 

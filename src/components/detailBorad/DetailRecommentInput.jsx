@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { recommentPost } from "../../api/detailApi";
-import { OkayAlert } from "../../elements/Alert";
+import { LoginAlert, OkayAlert } from "../../elements/Alert";
 import { userKeyAtom } from "../../state/atom";
 
 function DetailReCommentInput({ setRecomment, commentId }) {
@@ -13,7 +13,7 @@ function DetailReCommentInput({ setRecomment, commentId }) {
   const { register, handleSubmit, reset } = useForm();
   const onRecomment = (comment) => {
     if (!userKey) {
-      OkayAlert("로그인 후 이용해주세요.");
+      LoginAlert();
       reset();
     } else {
       if (comment.re.trim() === "") {

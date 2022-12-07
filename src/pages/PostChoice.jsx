@@ -36,6 +36,7 @@ function ChoicePost() {
     },
     onError: () => {
       ErrorAlert("잘못된 형식입니다.");
+      setClicked(false);
     },
   });
 

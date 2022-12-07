@@ -135,8 +135,9 @@ function DetailAdvice() {
   }, [resBoard]);
 
   const filters = [
-    { filter: "등록순", filterId: 0 },
-    { filter: "좋아요순", filterId: 1 },
+    { filter: "최신순", filterId: 0 },
+    { filter: "등록순", filterId: 1 },
+    { filter: "좋아요순", filterId: 2 },
   ];
 
   return (

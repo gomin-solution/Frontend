@@ -40,7 +40,6 @@ function ChoicePost() {
   });
 
   //현재시간 설정하기
-  const nowTime = dayjs().format("YYYY-MM-DD HH:mm");
   const minTime = dayjs().add(1, "hour").format().slice(0, -9);
   const maxTime = dayjs().add(7, "days").format().slice(0, -9);
 
@@ -72,7 +71,7 @@ function ChoicePost() {
         <p>마감시간은 최소 1시간 이후부터 7일 이내까지 가능합니다.</p>
         <Stinput
           type="datetime-local"
-          defaultValue={nowTime}
+          defaultValue={minTime}
           min={minTime}
           max={maxTime}
           required

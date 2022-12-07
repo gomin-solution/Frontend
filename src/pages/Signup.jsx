@@ -27,6 +27,8 @@ const Signup = () => {
   const nickname = watch("nickname");
   const password = watch("password");
 
+  console.log("nickname", nickname);
+
   /* 회원가입 제출 */
   const onSubmit = async (data) => {
     if (idDub === false || nickDub === false) {
@@ -103,6 +105,7 @@ const Signup = () => {
               <>
                 <StInput
                   placeholder="아이디"
+                  maxLength="10"
                   {...register("userId", {
                     required: "아이디를 작성해주세요.",
                     maxLength: {
@@ -148,6 +151,7 @@ const Signup = () => {
               <>
                 <StInput
                   placeholder="닉네임"
+                  maxLength="8"
                   {...register("nickname", {
                     required: "닉네임을 작성해주세요.",
                     maxLength: {
@@ -160,7 +164,7 @@ const Signup = () => {
                     },
                   })}
                 />
-                <StCheckBtn type="button" onClick={nickCheck} backColor="gray">
+                <StCheckBtn type="button" onClick={nickCheck}>
                   중복확인
                 </StCheckBtn>
               </>
@@ -187,6 +191,7 @@ const Signup = () => {
           <StInput
             type="password"
             placeholder="비밀번호"
+            maxLength="20"
             {...register("password", {
               required: "비밀번호를 작성해주세요.",
               maxLength: {
@@ -215,6 +220,7 @@ const Signup = () => {
           <StInput
             type="password"
             placeholder="비밀번호 확인"
+            maxLength="20"
             {...register("confirm", {
               required: "비밀번호를 재입력해주세요.",
               validate: {

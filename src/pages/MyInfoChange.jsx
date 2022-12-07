@@ -16,10 +16,16 @@ function MyInfoChange() {
     onSuccess: () => {
       OkayAlert("닉네임이 변경되었습니다.");
     },
+    onError: () => {
+      ErrorAlert("잘못된 형식입니다.");
+    },
   });
   const passMutation = useMutation(passwordChange, {
     onSuccess: () => {
       OkayNaviAlert("비밀번호가 변경되었습니다.", "/setting");
+    },
+    onError: () => {
+      ErrorAlert("잘못된 형식입니다.");
     },
   });
 
@@ -49,6 +55,7 @@ function MyInfoChange() {
           <StInput
             type="text"
             defaultValue={thisNick.state}
+            maxLength="8"
             {...register("nickname")}
           />
           <button className="nickBtn">변경</button>
@@ -59,11 +66,11 @@ function MyInfoChange() {
           </StTitle>
           <StCheck>영문, 숫자, 특수문자 포함 8~20글자로 작성해주세요.</StCheck>
           <StLabel>현재 비밀번호 입력</StLabel>
-          <StInput type="password" {...register("password")} />
+          <StInput type="password" maxLength="20" {...register("password")} />
           <StLabel style={{ marginTop: "2rem" }}>새 비밀번호 입력</StLabel>
           <StInput type="password" {...register("newPassword")} />
           <StLabel>새 비밀번호 확인</StLabel>
-          <StInput type="password" {...register("confirm")} />
+          <StInput type="password" maxLength="20" {...register("confirm")} />
           <button className="passBtn">비밀번호 변경</button>
         </form>
       </Stcontainer>

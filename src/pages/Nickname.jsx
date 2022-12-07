@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, FlexCenter } from "../shared/css";
 import styled from "styled-components";
-import { OkayAlert, OkayNaviAlert } from "../elements/Alert";
+import { ErrorAlert, OkayAlert, OkayNaviAlert } from "../elements/Alert";
 import { userKeyAtom } from "../state/atom";
 import { instance } from "../api/api";
 import { useSetRecoilState } from "recoil";
@@ -23,6 +23,8 @@ const Nickname = () => {
     watch,
   } = useForm();
 
+  const nickname = watch("nickname");
+
   /* 닉네임 중복검사 */
   const nickCheck = async () => {
     const nickname = watch("nickname");
@@ -36,7 +38,7 @@ const Nickname = () => {
           setNickDub(true);
         })
         .catch(() => {
-          OkayAlert("사용 불가능한 닉네임입니다.");
+          ErrorAlert("사용 불가능한 닉네임입니다.");
         });
     }
   };
@@ -49,13 +51,12 @@ const Nickname = () => {
     }
     try {
       const res = await instance.put("/nickname", data);
-      console.log("res", res?.data.userKey);
       if (res.status === 200) {
         setUserKey(res?.data.userKey);
         OkayNaviAlert(`${nickname}님 반갑습니다`, "/main");
       }
-    } catch (error) {
-      OkayAlert("중복확인을 다시 진행해주세요.");
+    } catch {
+      ErrorAlert("중복확인을 다시 진행해주세요.");
     }
   };
 
@@ -63,29 +64,35 @@ const Nickname = () => {
     <StContainer as="form" onSubmit={handleSubmit(onSubmit)}>
       <div>사용하실 닉네임을 입력해주세요.</div>
       <StInputWrap>
-        <StInput
-          placeholder="닉네임"
-          {...register("nickname", {
-            required: "닉네임을 작성해주세요.",
-            maxLength: {
-              value: 8,
-              message: "8글자 이하로 작성해주세요",
-            },
-            pattern: {
-              value: /^[가-힣a-zA-z0-9]{1,8}$/,
-              message: "특수문자를 제외하여 8글자 이하로 작성해주세요.",
-            },
-          })}
-        />
-        {nickDub ? (
-          <StCheckDub type="button">
-            <TaskAltIcon />
-            <span>&nbsp;중복확인</span>
-          </StCheckDub>
+        {!nickDub ? (
+          <>
+            <StInput
+              placeholder="닉네임"
+              maxLength="8"
+              {...register("nickname", {
+                required: "닉네임을 작성해주세요.",
+                maxLength: {
+                  value: 8,
+                  message: "8글자 이하로 작성해주세요",
+                },
+                pattern: {
+                  value: /^[가-힣a-zA-z0-9]{1,8}$/,
+                  message: "특수문자를 제외하여 8글자 이하로 작성해주세요.",
+                },
+              })}
+            />
+            <StCheckBtn type="button" onClick={nickCheck}>
+              중복확인
+            </StCheckBtn>
+          </>
         ) : (
-          <StCheckBtn type="button" onClick={nickCheck}>
-            중복확인
-          </StCheckBtn>
+          <>
+            <StInput placeholder={nickname} backColor="#eaeeec" />
+            <StCheckDub type="button">
+              <TaskAltIcon />
+              <span>&nbsp;중복확인</span>
+            </StCheckDub>
+          </>
         )}
         {errors?.nickname?.message === undefined ? (
           <StCheck>특수문자를 제외하여 8글자 이하로 작성해주세요.</StCheck>
@@ -121,7 +128,7 @@ const StInputWrap = styled.div`
 `;
 
 const StInput = styled.input`
-  background-color: ${(props) => props.theme.Colors.blueGray1};
+  background-color: ${(props) => props.backColor};
   width: 100%;
   height: 3rem;
   border: none;

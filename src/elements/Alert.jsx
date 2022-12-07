@@ -21,6 +21,29 @@ export const OkayNaviAlert = (text, navi, userKey) => {
   });
 };
 
+/*로그인 + 확인 후 이동 + 취소 */
+export const LoginAlert = () => {
+  Swal.fire({
+    customClass: {
+      confirmButton: "login-Btn",
+      cancelButton: "cancle-Btn",
+      actions: "login-act",
+      htmlContainer: "login-text",
+    },
+    buttonsStyling: false,
+    text: "로그인 후 이용해주세요.",
+
+    cancelButtonText: "취소",
+    confirmButtonText: "로그인",
+    showCancelButton: true,
+    reverseButtons: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = "/login";
+    }
+  });
+};
+
 /* 텍스트 + 확인버튼(닫힘) */
 export const OkayAlert = (text) => {
   Swal.fire({

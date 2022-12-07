@@ -1,7 +1,7 @@
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { OkayAlert } from "../../elements/Alert";
+import { LoginAlert } from "../../elements/Alert";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../../state/atom";
 
@@ -18,7 +18,7 @@ const AnswerAndBookmark = () => {
     if (userKey) {
       nav(navi);
     } else {
-      OkayAlert("로그인 후 이용 가능합니다.");
+      LoginAlert();
     }
   };
 

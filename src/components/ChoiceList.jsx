@@ -8,7 +8,7 @@ import { VoteDial } from "../elements/MenuDial";
 import { userKeyAtom } from "../state/atom";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
-import { OkayAlert } from "../elements/Alert";
+import { LoginAlert } from "../elements/Alert";
 
 const ChoiceList = ({ newRef, choice, getMutation }) => {
   const queryClient = useQueryClient();
@@ -46,7 +46,7 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
     /* onMutate : mutation function이 시작되기 전에 작동 */
     onMutate: async ({ choiceNum }) => {
       if (!userKey) {
-        OkayAlert("로그인 후 이용해주세요.");
+        LoginAlert();
       } else {
         /* 서버에 전송한 요청이 잘못되었을 경우를 대비해서 이전 데이터를 저장 */
         const prevPick = queryClient.getQueryData(getMutation);
@@ -103,7 +103,7 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
     /* onMutate : mutation function이 시작되기 전에 작동 */
     onMutate: async () => {
       if (!userKey) {
-        OkayAlert("로그인 후 이용해주세요.");
+        LoginAlert();
       } else {
         /* 서버에 전송한 요청이 잘못되었을 경우를 대비해서 이전 데이터를 저장 */
         const prevBookMark = queryClient.getQueryData(getMutation);

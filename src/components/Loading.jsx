@@ -6,7 +6,7 @@ import logoSquare from "../image/logo/logoSquare.svg";
 const Loading = () => {
   return (
     <StLoading>
-      <CircularProgress />
+      <CircularProgress style={{ color: "#19696A" }} />
       <StImg src={logoSquare} alt="logoBird" />
     </StLoading>
   );

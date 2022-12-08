@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
+import { setCookie } from "../api/cookie";
 import { kakaoTokenGet, kakaoTokenPost } from "../api/socialLogin";
 import Loading from "../components/Loading";
 import { ErrorAlert, OkayNaviAlert } from "../elements/Alert";
@@ -43,6 +44,12 @@ const KaKao = () => {
     } else if (isMember === true) {
       setUserKey(data?.data.userKey);
       OkayNaviAlert(`${data?.data.nickname}님 반갑습니다.`, "/main");
+      setCookie("accessToken", data?.data.accessToken, {
+        maxAge: 60 * 60 * 24 * 15,
+      });
+      setCookie("refreshToken", data?.data.refreshToken, {
+        maxAge: 60 * 60 * 24 * 15,
+      });
     } else if (isMember === false) {
       nav("/nickname", { state: data?.data.userKey });
     }

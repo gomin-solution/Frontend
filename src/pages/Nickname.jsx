@@ -13,8 +13,11 @@ import { useSetRecoilState } from "recoil";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { useForm } from "react-hook-form";
 import { setCookie } from "../api/cookie";
+import { useLocation } from "react-router-dom";
 
 const Nickname = () => {
+  const { state: userKey } = useLocation();
+
   /* userKey 값 넣기 */
   const setUserKey = useSetRecoilState(userKeyAtom);
 
@@ -57,11 +60,12 @@ const Nickname = () => {
 
   /* 닉네임 제출 */
   const onSubmit = async (data) => {
+    const payload = { nickname: data, userKey: userKey };
     if (nickDub === false) {
       return OkayAlert("닉네임 중복확인을 해주세요.");
     }
     try {
-      const res = await instance.put("/kakao/nickname", data);
+      const res = await instance.put("/kakao/nickname", payload);
       if (res.status === 200) {
         setUserKey(res?.data.userKey);
         OkayNaviAlert(`${nickname}님 반갑습니다`, "/main");

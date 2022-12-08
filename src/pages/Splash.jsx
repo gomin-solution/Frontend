@@ -25,7 +25,7 @@ const Splash = () => {
       } else {
         window.location.href = "/intro";
       }
-    }, 4300);
+    }, 2500);
   }, [userKey]);
 
   /* token 없을 시 userKey 삭제: 로그아웃하지 않고 브라우저 종료한 경우 대비 */

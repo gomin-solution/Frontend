@@ -44,8 +44,12 @@ const KaKao = () => {
     } else if (isMember === true) {
       setUserKey(data?.data.userKey);
       OkayNaviAlert(`${data?.data.nickname}님 반갑습니다.`, "/main");
-      setCookie("accessToken", data?.data.accessToken);
-      setCookie("refreshToken", data?.data.refreshToken);
+      setCookie("accessToken", data?.data.accessToken, {
+        maxAge: 60 * 60 * 24 * 15,
+      });
+      setCookie("refreshToken", data?.data.refreshToken, {
+        maxAge: 60 * 60 * 24 * 15,
+      });
     } else if (isMember === false) {
       nav("/nickname", { state: data?.data.userKey });
     }

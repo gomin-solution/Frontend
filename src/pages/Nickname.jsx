@@ -17,6 +17,7 @@ import { useLocation } from "react-router-dom";
 
 const Nickname = () => {
   const { state: userKey } = useLocation();
+  console.log("userKey", userKey);
 
   /* userKey 값 넣기 */
   const setUserKey = useSetRecoilState(userKeyAtom);

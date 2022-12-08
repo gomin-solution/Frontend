@@ -5,7 +5,8 @@ import { Container } from "../shared/css";
 import { useQuery } from "react-query";
 import { userSearch } from "../api/searchApi";
 import dayjs from "dayjs";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Search = () => {
   const { data } = useQuery("userSearch", userSearch, {
@@ -16,7 +17,7 @@ const Search = () => {
 
   return (
     <>
-      <Header7 title={"고민접기"} />
+      <Header7 />
       <Stcontainer>
         <StRankTitleWrap>
           {data?.nickname ? (

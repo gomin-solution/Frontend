@@ -24,8 +24,16 @@ function MyInfoChange() {
     onSuccess: () => {
       OkayNaviAlert("비밀번호가 변경되었습니다.", "/setting");
     },
-    onError: () => {
-      ErrorAlert("잘못된 형식입니다.");
+    onError: (err) => {
+      if (err?.response.data.errorMessage === "비밀번호 오류") {
+        ErrorAlert("현재 비밀번호와 다릅니다.");
+      } else if (
+        err?.response.data.errorMessage === "비밀번호를 변경할 수 없습니다."
+      ) {
+        ErrorAlert("카카오로 가입하신 유저는\n 비밀번호 변경이 불가합니다.");
+      } else {
+        ErrorAlert("잘못된 형식입니다.");
+      }
     },
   });
 
@@ -64,7 +72,10 @@ function MyInfoChange() {
           <StTitle style={{ marginTop: "3rem", marginBottom: "0" }}>
             비밀번호 변경
           </StTitle>
-          <StCheck>영문, 숫자, 특수문자 포함 8~20글자로 작성해주세요.</StCheck>
+          <StCheck>
+            영문, 숫자, 특수문자 포함 8~20글자로 작성해주세요. <br />
+            카카오로 가입하신 유저는 비밀번호 변경이 불가합니다.
+          </StCheck>
           <StLabel>현재 비밀번호 입력</StLabel>
           <StInput type="password" maxLength="20" {...register("password")} />
           <StLabel style={{ marginTop: "2rem" }}>새 비밀번호 입력</StLabel>

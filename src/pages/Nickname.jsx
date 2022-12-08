@@ -128,7 +128,7 @@ const Nickname = () => {
       </StInputWrap>
       <StSmallText>닉네임 변경은 설정 페이지에서 가능합니다.</StSmallText>
       <StSmallText>입력 후 메인 화면으로 이동됩니다.</StSmallText>
-      <Stbtn>제출하기</Stbtn>
+      <Stbtn>확인</Stbtn>
     </StContainer>
   );
 };

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Container, FlexCenter } from "../shared/css";
 import { Lottie } from "@crello/react-lottie";
-import introA from "../image/intro/introA.json";
+import introA from "../image/intro/introA.gif";
 import introB from "../image/intro/introB.json";
 import introC from "../image/intro/introC.json";
 import introD from "../image/intro/introD.json";
@@ -16,14 +16,6 @@ import "swiper/css/pagination";
 const Intro = () => {
   const nav = useNavigate();
 
-  /* lottie 속성값 설정 */
-  const defaultOptionsA = {
-    loop: true,
-    animationData: introA,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
   const defaultOptionsB = {
     loop: true,
     animationData: introB,
@@ -49,6 +41,7 @@ const Intro = () => {
   return (
     <Stcontainer>
       <StWrap>
+        <StSkipBtn onClick={() => nav("/main")}>skip</StSkipBtn>
         <StSwFeat
           spaceBetween={0}
           centeredSlides={true}
@@ -57,7 +50,9 @@ const Intro = () => {
           modules={[Pagination, Navigation]}
         >
           <StSwiperSlide>
-            <Lottie config={defaultOptionsA} height="100%" width="100%" />
+            <StIntro>
+              <img src={introA} alt="introA" />
+            </StIntro>
           </StSwiperSlide>
           <StSwiperSlide>
             <Lottie config={defaultOptionsB} height="100%" width="100%" />
@@ -94,6 +89,17 @@ const Stcontainer = styled.div`
   cursor: grab;
 `;
 
+const StSkipBtn = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.5rem 0.7rem;
+  color: ${(props) => props.theme.Colors.blueGray1};
+  font-size: ${(props) => props.theme.fontSizes.lg};
+  cursor: pointer;
+  z-index: 99;
+`;
+
 const StWrap = styled.div`
   position: absolute;
   top: 10%;
@@ -108,16 +114,12 @@ const StSwFeat = styled(Swiper)`
     display: none;
   }
   .swiper-button-next {
-    position: absolute;
-    top: 5%;
-    color: ${(props) => props.theme.Colors.blueGray3};
-    background-color: ${(props) => props.theme.Colors.blueGray1};
-    width: 2rem;
-    height: 2rem;
-    border-radius: 1rem;
+    color: white;
     &::after {
-      font-size: ${(props) => props.theme.fontSizes.lg};
+      font-size: ${(props) => props.theme.fontSizes.xxl};
       font-weight: ${(props) => props.theme.fontWeights.lg};
+      position: absolute;
+      bottom: 0;
     }
   }
 `;
@@ -126,6 +128,11 @@ const StSwiperSlide = styled(SwiperSlide)`
   width: 80%;
   height: 100%;
   ${FlexCenter};
+`;
+
+const StIntro = styled.div`
+  width: 100%;
+  height: 100%;
 `;
 
 const StInnerWrap = styled.div`

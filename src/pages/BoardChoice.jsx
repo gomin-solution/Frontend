@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Choice from "../components/board/Choice";
 import Footer from "../elements/Footer";
 import { Header2 } from "../elements/Header";
-import Dial from "../components/board/Dial";
+import Dial from "../components/Dial";
 import styled from "styled-components";
 import { Container, FlexCenter } from "../shared/css";
 import ScrollBtn from "../elements/ScrollBtn";
@@ -34,7 +34,7 @@ function Board() {
 
   return (
     <>
-      <Header2 title={"고민접기"} />
+      <Header2 title={"고민접기"} navi="/board-choice" />
       <Stcontainer ref={topBtn} onScroll={logScroll}>
         <StInnerWrap>
           <StBtn1 onClick={() => nav("/board-choice")}>골라주기</StBtn1>

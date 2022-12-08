@@ -11,7 +11,7 @@ import letterOpen from "../../image/dailyMessage/letterOpen.svg";
 import letterClose from "../../image/dailyMessage/letterClose.svg";
 import { FlexCenter } from "../../shared/css";
 
-const DailyMessage = ({ dailyMessage, isOpen, userKey, isLoading }) => {
+const DailyMessage = ({ dailyMessage, isOpen, userKey }) => {
   const queryClient = useQueryClient();
 
   /* lottie 속성값 설정 */

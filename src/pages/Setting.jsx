@@ -3,11 +3,22 @@ import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container, FlexCenter } from "../shared/css";
 import { getMyPage, goodBye, logout } from "../api/settingApi";
-import { OkayNaviAlert, ChooseAlert, OkayAlert } from "../elements/Alert";
+import {
+  OkayNaviAlert,
+  ChooseAlert,
+  OkayAlert,
+  ErrorAlert,
+} from "../elements/Alert";
 import { useNavigate } from "react-router-dom";
 
 function Setting() {
-  const { data: res } = useQuery("getMyPage", getMyPage);
+  const { data: res } = useQuery("getMyPage", getMyPage, {
+    refetchOnWindowFocus: false,
+    retry: false,
+    onError: () => {
+      ErrorAlert("비정상적인 접근입니다.", "/main");
+    },
+  });
   const admin = res?.data.admin;
   const nav = useNavigate();
 

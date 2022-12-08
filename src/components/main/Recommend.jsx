@@ -10,7 +10,9 @@ const Recommend = ({ recommend }) => {
       <span className="cate">[{recommend?.category}]</span>
       <span
         className="over"
-        onClick={() => nav(`/board-advice/${recommend?.adviceId}`)}
+        onClick={() =>
+          nav(`/board-advice/${recommend?.adviceId}`, { state: "/main" })
+        }
       >
         {recommend?.title}
       </span>
@@ -23,11 +25,10 @@ export default Recommend;
 const StWrap = styled.div`
   margin-bottom: ${(props) => props.theme.paddings.xxl};
   font-size: ${(props) => props.theme.fontSizes.sm};
-
   display: flex;
   align-items: center;
-
   overflow: hidden;
+  cursor: pointer;
   .cate {
     color: ${(props) => props.theme.Colors.blueGreen3};
     font-weight: ${(props) => props.theme.fontWeights.xl};

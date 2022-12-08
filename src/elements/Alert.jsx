@@ -57,7 +57,7 @@ export const OkayAlert = (text) => {
 };
 
 /*오류 텍스트 확인버튼(닫힘) */
-export const ErrorAlert = (text) => {
+export const ErrorAlert = (text, navi) => {
   Swal.fire({
     customClass: {
       confirmButton: "confirm-Btn",
@@ -67,6 +67,10 @@ export const ErrorAlert = (text) => {
     text: text,
     color: "#BA1A1A",
     confirmButtonText: "확인",
+  }).then(() => {
+    if (navi) {
+      window.location.href = navi;
+    }
   });
 };
 

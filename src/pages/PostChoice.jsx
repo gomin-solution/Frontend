@@ -23,6 +23,8 @@ function ChoicePost() {
       data.choice2Name.trim() === ""
     ) {
       return ErrorAlert("게시글 작성을 완료해주세요.");
+    } else if (data.endTime < minTime || data.endTime > maxTime) {
+      return ErrorAlert("마감시간을 다시 확인해주세요.");
     } else {
       wrtieChoice.mutate(data);
       setClicked(true);
@@ -73,9 +75,6 @@ function ChoicePost() {
         <Stinput
           type="datetime-local"
           defaultValue={minTime}
-          min={minTime}
-          max={maxTime}
-          required
           {...register("endTime")}
         />
         <p style={{ marginTop: "1.5rem" }}>

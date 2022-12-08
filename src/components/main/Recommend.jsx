@@ -10,7 +10,9 @@ const Recommend = ({ recommend }) => {
       <span className="cate">[{recommend?.category}]</span>
       <span
         className="over"
-        onClick={() => nav(`/board-advice/${recommend?.adviceId}`)}
+        onClick={() =>
+          nav(`/board-advice/${recommend?.adviceId}`, { state: "/main" })
+        }
       >
         {recommend?.title}
       </span>

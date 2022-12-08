@@ -34,7 +34,7 @@ function Board() {
 
   return (
     <>
-      <Header2 title={"고민접기"} />
+      <Header2 title={"고민접기"} navi="/board-advice" />
       <Stcontainer ref={topBtn} onScroll={logScroll}>
         <StInnerWrap>
           <StBtn2 onClick={() => nav("/board-choice")}>골라주기</StBtn2>

@@ -17,6 +17,7 @@ import { Container } from "../shared/css";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../state/atom";
 import { ErrorAlert, LoginAlert } from "../elements/Alert";
+import Loading from "../components/Loading";
 
 function DetailAdvice() {
   const queryClient = useQueryClient();
@@ -30,7 +31,7 @@ function DetailAdvice() {
   const [filterId, setFilterId] = useState(0);
 
   //상세페이지 정보 가져오기
-  const { data } = useQuery(
+  const { data, isLoading } = useQuery(
     ["getDetail", adviceId, filterId],
     () => adviceDetail(adviceId, filterId),
     {
@@ -138,6 +139,10 @@ function DetailAdvice() {
     { filter: "등록순", filterId: 0 },
     { filter: "좋아요순", filterId: 1 },
   ];
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

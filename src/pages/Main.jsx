@@ -12,10 +12,11 @@ import { getMain } from "../api/mainApi";
 import { Container } from "../shared/css";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../state/atom";
+import Loading from "../components/Loading";
 
 function Main() {
   /* 메인페이지 get */
-  const { data } = useQuery("getMain", getMain, {
+  const { data, isLoading } = useQuery("getMain", getMain, {
     retry: 3,
     refetchOnWindowFocus: false,
   });
@@ -31,6 +32,10 @@ function Main() {
     refetchOnWindowFocus: false,
     retry: false,
   });
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -48,6 +53,7 @@ function Main() {
             dailyMessage={dailyMessage}
             isOpen={isOpen}
             userKey={userKey}
+            isLoading={isLoading}
           />
           <AnswerAndBookmark />
           <TotalCount totalCount={totalCount} />

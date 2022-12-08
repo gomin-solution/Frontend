@@ -5,7 +5,12 @@ import { instance } from "../api/api";
 /*스타일 관련*/
 import styled from "styled-components";
 import { Header1 } from "../elements/Header";
-import { OkayNaviAlert, ErrorAlert, OkayAlert } from "../elements/Alert";
+import {
+  OkayNaviAlert,
+  ErrorAlert,
+  OkayAlert,
+  ChooseAlert,
+} from "../elements/Alert";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { Container, FlexCenter } from "../shared/css";
 
@@ -26,8 +31,6 @@ const Signup = () => {
   const userId = watch("userId");
   const nickname = watch("nickname");
   const password = watch("password");
-
-  console.log("nickname", nickname);
 
   /* 회원가입 제출 */
   const onSubmit = async (data) => {
@@ -53,8 +56,14 @@ const Signup = () => {
       await instance
         .post("/signup/check", { userId: userId })
         .then(() => {
-          OkayAlert("사용가능한 아이디입니다.");
-          setIdDub(true);
+          ChooseAlert(
+            `사용가능한 아이디입니다.\n해당 아이디를 사용하시겠습니까?`,
+            "사용",
+            null,
+            null,
+            null,
+            setIdDub
+          );
         })
         .catch((error) => {
           if (
@@ -78,8 +87,14 @@ const Signup = () => {
       await instance
         .post("/signup/check", { nickname: nickname })
         .then(() => {
-          OkayAlert("사용가능한 닉네임입니다.");
-          setNickDub(true);
+          ChooseAlert(
+            `사용가능한 닉네임입니다.\n해당 닉네임을 사용하시겠습니까?`,
+            "사용",
+            null,
+            null,
+            null,
+            setNickDub
+          );
         })
         .catch((error) => {
           if (

@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { Container, FlexCenter } from "../shared/css";
 import styled from "styled-components";
-import { ErrorAlert, OkayAlert, OkayNaviAlert } from "../elements/Alert";
+import {
+  ChooseAlert,
+  ErrorAlert,
+  OkayAlert,
+  OkayNaviAlert,
+} from "../elements/Alert";
 import { userKeyAtom } from "../state/atom";
 import { instance } from "../api/api";
 import { useSetRecoilState } from "recoil";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { useForm } from "react-hook-form";
+import { setCookie } from "../api/cookie";
 
 const Nickname = () => {
   /* userKey 값 넣기 */
@@ -34,8 +40,14 @@ const Nickname = () => {
       await instance
         .post("/signup/check", { nickname: nickname })
         .then(() => {
-          OkayAlert("사용가능한 닉네임입니다.");
-          setNickDub(true);
+          ChooseAlert(
+            `사용가능한 닉네임입니다.\n해당 닉네임을 사용하시겠습니까?`,
+            "사용",
+            null,
+            null,
+            null,
+            setNickDub
+          );
         })
         .catch(() => {
           ErrorAlert("사용 불가능한 닉네임입니다.");
@@ -49,10 +61,16 @@ const Nickname = () => {
       return OkayAlert("닉네임 중복확인을 해주세요.");
     }
     try {
-      const res = await instance.put("/nickname", data);
+      const res = await instance.put("/kakao/nickname", data);
       if (res.status === 200) {
         setUserKey(res?.data.userKey);
         OkayNaviAlert(`${nickname}님 반갑습니다`, "/main");
+        setCookie("accessToken", res?.data.accessToken, {
+          maxAge: 60 * 60 * 24 * 15,
+        });
+        setCookie("refreshToken", res?.data.refreshToken, {
+          maxAge: 60 * 60 * 24 * 15,
+        });
       }
     } catch {
       ErrorAlert("중복확인을 다시 진행해주세요.");

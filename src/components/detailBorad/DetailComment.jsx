@@ -14,7 +14,7 @@ import { UserDial } from "../../elements/MenuDial";
 import styled from "styled-components";
 import DetailReComment from "../detailBorad/DetailReComment";
 import DetailReCommentInput from "./DetailRecommentInput";
-import { ChooseNaviAlert, LoginAlert, OkayAlert } from "../../elements/Alert";
+import { ChooseAlert, LoginAlert, OkayAlert } from "../../elements/Alert";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../../state/atom";
 import { FlexCenter } from "../../shared/css";
@@ -73,7 +73,7 @@ function DetailComment({ comment, resBoard }) {
   };
 
   const pickAlert = (id) => {
-    ChooseNaviAlert(
+    ChooseAlert(
       "채택은 한 번만 가능합니다.\n채택하시겠습니까?",
       "채택",
       onPick,

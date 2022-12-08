@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { socket } from "../api/socketio";
 
 /*스타일 관련*/
@@ -32,8 +32,12 @@ export function Header1({ title, roomId, navi = -1, leave = false }) {
 }
 
 /*제목바 + 검색버튼*/
-export function Header2({ title }) {
+export function Header2({ title, navi }) {
   const nav = useNavigate();
+
+  useEffect(() => {
+    sessionStorage.setItem("searchNav", navi);
+  }, []);
 
   return (
     <StBlock>
@@ -101,6 +105,7 @@ export function Header6() {
 /* 이전 + 검색바 + 검색버튼*/
 export function Header7() {
   const nav = useNavigate();
+  const navi = sessionStorage.getItem("searchNav");
 
   /* 검색어 입력 후 페이지이동 */
   const [search, setSearch] = useState("");
@@ -120,11 +125,19 @@ export function Header7() {
   return (
     <>
       <StBlock as="form" onSubmit={(e) => searchSubmit(e)}>
-        <StBackcon
-          onClick={() => {
-            nav(-1);
-          }}
-        />
+        {navi === null ? (
+          <StBackcon
+            onClick={() => {
+              nav(-1);
+            }}
+          />
+        ) : (
+          <StBackcon
+            onClick={() => {
+              nav(navi);
+            }}
+          />
+        )}
         <StSearch
           type="text"
           value={search}

@@ -10,7 +10,7 @@ import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { CategoryDial } from "../elements/MenuDial";
 import { ImageModal } from "../components/detailBorad/ImageModal";
 import { Container, FlexCenter } from "../shared/css";
-import { OkayAlert } from "../elements/Alert";
+import { ErrorAlert } from "../elements/Alert";
 
 function AdvicePost({ resBoard }) {
   const { register, handleSubmit, watch } = useForm();
@@ -26,7 +26,7 @@ function AdvicePost({ resBoard }) {
         e.title.trim() === "" ||
         e.content.trim() === ""
       ) {
-        return OkayAlert("게시글 작성을 완료해주세요.");
+        return ErrorAlert("게시글 작성을 완료해주세요.");
       } else {
         const formData = new FormData();
         for (let i = 0; i < e.image.length; i++) {
@@ -41,7 +41,7 @@ function AdvicePost({ resBoard }) {
       }
     } else {
       if (e.title.trim() === "" || e.content.trim() === "") {
-        return OkayAlert("게시글 작성을 완료해주세요.");
+        return ErrorAlert("게시글 작성을 완료해주세요.");
       } else {
         const formData = new FormData();
         for (let i = 0; i < e.image.length; i++) {
@@ -70,7 +70,7 @@ function AdvicePost({ resBoard }) {
 
   useEffect(() => {
     if (previmg && previmg.length > 3) {
-      OkayAlert("사진은 3장만 가능합니다.");
+      ErrorAlert("사진은 3장만 가능합니다.");
       return;
     }
     if (previmg && previmg.length > 0) {

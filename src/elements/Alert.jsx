@@ -70,8 +70,8 @@ export const ErrorAlert = (text) => {
   });
 };
 
-/*텍스트 + 확인 후 이동 + 취소 */
-export const ChooseNaviAlert = (text, textBtn, mutate, userKey, data) => {
+/*텍스트 + 확인 + 취소 */
+export const ChooseAlert = (text, textBtn, mutate, userKey, data, setState) => {
   Swal.fire({
     customClass: {
       confirmButton: "login-Btn",
@@ -91,8 +91,10 @@ export const ChooseNaviAlert = (text, textBtn, mutate, userKey, data) => {
       if (userKey) {
         mutate();
         localStorage.removeItem(userKey);
-      } else {
+      } else if (mutate) {
         mutate(data);
+      } else {
+        setState(true);
       }
     }
   });

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container, FlexCenter } from "../shared/css";
 import { getMyPage, goodBye, logout } from "../api/settingApi";
-import { OkayNaviAlert, ChooseNaviAlert, OkayAlert } from "../elements/Alert";
+import { OkayNaviAlert, ChooseAlert, OkayAlert } from "../elements/Alert";
 import { useNavigate } from "react-router-dom";
 
 function Setting() {
@@ -13,6 +13,8 @@ function Setting() {
 
   const logoutMutation = useMutation(logout);
   const byeMutation = useMutation(goodBye);
+
+  const img = res?.data.mypage.userImage;
 
   const ByeMutate = () => {
     byeMutation.mutate();
@@ -24,12 +26,7 @@ function Setting() {
   };
 
   const ByeHandler = () => {
-    ChooseNaviAlert(
-      "정말 탈퇴하시겠습니까?",
-      "탈퇴",
-      ByeMutate,
-      "recoil-persist"
-    );
+    ChooseAlert("정말 탈퇴하시겠습니까?", "탈퇴", ByeMutate, "recoil-persist");
   };
 
   const gradeHelp = () => {
@@ -44,7 +41,7 @@ function Setting() {
       {!admin ? (
         <Stcontainer>
           <StUserinfo>
-            <img src={res?.data.mypage.userImage} alt="유저 등급 이미지" />
+            <img src={img ? img : "#"} alt="" />
             <div>
               <p>{res?.data.mypage.nickname}</p>
               <span>

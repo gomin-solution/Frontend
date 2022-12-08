@@ -5,13 +5,13 @@ import { Lottie } from "@crello/react-lottie";
 
 /*스타일 관련 */
 import styled from "styled-components";
-import { LoginAlert, OkayAlert } from "../../elements/Alert";
+import { ErrorAlert, LoginAlert, OkayAlert } from "../../elements/Alert";
 import animationData from "../../image/dailyMessage/letter_lottie.json";
 import letterOpen from "../../image/dailyMessage/letterOpen.svg";
 import letterClose from "../../image/dailyMessage/letterClose.svg";
 import { FlexCenter } from "../../shared/css";
 
-const DailyMessage = ({ dailyMessage, isOpen, userKey }) => {
+const DailyMessage = ({ dailyMessage, isOpen, userKey, isLoading }) => {
   const queryClient = useQueryClient();
 
   /* lottie 속성값 설정 */
@@ -30,11 +30,14 @@ const DailyMessage = ({ dailyMessage, isOpen, userKey }) => {
     onSuccess: () => {
       queryClient.invalidateQueries("getMain");
     },
+    onError: () => {
+      ErrorAlert("잠시 후 다시 시도해주세요.");
+    },
   });
 
   const messageHandler = () => {
     if (userKey) {
-      if (!isOpen) {
+      if (!isOpen && dailyMessage) {
         setOpen("playing");
         setTimeout(() => OkayAlert(`${dailyMessage}`), [2000]);
         setTimeout(() => {

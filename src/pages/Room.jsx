@@ -6,7 +6,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getRooms, outRoom } from "../api/room";
 import { Container } from "../shared/css";
 import CloseIcon from "@mui/icons-material/Close";
-import { ChooseNaviAlert } from "../elements/Alert";
+import { ChooseAlert } from "../elements/Alert";
 
 const Room = () => {
   const queryClient = useQueryClient();
@@ -23,7 +23,7 @@ const Room = () => {
   });
   const roomHandler = (e, roomId) => {
     e.stopPropagation();
-    ChooseNaviAlert("쪽지방을 나가시겠습니까?", "확인", mutate, null, roomId);
+    ChooseAlert("쪽지방을 나가시겠습니까?", "확인", mutate, null, roomId);
   };
 
   return (

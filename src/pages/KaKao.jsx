@@ -41,10 +41,10 @@ const KaKao = () => {
     if (isError) {
       ErrorAlert(`이미 로그인이 되어 있습니다.`, "/main");
     } else if (isMember === true) {
-      setUserKey(data?.data?.userKey);
-      OkayNaviAlert(`${data?.data?.nickname}님 반갑습니다.`, "/main");
+      setUserKey(data?.data.userKey);
+      OkayNaviAlert(`${data?.data.nickname}님 반갑습니다.`, "/main");
     } else if (isMember === false) {
-      nav("/nickname");
+      nav("/nickname", { state: data?.data.userKey });
     }
   }, [isMember, isError]);
 

@@ -14,6 +14,8 @@ function Setting() {
   const logoutMutation = useMutation(logout);
   const byeMutation = useMutation(goodBye);
 
+  const img = res?.data.mypage.userImage;
+
   const ByeMutate = () => {
     byeMutation.mutate();
   };
@@ -39,7 +41,7 @@ function Setting() {
       {!admin ? (
         <Stcontainer>
           <StUserinfo>
-            <img src={res?.data.mypage.userImage} alt="유저 등급 이미지" />
+            <img src={img ? img : "#"} alt="" />
             <div>
               <p>{res?.data.mypage.nickname}</p>
               <span>

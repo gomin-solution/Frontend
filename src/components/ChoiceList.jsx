@@ -9,6 +9,7 @@ import { userKeyAtom } from "../state/atom";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { LoginAlert } from "../elements/Alert";
+import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 
 const ChoiceList = ({ newRef, choice, getMutation }) => {
   const queryClient = useQueryClient();
@@ -192,17 +193,36 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
         </StParticipant>
       </StTextWrap2>
       <StTextWrap3>
-        <span>{choice.choice1Name}</span>
-        <span>{choice.choice2Name}</span>
+        <StChoiceName color="#47991D">{choice.choice1Name}</StChoiceName>
+        <StChoiceName color="#249A9C">{choice.choice2Name}</StChoiceName>
       </StTextWrap3>
       {choice.isChoice || choice.isEnd ? (
         <>
           <StChoiceWrap choiceCount={choice.choiceCount}>
-            <StChoice1 width={choiceAPer} isChoice={choice.isChoice} />
+            <StChoice1 width={choiceAPer} />
             <StChoice2 width={choiceBPer} />
             <StPerText>
-              <span>{choiceAPer}%</span>
-              <span>{choiceBPer}%</span>
+              {choice.isChoice === 1 ? (
+                <>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <span>{choiceAPer}%</span>
+                    <CheckCircleOutlineOutlinedIcon
+                      style={{ fontSize: "1rem", marginLeft: "0.2rem" }}
+                    />
+                  </div>
+                  <span>{choiceBPer}%</span>
+                </>
+              ) : (
+                <>
+                  <span>{choiceAPer}%</span>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <CheckCircleOutlineOutlinedIcon
+                      style={{ fontSize: "1rem", marginRight: "0.2rem" }}
+                    />
+                    <span>{choiceBPer}%</span>
+                  </div>
+                </>
+              )}
             </StPerText>
           </StChoiceWrap>
         </>
@@ -258,14 +278,15 @@ const StTextWrap3 = styled.div`
   margin-bottom: ${(props) => props.theme.margins.xxsm};
 `;
 
+const StChoiceName = styled.span`
+  color: ${(props) => props.color};
+  font-weight: ${(props) => props.theme.fontWeights.lg};
+`;
+
 const StChoiceTextWrap = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: ${(props) => props.theme.margins.lg};
-`;
-
-const StChoiceName = styled.div`
-  margin-bottom: 0.5rem;
 `;
 
 const Stimg = styled.img`

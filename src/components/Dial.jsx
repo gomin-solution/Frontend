@@ -8,8 +8,8 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { userKeyAtom } from "../../state/atom";
-import { LoginAlert } from "../../elements/Alert";
+import { userKeyAtom } from "../state/atom";
+import { LoginAlert } from "../elements/Alert";
 
 const SpeedDialTooltipOpen = () => {
   const actions = [

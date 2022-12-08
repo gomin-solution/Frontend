@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Advice from "../components/board/Advice";
 import Footer from "../elements/Footer";
 import { Header2 } from "../elements/Header";
-import Dial from "../components/board/Dial";
+import Dial from "../components/Dial";
 import styled from "styled-components";
 import { Container, FlexCenter } from "../shared/css";
 import ScrollBtn from "../elements/ScrollBtn";

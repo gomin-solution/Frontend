@@ -12,7 +12,7 @@ import {
   RewardGetModal,
   RewardModal,
 } from "../components/detailBorad/ImageModal";
-import { RewardedAlert } from "../elements/Alert";
+import { ErrorAlert, RewardedAlert } from "../elements/Alert";
 import { Container, FlexCenter } from "../shared/css";
 
 import graphic_fox from "../image/reward/graphic_fox.svg";
@@ -32,6 +32,10 @@ import graphic_clover from "../image/reward/graphic_clover.png";
 const Reward = () => {
   const { data, isSuccess } = useQuery("rewardGet", rewardGet, {
     refetchOnWindowFocus: false,
+    retry: false,
+    onError: () => {
+      ErrorAlert("비정상적인 접근입니다.", "/main");
+    },
   });
 
   const queryClient = useQueryClient();

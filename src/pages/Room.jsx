@@ -6,13 +6,19 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getRooms, outRoom } from "../api/room";
 import { Container } from "../shared/css";
 import CloseIcon from "@mui/icons-material/Close";
-import { ChooseAlert } from "../elements/Alert";
+import { ChooseAlert, ErrorAlert } from "../elements/Alert";
 
 const Room = () => {
   const queryClient = useQueryClient();
   const nav = useNavigate();
 
-  const { data: res } = useQuery("getRooms", getRooms);
+  const { data: res } = useQuery("getRooms", getRooms, {
+    refetchOnWindowFocus: false,
+    retry: false,
+    onError: () => {
+      ErrorAlert("비정상적인 접근입니다.", "/main");
+    },
+  });
   const rooms = res?.data;
 
   /* 쪽지 방 나가기 */

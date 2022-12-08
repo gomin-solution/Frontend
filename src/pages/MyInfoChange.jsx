@@ -16,8 +16,13 @@ function MyInfoChange() {
     onSuccess: () => {
       OkayAlert("닉네임이 변경되었습니다.");
     },
-    onError: () => {
-      ErrorAlert("잘못된 형식입니다.");
+    onError: (err) => {
+      console.log(err);
+      if (err?.response.data.errorMessage === "중복된 닉네임 입니다") {
+        ErrorAlert("중복된 닉네임입니다.");
+      } else {
+        ErrorAlert("잘못된 형식입니다.");
+      }
     },
   });
   const passMutation = useMutation(passwordChange, {

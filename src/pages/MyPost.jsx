@@ -7,6 +7,7 @@ import Choice from "../components/mypost/Choice";
 import Advice from "../components/mypost/Advice";
 import { getMyPost } from "../api/myPost";
 import { Container, FlexCenter } from "../shared/css";
+import Dial from "../components/Dial";
 
 const MyPost = () => {
   const [boardCategory, setBoardCategory] = useState("choice");
@@ -49,7 +50,10 @@ const MyPost = () => {
       <div
         style={{ position: "absolute", bottom: "2.5rem", right: "0.5rem" }}
       ></div>
-      <Footer title={"고민접기"} />
+      <StDialWrap>
+        <Dial />
+      </StDialWrap>
+      <Footer title={"메인"} />
     </>
   );
 };
@@ -83,4 +87,22 @@ const StBtn2 = styled.div`
   width: 5rem;
   margin-bottom: ${(props) => props.theme.margins.xxl};
   padding-bottom: 0.4rem;
+`;
+
+const StDialWrap = styled.div`
+  position: fixed;
+  bottom: 5rem;
+  right: 0.5em;
+
+  @media (min-width: 450px) {
+    position: absolute;
+    bottom: 5rem;
+    right: 1rem;
+  }
+
+  @media (min-width: 900px) and (min-height: 500px) {
+    position: absolute;
+    bottom: 5rem;
+    right: 1rem;
+  }
 `;

@@ -60,8 +60,8 @@ const Nickname = () => {
   };
 
   /* 닉네임 제출 */
-  const onSubmit = async (data) => {
-    const payload = { nickname: data, userKey: userKey };
+  const onSubmit = async () => {
+    const payload = { nickname: nickname, userKey: userKey };
     if (nickDub === false) {
       return OkayAlert("닉네임 중복확인을 해주세요.");
     }

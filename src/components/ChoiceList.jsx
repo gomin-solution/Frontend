@@ -41,6 +41,9 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
   // /* 골라주기 % 변환 */
   const [choiceAPer, setChoiceAPer] = useState(choice1Per);
   const [choiceBPer, setChoiceBPer] = useState(choice2Per);
+  const [isChoice, setIsChoice] = useState(choice.isChoice);
+
+  console.log(isChoice);
 
   /* 골라주기 mutation */
   const choiceMutation = useMutation(postChoice, {
@@ -65,6 +68,7 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
             setChoiceBPer(
               100 - Math.round((choice1 / (choice.choiceCount + 1)) * 100)
             );
+            setIsChoice(1);
           } else if (choiceNum === "2") {
             const choice2 = choice.choice2 + 1;
             setChoiceBPer(
@@ -73,6 +77,7 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
             setChoiceAPer(
               100 - Math.round((choice2 / (choice.choiceCount + 1)) * 100)
             );
+            setIsChoice(2);
           }
           return (choice.isChoice = !choice.isChoice);
         });
@@ -202,7 +207,7 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
             <StChoice1 width={choiceAPer} />
             <StChoice2 width={choiceBPer} />
             <StPerText>
-              {choice.isChoice === 1 ? (
+              {isChoice === 1 ? (
                 <>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <span>{choiceAPer}%</span>
@@ -217,7 +222,7 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
                   <span>{choiceAPer}%</span>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <CheckCircleOutlineOutlinedIcon
-                      style={{ fontSize: "1rem", marginRight: "0.2rem" }}
+                      style={{ fontSize: "1rem", marginLeft: "0.2rem" }}
                     />
                     <span>{choiceBPer}%</span>
                   </div>

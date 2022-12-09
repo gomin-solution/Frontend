@@ -204,27 +204,29 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
           <StChoiceWrap choiceCount={choice.choiceCount}>
             <StChoice1 width={choiceAPer} />
             <StChoice2 width={choiceBPer} />
-            {isChoice === 1 ? (
-              <StPerText>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <span>{choiceAPer}%</span>
-                  <CheckCircleOutlineOutlinedIcon
-                    style={{ fontSize: "1rem", marginLeft: "0.2rem" }}
-                  />
-                </div>
-                <span>{choiceBPer}%</span>
-              </StPerText>
-            ) : (
-              <StPerText>
-                <span>{choiceAPer}%</span>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <CheckCircleOutlineOutlinedIcon
-                    style={{ fontSize: "1rem", margin: "0.2rem" }}
-                  />
+            <StPerText>
+              {isChoice === 1 ? (
+                <>
+                  <StCheck>
+                    {choiceAPer}%
+                    <CheckCircleOutlineOutlinedIcon
+                      style={{ fontSize: "1rem", marginLeft: "0.2rem" }}
+                    />
+                  </StCheck>
                   <span>{choiceBPer}%</span>
-                </div>
-              </StPerText>
-            )}
+                </>
+              ) : (
+                <>
+                  <span>{choiceAPer}%</span>
+                  <StCheck>
+                    <CheckCircleOutlineOutlinedIcon
+                      style={{ fontSize: "1rem", marginRight: "0.2rem" }}
+                    />
+                    {choiceBPer}%
+                  </StCheck>
+                </>
+              )}
+            </StPerText>
           </StChoiceWrap>
         </>
       ) : (
@@ -342,4 +344,9 @@ const StPerText = styled.div`
   width: 100%;
   margin-top: 0.3rem;
   padding: 0 0.3rem;
+`;
+
+const StCheck = styled.div`
+  display: flex;
+  align-items: flex-end;
 `;

@@ -13,11 +13,15 @@ import {
 } from "../elements/Alert";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { Container, FlexCenter } from "../shared/css";
+import { setCookie } from "../api/cookie";
+import { useSetRecoilState } from "recoil";
+import { userKeyAtom } from "../state/atom";
 
 const Signup = () => {
   /* 아이디, 닉네임 중복체크 */
   const [idDub, setIdDub] = useState(false);
   const [nickDub, setNickDub] = useState(false);
+  const setuserKey = useSetRecoilState(userKeyAtom);
 
   /* react-hook-form 사용 */
   const {
@@ -40,7 +44,17 @@ const Signup = () => {
     try {
       const res = await instance.post("/signup", data);
       if (res.status === 200) {
-        OkayNaviAlert(`${data?.userId}님\n환영합니다.`, "/login");
+        // body로 전달받은 토큰을 쿠키에 저장하기
+        setCookie("accessToken", res?.data.accessToken, {
+          maxAge: 60 * 60 * 24 * 15,
+        });
+        setCookie("refreshToken", res?.data.refreshToken, {
+          maxAge: 60 * 60 * 24 * 15,
+        });
+
+        /* userKey 전역으로 저장 후 메인페이지 이동 */
+        setuserKey(res?.data.userKey);
+        OkayNaviAlert(`${nickname}님\n반갑습니다.`, "/main");
       }
     } catch (error) {
       ErrorAlert("중복확인을 다시 진행해주세요.");
@@ -226,7 +240,7 @@ const Signup = () => {
           />
           {errors?.password?.message === undefined ? (
             <StCheck>
-              영문, 숫자, 특수문자 포함 8~20글자로 작성해주세요.
+              영문, 숫자, 특수문자(!@#$%^&*) 포함 8~20글자로 작성해주세요.
             </StCheck>
           ) : (
             <StErr>{errors?.password?.message}</StErr>

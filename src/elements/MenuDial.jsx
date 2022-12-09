@@ -15,7 +15,7 @@ import {
 } from "../api/detailApi";
 import { useNavigate } from "react-router-dom";
 import { endChoice, removeChoice } from "../api/boardChoiceApi";
-import { MsgAlert, OkayAlert, ChooseAlert } from "./Alert";
+import { MsgAlert, OkayAlert, ChooseAlert, ErrorAlert } from "./Alert";
 
 //Dial 종류 : FilterDial, VoteDial, UserDial, CategoryDial
 
@@ -238,11 +238,11 @@ export function UserDial({
   const MessageHandler = () => {
     setAnchorEl(null);
     if (nickname === "알 수 없음") {
-      OkayAlert("탈퇴한 회원에게는\n쪽지를 보낼 수 없습니다.");
+      ErrorAlert("탈퇴한 회원에게는\n쪽지를 보낼 수 없습니다.");
     } else {
       MsgAlert(
         "쪽지 보내기",
-        "쪽지 내용을 입력해주세요.",
+        `쪽지 내용을 입력해주세요.\n(미입력 시 전송이 안 됩니다.)`,
         messageMutate,
         nickname
       );

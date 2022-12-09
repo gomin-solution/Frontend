@@ -82,7 +82,12 @@ function DetailAdvice() {
   });
 
   //댓글 작성
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   const onSubmitComment = (comment) => {
     if (!userKey) {
@@ -97,6 +102,10 @@ function DetailAdvice() {
       }
     }
   };
+
+  if (errors.comment?.message) {
+    ErrorAlert(`${errors.comment?.message}`);
+  }
 
   const adviceComment = useMutation(commentAdvice, {
     onSuccess: () => {
@@ -215,7 +224,7 @@ function DetailAdvice() {
               <StBoxInfo>
                 <p>조회 {resBoard?.viewCount}</p>
                 <p style={{ position: "absolute", right: "1.5rem" }}>
-                  {resBoard?.updatedAt}
+                  {resBoard?.createdAt}
                 </p>
               </StBoxInfo>
             </StBoardBox>
@@ -242,8 +251,13 @@ function DetailAdvice() {
           <StCommentform onSubmit={handleSubmit(onSubmitComment)}>
             <input
               type="text"
-              {...register("comment")}
-              placeholder="답변해주기"
+              {...register("comment", {
+                maxLength: {
+                  value: 300,
+                  message: "300글자 이하로 작성해주세요.",
+                },
+              })}
+              placeholder="답변 추가 (300자 이내)"
             />
             <button>
               <SendOutlinedIcon />

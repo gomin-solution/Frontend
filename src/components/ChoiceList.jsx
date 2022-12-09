@@ -38,7 +38,7 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
     choice1Per = 100 - choice2Per;
   }
 
-  // /* 골라주기 % 변환 */
+  /* 골라주기 % 변환 */
   const [choiceAPer, setChoiceAPer] = useState(choice1Per);
   const [choiceBPer, setChoiceBPer] = useState(choice2Per);
   const [isChoice, setIsChoice] = useState(choice.isChoice);

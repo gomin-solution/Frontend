@@ -25,7 +25,10 @@ function Setting() {
   const logoutMutation = useMutation(logout);
   const byeMutation = useMutation(goodBye);
 
-  const img = res?.data.mypage.userImage;
+  let img;
+  if (!admin) {
+    img = res?.data.mypage.userImage;
+  }
 
   const ByeMutate = () => {
     byeMutation.mutate();

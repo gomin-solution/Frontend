@@ -35,11 +35,11 @@ function Board() {
   return (
     <>
       <Header2 title={"고민접기"} navi="/board-advice" />
+      <StInnerWrap>
+        <StBtn2 onClick={() => nav("/board-choice")}>골라주기</StBtn2>
+        <StBtn1 onClick={() => nav("/board-advice")}>답해주기</StBtn1>
+      </StInnerWrap>
       <Stcontainer ref={topBtn} onScroll={logScroll}>
-        <StInnerWrap>
-          <StBtn2 onClick={() => nav("/board-choice")}>골라주기</StBtn2>
-          <StBtn1 onClick={() => nav("/board-advice")}>답해주기</StBtn1>
-        </StInnerWrap>
         <Advice />
       </Stcontainer>
       <StDialWrap>
@@ -55,23 +55,27 @@ export default Board;
 
 const Stcontainer = styled.div`
   ${Container};
-  margin-top: 4rem;
+  margin-top: 8rem;
   height: calc(100vh - 8rem);
-  margin-top: 4rem;
 `;
 
 const StInnerWrap = styled.div`
   ${FlexCenter};
-  margin-top: ${(props) => props.theme.margins.xxl};
+  margin-top: 4rem;
+  z-index: 99;
+  height: 4rem;
   column-gap: 4rem;
   font-weight: ${(props) => props.theme.fontWeights.lg};
+
+  position: fixed;
+  width: 100%;
+  max-width: 26rem;
 `;
 
 const StBtn1 = styled.div`
   ${FlexCenter};
   color: ${(props) => props.theme.Colors.blueGreen3};
   width: 5rem;
-  margin-bottom: ${(props) => props.theme.margins.xxl};
   padding-bottom: 0.4rem;
   border-bottom: 0.1rem solid ${(props) => props.theme.Colors.blueGreen3};
 `;
@@ -79,7 +83,6 @@ const StBtn1 = styled.div`
 const StBtn2 = styled.div`
   ${FlexCenter};
   width: 5rem;
-  margin-bottom: ${(props) => props.theme.margins.xxl};
   padding-bottom: 0.4rem;
 `;
 
@@ -100,3 +103,11 @@ const StDialWrap = styled.div`
     right: 1rem;
   }
 `;
+
+const StNavWrap = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+const StFix = styled.div``;

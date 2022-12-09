@@ -45,4 +45,5 @@ const StContainer = styled.div`
   align-items: center;
   padding: 0rem ${(props) => props.theme.paddings.xsm};
   margin-bottom: ${(props) => props.theme.margins.xsm};
+  cursor: pointer;
 `;

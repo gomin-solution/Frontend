@@ -1,5 +1,5 @@
 // import { instance } from "./api";
-import { instance } from "./api";
+import { instance, postInstance } from "./api";
 
 /* 답해주기 상세페이지 정보 get*/
 export const adviceDetail = async (adviceId, filterId) => {
@@ -14,7 +14,7 @@ export const adviceDelete = async (payload) => {
 
 /* 답해주기 게시글 수정 시 put */
 export const adviceEdit = async (payload) => {
-  await instance.put(`/advice/${payload.adviceId}`, payload.formData);
+  await postInstance.put(`/advice/${payload.adviceId}`, payload.formData);
 };
 
 /* 답해주기 bookmark 선택 시 put */

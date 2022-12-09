@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useAdviceInfiniteScroll } from "../../api/boardAdviceApi";
 import AdviceList from "../AdviceList";
 import styled from "styled-components";
-import { FilterDial, CategoryDial } from "../../elements/MenuDial";
 
-const Advice = () => {
-  /* filter 적용 */
-  const [categoryId, setCategoryId] = useState(0);
-  const [filterId, setFilterId] = useState(0);
-
+const Advice = ({ categoryId, filterId }) => {
   /* 답해주기 get initeScroll */
   const { getAdvice, fetchNextPage, isSuccess, hasNextPage } =
     useAdviceInfiniteScroll(categoryId, filterId);
@@ -24,19 +19,8 @@ const Advice = () => {
     }
   }, [inView]);
 
-  //선택시 이름 바꾸기
-  const filters = [
-    { filter: "최신순", filterId: 0 },
-    { filter: "조회순", filterId: 1 },
-    { filter: "댓글순", filterId: 2 },
-  ];
-
   return (
     <StContainer>
-      <StNavWrap>
-        <CategoryDial setCategoryId={setCategoryId} total="total" />
-        <FilterDial setFilterId={setFilterId} filters={filters} />
-      </StNavWrap>
       <StListWrap>
         {isSuccess && getAdvice?.pages
           ? getAdvice?.pages.map((page) => (

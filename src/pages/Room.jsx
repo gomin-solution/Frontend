@@ -8,7 +8,6 @@ import { Container } from "../shared/css";
 import CloseIcon from "@mui/icons-material/Close";
 import { ChooseAlert, ErrorAlert } from "../elements/Alert";
 import empty from "../image/message/empty.jpg";
-import { StrictMode } from "react";
 
 const Room = () => {
   const queryClient = useQueryClient();

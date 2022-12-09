@@ -240,7 +240,7 @@ const Signup = () => {
           />
           {errors?.password?.message === undefined ? (
             <StCheck>
-              영문, 숫자, 특수문자 포함 8~20글자로 작성해주세요.
+              영문, 숫자, 특수문자(!@#$%^&*) 포함 8~20글자로 작성해주세요.
             </StCheck>
           ) : (
             <StErr>{errors?.password?.message}</StErr>

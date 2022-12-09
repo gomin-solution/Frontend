@@ -15,7 +15,7 @@ import {
 } from "../api/detailApi";
 import { useNavigate } from "react-router-dom";
 import { endChoice, removeChoice } from "../api/boardChoiceApi";
-import { MsgAlert, OkayAlert } from "./Alert";
+import { MsgAlert, OkayAlert, ChooseAlert } from "./Alert";
 
 //Dial 종류 : FilterDial, VoteDial, UserDial, CategoryDial
 
@@ -105,18 +105,34 @@ export function VoteDial({ choiceId, getMutation }) {
   };
 
   /* 게시글 삭제 */
-  const removeChoiceMutation = useMutation(removeChoice, {
+  const { mutate: removeChoiceMutation } = useMutation(removeChoice, {
     onSuccess: () => {
       queryClient.invalidateQueries(getMutation);
     },
   });
 
+  const removeHandler = (choiceId) => {
+    setAnchorEl(null);
+    ChooseAlert(
+      "삭제하시겠습니까?",
+      "삭제",
+      removeChoiceMutation,
+      null,
+      choiceId
+    );
+  };
+
   /* 게시글 마감 */
-  const endChoiceMutation = useMutation(endChoice, {
+  const { mutate: endChoiceMutation } = useMutation(endChoice, {
     onSuccess: () => {
       queryClient.invalidateQueries(getMutation);
     },
   });
+
+  const endHandler = (choiceId) => {
+    setAnchorEl(null);
+    ChooseAlert("마감하시겠습니까?", "마감", endChoiceMutation, null, choiceId);
+  };
 
   return (
     <StDiv>
@@ -147,13 +163,13 @@ export function VoteDial({ choiceId, getMutation }) {
       >
         <MenuItem
           sx={{ color: "#FFFFFF" }}
-          onClick={() => removeChoiceMutation.mutate(choiceId)}
+          onClick={() => removeHandler(choiceId)}
         >
           삭제
         </MenuItem>
         <MenuItem
           sx={{ color: "#FFFFFF" }}
-          onClick={() => endChoiceMutation.mutate(choiceId)}
+          onClick={() => endHandler(choiceId)}
         >
           골라주기 종료
         </MenuItem>
@@ -205,6 +221,11 @@ export function UserDial({
       reGet === "getAdviceScroll" && nav("/board-advice");
     },
   });
+
+  const removeHandler = () => {
+    setAnchorEl(null);
+    ChooseAlert("삭제하시겠습니까?", "삭제", mutate, null, id);
+  };
 
   // 쪽지 보내기
   const userKey = userId;
@@ -281,7 +302,7 @@ export function UserDial({
             <MenuItem
               sx={{ color: "#FFFFFF" }}
               onClick={() => {
-                mutate(id);
+                removeHandler(id);
               }}
             >
               삭제

@@ -76,6 +76,7 @@ export const ErrorAlert = (text, navi) => {
 
 /*텍스트 + 확인 + 취소 */
 export const ChooseAlert = (text, textBtn, mutate, userKey, data, setState) => {
+  console.log("되니1");
   Swal.fire({
     customClass: {
       confirmButton: "login-Btn",
@@ -96,6 +97,7 @@ export const ChooseAlert = (text, textBtn, mutate, userKey, data, setState) => {
         mutate();
         localStorage.removeItem(userKey);
       } else if (mutate) {
+        console.log("되니2");
         mutate(data);
       } else {
         setState(true);

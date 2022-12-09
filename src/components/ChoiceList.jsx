@@ -206,29 +206,27 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
           <StChoiceWrap choiceCount={choice.choiceCount}>
             <StChoice1 width={choiceAPer} />
             <StChoice2 width={choiceBPer} />
-            <StPerText>
-              {isChoice === 1 ? (
-                <>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <span>{choiceAPer}%</span>
-                    <CheckCircleOutlineOutlinedIcon
-                      style={{ fontSize: "1rem", marginLeft: "0.2rem" }}
-                    />
-                  </div>
-                  <span>{choiceBPer}%</span>
-                </>
-              ) : (
-                <>
+            {isChoice === 1 ? (
+              <StPerText>
+                <div style={{ display: "flex", alignItems: "center" }}>
                   <span>{choiceAPer}%</span>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <CheckCircleOutlineOutlinedIcon
-                      style={{ fontSize: "1rem", marginLeft: "0.2rem" }}
-                    />
-                    <span>{choiceBPer}%</span>
-                  </div>
-                </>
-              )}
-            </StPerText>
+                  <CheckCircleOutlineOutlinedIcon
+                    style={{ fontSize: "1rem", marginLeft: "0.2rem" }}
+                  />
+                </div>
+                <span>{choiceBPer}%</span>
+              </StPerText>
+            ) : (
+              <StPerText>
+                <span>{choiceAPer}%</span>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <CheckCircleOutlineOutlinedIcon
+                    style={{ fontSize: "1rem", margin: "0.2rem" }}
+                  />
+                  <span>{choiceBPer}%</span>
+                </div>
+              </StPerText>
+            )}
           </StChoiceWrap>
         </>
       ) : (

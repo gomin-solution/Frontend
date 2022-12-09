@@ -76,7 +76,6 @@ export const ErrorAlert = (text, navi) => {
 
 /*텍스트 + 확인 + 취소 */
 export const ChooseAlert = (text, textBtn, mutate, userKey, data, setState) => {
-  console.log("되니1");
   Swal.fire({
     customClass: {
       confirmButton: "login-Btn",
@@ -97,7 +96,6 @@ export const ChooseAlert = (text, textBtn, mutate, userKey, data, setState) => {
         mutate();
         localStorage.removeItem(userKey);
       } else if (mutate) {
-        console.log("되니2");
         mutate(data);
       } else {
         setState(true);
@@ -147,5 +145,34 @@ export const RewardedAlert = (e) => {
     imageUrl: e.img,
     showCloseButton: true,
     showConfirmButton: false,
+  });
+};
+
+export const NicknameAlert = (nick, mutate) => {
+  Swal.fire({
+    customClass: {
+      confirmButton: "login-Btn",
+      cancelButton: "cancle-Btn",
+      actions: "login-act",
+      htmlContainer: "nick-text",
+      input: "input-ncik",
+    },
+    buttonsStyling: false,
+    text: "변경하실 닉네임을 적어주세요.",
+
+    cancelButtonText: "취소",
+    confirmButtonText: "변경",
+    showCancelButton: true,
+    reverseButtons: true,
+
+    input: "text",
+    inputValue: nick,
+    inputAttributes: {
+      maxlength: 8,
+    },
+  }).then(function (result) {
+    if (result.value) {
+      mutate({ nickname: result.value });
+    }
   });
 };

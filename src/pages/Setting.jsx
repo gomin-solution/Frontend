@@ -65,18 +65,7 @@ function Setting() {
           </StUserinfo>
           <StTitle>계정</StTitle>
           <StMenu onClick={logoutHandler}>로그아웃</StMenu>
-          <StMenu
-            onClick={() =>
-              nav("/myinfo-change", {
-                state: {
-                  nick: res?.data.mypage.nickname,
-                  kakao: res?.data.mypage.isKakao,
-                },
-              })
-            }
-          >
-            개인정보 변경
-          </StMenu>
+          <StMenu onClick={() => nav("/myinfo-change")}>개인정보 변경</StMenu>
           <StMenu
             style={{ border: "none" }}
             onClick={() => OkayAlert("서비스 준비중입니다.")}

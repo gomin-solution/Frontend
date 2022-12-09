@@ -67,7 +67,12 @@ function Setting() {
           <StMenu onClick={logoutHandler}>로그아웃</StMenu>
           <StMenu
             onClick={() =>
-              nav("/myinfo-change", { state: res?.data.mypage.nickname })
+              nav("/myinfo-change", {
+                state: {
+                  nick: res?.data.mypage.nickname,
+                  kakao: res?.data.mypage.isKakao,
+                },
+              })
             }
           >
             개인정보 변경

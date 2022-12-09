@@ -10,7 +10,8 @@ import { Container } from "../shared/css";
 function MyInfoChange() {
   /* react-hook-form 사용 */
   const { register, handleSubmit, reset } = useForm();
-  const thisNick = useLocation();
+  const userInfo = useLocation();
+  console.log(userInfo?.state);
 
   const nickMutation = useMutation(nicknameChange, {
     onSuccess: () => {
@@ -67,28 +68,31 @@ function MyInfoChange() {
         <form className="set" onSubmit={handleSubmit(nickHandler)}>
           <StInput
             type="text"
-            defaultValue={thisNick.state}
+            defaultValue={userInfo?.state.nick}
             maxLength="8"
             {...register("nickname")}
           />
           <button className="nickBtn">변경</button>
         </form>
-        <form onSubmit={handleSubmit(passHandler)}>
-          <StTitle style={{ marginTop: "3rem", marginBottom: "0" }}>
-            비밀번호 변경
-          </StTitle>
-          <StCheck>
-            영문, 숫자, 특수문자(!@#$%^&*) 포함 8~20글자로 작성해주세요. <br />
-            카카오로 가입하신 유저는 비밀번호 변경이 불가합니다.
-          </StCheck>
-          <StLabel>현재 비밀번호 입력</StLabel>
-          <StInput type="password" maxLength="20" {...register("password")} />
-          <StLabel style={{ marginTop: "2rem" }}>새 비밀번호 입력</StLabel>
-          <StInput type="password" {...register("newPassword")} />
-          <StLabel>새 비밀번호 확인</StLabel>
-          <StInput type="password" maxLength="20" {...register("confirm")} />
-          <button className="passBtn">비밀번호 변경</button>
-        </form>
+        {!userInfo?.state.kakao && (
+          <form onSubmit={handleSubmit(passHandler)}>
+            <StTitle style={{ marginTop: "3rem", marginBottom: "0" }}>
+              비밀번호 변경
+            </StTitle>
+            <StCheck>
+              영문, 숫자, 특수문자(!@#$%^&*) 포함 8~20글자로 작성해주세요.{" "}
+              <br />
+              카카오로 가입하신 유저는 비밀번호 변경이 불가합니다.
+            </StCheck>
+            <StLabel>현재 비밀번호 입력</StLabel>
+            <StInput type="password" maxLength="20" {...register("password")} />
+            <StLabel style={{ marginTop: "2rem" }}>새 비밀번호 입력</StLabel>
+            <StInput type="password" {...register("newPassword")} />
+            <StLabel>새 비밀번호 확인</StLabel>
+            <StInput type="password" maxLength="20" {...register("confirm")} />
+            <button className="passBtn">비밀번호 변경</button>
+          </form>
+        )}
       </Stcontainer>
     </>
   );

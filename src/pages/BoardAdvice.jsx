@@ -35,10 +35,12 @@ function Board() {
   return (
     <>
       <Header2 title={"고민접기"} navi="/board-advice" />
-      <StInnerWrap>
-        <StBtn2 onClick={() => nav("/board-choice")}>골라주기</StBtn2>
-        <StBtn1 onClick={() => nav("/board-advice")}>답해주기</StBtn1>
-      </StInnerWrap>
+      <StFix>
+        <StInnerWrap>
+          <StBtn2 onClick={() => nav("/board-choice")}>골라주기</StBtn2>
+          <StBtn1 onClick={() => nav("/board-advice")}>답해주기</StBtn1>
+        </StInnerWrap>
+      </StFix>
       <Stcontainer ref={topBtn} onScroll={logScroll}>
         <Advice />
       </Stcontainer>
@@ -66,10 +68,6 @@ const StInnerWrap = styled.div`
   height: 4rem;
   column-gap: 4rem;
   font-weight: ${(props) => props.theme.fontWeights.lg};
-
-  position: fixed;
-  width: 100%;
-  max-width: 26rem;
 `;
 
 const StBtn1 = styled.div`
@@ -110,4 +108,8 @@ const StNavWrap = styled.div`
   align-items: center;
 `;
 
-const StFix = styled.div``;
+const StFix = styled.div`
+  position: fixed;
+  width: 100%;
+  max-width: 26rem;
+`;

@@ -43,8 +43,6 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
   const [choiceBPer, setChoiceBPer] = useState(choice2Per);
   const [isChoice, setIsChoice] = useState(choice.isChoice);
 
-  console.log(isChoice);
-
   /* 골라주기 mutation */
   const choiceMutation = useMutation(postChoice, {
     /* onMutate : mutation function이 시작되기 전에 작동 */
@@ -209,23 +207,23 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
             <StPerText>
               {isChoice === 1 ? (
                 <>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <span>{choiceAPer}%</span>
+                  <StCheck>
+                    {choiceAPer}%
                     <CheckCircleOutlineOutlinedIcon
                       style={{ fontSize: "1rem", marginLeft: "0.2rem" }}
                     />
-                  </div>
+                  </StCheck>
                   <span>{choiceBPer}%</span>
                 </>
               ) : (
                 <>
                   <span>{choiceAPer}%</span>
-                  <div style={{ display: "flex", alignItems: "center" }}>
+                  <StCheck>
                     <CheckCircleOutlineOutlinedIcon
-                      style={{ fontSize: "1rem", marginLeft: "0.2rem" }}
+                      style={{ fontSize: "1rem", marginRight: "0.2rem" }}
                     />
-                    <span>{choiceBPer}%</span>
-                  </div>
+                    {choiceBPer}%
+                  </StCheck>
                 </>
               )}
             </StPerText>
@@ -346,4 +344,9 @@ const StPerText = styled.div`
   width: 100%;
   margin-top: 0.3rem;
   padding: 0 0.3rem;
+`;
+
+const StCheck = styled.div`
+  display: flex;
+  align-items: flex-end;
 `;

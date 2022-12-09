@@ -42,7 +42,7 @@ const DailyMessage = ({ dailyMessage, isOpen, userKey }) => {
         setTimeout(() => OkayAlert(`${dailyMessage}`), [2000]);
         setTimeout(() => {
           openMessage.mutate();
-        }, [2500]);
+        }, [2000]);
       } else {
         OkayAlert(`${dailyMessage}`);
       }
@@ -67,6 +67,7 @@ const DailyMessage = ({ dailyMessage, isOpen, userKey }) => {
                 height="10rem"
                 width="10rem"
                 playingState={open}
+                marginBottom="0"
               />
             </StLottie>
           ) : (
@@ -107,8 +108,8 @@ const StLottie = styled.div`
 `;
 
 const StOpen = styled.img`
-  width: 9rem;
-  height: 9rem;
+  width: 8rem;
+  height: 8rem;
 `;
 
 const StClose = styled.img`

@@ -37,7 +37,7 @@ const Login = () => {
       setuserKey(res?.data.userKey);
       OkayNaviAlert(`${res?.data.nickname}님 반갑습니다.`, "/main");
     } catch (error) {
-      ErrorAlert("아이디 또는 비밀번호가 일치하지 않습니다.");
+      ErrorAlert(`아이디 또는 비밀번호가\n일치하지 않습니다.`);
     }
   };
 

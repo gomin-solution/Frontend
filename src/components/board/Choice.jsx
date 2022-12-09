@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
 
 // MUI Icon
 import { useChoiceInfiniteScroll } from "../../api/boardChoiceApi";
-import { FilterDial } from "../../elements/MenuDial";
 import ChoiceList from "../ChoiceList";
 
-const Choice = () => {
-  /* filterId params 전달 */
-  const [filterId, setFilterId] = useState(0);
-
+const Choice = ({ filterId }) => {
   /* 투표 get initeScroll */
   const { getChoice, fetchNextPage, isSuccess, hasNextPage } =
     useChoiceInfiniteScroll(filterId);
@@ -25,18 +21,8 @@ const Choice = () => {
     }
   }, [inView]);
 
-  //선택시 이름 바꾸기
-  const filters = [
-    { filter: "최신순", filterId: 0 },
-    { filter: "참여자순", filterId: 1 },
-    { filter: "마감순", filterId: 2 },
-  ];
-
   return (
     <StContainer>
-      <StNavWrap>
-        <FilterDial setFilterId={setFilterId} filters={filters} />
-      </StNavWrap>
       {isSuccess && getChoice?.pages
         ? getChoice?.pages.map((page) => (
             <React.Fragment key={page.currentPage}>
@@ -61,9 +47,4 @@ export default Choice;
 
 const StContainer = styled.div`
   padding: 0rem ${(props) => props.theme.paddings.xxl};
-`;
-
-const StNavWrap = styled.div`
-  display: flex;
-  justify-content: flex-end;
 `;

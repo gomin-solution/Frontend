@@ -87,7 +87,7 @@ const StBtn2 = styled.div`
 const StDialWrap = styled.div`
   position: fixed;
   bottom: 5rem;
-  right: 0.5em;
+  right: 1rem;
 
   @media (min-width: 450px) {
     position: absolute;

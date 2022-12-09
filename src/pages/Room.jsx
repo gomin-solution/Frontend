@@ -7,6 +7,8 @@ import { getRooms, outRoom } from "../api/room";
 import { Container } from "../shared/css";
 import CloseIcon from "@mui/icons-material/Close";
 import { ChooseAlert, ErrorAlert } from "../elements/Alert";
+import empty from "../image/message/empty.jpg";
+import { StrictMode } from "react";
 
 const Room = () => {
   const queryClient = useQueryClient();
@@ -63,7 +65,7 @@ const Room = () => {
         </Stcontainer>
       ) : (
         <Stcontainer>
-          <div>쪽지함이 비어있습니다.</div>
+          <StEmpty src={empty} alt="empty" />
         </Stcontainer>
       )}
       <Footer title={"쪽지함"} />
@@ -116,4 +118,8 @@ const StSet = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+const StEmpty = styled.img`
+  width: 100%;
 `;

@@ -124,6 +124,9 @@ export const MsgAlert = (title, placeholder, mutate, nickname) => {
     inputPlaceholder: placeholder,
     showCloseButton: "true",
     confirmButtonText: "전송",
+    inputValidator: (value) => {
+      return !value && "내용을 입력해주세요.";
+    },
   }).then(function (result) {
     if (result.value) {
       mutate(result.value);

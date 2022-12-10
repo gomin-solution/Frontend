@@ -8,6 +8,7 @@ import { recommentEdit } from "../../api/detailApi";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../../state/atom";
 import { OkayAlert } from "../../elements/Alert";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 function DetailReComment({ re, resBoard }) {
   const queryClient = useQueryClient();
@@ -71,7 +72,7 @@ function DetailReComment({ re, resBoard }) {
           </>
         ) : (
           <StCommentText as="form" onSubmit={handleSubmit(onRecomment)}>
-            <input
+            <TextareaAutosize
               defaultValue={re.comment}
               maxLength={50}
               {...register("re")}
@@ -96,7 +97,7 @@ const StcommentBox = styled.div`
   margin-left: 1rem;
   background-color: ${(props) => props.theme.Colors.bg3};
   padding: ${(props) => props.theme.paddings.base};
-  margin-bottom: ${(props) => props.theme.margins.xxsm};
+  margin-top: ${(props) => props.theme.margins.sm};
   /*줄바꿈*/
   white-space: pre-wrap;
   display: flex;
@@ -140,7 +141,7 @@ const StCommentText = styled.div`
   margin: ${(props) => props.theme.margins.xxsm} 0;
   font-size: ${(props) => props.theme.fontSizes.sm};
 
-  input {
+  textarea {
     width: 100%;
     padding: ${(props) => props.theme.paddings.xsm};
     border: none;

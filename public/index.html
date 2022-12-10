@@ -72,7 +72,9 @@
     <!-- 서비스 워커를 등록 -->
     <script>
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("./sw.js").then((reg) => {});
+        navigator.serviceWorker
+          .register("../sevice-worker.js")
+          .then((reg) => {});
       }
     </script>
 

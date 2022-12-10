@@ -129,6 +129,6 @@ const StFix = styled.div`
   width: 100%;
   max-width: 26rem;
 
-  z-index: 99;
+  z-index: 9;
   padding: 0rem 1.5rem;
 `;

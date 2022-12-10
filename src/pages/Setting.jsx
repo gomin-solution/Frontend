@@ -19,6 +19,7 @@ function Setting() {
       ErrorAlert("비정상적인 접근입니다.", "/main");
     },
   });
+
   const admin = res?.data.admin;
   const nav = useNavigate();
 

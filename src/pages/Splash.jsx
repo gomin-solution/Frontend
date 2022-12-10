@@ -6,8 +6,11 @@ import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../state/atom";
 import { getCookie } from "../api/cookie";
+import { useNavigate } from "react-router-dom";
 
 const Splash = () => {
+  const nav = useNavigate();
+
   /* lottie 속성값 설정 */
   const defaultOptions = {
     loop: false,
@@ -21,9 +24,9 @@ const Splash = () => {
   useEffect(() => {
     setTimeout(() => {
       if (userKey) {
-        window.location.href = "/main";
+        nav("/main");
       } else {
-        window.location.href = "/intro";
+        nav("/intro");
       }
     }, 2500);
   }, [userKey]);
@@ -49,7 +52,3 @@ const StContainer = styled.div`
   ${Container};
   ${FlexCenter};
 `;
-
-// const StWrap = styled.div`
-//   ${FlexCenter};
-// `;

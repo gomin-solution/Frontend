@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { recommentPost } from "../../api/detailApi";
 import { LoginAlert, OkayAlert } from "../../elements/Alert";
 import { userKeyAtom } from "../../state/atom";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 function DetailReCommentInput({ setRecomment, commentId }) {
   const queryClient = useQueryClient();
@@ -34,7 +35,7 @@ function DetailReCommentInput({ setRecomment, commentId }) {
   return (
     <StcommentBox as="form" onSubmit={handleSubmit(onRecomment)}>
       <div className="inputBox">
-        <input
+        <TextareaAutosize
           placeholder="답글을 입력해주세요. (50자 이내)"
           maxLength={50}
           {...register("re")}
@@ -64,7 +65,7 @@ const StcommentBox = styled.div`
     font-weight: ${(props) => props.theme.fontWeights.xl};
     color: ${(props) => props.theme.Colors.blueGreen3};
   }
-  input {
+  textarea {
     margin-left: 1rem;
     background-color: ${(props) => props.theme.Colors.bg3};
     padding: ${(props) => props.theme.paddings.xsm};

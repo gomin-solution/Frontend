@@ -18,6 +18,7 @@ import { ChooseAlert, LoginAlert, OkayAlert } from "../../elements/Alert";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../../state/atom";
 import { FlexCenter } from "../../shared/css";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 function DetailComment({ comment, resBoard }) {
   const queryClient = useQueryClient();
@@ -211,8 +212,7 @@ function DetailComment({ comment, resBoard }) {
             <div className="username">{comment.nickname}</div>
           </StcommentUser>
           <StCommentEdit onSubmit={handleSubmit(onEdit)}>
-            <textarea
-              rows={3}
+            <TextareaAutosize
               defaultValue={comment.comment}
               {...register("comment")}
             />

@@ -29,7 +29,7 @@ const Signup = () => {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm();
+  } = useForm({ mode: "onChange" });
 
   /* password 변수에 키 값 할당 */
   const userId = watch("userId");
@@ -234,7 +234,8 @@ const Signup = () => {
               pattern: {
                 value:
                   /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/,
-                message: "영문, 숫자, 특수문자 포함 8~20글자로 작성해주세요.",
+                message:
+                  "영문, 숫자, 특수문자(!@#$%^&*) 포함 8~20글자로 작성해주세요.",
               },
             })}
           />

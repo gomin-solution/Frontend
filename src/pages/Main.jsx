@@ -13,6 +13,8 @@ import { Container } from "../shared/css";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../state/atom";
 import Loading from "../components/Loading";
+import { useCallback, useEffect } from "react";
+import { instance } from "../api/api";
 
 function Main() {
   /* 메인페이지 get */
@@ -32,6 +34,22 @@ function Main() {
     refetchOnWindowFocus: false,
     retry: false,
   });
+
+  // 로그인 유저가 알림 허용 시, deviceToken 전달
+  const deviceToken = sessionStorage.getItem("deviceToken");
+  const postDeviceToken = useCallback(async () => {
+    if (userKey && deviceToken) {
+      try {
+        instance.post("/push", { deviceToken });
+      } catch (error) {
+        console.log(error.response.data.errMsg);
+      }
+    }
+  }, [userKey, deviceToken]);
+
+  useEffect(() => {
+    postDeviceToken();
+  }, [postDeviceToken]);
 
   if (isLoading) {
     return <Loading />;

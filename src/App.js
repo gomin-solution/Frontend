@@ -21,16 +21,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const firebaseMessaging = getMessaging(app);
 
-//DeviceToken을 생성합니다
+/* DeviceToken 발급받기 */
 getToken(firebaseMessaging, { vapidKey: process.env.REACT_APP_FCM_VAPID_KEY })
   .then((deviceToken) => {
-    console.log("deviceToken", deviceToken);
+    sessionStorage.setItem("deviceToken", deviceToken);
   })
   .catch((error) => {
     console.log(error);
   });
 
-//포그라운드 시에 알림을 받습니다
+//포그라운드 시(앱 접속해 있을 시) 알림 받기
 onMessage(firebaseMessaging, (payload) => {
   console.log(payload);
 });

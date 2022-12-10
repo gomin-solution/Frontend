@@ -15,4 +15,35 @@ firebase.initializeApp({
   measurementId: "G-EWW8PR9820",
 });
 
-const firebaseMessaging = firebase.messaging();
+const messaging = firebase.messaging();
+
+messaging.onBackgroundMessage((payload) => {
+  console.log("aaaaaaaaaaaa", payload);
+  const notificationTitle = payload?.data.title;
+  const notificationOptions = {
+    body: payload?.data.body,
+  };
+
+  self.registration.showNotification(notificationTitle, notificationOptions);
+
+  self.addEventListener("notificationclick", (event) => {
+    event.notification.close();
+
+    event.waitUntil(
+      clients
+        .matchAll({
+          type: "window",
+        })
+        .then((clientList) => {
+          for (var i = 0; i < clientList.length; i++) {
+            var client = clientList[i];
+            if (client.url == "/" && "focus" in client) return client.focus();
+          }
+          if (self.clients.openWindow)
+            return self.clients.openWindow(
+              `https://gomin.site/${payload?.data.link}`
+            );
+        })
+    );
+  });
+});

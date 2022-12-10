@@ -189,10 +189,6 @@ function DetailComment({ comment, resBoard }) {
 
           {recomment && (
             <>
-              <DetailReCommentInput
-                setRecomment={setRecomment}
-                commentId={comment.commentId}
-              />
               {reData?.map((re) => {
                 return (
                   <DetailReComment
@@ -202,6 +198,10 @@ function DetailComment({ comment, resBoard }) {
                   />
                 );
               })}
+              <DetailReCommentInput
+                setRecomment={setRecomment}
+                commentId={comment.commentId}
+              />
             </>
           )}
         </>

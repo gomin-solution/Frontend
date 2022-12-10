@@ -97,7 +97,7 @@ const StcommentBox = styled.div`
   margin-left: 1rem;
   background-color: ${(props) => props.theme.Colors.bg3};
   padding: ${(props) => props.theme.paddings.base};
-  margin-bottom: ${(props) => props.theme.margins.xxsm};
+  margin-top: ${(props) => props.theme.margins.sm};
   /*줄바꿈*/
   white-space: pre-wrap;
   display: flex;

@@ -22,10 +22,11 @@ getToken(messaging, {
     "BDNR9byaFUWAFSdJja9uLE8Zy8l4vE4sq26eNdo2ZjAG2s1yiGeUApZVFPDOaqcO2oUAptVNOuyh78Vz3YysRmE",
 })
   .then((currentToken) => {
+    console.log("11111", currentToken);
     if (currentToken) {
       // Send the token to your server and update the UI if necessary
       // ...
-      console.log(currentToken);
+      console.log("22222", currentToken);
     } else {
       // Show permission request UI
       console.log(

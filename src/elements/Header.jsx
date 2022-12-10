@@ -56,7 +56,7 @@ export function Header3() {
   return (
     <StBlock style={{ color: "#19696A" }}>
       <StLogo alt="로고" src={logoFolding} />
-      <StAlram onClick={() => OkayAlert("서비스 준비중입니다.")} />
+      <StAlram />
       <StSet onClick={() => nav("/setting")} />
     </StBlock>
   );

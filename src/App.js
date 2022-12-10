@@ -5,6 +5,7 @@ import { ThemeProvider } from "styled-components";
 import { ErrorBoundary } from "react-error-boundary";
 import Theme from "./shared/theme";
 import ErrorFallback from "./components/ErrorFallback";
+import "./util/fcm";
 
 function App() {
   return (
@@ -18,5 +19,3 @@ function App() {
 }
 
 export default App;
-
-/*너무 작은 화면에서는 지원하지 않도록 */

@@ -9,7 +9,7 @@ import {
   OkayNaviAlert,
 } from "../elements/Alert";
 import { Header1 } from "../elements/Header";
-import { Container } from "../shared/css";
+import { Container, FlexCenter } from "../shared/css";
 
 function MyInfoChange() {
   const queryClient = useQueryClient();
@@ -27,7 +27,7 @@ function MyInfoChange() {
 
   const { mutate: nickMutation } = useMutation(nicknameChange, {
     onSuccess: () => {
-      queryClient.invalidateQueries(getMyPage);
+      queryClient.invalidateQueries("getMyPage");
       OkayAlert("닉네임이 변경되었습니다.");
     },
     onError: (err) => {
@@ -79,7 +79,7 @@ function MyInfoChange() {
         <StTitle style={{ marginBottom: "0" }}>닉네임 변경</StTitle>
         <StCheck>특수문자를 제외하여 8글자 이하로 작성해주세요.</StCheck>
         <form className="set" onSubmit={handleSubmit(nickHandler)}>
-          <StInput disabled={true} defaultValue={userInfo?.nickname} />
+          <StDiv>{userInfo?.nickname}</StDiv>
           <button className="nickBtn">변경</button>
         </form>
         {!userInfo?.isKakao && (
@@ -149,13 +149,25 @@ const StLabel = styled.div`
   margin: 0.5rem 0;
 `;
 
-const StInput = styled.input`
+const StInput = styled.div`
   background-color: ${(props) => props.theme.Colors.blueGray1};
   width: 100%;
   height: 2.5rem;
   border: none;
   font-size: ${(props) => props.theme.fontSizes.base};
   padding-left: ${(props) => props.theme.paddings.sm};
+`;
+
+const StDiv = styled.div`
+  background-color: ${(props) => props.theme.Colors.blueGray1};
+  width: 100%;
+  height: 2.5rem;
+  border: none;
+  font-size: ${(props) => props.theme.fontSizes.base};
+  padding-left: ${(props) => props.theme.paddings.sm};
+
+  display: flex;
+  align-items: center;
 `;
 
 /*유효성검사 출력*/

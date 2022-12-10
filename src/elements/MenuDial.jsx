@@ -108,6 +108,7 @@ export function VoteDial({ choiceId, getMutation }) {
   const { mutate: removeChoiceMutation } = useMutation(removeChoice, {
     onSuccess: () => {
       queryClient.invalidateQueries(getMutation);
+      OkayAlert("삭제되었습니다.");
     },
   });
 
@@ -126,6 +127,7 @@ export function VoteDial({ choiceId, getMutation }) {
   const { mutate: endChoiceMutation } = useMutation(endChoice, {
     onSuccess: () => {
       queryClient.invalidateQueries(getMutation);
+      OkayAlert("마감되었습니다.");
     },
   });
 
@@ -219,6 +221,7 @@ export function UserDial({
     onSuccess: () => {
       queryClient.invalidateQueries(reGet);
       reGet === "getAdviceScroll" && nav("/board-advice");
+      OkayAlert("삭제되었습니다.");
     },
   });
 
@@ -232,7 +235,11 @@ export function UserDial({
   const category = resBoard?.category;
   const title = resBoard?.title;
 
-  const messageMutation = useMutation(messageNav);
+  const messageMutation = useMutation(messageNav, {
+    onSuccess: () => {
+      OkayAlert("쪽지를 보냈습니다.");
+    },
+  });
   const messageMutate = (note) =>
     messageMutation.mutate({ userKey, category, title, note });
   const MessageHandler = () => {
@@ -242,7 +249,7 @@ export function UserDial({
     } else {
       MsgAlert(
         "쪽지 보내기",
-        `쪽지 내용을 입력해주세요.\n(미입력 시 전송이 안 됩니다.)`,
+        `쪽지 내용을 입력해주세요.`,
         messageMutate,
         nickname
       );
@@ -253,7 +260,11 @@ export function UserDial({
   const params = id;
   const targetName = target;
 
-  const reportMutation = useMutation(reportPost);
+  const reportMutation = useMutation(reportPost, {
+    onSuccess: () => {
+      OkayAlert("신고 처리되었습니다.");
+    },
+  });
   const reportMutate = (why) =>
     reportMutation.mutate({ params, targetName, why });
   const reportHandler = () => {

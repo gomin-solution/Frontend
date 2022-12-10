@@ -146,3 +146,9 @@
   max-width: 26rem;
   margin: auto;
 }
+
+/* 오류 메세지 */
+.swal2-validation-message {
+  background: none !important;
+  color: #ba1a1a !important;
+}

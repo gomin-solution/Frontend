@@ -78,12 +78,9 @@ const Login = () => {
           <Stbtn>로그인</Stbtn>
         </StFormContainer>
         <StBtnWrap>
-          <StBottomNav1 type="button">아이디 찾기</StBottomNav1>
-          <StHr />
-          <StBottomNav1 type="button">비밀번호 찾기</StBottomNav1>
-          <StHr />
+          아직 가입하지 않으셨나요?
           <StBottomNav2 type="button" onClick={() => nav("/signup")}>
-            회원가입
+            회원가입하기
           </StBottomNav2>
         </StBtnWrap>
         <StSocialWrap>
@@ -134,10 +131,11 @@ const StInput = styled.input`
 `;
 
 const StBtnWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${FlexCenter};
   margin: 0rem 4rem;
+
+  color: ${(props) => props.theme.Colors.gray3};
+  font-size: ${(props) => props.theme.fontSizes.sm};
 `;
 
 const StSocialWrap = styled.div`
@@ -147,26 +145,14 @@ const StSocialWrap = styled.div`
   width: 100%;
 `;
 
-/*아이디 찾기, 비밀번호 찾기*/
-const StBottomNav1 = styled.span`
-  color: ${(props) => props.theme.Colors.gray3};
-  border: none;
-  font-size: ${(props) => props.theme.fontSizes.sm};
-  cursor: pointer;
-`;
-
 /*회원가입*/
 const StBottomNav2 = styled.span`
   border: none;
   font-size: ${(props) => props.theme.fontSizes.sm};
   color: #404040;
   cursor: pointer;
-`;
 
-const StHr = styled.hr`
-  height: 0.8rem;
-  width: 0;
-  border-right: 0;
+  margin-left: 0.4rem;
 `;
 
 /*로그인 버튼*/

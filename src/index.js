@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-
-// 패키지 관련
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "react-query";
+
+serviceWorkerRegistration.register();
 
 const queryClient = new QueryClient();
 

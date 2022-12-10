@@ -5,9 +5,10 @@ import { ThemeProvider } from "styled-components";
 import { ErrorBoundary } from "react-error-boundary";
 import Theme from "./shared/theme";
 import ErrorFallback from "./components/ErrorFallback";
-import firebase from "firebase";
+import { initializeApp } from "firebase/app";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
-const config = {
+const firebaseConfig = {
   apiKey: "AIzaSyA_h2WDyKraS3exOKzELMTqRDGEUq7lgHE",
   authDomain: "gomin-9afcf.firebaseapp.com",
   projectId: "gomin-9afcf",
@@ -16,25 +17,22 @@ const config = {
   appId: "1:477387012639:web:078e41944fc1d3863e332a",
   measurementId: "G-EWW8PR9820",
 };
-firebase.initializeApp(config);
-const messaging = firebase.messaging();
 
-//사용자에게 허가를 받아 토큰을 가져옵니다.
-messaging
-  .requestPermission()
-  .then(function () {
-    return messaging.getToken();
+const app = initializeApp(firebaseConfig);
+const firebaseMessaging = getMessaging(app);
+
+//DeviceToken을 생성합니다
+getToken(firebaseMessaging, { vapidKey: process.env.REACT_APP_FCM_VAPID_KEY })
+  .then((deviceToken) => {
+    console.log("deviceToken", deviceToken);
   })
-  .then(function (token) {
-    console.log(token);
-  })
-  .catch(function (err) {
-    console.log("fcm error : ", err);
+  .catch((error) => {
+    console.log(error);
   });
 
-messaging.onMessage(function (payload) {
-  console.log(payload.notification.title);
-  console.log(payload.notification.body);
+//포그라운드 시에 알림을 받습니다
+onMessage(firebaseMessaging, (payload) => {
+  console.log(payload);
 });
 
 function App() {

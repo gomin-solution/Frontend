@@ -131,4 +131,5 @@ const StFix = styled.div`
 
   z-index: 9;
   padding: 0rem 1.5rem;
+  background-color: ${(props) => props.theme.Colors.bg1};
 `;

@@ -1,15 +1,17 @@
 //프로젝트 버전 확인
-importScripts("https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js");
-importScripts("https://www.gstatic.com/firebasejs/9.5.0/firebase-messaging.js");
+importScripts("https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js");
+importScripts(
+  "https://www.gstatic.com/firebasejs/9.15.0/firebase-messaging.js"
+);
 
 const config = {
-  apiKey: "AIzaSyDE0q3G3C6Hd-LBgYhWIhI1VaOVoQO1taY",
-  authDomain: "gomin-ab538.firebaseapp.com",
-  projectId: "gomin-ab538",
-  storageBucket: "gomin-ab538.appspot.com",
-  messagingSenderId: "439444583442",
-  appId: "1:439444583442:web:b03aecb30bf27279e894cb",
-  measurementId: "G-5D35YZPYBZ",
+  apiKey: "AIzaSyA_h2WDyKraS3exOKzELMTqRDGEUq7lgHE",
+  authDomain: "gomin-9afcf.firebaseapp.com",
+  projectId: "gomin-9afcf",
+  storageBucket: "gomin-9afcf.appspot.com",
+  messagingSenderId: "477387012639",
+  appId: "1:477387012639:web:078e41944fc1d3863e332a",
+  measurementId: "G-EWW8PR9820",
 };
 
 // Initialize Firebase

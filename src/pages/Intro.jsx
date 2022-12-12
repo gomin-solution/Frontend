@@ -122,12 +122,11 @@ const StSwiper = styled(Swiper)`
 
 const StSkipBtn = styled.button`
   position: absolute;
-  top: 1rem;
+  top: 2rem;
   right: 1rem;
   color: ${(props) => props.theme.Colors.blueGray1};
   font-size: ${(props) => props.theme.fontSizes.lg};
   cursor: pointer;
-  z-index: 99;
 `;
 
 const StSwiperSlide = styled(SwiperSlide)`

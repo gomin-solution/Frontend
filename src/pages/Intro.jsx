@@ -40,42 +40,38 @@ const Intro = () => {
 
   return (
     <Stcontainer>
-      <StWrap>
-        <StSkipBtn onClick={() => nav("/main")}>skip</StSkipBtn>
-        <StSwFeat
-          spaceBetween={0}
-          centeredSlides={true}
-          pagination={{ clickable: true }}
-          navigation={true}
-          modules={[Pagination, Navigation]}
-        >
-          <StSwiperSlide>
-            <StIntro>
-              <img src={introA} alt="introA" />
-            </StIntro>
-          </StSwiperSlide>
-          <StSwiperSlide>
-            <Lottie config={defaultOptionsB} height="100%" width="100%" />
-          </StSwiperSlide>
-          <StSwiperSlide>
-            <Lottie config={defaultOptionsC} height="100%" width="100%" />
-          </StSwiperSlide>
-          <StSwiperSlide>
-            <Lottie config={defaultOptionsD} height="100%" width="100%" />
-          </StSwiperSlide>
-          <StSwiperSlide style={{ ".swiper-button-next": { display: "none" } }}>
-            <StInnerWrap>
-              <StImg src={logoSquare} alt="logo" />
-              <StNav bottom="28" onClick={() => nav("/login")}>
-                로그인하러 가기
-              </StNav>
-              <StNav bottom="22" onClick={() => nav("/main")}>
-                고민접기 둘러보기
-              </StNav>
-            </StInnerWrap>
-          </StSwiperSlide>
-        </StSwFeat>
-      </StWrap>
+      <StSwiper
+        spaceBetween={0}
+        centeredSlides={true}
+        pagination={{ clickable: true }}
+        navigation={true}
+        modules={[Pagination, Navigation]}
+      >
+        <StSwiperSlide>
+          <StSkipBtn onClick={() => nav("/main")}>Skip</StSkipBtn>
+          <img src={introA} alt="introA" />
+        </StSwiperSlide>
+        <StSwiperSlide>
+          <Lottie config={defaultOptionsB} height="90%" width="90%" />
+        </StSwiperSlide>
+        <StSwiperSlide>
+          <Lottie config={defaultOptionsC} height="90%" width="90%" />
+        </StSwiperSlide>
+        <StSwiperSlide>
+          <Lottie config={defaultOptionsD} height="90%" width="90%" />
+        </StSwiperSlide>
+        <StSwiperSlide>
+          <StInnerWrap>
+            <img src={logoSquare} alt="logo" />
+            <StNav bottom="28" onClick={() => nav("/login")}>
+              로그인하러 가기
+            </StNav>
+            <StNav bottom="22" onClick={() => nav("/main")}>
+              고민접기 둘러보기
+            </StNav>
+          </StInnerWrap>
+        </StSwiperSlide>
+      </StSwiper>
     </Stcontainer>
   );
 };
@@ -89,62 +85,59 @@ const Stcontainer = styled.div`
   cursor: grab;
 `;
 
+const StSwiper = styled(Swiper)`
+  width: 100%;
+  height: 100%;
+  .swiper-pagination-bullet-active {
+    background: #a7eff0 !important;
+  }
+  .swiper-pagination-bullet {
+    background: #00a1a3;
+    opacity: 1;
+  }
+  .swiper-pagination-bullets {
+    top: 10px;
+    height: 5%;
+  }
+
+  //페이지 넘기는 버튼
+  .swiper-button-next {
+    top: 93%;
+    right: 1rem;
+    width: 3rem;
+    border-radius: 3rem;
+
+    background-color: #a7eff0;
+    &::after {
+      color: #4a6363;
+      font-size: 1.3rem;
+      font-weight: 900;
+    }
+  }
+
+  .swiper-button-prev {
+    display: none;
+  }
+`;
+
 const StSkipBtn = styled.button`
   position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0.5rem 0.7rem;
+  top: 1rem;
+  right: 1rem;
   color: ${(props) => props.theme.Colors.blueGray1};
   font-size: ${(props) => props.theme.fontSizes.lg};
   cursor: pointer;
   z-index: 99;
 `;
 
-const StWrap = styled.div`
-  position: absolute;
-  top: 10%;
-  width: 100%;
-`;
-
-const StSwFeat = styled(Swiper)`
-  &.swiper .swiper-pagination-bullet {
-    display: none;
-  }
-  .swiper-button-prev {
-    display: none;
-  }
-  .swiper-button-next {
-    color: white;
-    &::after {
-      font-size: ${(props) => props.theme.fontSizes.xxl};
-      font-weight: ${(props) => props.theme.fontWeights.lg};
-      position: absolute;
-      bottom: 0;
-    }
-  }
-`;
-
 const StSwiperSlide = styled(SwiperSlide)`
-  width: 80%;
-  height: 100%;
-  ${FlexCenter};
-`;
-
-const StIntro = styled.div`
   width: 100%;
   height: 100%;
-`;
-
-const StInnerWrap = styled.div`
   ${FlexCenter};
-  flex-flow: column;
-  width: 100%;
-  row-gap: 1.5rem;
-  padding: ${(props) => props.theme.paddings.xxl};
-`;
 
-const StImg = styled.img`
-  margin: 3rem;
+  img {
+    width: 100%;
+  }
 `;
 
 const StNav = styled.div`
@@ -156,4 +149,16 @@ const StNav = styled.div`
   font-size: ${(props) => props.theme.fontSizes.lg};
   font-weight: ${(props) => props.theme.fontWeights.lg};
   cursor: pointer;
+`;
+
+const StInnerWrap = styled.div`
+  ${FlexCenter};
+  flex-flow: column;
+  width: 100%;
+  row-gap: 1.5rem;
+  padding: ${(props) => props.theme.paddings.xxl};
+  img {
+    width: 50%;
+    margin: 3rem;
+  }
 `;

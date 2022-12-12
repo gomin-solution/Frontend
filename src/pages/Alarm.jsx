@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import { Container } from "../shared/css";
+// import { socket } from "../api/socketio";
+import { useMutation, useQueryClient } from "react-query";
+import { removeAlarm } from "../api/alarm";
+import CloseIcon from "@mui/icons-material/Close";
+import { Header1 } from "../elements/Header";
+import { Container } from "../shared/css";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getAlarms, removeAlarm } from "../api/alarm";
 import CloseIcon from "@mui/icons-material/Close";
-import { Header4 } from "../elements/Header";
-import Footer from "../elements/Footer";
-import { useNavigate } from "react-router-dom";
 
 const Alarm = () => {
   const nav = useNavigate();
@@ -27,7 +30,7 @@ const Alarm = () => {
 
   return (
     <>
-      <Header4 title={"알림"} />
+      <Header1 title={"알림"} />
       <Stcontainer>
         {res?.data?.alarms.map((alarm, idx) => (
           <StWrap key={idx}>
@@ -46,7 +49,6 @@ const Alarm = () => {
           </StWrap>
         ))}
       </Stcontainer>
-      <Footer title={"쪽지함"} />
     </>
   );
 };

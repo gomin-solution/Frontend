@@ -1,4 +1,4 @@
-//패키지 관련
+/* 패키지 관련 */
 import Router from "./router/Router";
 import GlobalStyle from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";
@@ -36,7 +36,14 @@ onMessage(firebaseMessaging, (payload) => {
   if (payload?.data.body === "게시물에 댓글이 달렸습니다!") {
     console.log("A");
   } else if (payload?.data.body === "작성하신 댓글이 채택되었습니다!") {
-    console.log("B");
+    Swal.fire({
+      text: `${payload?.data.body}`,
+      customClass: {
+        container: "position-absolute",
+      },
+      toast: true,
+      position: "bottom-right",
+    });
   } else if (payload?.data.body === "리워드를 확인하세요!") {
     console.log("C");
   } else if (payload?.data.body === "쪽지가 도착했습니다!") {

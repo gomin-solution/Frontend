@@ -111,6 +111,7 @@ const StCloseIcon = styled.span`
   color: ${(props) => props.theme.Colors.blueGreen3};
   flex-grow: 0;
   flex-shrink: 0;
+  cursor: pointer;
 `;
 
 const StSet = styled.div`

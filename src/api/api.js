@@ -65,7 +65,7 @@ instance.interceptors.response.use(
         }
         /* refreshToken 만료 시 status: 403 */
       } else if (
-        response.data.msg === "다시 로그인 해주세요." &&
+        response.data.message === "다시 로그인 해주세요." &&
         response.status === 403
       ) {
         removeCookie("accessToken");
@@ -143,7 +143,7 @@ postInstance.interceptors.response.use(
         }
         /* refreshToken 만료 시 status: 403 */
       } else if (
-        response.data.msg === "다시 로그인 해주세요." &&
+        response.data.message === "다시 로그인 해주세요." &&
         response.status === 403
       ) {
         removeCookie("accessToken");

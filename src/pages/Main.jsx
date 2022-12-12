@@ -62,7 +62,7 @@ function Main() {
         <Header6 title={"메인페이지"} />
       )}
       <StContainer>
-        {open ? <Alarm /> : null}
+        {open ? <Alarm setOpen={setOpen} /> : null}
         <Banner />
         <StPaddingWrap>
           <Recommend recommend={recommend} />

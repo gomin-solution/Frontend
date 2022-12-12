@@ -38,7 +38,7 @@ const KaKao = () => {
     if (isError) {
       ErrorAlert(`이미 로그인이 되어 있습니다.`, "/main");
     } else if (isMember === true) {
-      localStorage.setItem("userKey", res?.data.userKey);
+      localStorage.setItem("userKey", data?.data.userKey);
       OkayNaviAlert(`${data?.data.nickname}님 반갑습니다.`, "/main");
       setCookie("accessToken", data?.data.accessToken, {
         maxAge: 60 * 60 * 24 * 15,

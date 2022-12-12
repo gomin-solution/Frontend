@@ -16,6 +16,8 @@ import { instance } from "../api/api";
 import Alarm from "./Alarm";
 import { removeCookie } from "../api/cookie";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { toastAlert } from "../elements/Alert";
 
 function Main() {
   const nav = useNavigate();
@@ -65,6 +67,10 @@ function Main() {
     nav("/login");
   }
 
+  const test = () => {
+    toastAlert();
+  };
+
   return (
     <>
       {userKey ? (
@@ -73,6 +79,7 @@ function Main() {
         <Header6 title={"메인페이지"} />
       )}
       <StContainer>
+        <div onClick={test}>aaa</div>
         {open ? <Alarm setOpen={setOpen} /> : null}
         <Banner />
         <StPaddingWrap>

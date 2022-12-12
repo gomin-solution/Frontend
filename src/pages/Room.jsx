@@ -7,7 +7,7 @@ import { getRooms, outRoom } from "../api/room";
 import { Container } from "../shared/css";
 import CloseIcon from "@mui/icons-material/Close";
 import { ChooseAlert, ErrorAlert } from "../elements/Alert";
-import empty from "../image/message/empty.jpg";
+import room from "../image/empty/room.jpg";
 
 const Room = () => {
   const queryClient = useQueryClient();
@@ -64,7 +64,7 @@ const Room = () => {
         </Stcontainer>
       ) : (
         <Stcontainer>
-          <StEmpty src={empty} alt="empty" />
+          <StEmpty src={room} alt="empty" />
         </Stcontainer>
       )}
       <Footer title={"쪽지함"} />

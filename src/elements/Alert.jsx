@@ -7,6 +7,7 @@ export const OkayNaviAlert = (text, navi, userKey) => {
   Swal.fire({
     customClass: {
       confirmButton: "confirm-Btn",
+      htmlContainer: "default-html",
     },
     buttonsStyling: false,
     text: text,
@@ -49,6 +50,7 @@ export const OkayAlert = (text) => {
   Swal.fire({
     customClass: {
       confirmButton: "confirm-Btn",
+      htmlContainer: "default-html",
     },
     buttonsStyling: false,
     html: text,
@@ -180,11 +182,16 @@ export const NicknameAlert = (nick, mutate) => {
   });
 };
 
-export const toastAlert = (text) => {
+export const AlarmAlert = (msg) => {
   Swal.fire({
-    text: `test`,
+    customClass: {
+      popup: "alarm-pop",
+    },
+    title: "미션완료",
+    text: "지금 바로 리워드 보상을 받으세요!.",
     toast: true,
     position: "top",
-    // timer: 1500,
+    showConfirmButton: false,
+    timer: 2000,
   });
 };

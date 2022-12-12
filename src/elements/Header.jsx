@@ -52,17 +52,13 @@ export function Header2({ title, navi }) {
 }
 
 /*로고 + 알림바*/
-export function Header3({ setOpen }) {
+export function Header3() {
   const nav = useNavigate();
-
-  const alarmHandler = () => {
-    setOpen((prev) => !prev);
-  };
 
   return (
     <StBlock style={{ color: "#19696A" }}>
       <StLogo alt="로고" src={logoFolding} />
-      <StAlram onClick={alarmHandler} />
+      <StAlram onClick={() => nav("/alarm")} />
       <StSet onClick={() => nav("/setting")} />
     </StBlock>
   );

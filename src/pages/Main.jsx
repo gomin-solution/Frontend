@@ -67,20 +67,14 @@ function Main() {
     nav("/login");
   }
 
-  const test = () => {
-    toastAlert();
-  };
-
   return (
     <>
       {userKey ? (
-        <Header3 title={"메인페이지"} setOpen={setOpen} />
+        <Header3 title={"메인페이지"} />
       ) : (
         <Header6 title={"메인페이지"} />
       )}
       <StContainer>
-        <div onClick={test}>aaa</div>
-        {open ? <Alarm setOpen={setOpen} /> : null}
         <Banner />
         <StPaddingWrap>
           <Recommend recommend={recommend} />

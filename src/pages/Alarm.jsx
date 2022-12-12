@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import { FlexCenter } from "../shared/css";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { Container, FlexCenter } from "../shared/css";
 // import { socket } from "../api/socketio";
 import { useMutation, useQueryClient } from "react-query";
 import { removeAlarm } from "../api/alarm";
 import CloseIcon from "@mui/icons-material/Close";
-import Swal from "sweetalert2";
+import { AlarmAlert } from "../elements/Alert";
+import { Header1 } from "../elements/Header";
 
-const Alarm = ({ setOpen }) => {
+const Alarm = () => {
   const queryClient = useQueryClient();
 
   /* 알림 내용 전부 가져오기 */
@@ -22,18 +22,6 @@ const Alarm = ({ setOpen }) => {
     },
   });
 
-  const test = () => {
-    Swal.fire({
-      text: "Toast with custom target",
-      target: "#custom-target",
-      customClass: {
-        container: "position-absolute",
-      },
-      toast: true,
-      position: "bottom-right",
-    });
-  };
-
   /* 알림 받기 */
   // socket.on("mission_alarm", (data) => {
   //   console.log("알림 테스트", data);
@@ -47,13 +35,13 @@ const Alarm = ({ setOpen }) => {
 
   return (
     <>
-      <div onClick={test}>aaaaa</div>
+      <Header1 title={"알림"} />
       <Stcontainer>
         {/* 여기서 map 돌리기 */}
         <StInnerWrap>
           <StTopWrap style={{ display: "felx" }}>
             <StText1>보상</StText1>
-            <StCloseIcon onClick={() => setOpen((prev) => !prev)}>
+            <StCloseIcon>
               <CloseIcon />
             </StCloseIcon>
           </StTopWrap>
@@ -63,9 +51,6 @@ const Alarm = ({ setOpen }) => {
               <span>지금 바로 리워드 보상을 받으세요!</span>
               <StText2>16:51</StText2>
             </StColumn>
-            <StIcon>
-              <ArrowForwardIosIcon />
-            </StIcon>
           </StBottomWrap>
         </StInnerWrap>
       </Stcontainer>
@@ -77,27 +62,20 @@ export default Alarm;
 
 /*반응형 맞춤 */
 const Stcontainer = styled.div`
-  background-color: gray;
-  height: 25rem;
-  margin: 0.5rem ${(props) => props.theme.paddings.xxsm};
-  z-index: 99;
-  position: absolute;
-  right: 0;
-  box-shadow: 0rem 0rem 0.5rem gray;
-  overflow-x: hidden;
-  overflow-y: auto;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  ${Container};
+  height: calc(100vh - 4rem);
+  margin-top: 4rem;
 `;
 
 const StInnerWrap = styled.div`
   background-color: ${(props) => props.theme.Colors.blueGray1};
   width: 100%;
-  height: 6.5rem;
-  padding: ${(props) => props.theme.paddings.xsm};
+  height: 7rem;
+
+  padding: ${(props) => props.theme.paddings.sm};
   ${FlexCenter};
   flex-flow: column;
+
   border-bottom: 0.1rem solid lightgray;
 `;
 
@@ -105,7 +83,7 @@ const StTopWrap = styled.div`
   width: 100%;
   ${FlexCenter}
   justify-content: space-between;
-  margin-top: ${(props) => props.theme.margins.xsm};
+  margin-top: ${(props) => props.theme.margins.sm};
 `;
 
 const StBottomWrap = styled.div`
@@ -128,15 +106,11 @@ const StCloseIcon = styled.span`
 
 const StText1 = styled.span`
   color: ${(props) => props.theme.Colors.blueGreen2};
-  font-size: ${(props) => props.theme.fontSizes.sm};
+  font-size: ${(props) => props.theme.fontSizes.lg};
   font-weight: ${(props) => props.theme.fontWeights.lg};
 `;
 
 const StText2 = styled.span`
   color: ${(props) => props.theme.Colors.blueGray3};
   font-size: ${(props) => props.theme.fontSizes.sm};
-`;
-
-const StIcon = styled.span`
-  color: ${(props) => props.theme.Colors.blueGray3};
 `;

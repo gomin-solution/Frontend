@@ -5,8 +5,10 @@ import { getAlarms, removeAlarm } from "../api/alarm";
 import CloseIcon from "@mui/icons-material/Close";
 import { Header4 } from "../elements/Header";
 import Footer from "../elements/Footer";
+import { useNavigate } from "react-router-dom";
 
 const Alarm = () => {
+  const nav = useNavigate();
   const queryClient = useQueryClient();
 
   /* 알림 내용 전부 가져오기 */
@@ -29,7 +31,7 @@ const Alarm = () => {
       <Stcontainer>
         {res?.data?.alarms.map((alarm, idx) => (
           <StWrap key={idx}>
-            <StInnerWrap>
+            <StInnerWrap onClick={() => nav(`/${alarm.link}`)}>
               <span style={{ fontWeight: "600" }}>{alarm.body}</span>
               <StCloseIcon onClick={() => mutate(alarm)}>
                 <CloseIcon />

@@ -9,5 +9,5 @@ export const getAlarms = async () => {
 /* 알림 내역 delete */
 export const removeAlarm = async (payload) => {
   console.log(payload);
-  await instance.delete("/push", { alarm: payload });
+  await instance.delete("/push", payload);
 };

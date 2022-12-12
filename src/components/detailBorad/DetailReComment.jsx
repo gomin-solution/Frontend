@@ -33,7 +33,7 @@ function DetailReComment({ re, resBoard }) {
   const userKey = localStorage.getItem("userKey");
 
   useEffect(() => {
-    if (+userKey === re.userKey) {
+    if (userKey == re.userKey) {
       setUser(true);
     }
   }, []);

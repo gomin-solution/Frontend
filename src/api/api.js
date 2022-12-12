@@ -48,12 +48,13 @@ instance.interceptors.response.use(
             headers: {
               authorization: `Bearer ${accToken}`,
               refreshToken: `Bearer ${refToken}`,
+              interceptor: "true",
             },
           });
           /* accessToken 변경 후 재요청 */
-          originalRequest.headers.authorization = res.data.accessToken;
+          originalRequest.headers.authorization = res?.data?.accessToken;
           removeCookie("accessToken");
-          setCookie("accessToken", res.data.accessToken, {
+          setCookie("accessToken", res?.data?.accessToken, {
             maxAge: 60 * 60 * 24 * 15,
           });
           return instance.request(originalRequest);
@@ -126,12 +127,13 @@ postInstance.interceptors.response.use(
             headers: {
               authorization: `Bearer ${accToken}`,
               refreshToken: `Bearer ${refToken}`,
+              interceptor: "true",
             },
           });
           /* accessToken 변경 후 재요청 */
-          originalRequest.headers.authorization = res.data.accessToken;
+          originalRequest.headers.authorization = res?.data?.accessToken;
           removeCookie("accessToken");
-          setCookie("accessToken", res.data.accessToken, {
+          setCookie("accessToken", res?.data?.accessToken, {
             maxAge: 60 * 60 * 24 * 15,
           });
           return postInstance.request(originalRequest);

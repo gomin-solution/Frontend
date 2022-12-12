@@ -16,6 +16,8 @@ import { instance } from "../api/api";
 import Alarm from "./Alarm";
 import { removeCookie } from "../api/cookie";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { toastAlert } from "../elements/Alert";
 
 function Main() {
   const nav = useNavigate();
@@ -34,9 +36,6 @@ function Main() {
 
   /* userKey 불러오기 */
   const userKey = localStorage.getItem("userKey");
-
-  /* 알림 버튼 클릭 시 모달 띄우기 */
-  const [open, setOpen] = useState(false);
 
   /* 로그인 유저가 알림 허용 시, deviceToken 전달 */
   const deviceToken = sessionStorage.getItem("deviceToken");
@@ -68,12 +67,11 @@ function Main() {
   return (
     <>
       {userKey ? (
-        <Header3 title={"메인페이지"} setOpen={setOpen} />
+        <Header3 title={"메인페이지"} />
       ) : (
         <Header6 title={"메인페이지"} />
       )}
       <StContainer>
-        {open ? <Alarm setOpen={setOpen} /> : null}
         <Banner />
         <StPaddingWrap>
           <Recommend recommend={recommend} />

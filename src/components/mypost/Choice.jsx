@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ChoiceList from "../ChoiceList";
+import myPost from "../../image/empty/myPost.jpg";
 
 const Choice = ({ choices }) => {
   return (
@@ -8,7 +9,7 @@ const Choice = ({ choices }) => {
       {choices?.length > 0 ? (
         <StResult>내가 작성한 골라주기 목록입니다.</StResult>
       ) : (
-        <StResult>내가 작성한 골라주기가 없습니다.</StResult>
+        <StImg src={myPost} alt="emptyChoice" />
       )}
       {choices?.map((choice) => {
         return (
@@ -32,4 +33,8 @@ const StContainer = styled.div`
 const StResult = styled.div`
   width: 100%;
   margin-bottom: ${(props) => props.theme.margins.base};
+`;
+
+const StImg = styled.img`
+  width: 100%;
 `;

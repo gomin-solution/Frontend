@@ -14,6 +14,10 @@
 /*오류 표시*/
 .error-text {
   font-size: 1.2rem !important;
+  display: flex !important;
+  align-items: center;
+  margin: 2rem !important;
+  white-space: pre-line;
 }
 
 /*로그인 + 취소 */
@@ -36,6 +40,10 @@
 }
 .login-text {
   font-size: 1.2rem !important;
+  display: flex !important;
+  align-items: center;
+  margin: 2rem !important;
+  white-space: pre-line;
 }
 
 /*쪽지 보내기*/
@@ -48,6 +56,11 @@
   padding: 1rem !important;
   padding-left: 2rem !important;
   justify-content: flex-start !important;
+
+  display: flex !important;
+  align-items: center;
+  margin: 2rem !important;
+  white-space: pre-line;
 }
 .title-msg {
   background-color: #e9f3f2 !important;
@@ -98,6 +111,10 @@
   align-items: flex-end !important;
   font-size: 1.2rem !important;
   color: #002020 !important;
+
+  display: flex !important;
+  margin: 2rem !important;
+  white-space: pre-line;
 }
 
 /*확인 + 취소 */
@@ -120,13 +137,25 @@
 }
 
 .nick-text {
-  margin: 0 !important;
+  display: flex !important;
+  align-items: center;
+  margin: 2rem !important;
+  white-space: pre-line;
+}
+
+/* 알람 alert */
+.alarm-pop {
+  border-radius: 0 !important;
+  padding: 0 !important;
+  background-color: #19696a !important;
+  color: #ffffff !important;
+  opacity: 0.9;
 }
 
 /*------------------------전체 설정------------------------*/
 
 /*알람 글 상자*/
-.swal2-html-container {
+.default-html {
   display: flex !important;
   align-items: center;
   margin: 2rem !important;

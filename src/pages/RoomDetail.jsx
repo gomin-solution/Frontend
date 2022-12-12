@@ -76,7 +76,7 @@ const RoomDetail = () => {
         {messages?.map((message, idx) => (
           <StWrap key={idx}>
             <StInnerWrap>
-              {+userKey === message.userKey ? (
+              {userKey == message.userKey ? (
                 <span style={{ fontWeight: "600", color: "#9CD67E" }}>
                   보낸 쪽지
                 </span>

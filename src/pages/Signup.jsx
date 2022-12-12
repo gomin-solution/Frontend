@@ -260,7 +260,7 @@ const Signup = () => {
             })}
           />
           {errors?.confirm?.message === undefined ? (
-            <StCheck>비밀번호와 동일하게 다시 작성해주세요.</StCheck>
+            <StCheck>비밀번호와 동일하게 작성해주세요.</StCheck>
           ) : (
             <StErr>{errors?.confirm?.message}</StErr>
           )}

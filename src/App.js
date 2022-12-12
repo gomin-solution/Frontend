@@ -7,6 +7,7 @@ import Theme from "./shared/theme";
 import ErrorFallback from "./components/ErrorFallback";
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import Swal from "sweetalert2";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA_h2WDyKraS3exOKzELMTqRDGEUq7lgHE",
@@ -43,7 +44,14 @@ onMessage(firebaseMessaging, (payload) => {
     if (roomId === payload?.data.link.split("/")[1]) {
       return null;
     } else {
-      console.log("D");
+      Swal.fire({
+        text: `${payload?.data.body}`,
+        customClass: {
+          container: "position-absolute",
+        },
+        toast: true,
+        position: "bottom-right",
+      });
     }
   }
 });

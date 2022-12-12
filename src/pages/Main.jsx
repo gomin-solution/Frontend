@@ -14,10 +14,14 @@ import Loading from "../components/Loading";
 import { useCallback, useEffect, useState } from "react";
 import { instance } from "../api/api";
 import Alarm from "./Alarm";
+import { removeCookie } from "../api/cookie";
+import { useNavigate } from "react-router-dom";
 
 function Main() {
+  const nav = useNavigate();
+
   /* 메인페이지 get */
-  const { data, isLoading } = useQuery("getMain", getMain, {
+  const { data, isLoading, isError } = useQuery("getMain", getMain, {
     retry: 3,
     refetchOnWindowFocus: false,
   });
@@ -54,6 +58,13 @@ function Main() {
     return <Loading />;
   }
 
+  if (isError) {
+    localStorage.removeItem("userKey");
+    removeCookie("accessToken");
+    removeCookie("refreshToken");
+    nav("/login");
+  }
+
   return (
     <>
       {userKey ? (
@@ -62,7 +73,7 @@ function Main() {
         <Header6 title={"메인페이지"} />
       )}
       <StContainer>
-        {open ? <Alarm /> : null}
+        {open ? <Alarm setOpen={setOpen} /> : null}
         <Banner />
         <StPaddingWrap>
           <Recommend recommend={recommend} />

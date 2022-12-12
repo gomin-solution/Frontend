@@ -137,7 +137,7 @@ function DetailAdvice() {
   //userKey 유무 판단
   const userKey = localStorage.getItem("userKey");
   useEffect(() => {
-    if (+userKey === resBoard?.userKey) {
+    if (userKey == resBoard?.userKey) {
       setUser(true);
     }
   }, [resBoard]);

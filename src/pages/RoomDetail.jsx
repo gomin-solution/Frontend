@@ -69,6 +69,8 @@ const RoomDetail = () => {
     sessionStorage.setItem("roomId", roomId);
   }, []);
 
+  console.log(messages);
+
   return (
     <>
       <Header1 title={"쪽지"} navi="/rooms" roomId={roomId} leave={true} />
@@ -76,7 +78,7 @@ const RoomDetail = () => {
         {messages?.map((message, idx) => (
           <StWrap key={idx}>
             <StInnerWrap>
-              {+userKey === message.userKey ? (
+              {userKey == message.userKey ? (
                 <span style={{ fontWeight: "600", color: "#9CD67E" }}>
                   보낸 쪽지
                 </span>

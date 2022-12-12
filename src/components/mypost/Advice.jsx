@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import AdviceList from "../AdviceList";
+import myPost from "../../image/empty/myPost.jpg";
 
 const Advice = ({ advices }) => {
   return (
@@ -9,7 +10,7 @@ const Advice = ({ advices }) => {
         {advices?.length > 0 ? (
           <StResult>내가 작성한 답해주기 목록입니다.</StResult>
         ) : (
-          <StResult>내가 작성한 답해주기가 없습니다.</StResult>
+          <StImg src={myPost} alt="emptyChoice" />
         )}
         {advices?.map((advice) => (
           <AdviceList advice={advice} key={advice.adviceId} navi="/mypost" />
@@ -33,4 +34,8 @@ const StResult = styled.div`
 
 const StListWrap = styled.div`
   height: 100%;
+`;
+
+const StImg = styled.img`
+  width: 100%;
 `;

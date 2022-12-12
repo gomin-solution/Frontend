@@ -152,3 +152,8 @@
   background: none !important;
   color: #ba1a1a !important;
 }
+
+/* toast */
+.swal2-toast {
+  border-radius: 0 !important;
+}

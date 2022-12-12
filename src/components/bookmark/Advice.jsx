@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import AdviceList from "../AdviceList";
+import bookmark from "../../image/empty/bookmark.jpg";
 
 const Advice = ({ advices }) => {
   return (
@@ -9,7 +10,7 @@ const Advice = ({ advices }) => {
         {advices?.length > 0 ? (
           <StResult>북마크한 답해주기 목록입니다.</StResult>
         ) : (
-          <StResult>북마크한 답해주기가 없습니다.</StResult>
+          <StImg src={bookmark} alt="emptyChoice" />
         )}
         {advices?.map((advice) => (
           <AdviceList advice={advice} key={advice.adviceId} navi="/bookmark" />
@@ -33,4 +34,8 @@ const StResult = styled.div`
 
 const StListWrap = styled.div`
   height: 100%;
+`;
+
+const StImg = styled.img`
+  width: 100%;
 `;

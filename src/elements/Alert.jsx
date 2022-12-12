@@ -179,3 +179,12 @@ export const NicknameAlert = (nick, mutate) => {
     }
   });
 };
+
+export const toastAlert = (text) => {
+  Swal.fire({
+    text: `test`,
+    toast: true,
+    position: "top",
+    // timer: 1500,
+  });
+};

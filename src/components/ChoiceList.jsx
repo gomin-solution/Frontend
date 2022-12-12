@@ -171,7 +171,7 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
               onClick={() => bookmarkChange(choice.choiceId, choice.isBookMark)}
             />
           )}
-          {+userKey === choice.userKey ? (
+          {userKey == choice.userKey ? (
             <VoteDial choiceId={choice.choiceId} getMutation={getMutation} />
           ) : null}
         </StIconWrap>

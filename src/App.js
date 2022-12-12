@@ -30,7 +30,7 @@ getToken(firebaseMessaging, { vapidKey: process.env.REACT_APP_FCM_VAPID_KEY })
     console.log(error);
   });
 
-//포그라운드 시(앱 접속해 있을 시) 알림 받기
+/* 포그라운드 시(앱 접속해 있을 시) 알림 받기 */
 onMessage(firebaseMessaging, (payload) => {
   console.log(payload);
 });

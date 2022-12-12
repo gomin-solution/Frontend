@@ -67,6 +67,10 @@ const RoomDetail = () => {
     }
   }, [messages.length]);
 
+  useEffect(() => {
+    sessionStorage.setItem("roomId", roomId);
+  }, []);
+
   return (
     <>
       <Header1 title={"쪽지"} navi="/rooms" roomId={roomId} leave={true} />

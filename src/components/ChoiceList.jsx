@@ -5,9 +5,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { bookmark, postChoice } from "../api/boardChoiceApi";
 import { VoteDial } from "../elements/MenuDial";
-import { userKeyAtom } from "../state/atom";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import { LoginAlert } from "../elements/Alert";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 
@@ -22,7 +20,7 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
   dayjs.extend(timezone);
 
   /* 유저키 가져오기 */
-  const userKey = useRecoilValue(userKeyAtom);
+  const userKey = localStorage.getItem("userKey");
 
   let choice1Per;
   let choice2Per;
@@ -173,7 +171,7 @@ const ChoiceList = ({ newRef, choice, getMutation }) => {
               onClick={() => bookmarkChange(choice.choiceId, choice.isBookMark)}
             />
           )}
-          {userKey === choice.userKey ? (
+          {+userKey === choice.userKey ? (
             <VoteDial choiceId={choice.choiceId} getMutation={getMutation} />
           ) : null}
         </StIconWrap>

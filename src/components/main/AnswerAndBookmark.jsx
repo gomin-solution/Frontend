@@ -2,12 +2,10 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { LoginAlert } from "../../elements/Alert";
-import { useRecoilValue } from "recoil";
-import { userKeyAtom } from "../../state/atom";
 
 const AnswerAndBookmark = () => {
   const nav = useNavigate();
-  const userKey = useRecoilValue(userKeyAtom);
+  const userKey = localStorage.getItem("userKey");
 
   const lists = [
     { title: "내가 작성한 고민", nav: "/mypost" },

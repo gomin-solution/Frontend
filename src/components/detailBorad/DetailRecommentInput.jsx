@@ -1,15 +1,13 @@
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { recommentPost } from "../../api/detailApi";
 import { LoginAlert, OkayAlert } from "../../elements/Alert";
-import { userKeyAtom } from "../../state/atom";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 function DetailReCommentInput({ setRecomment, commentId }) {
   const queryClient = useQueryClient();
-  const userKey = useRecoilValue(userKeyAtom);
+  const userKey = localStorage.getItem("userKey");
   //댓글 달기
   const { register, handleSubmit, reset } = useForm();
   const onRecomment = (comment) => {

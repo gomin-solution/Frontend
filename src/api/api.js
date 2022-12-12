@@ -61,11 +61,7 @@ instance.interceptors.response.use(
           /* accessToken 변경 실패 시 */
           removeCookie("accessToken");
           removeCookie("refreshToken");
-          return OkayNaviAlert(
-            "재로그인이 필요합니다.",
-            "/login",
-            "recoil-persist"
-          );
+          return OkayNaviAlert("재로그인이 필요합니다.", "/login", "userKey");
         }
         /* refreshToken 만료 시 status: 403 */
       } else if (
@@ -74,12 +70,8 @@ instance.interceptors.response.use(
       ) {
         removeCookie("accessToken");
         removeCookie("refreshToken");
-        localStorage.removeItem("recoil-persist");
-        return OkayNaviAlert(
-          "재로그인이 필요합니다.",
-          "/login",
-          "recoil-persist"
-        );
+        localStorage.removeItem("userKey");
+        return OkayNaviAlert("재로그인이 필요합니다.", "/login", "userKey");
       }
     } catch (error) {
       console.log(error);

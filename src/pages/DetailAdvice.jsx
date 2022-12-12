@@ -14,8 +14,6 @@ import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import PostAdvice from "../pages/PostAdvice";
 import { ImageModal } from "../components/detailBorad/ImageModal";
 import { Container } from "../shared/css";
-import { useRecoilValue } from "recoil";
-import { userKeyAtom } from "../state/atom";
 import { ErrorAlert, LoginAlert } from "../elements/Alert";
 import Loading from "../components/Loading";
 
@@ -137,9 +135,9 @@ function DetailAdvice() {
   };
 
   //userKey 유무 판단
-  const userKey = useRecoilValue(userKeyAtom);
+  const userKey = localStorage.getItem("userKey");
   useEffect(() => {
-    if (userKey === resBoard?.userKey) {
+    if (+userKey === resBoard?.userKey) {
       setUser(true);
     }
   }, [resBoard]);
@@ -179,7 +177,7 @@ function DetailAdvice() {
                     onClick={() => mutate(resBoard?.adviceId)}
                   />
                 )}
-                {userKey !== 0 && (
+                {userKey && (
                   <UserDial
                     resBoard={resBoard}
                     userId={resBoard?.userKey}

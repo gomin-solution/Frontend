@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FlexCenter } from "../shared/css";
-import { useRecoilValue } from "recoil";
-import { userKeyAtom } from "../state/atom";
 import { LoginAlert } from "./Alert";
 import home from "../image/footerIcon/home.svg";
 import board from "../image/footerIcon/board.svg";
@@ -14,7 +12,7 @@ import messageClicked from "../image/footerIcon/messageClicked.svg";
 import rewardClicked from "../image/footerIcon/rewardClicked.svg";
 
 function Footer({ title }) {
-  const userKey = useRecoilValue(userKeyAtom);
+  const userKey = localStorage.getItem("userKey");
   const nav = useNavigate();
 
   const onMenu = (e) => {

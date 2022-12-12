@@ -18,3 +18,9 @@ export const getBookmark = async () => {
   const res = await instance.get("/bookmark");
   return res;
 };
+
+/*내 작성글 get */
+export const getMyPost = async () => {
+  const res = await instance.get("/mypost");
+  return res.data;
+};

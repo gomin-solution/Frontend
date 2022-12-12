@@ -13,8 +13,9 @@ import { Container } from "../shared/css";
 import { useRecoilValue } from "recoil";
 import { userKeyAtom } from "../state/atom";
 import Loading from "../components/Loading";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { instance } from "../api/api";
+import Alarm from "./Alarm";
 
 function Main() {
   /* 메인페이지 get */
@@ -35,7 +36,10 @@ function Main() {
     retry: false,
   });
 
-  // 로그인 유저가 알림 허용 시, deviceToken 전달
+  /* 알림 버튼 클릭 시 모달 띄우기 */
+  const [open, setOpen] = useState(false);
+
+  /* 로그인 유저가 알림 허용 시, deviceToken 전달 */
   const deviceToken = sessionStorage.getItem("deviceToken");
   const postDeviceToken = useCallback(async () => {
     if (userKey && deviceToken) {
@@ -58,11 +62,12 @@ function Main() {
   return (
     <>
       {userKey ? (
-        <Header3 title={"메인페이지"} />
+        <Header3 title={"메인페이지"} setOpen={setOpen} />
       ) : (
         <Header6 title={"메인페이지"} />
       )}
       <StContainer>
+        {open ? <Alarm /> : null}
         <Banner />
         <StPaddingWrap>
           <Recommend recommend={recommend} />

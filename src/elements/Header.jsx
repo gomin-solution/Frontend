@@ -19,6 +19,7 @@ export function Header1({ title, roomId, navi = -1, leave = false }) {
     // 이전 버튼 클릭 시 room 나가기 요청
     if (leave) {
       socket.emit("leave_room", roomId);
+      sessionStorage.removeItem("roomId");
     }
     nav(navi);
   };
@@ -51,12 +52,17 @@ export function Header2({ title, navi }) {
 }
 
 /*로고 + 알림바*/
-export function Header3() {
+export function Header3({ setOpen }) {
   const nav = useNavigate();
+
+  const alarmHandler = () => {
+    setOpen((prev) => !prev);
+  };
+
   return (
     <StBlock style={{ color: "#19696A" }}>
       <StLogo alt="로고" src={logoFolding} />
-      <StAlram />
+      <StAlram onClick={alarmHandler} />
       <StSet onClick={() => nav("/setting")} />
     </StBlock>
   );

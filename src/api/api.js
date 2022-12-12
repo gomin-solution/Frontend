@@ -14,7 +14,6 @@ instance.interceptors.request.use(
   (config) => {
     const accToken = getCookie("accessToken");
     const refToken = getCookie("refreshToken");
-    console.log("accToken", accToken);
     config.headers = {
       authorization: `Bearer ${accToken}`,
       refreshToken: `Bearer ${refToken}`,
@@ -70,7 +69,6 @@ instance.interceptors.response.use(
         response.data.message === "다시 로그인 해주세요." &&
         response.status === 403
       ) {
-        console.log("여기?");
         removeCookie("accessToken");
         removeCookie("refreshToken");
         localStorage.removeItem("userKey");

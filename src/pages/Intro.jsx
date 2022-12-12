@@ -52,13 +52,13 @@ const Intro = () => {
           <img src={introA} alt="introA" />
         </StSwiperSlide>
         <StSwiperSlide>
-          <Lottie config={defaultOptionsB} height="90%" width="90%" />
+          <Lottie config={defaultOptionsB} style={{ height: "none" }} />
         </StSwiperSlide>
         <StSwiperSlide>
-          <Lottie config={defaultOptionsC} height="90%" width="90%" />
+          <Lottie config={defaultOptionsC} style={{ height: "none" }} />
         </StSwiperSlide>
         <StSwiperSlide>
-          <Lottie config={defaultOptionsD} height="90%" width="90%" />
+          <Lottie config={defaultOptionsD} style={{ height: "none" }} />
         </StSwiperSlide>
         <StSwiperSlide>
           <StInnerWrap>
@@ -87,6 +87,7 @@ const Stcontainer = styled.div`
 
 const StSwiper = styled(Swiper)`
   width: 100%;
+  max-width: 26rem;
   height: 100%;
   .swiper-pagination-bullet-active {
     background: #a7eff0 !important;
@@ -97,7 +98,7 @@ const StSwiper = styled(Swiper)`
   }
   .swiper-pagination-bullets {
     top: 10px;
-    height: 5%;
+    height: 2%;
   }
 
   //페이지 넘기는 버튼
@@ -127,16 +128,20 @@ const StSkipBtn = styled.button`
   color: ${(props) => props.theme.Colors.blueGray1};
   font-size: ${(props) => props.theme.fontSizes.lg};
   cursor: pointer;
-  z-index: 99 !important;
 `;
 
 const StSwiperSlide = styled(SwiperSlide)`
   width: 100%;
-  max-width: 26rem;
   ${FlexCenter};
 
   img {
     width: 100%;
+    max-width: 26rem;
+  }
+
+  .png {
+    width: 100%;
+    max-width: 26rem;
   }
 `;
 

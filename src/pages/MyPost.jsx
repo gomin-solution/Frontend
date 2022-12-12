@@ -5,7 +5,7 @@ import { Header1 } from "../elements/Header";
 import styled from "styled-components";
 import Choice from "../components/mypost/Choice";
 import Advice from "../components/mypost/Advice";
-import { getMyPost } from "../api/myPost";
+import { getMyPost } from "../api/mainApi";
 import { Container, FlexCenter } from "../shared/css";
 import Dial from "../components/Dial";
 

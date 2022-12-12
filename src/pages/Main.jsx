@@ -10,8 +10,6 @@ import TotalCount from "../components/main/TotalCount";
 import { useQuery } from "react-query";
 import { getMain } from "../api/mainApi";
 import { Container } from "../shared/css";
-import { useRecoilValue } from "recoil";
-import { userKeyAtom } from "../state/atom";
 import Loading from "../components/Loading";
 import { useCallback, useEffect, useState } from "react";
 import { instance } from "../api/api";
@@ -31,10 +29,7 @@ function Main() {
   const isOpen = data?.data.mainpage.isOpen;
 
   /* userKey 불러오기 */
-  const userKey = useRecoilValue(userKeyAtom, {
-    refetchOnWindowFocus: false,
-    retry: false,
-  });
+  const userKey = localStorage.getItem("userKey");
 
   /* 알림 버튼 클릭 시 모달 띄우기 */
   const [open, setOpen] = useState(false);

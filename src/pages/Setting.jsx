@@ -37,11 +37,11 @@ function Setting() {
 
   const logoutHandler = () => {
     logoutMutation.mutate();
-    OkayNaviAlert("로그아웃 되었습니다.", "/main", "recoil-persist");
+    OkayNaviAlert("로그아웃 되었습니다.", "/main", "userKey");
   };
 
   const ByeHandler = () => {
-    ChooseAlert("정말 탈퇴하시겠습니까?", "탈퇴", ByeMutate, "recoil-persist");
+    ChooseAlert("정말 탈퇴하시겠습니까?", "탈퇴", ByeMutate, "userKey");
   };
 
   const gradeHelp = () => {

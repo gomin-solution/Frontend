@@ -1,14 +1,10 @@
 import styled from "styled-components";
 import { Container } from "../shared/css";
-// import { socket } from "../api/socketio";
-import { useMutation, useQueryClient } from "react-query";
-import { removeAlarm } from "../api/alarm";
-import CloseIcon from "@mui/icons-material/Close";
-import { Header1 } from "../elements/Header";
-import { Container } from "../shared/css";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getAlarms, removeAlarm } from "../api/alarm";
 import CloseIcon from "@mui/icons-material/Close";
+import { Header1 } from "../elements/Header";
+import { useNavigate } from "react-router-dom";
 
 const Alarm = () => {
   const nav = useNavigate();
@@ -57,15 +53,8 @@ export default Alarm;
 
 const Stcontainer = styled.div`
   ${Container};
-  height: calc(100vh - 9rem);
-  padding: ${(props) => props.theme.paddings.xl};
+  height: calc(100vh - 4rem);
   margin-top: 4rem;
-  &::-webkit-scrollbar {
-    background: none;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: none;
-  }
 `;
 
 const StWrap = styled.div`
@@ -80,7 +69,6 @@ const StInnerWrap = styled.div`
   display: flex;
   justify-content: space-between;
   overflow: hidden;
-
   span {
     text-overflow: ellipsis; // 말줄임 적용
     white-space: nowrap; // 문장이 길어지면 다음 줄로 넘기는 것을 없앰

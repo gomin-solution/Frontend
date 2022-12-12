@@ -69,8 +69,6 @@ const RoomDetail = () => {
     sessionStorage.setItem("roomId", roomId);
   }, []);
 
-  console.log(messages);
-
   return (
     <>
       <Header1 title={"쪽지"} navi="/rooms" roomId={roomId} leave={true} />

@@ -7,7 +7,7 @@ import Theme from "./shared/theme";
 import ErrorFallback from "./components/ErrorFallback";
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
-import Swal from "sweetalert2";
+import { AlarmAlert } from "./elements/Alert";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA_h2WDyKraS3exOKzELMTqRDGEUq7lgHE",
@@ -33,26 +33,19 @@ getToken(firebaseMessaging, { vapidKey: process.env.REACT_APP_FCM_VAPID_KEY })
 
 /* 포그라운드 시(앱 접속해 있을 시) 알림 받기 */
 onMessage(firebaseMessaging, (payload) => {
+  console.log("payload", payload);
   if (payload?.data.body === "게시물에 댓글이 달렸습니다!") {
-    console.log("A");
+    AlarmAlert(`${payload?.data.body}`);
   } else if (payload?.data.body === "작성하신 댓글이 채택되었습니다!") {
-    Swal.fire({
-      text: `${payload?.data.body}`,
-      customClass: {
-        container: "position-absolute",
-      },
-      toast: true,
-      position: "top-center",
-      timer: 1500,
-    });
+    AlarmAlert(`${payload?.data.body}`);
   } else if (payload?.data.body === "리워드를 확인하세요!") {
-    console.log("C");
+    AlarmAlert(`${payload?.data.body}`);
   } else if (payload?.data.body === "쪽지가 도착했습니다!") {
     const roomId = sessionStorage.getItem("roomId");
     if (roomId === payload?.data.link.split("/")[1]) {
       return null;
     } else {
-      console.log("D");
+      AlarmAlert(`${payload?.data.body}`);
     }
   }
 });

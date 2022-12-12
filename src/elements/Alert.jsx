@@ -187,7 +187,7 @@ export const AlarmAlert = (msg) => {
     customClass: {
       popup: "alarm-pop",
     },
-    title: "미션완료",
+    title: msg,
     text: "지금 바로 리워드 보상을 받으세요!.",
     toast: true,
     position: "top",

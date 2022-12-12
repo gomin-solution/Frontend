@@ -42,7 +42,8 @@ onMessage(firebaseMessaging, (payload) => {
         container: "position-absolute",
       },
       toast: true,
-      position: "bottom-right",
+      position: "top-center",
+      timer: 1500,
     });
   } else if (payload?.data.body === "리워드를 확인하세요!") {
     console.log("C");
@@ -51,14 +52,7 @@ onMessage(firebaseMessaging, (payload) => {
     if (roomId === payload?.data.link.split("/")[1]) {
       return null;
     } else {
-      Swal.fire({
-        text: `${payload?.data.body}`,
-        customClass: {
-          container: "position-absolute",
-        },
-        toast: true,
-        position: "bottom-right",
-      });
+      console.log("D");
     }
   }
 });

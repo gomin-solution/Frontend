@@ -37,9 +37,6 @@ function Main() {
   /* userKey 불러오기 */
   const userKey = localStorage.getItem("userKey");
 
-  /* 알림 버튼 클릭 시 모달 띄우기 */
-  const [open, setOpen] = useState(false);
-
   /* 로그인 유저가 알림 허용 시, deviceToken 전달 */
   const deviceToken = sessionStorage.getItem("deviceToken");
   const postDeviceToken = useCallback(async () => {
@@ -67,20 +64,14 @@ function Main() {
     nav("/login");
   }
 
-  const test = () => {
-    toastAlert();
-  };
-
   return (
     <>
       {userKey ? (
-        <Header3 title={"메인페이지"} setOpen={setOpen} />
+        <Header3 title={"메인페이지"} />
       ) : (
         <Header6 title={"메인페이지"} />
       )}
       <StContainer>
-        <div onClick={test}>aaa</div>
-        {open ? <Alarm setOpen={setOpen} /> : null}
         <Banner />
         <StPaddingWrap>
           <Recommend recommend={recommend} />

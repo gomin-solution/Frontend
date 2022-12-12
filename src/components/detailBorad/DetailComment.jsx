@@ -90,7 +90,7 @@ function DetailComment({ comment, resBoard }) {
       if (!userKey) {
         LoginAlert();
       } else {
-        if (+userKey === comment.userKey) {
+        if (userKey == comment.userKey) {
           OkayAlert("본인 댓글엔 좋아요를 할 수 없습니다.");
         } else {
           /* 서버에 전송한 요청이 잘못되었을 경우를 대비해서 이전 데이터를 저장 */
@@ -124,7 +124,7 @@ function DetailComment({ comment, resBoard }) {
   // 유저키 비교
   const [user, setUser] = useState(false);
   useEffect(() => {
-    if (+userKey === comment.userKey) {
+    if (userKey == comment.userKey) {
       setUser(true);
     }
   }, []);
@@ -178,7 +178,7 @@ function DetailComment({ comment, resBoard }) {
               </div>
             </StCommentDiv>
           </StcommentBox>
-          {+userKey === resBoard.userKey &&
+          {userKey == resBoard.userKey &&
             resBoard.selectComment === undefined && (
               <StPick StPick onClick={() => pickAlert(comment.commentId)}>
                 채택하기

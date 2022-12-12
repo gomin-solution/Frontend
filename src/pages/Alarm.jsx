@@ -1,10 +1,15 @@
 import styled from "styled-components";
+import { Container, FlexCenter } from "../shared/css";
+// import { socket } from "../api/socketio";
+import { useMutation, useQueryClient } from "react-query";
+import { removeAlarm } from "../api/alarm";
+import CloseIcon from "@mui/icons-material/Close";
+import { AlarmAlert } from "../elements/Alert";
+import { Header1 } from "../elements/Header";
 import { Container } from "../shared/css";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getAlarms, removeAlarm } from "../api/alarm";
 import CloseIcon from "@mui/icons-material/Close";
-import { Header4 } from "../elements/Header";
-import Footer from "../elements/Footer";
 
 const Alarm = () => {
   const queryClient = useQueryClient();
@@ -23,6 +28,37 @@ const Alarm = () => {
     refetchOnWindowFocus: false,
   });
 
+  /* 알림 받기 */
+  // socket.on("mission_alarm", (data) => {
+  //   console.log("알림 테스트", data);
+  //   // setAlarms([
+  //   //   ...alarms,
+  //   //   {
+  //   //     alarms: data,
+  //   //   },
+  //   // ]);
+  // });
+
+  // return (
+  //   <>
+  //     <Header1 title={"알림"} />
+  //     <Stcontainer>
+  //       {/* 여기서 map 돌리기 */}
+  //       <StInnerWrap>
+  //         <StTopWrap style={{ display: "felx" }}>
+  //           <StText1>보상</StText1>
+  //           <StCloseIcon>
+  //             <CloseIcon />
+  //           </StCloseIcon>
+  //         </StTopWrap>
+  //         <StBottomWrap>
+  //           <StColumn>
+  //             <span>미션완료!</span>
+  //             <span>지금 바로 리워드 보상을 받으세요!</span>
+  //             <StText2>16:51</StText2>
+  //           </StColumn>
+  //         </StBottomWrap>
+  //       </StInnerWrap>
   return (
     <>
       <Header4 title={"알림"} />

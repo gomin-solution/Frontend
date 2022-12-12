@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 import { recommentEdit } from "../../api/detailApi";
-import { useRecoilValue } from "recoil";
-import { userKeyAtom } from "../../state/atom";
 import { OkayAlert } from "../../elements/Alert";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 
@@ -32,10 +30,10 @@ function DetailReComment({ re, resBoard }) {
 
   // 유저키 비교
   const [user, setUser] = useState(false);
-  const userKey = useRecoilValue(userKeyAtom);
+  const userKey = localStorage.getItem("userKey");
 
   useEffect(() => {
-    if (userKey === re.userKey) {
+    if (+userKey === re.userKey) {
       setUser(true);
     }
   }, []);
@@ -49,7 +47,7 @@ function DetailReComment({ re, resBoard }) {
           <div className="username">{re.nickname}</div>
           {reEdit ? (
             <StMenu>
-              {userKey !== 0 && (
+              {userKey && (
                 <UserDial
                   user={user}
                   id={re.replyId}

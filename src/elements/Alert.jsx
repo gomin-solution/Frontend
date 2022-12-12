@@ -16,7 +16,7 @@ export const OkayNaviAlert = (text, navi, userKey) => {
     if (userKey) {
       removeCookie("accessToken");
       removeCookie("refreshToken");
-      localStorage.removeItem(userKey);
+      localStorage.removeItem("userKey");
     }
   });
 };
@@ -94,7 +94,7 @@ export const ChooseAlert = (text, textBtn, mutate, userKey, data, setState) => {
     if (result.isConfirmed) {
       if (userKey) {
         mutate();
-        localStorage.removeItem(userKey);
+        localStorage.removeItem("userKey");
       } else if (mutate) {
         mutate(data);
       } else {

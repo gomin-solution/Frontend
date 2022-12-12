@@ -7,8 +7,6 @@ import HowToVoteOutlinedIcon from "@mui/icons-material/HowToVoteOutlined";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { userKeyAtom } from "../state/atom";
 import { LoginAlert } from "../elements/Alert";
 
 const SpeedDialTooltipOpen = () => {
@@ -22,7 +20,7 @@ const SpeedDialTooltipOpen = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const userKey = useRecoilValue(userKeyAtom);
+  const userKey = localStorage.getItem("userKey");
   const navHandler = (e) => {
     if (userKey) {
       nav(`${e}`);

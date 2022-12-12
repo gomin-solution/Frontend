@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Header1 } from "../elements/Header";
 import { Container, FlexCenter } from "../shared/css";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 // import { socket } from "../api/socketio";

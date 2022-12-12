@@ -9,7 +9,7 @@ import {
   OkayNaviAlert,
 } from "../elements/Alert";
 import { Header1 } from "../elements/Header";
-import { Container, FlexCenter } from "../shared/css";
+import { Container } from "../shared/css";
 
 function MyInfoChange() {
   const queryClient = useQueryClient();

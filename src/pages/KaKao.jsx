@@ -1,17 +1,13 @@
 import React, { useEffect } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
 import { setCookie } from "../api/cookie";
 import { kakaoTokenGet, kakaoTokenPost } from "../api/socialLogin";
 import Loading from "../components/Loading";
 import { ErrorAlert, OkayNaviAlert } from "../elements/Alert";
-import { userKeyAtom } from "../state/atom";
 
 const KaKao = () => {
   const nav = useNavigate();
-
-  const setUserKey = useSetRecoilState(userKeyAtom);
 
   /* code get */
   let params = new URL(document.URL).searchParams;
@@ -42,7 +38,7 @@ const KaKao = () => {
     if (isError) {
       ErrorAlert(`이미 로그인이 되어 있습니다.`, "/main");
     } else if (isMember === true) {
-      setUserKey(data?.data.userKey);
+      localStorage.setItem("userKey", res?.data.userKey);
       OkayNaviAlert(`${data?.data.nickname}님 반갑습니다.`, "/main");
       setCookie("accessToken", data?.data.accessToken, {
         maxAge: 60 * 60 * 24 * 15,

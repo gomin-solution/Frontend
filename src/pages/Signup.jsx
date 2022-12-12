@@ -14,14 +14,11 @@ import {
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { Container, FlexCenter } from "../shared/css";
 import { setCookie } from "../api/cookie";
-import { useSetRecoilState } from "recoil";
-import { userKeyAtom } from "../state/atom";
 
 const Signup = () => {
   /* 아이디, 닉네임 중복체크 */
   const [idDub, setIdDub] = useState(false);
   const [nickDub, setNickDub] = useState(false);
-  const setuserKey = useSetRecoilState(userKeyAtom);
 
   /* react-hook-form 사용 */
   const {
@@ -52,8 +49,8 @@ const Signup = () => {
           maxAge: 60 * 60 * 24 * 15,
         });
 
-        /* userKey 전역으로 저장 후 메인페이지 이동 */
-        setuserKey(res?.data.userKey);
+        /* userKey 로컬에 저장 후 메인페이지 이동 */
+        localStorage.setItem("userKey", res?.data.userKey);
         OkayNaviAlert(`${nickname}님\n반갑습니다.`, "/main");
       }
     } catch (error) {
@@ -260,7 +257,7 @@ const Signup = () => {
             })}
           />
           {errors?.confirm?.message === undefined ? (
-            <StCheck>비밀번호와 동일하게 다시 작성해주세요.</StCheck>
+            <StCheck>비밀번호와 동일하게 작성해주세요.</StCheck>
           ) : (
             <StErr>{errors?.confirm?.message}</StErr>
           )}

@@ -13,8 +13,10 @@ instance.interceptors.request.use(
   /* 요청이 전달되기 전에 작업 수행 */
   (config) => {
     const accToken = getCookie("accessToken");
+    const refToken = getCookie("refreshToken");
     config.headers = {
       authorization: `Bearer ${accToken}`,
+      refreshToken: `Bearer ${refToken}`,
       "Content-Type": "application/json; charset=utf-8",
     };
     return config;
@@ -97,8 +99,10 @@ postInstance.interceptors.request.use(
   /* 요청이 전달되기 전에 작업 수행 */
   (config) => {
     const accToken = getCookie("accessToken");
+    const refToken = getCookie("refreshToken");
     config.headers = {
       authorization: `Bearer ${accToken}`,
+      refreshToken: `Bearer ${refToken}`,
       "Content-Type": "multipart/form-data",
     };
     return config;

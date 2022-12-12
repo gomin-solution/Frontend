@@ -29,7 +29,6 @@ const Alarm = () => {
 
   return (
     <>
-      <Header1 title={"알림"} />
       <Stcontainer>
         <StInnerWrap>
           <StTopWrap style={{ display: "felx" }}>
@@ -49,6 +48,7 @@ const Alarm = () => {
             </StIcon>
           </StBottomWrap>
         </StInnerWrap>
+        <hr />
       </Stcontainer>
     </>
   );
@@ -59,9 +59,9 @@ export default Alarm;
 /*반응형 맞춤 */
 const Stcontainer = styled.div`
   ${Container};
-  margin-top: 4rem;
   height: calc(100vh - 4rem);
   padding: ${(props) => props.theme.paddings.xxl};
+  z-index: 99;
 `;
 
 const StInnerWrap = styled.div`

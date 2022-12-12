@@ -1,20 +1,38 @@
 import styled from "styled-components";
-import { Header1 } from "../elements/Header";
-import { Container, FlexCenter } from "../shared/css";
+import { FlexCenter } from "../shared/css";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 // import { socket } from "../api/socketio";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { removeAlarm } from "../api/alarm";
 import CloseIcon from "@mui/icons-material/Close";
+import Swal from "sweetalert2";
 
-const Alarm = () => {
+const Alarm = ({ setOpen }) => {
+  const queryClient = useQueryClient();
+
   /* 알림 내용 전부 가져오기 */
   // useQuery("getAlarms", getAlarms, {
   //   refetchOnWindowFocus: false,
   // });
 
   /* 알림 삭제 */
-  const { mutate } = useMutation(removeAlarm);
+  const { mutate } = useMutation(removeAlarm, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("aaaaaa");
+    },
+  });
+
+  const test = () => {
+    Swal.fire({
+      text: "Toast with custom target",
+      target: "#custom-target",
+      customClass: {
+        container: "position-absolute",
+      },
+      toast: true,
+      position: "bottom-right",
+    });
+  };
 
   /* 알림 받기 */
   // socket.on("mission_alarm", (data) => {
@@ -29,11 +47,13 @@ const Alarm = () => {
 
   return (
     <>
+      <div onClick={test}>aaaaa</div>
       <Stcontainer>
+        {/* 여기서 map 돌리기 */}
         <StInnerWrap>
           <StTopWrap style={{ display: "felx" }}>
             <StText1>보상</StText1>
-            <StCloseIcon onClick={() => mutate()}>
+            <StCloseIcon onClick={() => setOpen((prev) => !prev)}>
               <CloseIcon />
             </StCloseIcon>
           </StTopWrap>
@@ -48,7 +68,6 @@ const Alarm = () => {
             </StIcon>
           </StBottomWrap>
         </StInnerWrap>
-        <hr />
       </Stcontainer>
     </>
   );
@@ -58,32 +77,42 @@ export default Alarm;
 
 /*반응형 맞춤 */
 const Stcontainer = styled.div`
-  ${Container};
-  height: calc(100vh - 4rem);
-  padding: ${(props) => props.theme.paddings.xxl};
+  background-color: gray;
+  height: 25rem;
+  margin: 0.5rem ${(props) => props.theme.paddings.xxsm};
   z-index: 99;
+  position: absolute;
+  right: 0;
+  box-shadow: 0rem 0rem 0.5rem gray;
+  overflow-x: hidden;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const StInnerWrap = styled.div`
   background-color: ${(props) => props.theme.Colors.blueGray1};
   width: 100%;
   height: 6.5rem;
-  margin-bottom: ${(props) => props.theme.margins.lg};
   padding: ${(props) => props.theme.paddings.xsm};
   ${FlexCenter};
   flex-flow: column;
+  border-bottom: 0.1rem solid lightgray;
 `;
 
 const StTopWrap = styled.div`
   width: 100%;
   ${FlexCenter}
   justify-content: space-between;
+  margin-top: ${(props) => props.theme.margins.xsm};
 `;
 
 const StBottomWrap = styled.div`
   width: 100%;
   ${FlexCenter};
   justify-content: space-between;
+  margin-bottom: ${(props) => props.theme.margins.xsm};
 `;
 
 const StColumn = styled.div`

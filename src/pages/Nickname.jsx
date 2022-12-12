@@ -7,9 +7,7 @@ import {
   OkayAlert,
   OkayNaviAlert,
 } from "../elements/Alert";
-import { userKeyAtom } from "../state/atom";
 import { instance } from "../api/api";
-import { useSetRecoilState } from "recoil";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { useForm } from "react-hook-form";
 import { setCookie } from "../api/cookie";
@@ -17,9 +15,6 @@ import { useLocation } from "react-router-dom";
 
 const Nickname = () => {
   const { state: userKey } = useLocation();
-
-  /* userKey 값 넣기 */
-  const setUserKey = useSetRecoilState(userKeyAtom);
 
   /* 닉네임 중복체크 useState */
   const [nickDub, setNickDub] = useState(false);
@@ -67,7 +62,7 @@ const Nickname = () => {
     try {
       const res = await instance.put("/kakao/nickname", payload);
       if (res.status === 200) {
-        setUserKey(res?.data.userKey);
+        localStorage.setItem("userKey", res?.data.userKey);
         OkayNaviAlert(`${nickname}님 반갑습니다`, "/main");
         setCookie("accessToken", res?.data.accessToken, {
           maxAge: 60 * 60 * 24 * 15,

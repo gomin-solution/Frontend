@@ -48,12 +48,6 @@ const StContainer = styled.div`
   padding: 0rem 1.5rem;
 `;
 
-const StNavWrap = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-`;
-
 const StListWrap = styled.div`
   height: 100%;
 `;

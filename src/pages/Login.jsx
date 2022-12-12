@@ -6,8 +6,6 @@ import styled from "styled-components";
 import { Header1 } from "../elements/Header";
 import { Container, FlexCenter } from "../shared/css";
 import logoBirdSquare from "../image/logo/logoBirdSquare.svg";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { userKeyAtom } from "../state/atom";
 import kakao from "../image/socialLogin/kakao.svg";
 import { removeCookie, setCookie } from "../api/cookie";
 import { useEffect } from "react";
@@ -16,10 +14,9 @@ const Login = () => {
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code`;
 
   const nav = useNavigate();
-  const userKey = useRecoilValue(userKeyAtom);
+  const userKey = localStorage.getItem("userKey");
 
   const { register, handleSubmit } = useForm();
-  const setuserKey = useSetRecoilState(userKeyAtom);
 
   const onSubmit = async (data) => {
     try {
@@ -33,8 +30,8 @@ const Login = () => {
         maxAge: 60 * 60 * 24 * 15,
       });
 
-      /* userKey 전역으로 저장 후 메인페이지 이동 */
-      setuserKey(res?.data.userKey);
+      /* userKey 로컬로 저장 후 메인페이지 이동 */
+      localStorage.setItem("userKey", res?.data.userKey);
       OkayNaviAlert(`${res?.data.nickname}님 반갑습니다.`, "/main");
     } catch (error) {
       ErrorAlert(`아이디 또는 비밀번호가\n일치하지 않습니다.`);

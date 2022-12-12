@@ -127,11 +127,12 @@ const StSkipBtn = styled.button`
   color: ${(props) => props.theme.Colors.blueGray1};
   font-size: ${(props) => props.theme.fontSizes.lg};
   cursor: pointer;
+  z-index: 99 !important;
 `;
 
 const StSwiperSlide = styled(SwiperSlide)`
   width: 100%;
-  height: 100%;
+  max-width: 26rem;
   ${FlexCenter};
 
   img {

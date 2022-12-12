@@ -1,15 +1,10 @@
 import styled from "styled-components";
-import { Container, FlexCenter } from "../shared/css";
-// import { socket } from "../api/socketio";
-import { useMutation, useQueryClient } from "react-query";
-import { removeAlarm } from "../api/alarm";
-import CloseIcon from "@mui/icons-material/Close";
-import { AlarmAlert } from "../elements/Alert";
-import { Header1 } from "../elements/Header";
 import { Container } from "../shared/css";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getAlarms, removeAlarm } from "../api/alarm";
 import CloseIcon from "@mui/icons-material/Close";
+import { AlarmAlert } from "../elements/Alert";
+import { Header1 } from "../elements/Header";
 
 const Alarm = () => {
   const queryClient = useQueryClient();
@@ -28,40 +23,9 @@ const Alarm = () => {
     refetchOnWindowFocus: false,
   });
 
-  /* 알림 받기 */
-  // socket.on("mission_alarm", (data) => {
-  //   console.log("알림 테스트", data);
-  //   // setAlarms([
-  //   //   ...alarms,
-  //   //   {
-  //   //     alarms: data,
-  //   //   },
-  //   // ]);
-  // });
-
-  // return (
-  //   <>
-  //     <Header1 title={"알림"} />
-  //     <Stcontainer>
-  //       {/* 여기서 map 돌리기 */}
-  //       <StInnerWrap>
-  //         <StTopWrap style={{ display: "felx" }}>
-  //           <StText1>보상</StText1>
-  //           <StCloseIcon>
-  //             <CloseIcon />
-  //           </StCloseIcon>
-  //         </StTopWrap>
-  //         <StBottomWrap>
-  //           <StColumn>
-  //             <span>미션완료!</span>
-  //             <span>지금 바로 리워드 보상을 받으세요!</span>
-  //             <StText2>16:51</StText2>
-  //           </StColumn>
-  //         </StBottomWrap>
-  //       </StInnerWrap>
   return (
     <>
-      <Header4 title={"알림"} />
+      <Header1 title={"알림"} />
       <Stcontainer>
         {res?.data?.alarms.map((alarm, idx) => (
           <StWrap key={idx}>
@@ -80,7 +44,6 @@ const Alarm = () => {
           </StWrap>
         ))}
       </Stcontainer>
-      <Footer title={"쪽지함"} />
     </>
   );
 };
@@ -89,15 +52,8 @@ export default Alarm;
 
 const Stcontainer = styled.div`
   ${Container};
-  height: calc(100vh - 9rem);
-  padding: ${(props) => props.theme.paddings.xl};
+  height: calc(100vh - 4rem);
   margin-top: 4rem;
-  &::-webkit-scrollbar {
-    background: none;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: none;
-  }
 `;
 
 const StWrap = styled.div`
@@ -112,7 +68,6 @@ const StInnerWrap = styled.div`
   display: flex;
   justify-content: space-between;
   overflow: hidden;
-
   span {
     text-overflow: ellipsis; // 말줄임 적용
     white-space: nowrap; // 문장이 길어지면 다음 줄로 넘기는 것을 없앰

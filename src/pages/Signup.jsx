@@ -167,7 +167,7 @@ const Signup = () => {
             )}
           </StInputInnerWrap>
           {errors?.userId?.message === undefined ? (
-            <StCheck>영문을 반드시 포함한 4~10글자로 작성해주세요.</StCheck>
+            <StCheck>영문을 포함한 4~10자로 작성해주세요.</StCheck>
           ) : (
             <StErr>{errors?.userId?.message}</StErr>
           )}
@@ -209,7 +209,7 @@ const Signup = () => {
             )}
           </StInputInnerWrap>
           {errors?.nickname?.message === undefined ? (
-            <StCheck>특수문자를 제외하여 8글자 이하로 작성해주세요.</StCheck>
+            <StCheck>특수문자를 제외한 8자 이하로 작성해주세요.</StCheck>
           ) : (
             <StErr>{errors?.nickname?.message}</StErr>
           )}
@@ -238,7 +238,7 @@ const Signup = () => {
           />
           {errors?.password?.message === undefined ? (
             <StCheck>
-              영문, 숫자, 특수문자(!@#$%^&*) 포함 8~20글자로 작성해주세요.
+              영문, 숫자, 특수문자(!@#$%^&*) 포함 8~20자로 작성해주세요.
             </StCheck>
           ) : (
             <StErr>{errors?.password?.message}</StErr>

@@ -82,12 +82,14 @@ const StBlock = styled.div`
   bottom: 0px;
   display: flex;
   justify-content: space-evenly;
+
+  align-items: flex-end;
 `;
 
 /*아이콘 버튼 */
 const StCon = styled.button`
   width: 5rem;
-  margin-top: 0.5rem;
+  margin-bottom: 0.6rem;
   color: #526161;
   font-size: ${(props) => props.theme.fontSizes.sm};
 `;
@@ -96,7 +98,7 @@ const StCon = styled.button`
 const StAct = styled.button`
   border-radius: 2rem;
   width: 5rem;
-  margin-top: 0.5rem;
+  margin-bottom: 0.6rem;
   font-size: ${(props) => props.theme.fontSizes.sm};
 `;
 

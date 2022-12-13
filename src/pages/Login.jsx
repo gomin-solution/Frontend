@@ -129,7 +129,6 @@ const StInput = styled.input`
 
 const StBtnWrap = styled.div`
   ${FlexCenter};
-  margin: 0rem 4rem;
 
   color: ${(props) => props.theme.Colors.gray3};
   font-size: ${(props) => props.theme.fontSizes.sm};
@@ -163,5 +162,6 @@ const Stbtn = styled.button`
 
 const Stimg = styled.img`
   margin-bottom: 0.5rem;
+  width: 90%;
   cursor: pointer;
 `;

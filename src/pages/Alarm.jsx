@@ -5,6 +5,7 @@ import { getAlarms, removeAlarm } from "../api/alarm";
 import CloseIcon from "@mui/icons-material/Close";
 import { Header1 } from "../elements/Header";
 import { useNavigate } from "react-router-dom";
+import alarm from "../image/empty/alarm.jpg";
 
 const Alarm = () => {
   const nav = useNavigate();
@@ -33,22 +34,30 @@ const Alarm = () => {
     <>
       <Header1 title={"알림"} />
       <Stcontainer>
-        {res?.data?.alarms.map((alarm, idx) => (
-          <StWrap key={idx}>
-            <StInnerWrap onClick={() => nav(`/${alarm.link}`)}>
-              <span style={{ fontWeight: "600" }}>{alarm.body}</span>
-              <StCloseIcon onClick={(e) => removeHandler(e, idx)}>
-                <CloseIcon />
-              </StCloseIcon>
-            </StInnerWrap>
-            <StSet style={{ fontSize: "0.875rem", color: "#474747" }}>
-              지금 바로 확인해보세요.
-              <span style={{ fontSize: "0.75rem", color: "#737878" }}>
-                {alarm.date}
-              </span>
-            </StSet>
-          </StWrap>
-        ))}
+        {res?.data?.alarms.length ? (
+          <>
+            {res?.data?.alarms.map((alarm, idx) => (
+              <StWrap key={idx}>
+                <StInnerWrap onClick={() => nav(`/${alarm.link}`)}>
+                  <span style={{ fontWeight: "600" }}>{alarm.body}</span>
+                  <StCloseIcon onClick={(e) => removeHandler(e, idx)}>
+                    <CloseIcon />
+                  </StCloseIcon>
+                </StInnerWrap>
+                <StSet style={{ fontSize: "0.875rem", color: "#474747" }}>
+                  지금 바로 확인해보세요.
+                  <span style={{ fontSize: "0.75rem", color: "#737878" }}>
+                    {alarm.date}
+                  </span>
+                </StSet>
+              </StWrap>
+            ))}
+          </>
+        ) : (
+          <>
+            <Stimg src={alarm} alrt="alarm" />
+          </>
+        )}
       </Stcontainer>
     </>
   );
@@ -92,4 +101,8 @@ const StSet = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+const Stimg = styled.img`
+  width: 100%;
 `;

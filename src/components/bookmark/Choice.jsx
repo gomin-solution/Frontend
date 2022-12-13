@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ChoiceList from "../ChoiceList";
 import bookmark from "../../image/empty/bookmark.jpg";
 
-const Choice = ({ choices }) => {
+const Choice = ({ choices, reGet }) => {
   return (
     <StContainer>
       {choices?.length > 0 ? (
@@ -17,6 +17,7 @@ const Choice = ({ choices }) => {
             choice={choice}
             key={choice.choiceId}
             getMutation="getBookmark"
+            reGet={reGet}
           />
         );
       })}

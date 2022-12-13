@@ -16,13 +16,18 @@ const Alarm = () => {
   });
 
   /* 알림 삭제 */
-  const { mutate } = useMutation(removeAlarm, {
+  const removeMutate = useMutation(removeAlarm, {
     onSuccess: () => {
       queryClient.invalidateQueries("getAlarms");
     },
     retry: false,
     refetchOnWindowFocus: false,
   });
+
+  const removeHandler = (e, idx) => {
+    e.stopPropagation();
+    removeMutate.mutate(idx);
+  };
 
   return (
     <>
@@ -32,7 +37,7 @@ const Alarm = () => {
           <StWrap key={idx}>
             <StInnerWrap onClick={() => nav(`/${alarm.link}`)}>
               <span style={{ fontWeight: "600" }}>{alarm.body}</span>
-              <StCloseIcon onClick={() => mutate(alarm)}>
+              <StCloseIcon onClick={(e) => removeHandler(e, idx)}>
                 <CloseIcon />
               </StCloseIcon>
             </StInnerWrap>

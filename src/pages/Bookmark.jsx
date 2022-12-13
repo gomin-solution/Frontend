@@ -30,7 +30,7 @@ const Bookmark = () => {
                 답해주기
               </StBtn2>
             </StInnerWrap>
-            <Choice choices={choices} />
+            <Choice choices={choices} reGet="reGet" />
           </>
         ) : (
           <>

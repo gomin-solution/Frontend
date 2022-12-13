@@ -188,7 +188,7 @@ export const AlarmAlert = (msg) => {
       popup: "alarm-pop",
     },
     title: msg,
-    text: "지금 바로 리워드 보상을 받으세요!.",
+    text: "알림을 확인해보세요.",
     toast: true,
     position: "top",
     showConfirmButton: false,

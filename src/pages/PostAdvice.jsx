@@ -11,10 +11,12 @@ import { CategoryDial } from "../elements/MenuDial";
 import { ImageModal } from "../components/detailBorad/ImageModal";
 import { Container, FlexCenter } from "../shared/css";
 import { ErrorAlert } from "../elements/Alert";
+import PrevImage from "../components/detailBorad/PrevImage";
 
 function AdvicePost({ resBoard }) {
   const { register, handleSubmit, watch } = useForm();
   const [imagePreview, setImagePreview] = useState("");
+  const [adImage, setAdImages] = useState(0);
   const [categoryId, setCategoryId] = useState("");
   const [clicked, setClicked] = useState(false);
 
@@ -30,7 +32,7 @@ function AdvicePost({ resBoard }) {
       } else {
         const formData = new FormData();
         for (let i = 0; i < e.image.length; i++) {
-          formData.append(`image`, e.image[i]);
+          formData.append(`image`, adImage[i]);
         }
         formData.append("title", e.title);
         formData.append("content", e.content);
@@ -45,7 +47,7 @@ function AdvicePost({ resBoard }) {
       } else {
         const formData = new FormData();
         for (let i = 0; i < e.image.length; i++) {
-          formData.append(`image`, e.image[i]);
+          formData.append(`image`, adImage[i]);
         }
         formData.append("title", e.title);
         formData.append("content", e.content);
@@ -65,24 +67,42 @@ function AdvicePost({ resBoard }) {
     },
   });
 
-  /*사진 미리보기 */
   const previmg = watch("image");
 
   useEffect(() => {
     if (previmg && previmg.length > 3) {
-      ErrorAlert("사진은 3장만 가능합니다.");
-      return;
-    }
-    if (previmg && previmg.length > 0) {
-      let images = [];
-      for (let i = 0; i < previmg.length; i++) {
-        images.push(URL.createObjectURL(previmg[i]));
-        setImagePreview(images);
-      }
+      return ErrorAlert("사진은 3장만 가능합니다.");
+    } else {
+      setAdImages(previmg);
     }
   }, [previmg]);
 
+  /*사진 미리보기 */
+  useEffect(() => {
+    if (adImage && adImage.length > 0) {
+      let images = [];
+      for (let i = 0; i < adImage.length; i++) {
+        images.push(URL.createObjectURL(adImage[i]));
+        setImagePreview(images);
+      }
+    } else {
+      setImagePreview(null);
+    }
+  }, [adImage]);
+
   /*사진 삭제 */
+  const imgCancle = (e, idx) => {
+    e.stopPropagation();
+
+    const dataTransfer = new DataTransfer();
+    let fileArray = Array.from(adImage);
+
+    fileArray.splice(idx, 1);
+    fileArray.forEach((file) => {
+      dataTransfer.items.add(file);
+    });
+    setAdImages(dataTransfer.files);
+  };
 
   // 모달창 노출 여부 state
   const [modalOpen, setModalOpen] = useState(false);
@@ -136,7 +156,7 @@ function AdvicePost({ resBoard }) {
             <label htmlFor="picture">
               <StUpload>
                 <PhotoCameraIcon fontSize="large" />
-                <span>{imagePreview.length} / 3</span>
+                <span>{adImage?.length} / 3</span>
               </StUpload>
             </label>
             <input
@@ -147,15 +167,18 @@ function AdvicePost({ resBoard }) {
               multiple
               accept=".jpg, .png"
             />
-            {imagePreview.length > 0
-              ? imagePreview?.map((img) => {
-                  return (
-                    <Stprevimg onClick={handle(img)} key={img}>
-                      <img className="preimg" src={img} alt="이미지 미리보기" />
-                    </Stprevimg>
-                  );
-                })
-              : null}
+            {imagePreview &&
+              imagePreview?.map((img, idx) => {
+                return (
+                  <PrevImage
+                    key={img}
+                    idx={idx}
+                    img={img}
+                    handle={handle}
+                    imgCancle={imgCancle}
+                  />
+                );
+              })}
             {modalOpen && (
               <ImageModal
                 modalOpen={modalOpen}

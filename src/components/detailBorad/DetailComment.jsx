@@ -115,10 +115,6 @@ function DetailComment({ comment, resBoard }) {
     onError: (err, variables, context) => {
       queryClient.setQueryData("getDetail", context.prevLike);
     },
-    onSettled: () => {
-      /* 관련 쿼리 refetch */
-      queryClient.invalidateQueries("getDetail");
-    },
   });
 
   // 유저키 비교
@@ -157,9 +153,9 @@ function DetailComment({ comment, resBoard }) {
               <div className="date">{comment.updatedAt}</div>
               <div className="set">
                 <button onClick={() => reqRecomment()}>
-                  {reData?.length === 0
-                    ? "답글 달기"
-                    : `답글 보기(${reData?.length})`}
+                  {reData?.length > 0
+                    ? `답글 보기(${reData?.length})`
+                    : "답글 달기"}
                 </button>
                 <div className="heart">
                   <span>{likeCount}</span>

@@ -1,19 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import bannerA from "../../image/banner/bannerA.png";
 import bannerB from "../../image/banner/bannerB.png";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
-// import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
-import { useNavigate } from "react-router-dom";
 
-export default function App() {
+export const Banner = () => {
   const nav = useNavigate();
 
   return (
@@ -37,7 +32,9 @@ export default function App() {
       </StSwFeat>
     </>
   );
-}
+};
+
+export default Banner;
 
 const StSwFeat = styled(Swiper)`
   height: 11rem;

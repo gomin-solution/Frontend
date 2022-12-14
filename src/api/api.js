@@ -1,5 +1,4 @@
 import axios from "axios";
-import { OkayNaviAlert } from "../elements/Alert";
 import { getCookie, removeCookie, setCookie } from "./cookie";
 
 /* ----------------instance---------------- */
@@ -28,58 +27,20 @@ instance.interceptors.request.use(
 );
 
 /* interceptor: response */
-instance.interceptors.response.use(
-  (response) => {
+instance.interceptors.response.use((response) => {
+  const originalRequest = response?.config;
+  if (response.data.message === "토큰 재발급" && response.status === 201) {
+    /* accessToken 변경 후 재요청 */
+    removeCookie("accessToken");
+    setCookie("accessToken", response?.data?.accessToken, {
+      maxAge: 60 * 60 * 24 * 15,
+    });
+    originalRequest.headers.authorization = response?.data?.accessToken;
+    return instance.request(originalRequest);
+  } else {
     return response;
-  },
-  async (error) => {
-    try {
-      const { response, config } = error;
-      const originalRequest = config;
-      /* accessToken 만료: 405에러 */
-      if (response.data.message === "만료" && response.status === 405) {
-        const refToken = getCookie("refreshToken");
-        /* 새로운 accessToken 요청 */
-        try {
-          const accToken = getCookie("accessToken");
-          const res = await axios({
-            method: "get",
-            url: process.env.REACT_APP_API,
-            headers: {
-              authorization: `Bearer ${accToken}`,
-              refreshToken: `Bearer ${refToken}`,
-              interceptor: "true",
-            },
-          });
-          /* accessToken 변경 후 재요청 */
-          originalRequest.headers.authorization = res?.data?.accessToken;
-          removeCookie("accessToken");
-          setCookie("accessToken", res?.data?.accessToken, {
-            maxAge: 60 * 60 * 24 * 15,
-          });
-          return instance.request(originalRequest);
-        } catch (error) {
-          /* accessToken 변경 실패 시 */
-          removeCookie("accessToken");
-          removeCookie("refreshToken");
-          return OkayNaviAlert("재로그인이 필요합니다.", "/login", "userKey");
-        }
-        /* refreshToken 만료 시 status: 403 */
-      } else if (
-        response.data.message === "다시 로그인 해주세요." &&
-        response.status === 403
-      ) {
-        removeCookie("accessToken");
-        removeCookie("refreshToken");
-        localStorage.removeItem("userKey");
-        return OkayNaviAlert("재로그인이 필요합니다.", "/login", "userKey");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    return Promise.reject(error);
   }
-);
+});
 
 /* ----------------postInstance---------------- */
 export const postInstance = axios.create({
@@ -107,54 +68,17 @@ postInstance.interceptors.request.use(
 );
 
 /* interceptor: response */
-postInstance.interceptors.response.use(
-  (response) => {
+postInstance.interceptors.response.use((response) => {
+  const originalRequest = response?.config;
+  if (response.data.message === "토큰 재발급" && response.status === 201) {
+    /* accessToken 변경 후 재요청 */
+    removeCookie("accessToken");
+    setCookie("accessToken", response?.data?.accessToken, {
+      maxAge: 60 * 60 * 24 * 15,
+    });
+    originalRequest.headers.authorization = response?.data?.accessToken;
+    return postInstance.request(originalRequest);
+  } else {
     return response;
-  },
-  async (error) => {
-    try {
-      const { response, config } = error;
-      const originalRequest = config;
-      /* accessToken 만료: 405에러 */
-      if (response.data.message === "만료" && response.status === 405) {
-        const refToken = getCookie("refreshToken");
-        /* 새로운 accessToken 요청 */
-        try {
-          const accToken = getCookie("accessToken");
-          const res = await axios({
-            method: "get",
-            url: process.env.REACT_APP_API,
-            headers: {
-              authorization: `Bearer ${accToken}`,
-              refreshToken: `Bearer ${refToken}`,
-              interceptor: "true",
-            },
-          });
-          /* accessToken 변경 후 재요청 */
-          originalRequest.headers.authorization = res?.data?.accessToken;
-          removeCookie("accessToken");
-          setCookie("accessToken", res?.data?.accessToken, {
-            maxAge: 60 * 60 * 24 * 15,
-          });
-          return postInstance.request(originalRequest);
-        } catch (error) {
-          /* accessToken 변경 실패 시 */
-          removeCookie("accessToken");
-          removeCookie("refreshToken");
-          return OkayNaviAlert("재로그인이 필요합니다.", "/login");
-        }
-        /* refreshToken 만료 시 status: 403 */
-      } else if (
-        response.data.message === "다시 로그인 해주세요." &&
-        response.status === 403
-      ) {
-        removeCookie("accessToken");
-        removeCookie("refreshToken");
-        return OkayNaviAlert("재로그인이 필요합니다.", "/login");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    return Promise.reject(error);
   }
-);
+});

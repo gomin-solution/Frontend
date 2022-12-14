@@ -85,10 +85,6 @@ const ChoiceList = ({ newRef, choice, getMutation, reGet }) => {
     onError: (err, variables, context) => {
       queryClient.setQueryData(getMutation, context.prevPick);
     },
-    // onSettled: () => {
-    //   /* 관련 쿼리 refetch */
-    //   queryClient.invalidateQueries(getMutation);
-    // },
   });
 
   /* 골라주기 선택 시 put */

@@ -115,10 +115,6 @@ function DetailComment({ comment, resBoard }) {
     onError: (err, variables, context) => {
       queryClient.setQueryData("getDetail", context.prevLike);
     },
-    onSettled: () => {
-      /* 관련 쿼리 refetch */
-      queryClient.invalidateQueries("getDetail");
-    },
   });
 
   // 유저키 비교

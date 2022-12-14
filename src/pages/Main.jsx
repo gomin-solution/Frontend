@@ -11,13 +11,10 @@ import { useQuery } from "react-query";
 import { getMain } from "../api/mainApi";
 import { Container } from "../shared/css";
 import Loading from "../components/Loading";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { instance } from "../api/api";
-import Alarm from "./Alarm";
 import { removeCookie } from "../api/cookie";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import { toastAlert } from "../elements/Alert";
 
 function Main() {
   const nav = useNavigate();

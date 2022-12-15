@@ -18,7 +18,7 @@
 
 <br/>
 
-| 매일 색다른 행운의 편지열기 |  골라주기 작성 후 투표 | 답해주기 작성 및 의견  |
+| 매일 색다른 행운의 편지열기 |  골라주기 작성 후 투표 | 답해주기 작성 및 의견받기  |
 |:---: | :---: | :---: |
 | <img src="https://user-images.githubusercontent.com/112849712/207931147-af4eea01-a930-4e17-a326-5a750cd98293.gif" width="220" /> | <img src="https://user-images.githubusercontent.com/112849712/207931260-90a786a9-7aca-44f9-9f49-524164928eb5.gif" width="220" /> | <img src="https://user-images.githubusercontent.com/112849712/207931359-4576b136-a1a8-436d-887d-e0007f5a9dd5.gif" width="220" /> |
 

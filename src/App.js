@@ -33,7 +33,6 @@ getToken(firebaseMessaging, { vapidKey: process.env.REACT_APP_FCM_VAPID_KEY })
 
 /* 포그라운드 시(앱 접속해 있을 시) 알림 받기 */
 onMessage(firebaseMessaging, (payload) => {
-  console.log("payload", payload);
   if (payload?.data.body === "게시물에 댓글이 달렸습니다!") {
     AlarmAlert(`${payload?.data.body}`);
   } else if (payload?.data.body === "작성하신 댓글이 채택되었습니다!") {

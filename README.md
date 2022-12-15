@@ -1,6 +1,7 @@
 
 
 
+
 ## 📃 **_고민접기, 당신의 고민을 접어드립니다._**
 ![thumbnail-01](https://user-images.githubusercontent.com/112849712/207773647-0f8d2c2a-51b9-4d98-a10b-76f5da19fb33.jpg)
 
@@ -83,19 +84,41 @@
 ## ⚠️ **_기술적 도전 및 트러블 슈팅_**
 **<details><summary>즉각적인 반응 처리로 사용자 경험 증대(optimistic update UI)</summary>**
 
-*Write here!*
+- 문제상황
+	변경사항을 즉각적으로 유저에게 보여주지 못함
+- 요구상황
+	골라주기 항목 선택, 북마크, 좋아요 기능은 유저가 클릭 시 변경사항을 즉각적으로 보여줘야 함
+- 의사결정
+	React-query의 onMutate, onError, onSettled 옵션을 사용하여 조건에 따른 낙관적 업데이트 적용	
+- 근거
+	데이터 통신이 성공할 것을 예상하여 미리 반영 가능
+	실패 시 원래의 값으로 돌릴 수 있음
 
 </details>
 
 **<details><summary>알림 기능 도입(Firebase Cloud Messaging)</summary>**
 
-*Write here!*
+- 요구상황
+	유저의 편의성을 위한 알림기능 구현
+- 선택지
+	socket.io, FCM
+- 근거
+	socket.io는 백그라운드에서 알림을 보낼 수 없으므로,
+	FCM 의 onBackgroundMessage, onMessage를 사용하여 백그라운드 환경에서도 알림 기능 구현
 
 </details>
 
-**<details><summary>Safari 브라우저의 쿠키 전송 이슈</summary>**
-
-*Write here!*
+- 문제상황
+	리워드 페이지 조회 시 서버 데이터 응답시간이 평균 2초대 소요
+	유저활동 기록이 많아질수록 응답시간 또한 길어짐
+- 요구상황
+	유저활동 기록을 가져오는 정보의 속도 개선
+- 의사결정
+	DB에 유저활동 기록 테이블을 추가하여 활동 기록에 변경을 주는 요청마다
+	활동 기록을 업데이트 하는 형태로 변경
+- 근거
+	유저활동을 따로 기록하여 저장하고 리워드 조회 시 불필요한 조인을 최소화하여
+	데이터를 받아오는 속도가 약 90% 개선됨
 
 </details>
 <br/>

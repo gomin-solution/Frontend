@@ -26,6 +26,11 @@
 
 <br/>
 
+## 🛠️ **_ERD_**
+![image](https://user-images.githubusercontent.com/98438390/207852089-0c4d2979-3b84-4b2d-9545-7d69685963c6.png)
+
+<br/>
+
 ## ⚙️ **_기술 스택_**
 
 **Frontend**<br /> <br />

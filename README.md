@@ -1,11 +1,15 @@
 
 
+
 ## 📃 **_고민접기, 당신의 고민을 접어드립니다._**
 ![thumbnail-01](https://user-images.githubusercontent.com/112849712/207773647-0f8d2c2a-51b9-4d98-a10b-76f5da19fb33.jpg)
 
 >“**오늘 뭐 먹지…?” “이럴 땐 어떻게 해야 하는 걸까…”**
 >너무 사소하거나 너무 무거워서 남들에게 쉽게 꺼낼 수 없었던 고민이 있으신가요?
 >저희 고민접기는 여러분들의 크고 작은 다양한 고민을 접을 수 있도록 도와주는 커뮤니티입니다.
+>
+**[🅶 Frontend Github](https://github.com/gomin-solution/Frontend)**
+**[🅶 Backend Github](https://github.com/gomin-solution/Backend)**
 <br/>
 
 ## 💡 **_주요 기능_**
@@ -33,7 +37,7 @@
 <br/>
 
 ## 🔩 **_기술 스택 & 라이브러리 사용 이유_**
-<details><summary>React-Query</summary>
+<details><summary>**React-Query**</summary>
 
 -   **친숙한 React Hook을 사용 :** 복잡하고 장황한 코드가 필요한 다른 데이터 불러오기 방식과 달리 React Component 내부에서 간단하고 직관적으로 API를 사용할 수 있습니다.
 -   ************서버 상태 관리와 관련된 반복적인 작업들을 쉽게 처리 :************ 서버에서 받아오는 데이터를 처리할때 useEffect로 해결해야 했던 여러 가지 상황들을 refetchOnMount, refetchOnReconnect, refetchOnWindowFocus와 같은 옵션으로 쉽게 처리할 수 있습니다.
@@ -41,24 +45,22 @@
 -   **Optimistic update UI (낙관적 업데이트) :** ‘고민접기’의 ‘골라주기’ 탭에서 항목 선택 시 투표 결과를 보여주도록 구현이 되어 있습니다. 처음 서비스 개발 당시엔 데이터를 받아온 후 리렌더링 되어 유저가 결과를 볼 수 있도록 되어 있어서 즉각적인 결과를 보길 원하는 유저는 불편함을 느꼈습니다. 이를 개선하기 위해 react-query에 낙관적 업데이트를 적용하여 데이터가 정상적으로 받아올 것이란 걸 예상하여 반영하는 로직을 추가할 수 있었습니다.
 
 </details>
+
 <br/>
 
 ## ⚠️ **_기술적 도전 및 트러블 슈팅_**
-<details><summary>즉각적인 반응 처리로 사용자 경험 증대(optimistic update UI)
-</summary>
+<details><summary>**즉각적인 반응 처리로 사용자 경험 증대**(optimistic update UI)</summary>
 
 *Write here!*
+
 </details>
 
-<details><summary>알림 기능 도입(Firebase Cloud Messaging)
-
-</summary>
+<details><summary>**알림 기능 도입(Firebase Cloud Messaging)**</summary>
 
 *Write here!*
-</details>
-<details><summary>Safari 브라우저의 쿠키 전송 이슈
 
-</summary>
+</details>
+<details><summary>**Safari 브라우저의 쿠키 전송 이슈**</summary>
 
 *Write here!*
 

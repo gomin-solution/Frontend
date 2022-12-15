@@ -25,6 +25,7 @@
 | 행운 편지 | 골라주기 | 답해주기 |
 |:---: | :---: | :---: |
 | ![편지](https://user-images.githubusercontent.com/112849712/207931147-af4eea01-a930-4e17-a326-5a750cd98293.gif)| ![골라주기](https://user-images.githubusercontent.com/112849712/207931260-90a786a9-7aca-44f9-9f49-524164928eb5.gif) |![답해주기](https://user-images.githubusercontent.com/112849712/207931359-4576b136-a1a8-436d-887d-e0007f5a9dd5.gif) |
+<br/>
 
 | 쪽지하기 | 수집함 보상 | 등급 상승 |
 |:---: | :---: | :---: |

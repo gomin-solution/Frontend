@@ -1,6 +1,7 @@
 
 
 ### :pushpin: **_Introduction_**
+## 🙌 안녕하세요. EASYME.md를 만든 원아입니다!
 
 ### :pushpin: **_Tech Stack_**
 **Frontend**<br />

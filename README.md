@@ -37,7 +37,7 @@
 <br/>
 
 ## 🔩 **_기술 스택 & 라이브러리 사용 이유_**
-<details><summary>**React-Query**</summary>
+**<details><summary>React-Query</summary>**
 
 -   **친숙한 React Hook을 사용 :** 복잡하고 장황한 코드가 필요한 다른 데이터 불러오기 방식과 달리 React Component 내부에서 간단하고 직관적으로 API를 사용할 수 있습니다.
 -   ************서버 상태 관리와 관련된 반복적인 작업들을 쉽게 처리 :************ 서버에서 받아오는 데이터를 처리할때 useEffect로 해결해야 했던 여러 가지 상황들을 refetchOnMount, refetchOnReconnect, refetchOnWindowFocus와 같은 옵션으로 쉽게 처리할 수 있습니다.
@@ -49,18 +49,18 @@
 <br/>
 
 ## ⚠️ **_기술적 도전 및 트러블 슈팅_**
-<details><summary>**즉각적인 반응 처리로 사용자 경험 증대**(optimistic update UI)</summary>
+**<details><summary>즉각적인 반응 처리로 사용자 경험 증대(optimistic update UI)</summary>**
 
 *Write here!*
 
 </details>
 
-<details><summary>**알림 기능 도입(Firebase Cloud Messaging)**</summary>
+**<details><summary>알림 기능 도입(Firebase Cloud Messaging)</summary>**
 
 *Write here!*
 
 </details>
-<details><summary>**Safari 브라우저의 쿠키 전송 이슈**</summary>
+**<details><summary>Safari 브라우저의 쿠키 전송 이슈</summary>**
 
 *Write here!*
 

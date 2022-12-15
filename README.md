@@ -4,6 +4,7 @@
 
 ## 💡 **_주요 기능_**
 
+
 ## 🛠️ **_프로젝트 아키텍처_**
 
 
@@ -18,7 +19,26 @@
 ## 🔩 **_기술 스택 & 라이브러리 사용 이유_**
 
 ## ⚠️ **_기술적 도전 및 트러블 슈팅_**
+<details><summary>즉각적인 반응 처리로 사용자 경험 증대(optimistic update UI)
+</summary>
 
+*Write here!*
+</details>
+
+<details><summary>알림 기능 도입(Firebase Cloud Messaging)
+
+</summary>
+
+*Write here!*
+</details>
+<details><summary>Safari 브라우저의 쿠키 전송 이슈
+
+</summary>
+
+*Write here!*
+
+*Write here!*
+</details>
 ## ‼️ **_유저 피드백 개선_**
 
 ## 📸 **_고민 접기의 팀원_**

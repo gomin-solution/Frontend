@@ -20,11 +20,11 @@
 
 | 유저와 1:1 쪽지하기 |  미션 완료 후 종이접기 획득하기 | 미션 완료에 따른 등급 상승 |
 |:---: | :---: | :---: |
-| <img src="https://user-images.githubusercontent.com/112849712/207931147-af4eea01-a930-4e17-a326-5a750cd98293.gif" width="270" /> | <img src="https://user-images.githubusercontent.com/112849712/207931260-90a786a9-7aca-44f9-9f49-524164928eb5.gif" width="270" /> | <img src="https://user-images.githubusercontent.com/112849712/207931359-4576b136-a1a8-436d-887d-e0007f5a9dd5.gif" width="270" /> |
+| <img src="https://user-images.githubusercontent.com/112849712/207931147-af4eea01-a930-4e17-a326-5a750cd98293.gif" width="220" /> | <img src="https://user-images.githubusercontent.com/112849712/207931260-90a786a9-7aca-44f9-9f49-524164928eb5.gif" width="220" /> | <img src="https://user-images.githubusercontent.com/112849712/207931359-4576b136-a1a8-436d-887d-e0007f5a9dd5.gif" width="220" /> |
 
 | 유저와 1:1 쪽지하기 |  미션 완료 후 종이접기 획득하기 | 미션 완료에 따른 등급 상승 |
 |:---: | :---: | :---: |
-| <img src="https://user-images.githubusercontent.com/112849712/207931481-fffa89d9-d49e-46a5-a501-c05d4f61392b.gif" width="270" /> | <img src="https://user-images.githubusercontent.com/112849712/207931549-9ec6f670-0c2c-4804-971a-8960a91bd943.gif" width="270" /> | <img src="https://user-images.githubusercontent.com/112849712/207931603-4bfb07c9-4972-4cd4-8619-0e281f29514f.gif" width="270" /> |
+| <img src="https://user-images.githubusercontent.com/112849712/207931481-fffa89d9-d49e-46a5-a501-c05d4f61392b.gif" width="220" /> | <img src="https://user-images.githubusercontent.com/112849712/207931549-9ec6f670-0c2c-4804-971a-8960a91bd943.gif" width="220" /> | <img src="https://user-images.githubusercontent.com/112849712/207931603-4bfb07c9-4972-4cd4-8619-0e281f29514f.gif" width="220" /> |
 <br/>
 
 ## 🛠️ **_프로젝트 아키텍처_**

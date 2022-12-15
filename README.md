@@ -100,7 +100,8 @@
 |요구사항|유저의 편의성을 위한 알림기능 구현|
 |선택지|socket.io, FCM|
 |의사결정|React-query의 onMutate, onError, onSettled 옵션을 사용하여 조건에 따른 낙관적 업데이트 적용|
-|근거|socket.io는 백그라운드에서 알림을 보낼 수 없으므로, FCM 의 onBackgroundMessage, onMessage를 사용하여 백그라운드 환경에서도 알림 기능 구현|
+|근거|socket.io는 백그라운드에서 알림을 보낼 수 없으므로,
+FCM 의 onBackgroundMessage, onMessage를 사용하여 백그라운드 환경에서도 알림 기능 구현|
 
 - 요구상황
 	

@@ -24,7 +24,7 @@
 
 | 유저와 1:1 쪽지하기 |  미션 완료 후 종이접기 획득하기 | 미션 완료에 따른 등급 상승 |
 |:---: | :---: | :---: |
-| <img src="https://user-images.githubusercontent.com/112849712/207931481-fffa89d9-d49e-46a5-a501-c05d4f61392b.gif" width="280" /> | ![보관함](https://user-images.githubusercontent.com/112849712/207931549-9ec6f670-0c2c-4804-971a-8960a91bd943.gif) | ![등급](https://user-images.githubusercontent.com/112849712/207931603-4bfb07c9-4972-4cd4-8619-0e281f29514f.gif) |
+| <img src="https://user-images.githubusercontent.com/112849712/207931481-fffa89d9-d49e-46a5-a501-c05d4f61392b.gif" width="270" /> | ![보관함](https://user-images.githubusercontent.com/112849712/207931549-9ec6f670-0c2c-4804-971a-8960a91bd943.gif) | ![등급](https://user-images.githubusercontent.com/112849712/207931603-4bfb07c9-4972-4cd4-8619-0e281f29514f.gif) |
 <br/>
 
 ## 🛠️ **_프로젝트 아키텍처_**

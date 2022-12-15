@@ -60,6 +60,7 @@
 *Write here!*
 
 </details>
+
 **<details><summary>Safari 브라우저의 쿠키 전송 이슈</summary>**
 
 *Write here!*

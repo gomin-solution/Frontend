@@ -37,6 +37,7 @@
 <br/>
 
 ## 🔩 **_기술 스택 & 라이브러리 사용 이유_**
+### Frontend
 **<details><summary>React-Query</summary>**
 
 -   **친숙한 React Hook을 사용 :** 복잡하고 장황한 코드가 필요한 다른 데이터 불러오기 방식과 달리 React Component 내부에서 간단하고 직관적으로 API를 사용할 수 있습니다.

@@ -18,9 +18,9 @@
 
 <br/>
 
-| 매일 색다른 행운 편지 | 골라주기 작성 후 투표하기 | 답해주기 작성하고 의견 받기 |
+| 유저와 1:1 쪽지하기 |  미션 완료 후 종이접기 획득하기 | 미션 완료에 따른 등급 상승 |
 |:---: | :---: | :---: |
-| ![편지](https://user-images.githubusercontent.com/112849712/207931147-af4eea01-a930-4e17-a326-5a750cd98293.gif)| ![골라주기](https://user-images.githubusercontent.com/112849712/207931260-90a786a9-7aca-44f9-9f49-524164928eb5.gif) |![답해주기](https://user-images.githubusercontent.com/112849712/207931359-4576b136-a1a8-436d-887d-e0007f5a9dd5.gif) |
+| <img src="https://user-images.githubusercontent.com/112849712/207931147-af4eea01-a930-4e17-a326-5a750cd98293.gif" width="270" /> | <img src="https://user-images.githubusercontent.com/112849712/207931260-90a786a9-7aca-44f9-9f49-524164928eb5.gif" width="270" /> | <img src="https://user-images.githubusercontent.com/112849712/207931359-4576b136-a1a8-436d-887d-e0007f5a9dd5.gif" width="270" /> |
 
 | 유저와 1:1 쪽지하기 |  미션 완료 후 종이접기 획득하기 | 미션 완료에 따른 등급 상승 |
 |:---: | :---: | :---: |

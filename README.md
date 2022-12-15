@@ -1,6 +1,7 @@
 
 
 ## 📃 **_고민접기_**
+![thumbnail-01](https://user-images.githubusercontent.com/112849712/207773647-0f8d2c2a-51b9-4d98-a10b-76f5da19fb33.jpg)
 
 ## 💡 **_주요 기능_**
 

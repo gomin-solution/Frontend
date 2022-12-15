@@ -22,7 +22,7 @@
 <br/>
 
 ## 🛠️ **_프로젝트 아키텍처_**
-![Architecture](https://user-images.githubusercontent.com/112886992/207811224-605c701b-fad0-470c-9cfc-93812fd5d5ac.jpg)
+![image](https://user-images.githubusercontent.com/112886992/207830402-6c6de0dd-ba40-4c88-bd6c-c59e3a6924a1.png)
 
 <br/>
 

@@ -129,7 +129,7 @@
 - Intro에서 슬라이드 버튼과 스킵 버튼을 추가하여 편의성을 증대
 - 골라주기 항목 타이틀의 가독성을 높이고 본인이 선택한 항목 표기
 - 받아올 데이터가 없어서 빈 화면일 때 단순 텍스트가 아닌 이미지를 넣어서 완성도 향상<br/>
->**[📌 유저 피드백 정리](https://github.com/orgs/gomin-solution/projects/1)**
+>**[📌 유저 피드백 정리](https://github.com/gomin-solution/Frontend/issues/199)**
 
 <br/>
 

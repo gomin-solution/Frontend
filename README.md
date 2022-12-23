@@ -11,6 +11,7 @@
 ><br/>
 >**[:iphone: 고민접기 링크](https://gomin.site)**<br/>
 >**[📎 Backend](https://github.com/gomin-solution/Backend)**<br/>
+![image (2)](https://user-images.githubusercontent.com/98438390/209317249-60feb2d2-7e45-4f9c-9cd6-ad88ac6eb005.png)
 
 <br/>
 

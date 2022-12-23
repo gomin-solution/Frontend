@@ -3,6 +3,7 @@
 
 
 ## 📃 **_고민접기, 당신의 고민을 접어드립니다._**
+![image (2)](https://user-images.githubusercontent.com/98438390/209317249-60feb2d2-7e45-4f9c-9cd6-ad88ac6eb005.png)
 ![thumbnail-01](https://user-images.githubusercontent.com/112849712/207773647-0f8d2c2a-51b9-4d98-a10b-76f5da19fb33.jpg)
 
 >“**오늘 뭐 먹지…?” “이럴 땐 어떻게 해야 하는 걸까…”**<br/>
@@ -11,8 +12,6 @@
 ><br/>
 >**[:iphone: 고민접기 링크](https://gomin.site)**<br/>
 >**[📎 Backend](https://github.com/gomin-solution/Backend)**<br/>
-![image (2)](https://user-images.githubusercontent.com/98438390/209317249-60feb2d2-7e45-4f9c-9cd6-ad88ac6eb005.png)
-
 <br/>
 
 ## 💡 **_주요 기능_**

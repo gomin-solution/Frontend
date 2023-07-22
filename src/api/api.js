@@ -3,7 +3,7 @@ import { getCookie, removeCookie, setCookie } from "./cookie";
 
 /* ----------------instance---------------- */
 export const instance = axios.create({
-  baseURL: process.env.REACT_APP_API,
+  baseURL: "https://gominapi.shop/",
   withCredentials: true,
 });
 

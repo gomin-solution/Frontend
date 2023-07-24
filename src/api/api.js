@@ -2,8 +2,9 @@ import axios from "axios";
 import { getCookie, removeCookie, setCookie } from "./cookie";
 
 /* ----------------instance---------------- */
+//api url 변경
 export const instance = axios.create({
-  baseURL: process.env.REACT_APP_API,
+  baseURL: "https://gominapi.shop/",
   withCredentials: true,
 });
 

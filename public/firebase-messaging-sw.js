@@ -5,6 +5,7 @@ importScripts(
   "https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"
 );
 
+// App.js와 동일하게 FCM에서 config 복사하여 붙여넣기
 firebase.initializeApp({
   apiKey: "AIzaSyA_h2WDyKraS3exOKzELMTqRDGEUq7lgHE",
   authDomain: "gomin-9afcf.firebaseapp.com",
@@ -17,6 +18,7 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
+// 백그라운드에서 알림 받기 위한 코드
 messaging.onBackgroundMessage((payload) => {
   const notificationTitle = payload?.data.title;
   const notificationOptions = {

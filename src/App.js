@@ -9,6 +9,7 @@ import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { AlarmAlert } from "./elements/Alert";
 
+// FCM에서 config 복사하여 붙여넣기
 const firebaseConfig = {
   apiKey: "AIzaSyA_h2WDyKraS3exOKzELMTqRDGEUq7lgHE",
   authDomain: "gomin-9afcf.firebaseapp.com",
